@@ -4,49 +4,72 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class SessionManager extends Observable implements Observer{
+	
+	private static class SessionManagerHolder {
+	    static SessionManager instance = new SessionManager();
+	}
 
-	private Session sessionRunnable = null;
+	public static SessionManager getInstance() { // Note: "synchronized" not needed
+	    return SessionManagerHolder.instance;
+	}
+
+	private Session session = null;
 	public Thread sessionThread = null;
 	
-	public SessionManager() {
-		
-		sessionRunnable = new Session();
-		sessionRunnable.addObserver(this);
-		
-		sessionThread = new Thread(sessionRunnable);
+	private SessionManager() {
+		//Do nothing
 	}
 	
 	public void startSession() throws IllegalStateException{
 		System.currentTimeMillis();
-		sessionThread.start();
+		if(session == null){
+			session = new Session();
+			session.addObserver(this);
+			sessionThread = new Thread(session);
+			sessionThread.start();
+		} else {
+			System.out.println("Session already running!");
+		}
 	}
 	
 	public void pauseSession(){
-		sessionRunnable.pauseSession();
+		if(session != null){
+			session.pauseSession();
+		}
 	}
 	
 	public void resumeSession(){
-		sessionRunnable.resumeSession();
+		if(session != null){
+			session.resumeSession();
+		}
 	}
 	
 	public void stopSession(){
-		sessionRunnable.pauseSession();
+		if(session != null){
+			session.pauseSession();
+			session = null;
+		}
 		sessionThread.interrupt();
 		System.currentTimeMillis();
 	}
 	
 	public void doStepFaster(){
-		sessionRunnable.faster();
+		if(session != null){
+			session.faster();
+		}
 	}
 	
 	public void doStepSlower(){
-		sessionRunnable.slower();
+		if(session != null){
+			session.slower();
+		}
 	}
 	
 	@Override
 	public void notifyObservers() {
+		setChanged();
 		super.notifyObservers();
-		System.out.println("DO UI UPDATE");
+		//System.out.println("DO UI UPDATE");
 	}
 
 	@Override
@@ -54,63 +77,5 @@ public class SessionManager extends Observable implements Observer{
 		notifyObservers();
 	}
 	
-	public static void main(String[] args) {
-		SessionManager sm = new SessionManager();
-		sm.startSession();
-		
-		sm.doStepFaster();
-		sm.doStepFaster();
-		sm.doStepFaster();
-		sm.doStepFaster();
-		sm.doStepFaster();
-		sm.doStepFaster();
-		sm.doStepFaster();
-		sm.doStepFaster();
-		try {
-			Thread.sleep(8000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		sm.pauseSession();
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		sm.resumeSession();
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		sm.doStepSlower();
-		try {
-			Thread.sleep(8000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		sm.stopSession();
-		System.exit(0);
-	}
 }
 
