@@ -4,6 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * 
+ * 
+ * @author igalna
+ * 
+ * Test class for the RoadNetwork
+ *
+ */
 public class TestRoadNetwork {
 
 	@Test
