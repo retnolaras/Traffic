@@ -1,4 +1,6 @@
+\usepackage{longtable}
 \documentclass[11pt]{article}
+
 
 \author{KeepItClean}
 \title{Traffic Simulator}
@@ -21,8 +23,10 @@ Our Traffic Simulator
 	\item Quality Management: Testing. How we do unit test (?). The method (?). The integration test. Frequency(?)
 \end{itemize}
 \subsection{Project Schedule}
- For this application, we have total 4 iterations, with 2 weeks of time for each iteration after the Intermediate Report (1st Report). 
- 	\begin{table}[ht]
+
+ For this application, we have total 4 iterations after the Intermediate Report (1st Report). 
+ 
+ 	\begin{table}[H]
 		\caption{Project Milestones} % title of Table
 		\centering % used for cantering table
 		\begin{tabular}{p{2cm}|p{4cm}|p{2cm}|p{4cm}} % centered columns
@@ -30,13 +34,13 @@ Our Traffic Simulator
 		Milestone & Deliverable & Date & Dependant Upon \\ [0.5ex] % heading
 		\hline
 		
-		1st Report & Intermediate Report complete (Iteration 0) & Feb 9 & Intermediate Planning and Initial Progress\\
+		1st Report & Intermediate Report complete (Iteration 0) & Feb 9 & Intermediate Planning and Initial Progress\\[1ex]
 		
-		Initial & Application Ready (Iteration 1) & Feb 18 & First iteration of bugs fixed. Iteration 1 features implemented. Program ready for unit test.  \\ 
+		Initial & Application Ready (Iteration 1) & Feb 18 & First iteration of bugs fixed. Iteration 1 features implemented. Program ready for unit test.  \\ [1ex]
 		
-		Mid & Application Ready (Iteration 2) & Mar 3 &  Second iteration of bugs fixed. Iteration 2 features implemented. Program ready for unit test.\\
+		Mid & Application Ready (Iteration 2) & Mar 3 &  Second iteration of bugs fixed. Iteration 2 features implemented. Program ready for unit test.\\ [1ex]
 		
-		Pre-Final & Application ready (Iteration 3) & Mar 17 & All features and bugs fixed. Program finalised. \\
+		Pre-Final & Application ready (Iteration 3) & Mar 17 & All features and bugs fixed. Program finalised. \\[1ex]
 		
 		Final & Report complete and application ready (Iteration 4)  & Mar 31 & Completion of packaging and program. Final report ready. All testing done. \\[1ex] % [1ex] adds vertical space
 		\hline
@@ -44,9 +48,49 @@ Our Traffic Simulator
 		\label{table:milestones} % used to refer this table in the text
 	\end{table}
 
+
+\begin{table}[H]
+		\caption{Project Iteration}
+		\centering
+		\begin{tabular}{p{2.5cm}|p{4cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
+		\hline\hline
+		Iteration0 & Iteration1 & Iteration2 & Iteration3 & Iteration4 \\ [0.5ex]
+		\hline
+		
+		Requirements & FT1:Map-Lane & FT5:Map-Roundabout & FT7-2:Map-Complex & Final Report\\[1ex]
+		
+		System Architecture Design & FT2:Map-Junction & FT7-1:Map-Multiple Roundabout & FT-10:Vehicle-Buses & Final Bug Fixing\\ [1ex]
+		
+		Component Detailed Design & FT3:Map-Traffic Light & FT14:Vehicle-Driver's Behaviour & FT17:Policy-VariableControl & Final Testing\\ [1ex]
+		
+		Initial Report & FT4:Map-Road & FT15:Vehicle-Emergency & FT22-2:GUI- consolidated added vehicles/maps and animation \\[1ex]
+		
+		& FT6:Map-Network Boundary & FT20:GUI-Roundabout & FT23-2:Optimal Simulation Engine \\[1ex] 
+		
+		& FT18:GUI-Lane & FT21:GUI-Consolidated and Animation & \\[1ex]
+		
+		& FT19:GUI-Junctions Traffic Light & FT24:Data log and analysis & &\\[1ex]
+		& FT21:GUI-Multiple Vehicles &&&\\
+		& FT8:Vehicle-Generic &&& \\
+		& FT9:Vehicle-Car &&& \\
+		& FT12:Vehicle-Acceleration Deacceleration &&& \\
+		& FT11:Vehicle-Traffic Light &&& \\
+		& FT13:Vehicle-Change Lane Direction &&& \\
+		& FT23:Simulation Engine &&& \\
+		& FT16:Policy-Fixed Control Policy &&&\\
+		
+		
+		
+		\hline
+		\end{tabular}
+		\label{table:milestones} 
+		\end{table}
+
+	
 \subsection{Initial Progress}
+Our works so far is the design of the application, including the UML for classes and objects that we need. 
 
-
+\newpage
 \section{Project Organisation}
 \subsection{Roles}
 \subsection{Collaboration Tools}
