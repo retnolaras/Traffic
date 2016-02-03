@@ -1,4 +1,3 @@
-\usepackage{longtable}
 \documentclass[11pt]{article}
 
 
@@ -15,7 +14,41 @@
 
 \section{Project Description}
 \subsection{Project Aim}
-Our Traffic Simulator 
+\begin{flushleft}
+\textbf{Project Background}\par	
+\end{flushleft}
+
+Traffic simulation software plays an important role in defining the effective traffic management policies. A traffic policy must be simulated and verified before it is actually implemented in real life. Otherwise, it might harm road users’ safety and traffic efficiency.
+
+There are a lot of factors contributing to road accidents and traffic efficiency. The major factors include speed, traffic light timing and driver’s behaviours. For instance, in 2013, in the UK, 3,064 people were killed or seriously injured in crashes where speed was a factor.
+
+Therefore, this project will simulate traffic management policies focusing on those 3 main factors ie. Speed limit; Traffic light timing; Driver’s behaviours.
+
+The software will test different policies relating to these factors and analyse the traffic efficiency and safety in relation to traffic density, enforcement policy and driver’s behaviours.
+
+The analysis will be based on the following metrics:
+\begin{itemize}
+	\item Probability of crashes (\%): percentage of crashes in total vehicles per session. This metric is to measure the safety of the policy
+	\item Average speed: average speed of vehicles in a session. This metric is to measure traffic efficiency and reliability.
+\end{itemize}
+
+\begin{flushleft}
+\textbf{Project Scope} \par	
+\end{flushleft}
+
+The software is to simulate the traffic management policy following UK highway code which is left-lane oriented and using the speed limit within the range of speed limit defined in the UK highway code.
+
+
+Within the constraints of time and resources, the project’s scope includes:
+\begin{itemize}
+\item Controlled Map: Minimum multiple-lane roads and a junction. It should support the scalability to a complex traffic network (ie. Multiple roundabouts, multiple junctions, multiple traffic lights, bus lane).
+\item Vehicles: Simulate multiple types of vehicles, which include at least cars and ambulances (emergency vehicle) and at least three classes of driver’s behaviours (reckless, cautious, normal).
+\item Policy: the project must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy.
+\item Simulation engine: must test the policies with different levels of traffic density.
+\item Report: Must provide the statistics and calculates metrics as above.
+\end{itemize}
+
+
 \subsection{Project Approach}
 \begin{itemize}
 	\item Management Approach: We use scrum. Why use scrum (?). How long the iteration would be(?)
@@ -24,9 +57,9 @@ Our Traffic Simulator
 \end{itemize}
 \subsection{Project Schedule}
 
- For this application, we have total 4 iterations after the Intermediate Report (1st Report). 
+ For this application, we have total 4 iterations after the Intermediate Report (1st Report). Detail for milestone can be seen in Table \ref{table:milestones}. The detail for iterations and the project functionality can be seen in Table \ref{table:iteration}.
  
- 	\begin{table}[H]
+ 	\begin{table}[ht]
 		\caption{Project Milestones} % title of Table
 		\centering % used for cantering table
 		\begin{tabular}{p{2cm}|p{4cm}|p{2cm}|p{4cm}} % centered columns
@@ -49,7 +82,7 @@ Our Traffic Simulator
 	\end{table}
 
 
-\begin{table}[H]
+\begin{table}[h]
 		\caption{Project Iteration}
 		\centering
 		\begin{tabular}{p{2.5cm}|p{4cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
@@ -73,7 +106,7 @@ Our Traffic Simulator
 		& FT21:GUI-Multiple Vehicles &&&\\
 		& FT8:Vehicle-Generic &&& \\
 		& FT9:Vehicle-Car &&& \\
-		& FT12:Vehicle-Acceleration Deacceleration &&& \\
+		& FT12:Vehicle-Acceleration De-acceleration &&& \\
 		& FT11:Vehicle-Traffic Light &&& \\
 		& FT13:Vehicle-Change Lane Direction &&& \\
 		& FT23:Simulation Engine &&& \\
@@ -83,14 +116,13 @@ Our Traffic Simulator
 		
 		\hline
 		\end{tabular}
-		\label{table:milestones} 
+		\label{table:iteration} 
 		\end{table}
 
 	
 \subsection{Initial Progress}
 Our works so far is the design of the application, including the UML for classes and objects that we need. 
 
-\newpage
 \section{Project Organisation}
 \subsection{Roles}
 \subsection{Collaboration Tools}
