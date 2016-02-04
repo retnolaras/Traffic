@@ -51,12 +51,26 @@ Within the constraints of time and resources, the project’s scope includes:
 
 \subsection{Project Approach}
 	\paragraph{Management Approach: Scrum} The team decided that due the nature of the project it was needed an strategy that allowed progress every predetermine period of time and, at the same time, to have something ready to deliver. For this reason the decision was to follow an Agile development approach using Scrum in order to have a management appropriate for a small development time and  have a specific artifact ready to go at the end of each iteration.
-	\paragraph{}The approach we are going to follow is the Scrum methodology focused in the team goals and needs. This means that even when people will be assigned to an specific role, it does not mean that she or he will be only do tasks related. The tasks will be balanced and assigned according to the Sprint number, task complexity, and task completion percentage. It also means that some features of the Scrum development methodology will be modified accordingly and only task progress will be reported.
-	\paragraph{}Taking in count the available development weeks, the Sprint length was defined to last two weeks. At the beginning of each sprint a Scrum Planning Meeting will be held. This is where the team will decide what will be the next target deliverable for the sprint. The daily stand up meeting will be replaced by mechanisms explained in the Communication Process subsection.
-	Next the role assignation is shown. Scrum Master: Daniel Mendoza. Product Owner: All the team will be involved. Development team: All the team will be involved.
-	\paragraph{Technical Approach: Java} 
 	
-	\paragraph{Quality Management: Unit tests and Test Apps} How we do unit test (?). The method (?). The integration test. Frequency(?)
+	The approach we are going to follow is the Scrum methodology focused in the team goals and needs. This means that even when people will be assigned to an specific role, it does not mean that she or he will be only do tasks related. The tasks will be balanced and assigned according to the Sprint number, task complexity, and task completion percentage. It also means that some features of the Scrum development methodology will be modified accordingly and only task progress will be reported.
+	
+	Taking in count the available development weeks, the Sprint length was defined to last two weeks. At the beginning of each sprint a Scrum Planning Meeting will be held. This is where the team will decide what will be the next target deliverable for the sprint. The daily stand up meeting will be replaced by mechanisms explained in the Communication Process subsection.
+	Next the role assignation is shown. Scrum Master: Daniel Mendoza. Product Owner: All the team will be involved. Development team: All the team will be involved.
+	
+	\paragraph{Technical Approach: Java} The team made the decision to develop in Java SE because it was the technology whom all team members have at least some experience. 
+	
+	The next thing that motivate us to chose this technology was the necessity to reduce complexity as much as possible from the beginning due a tight development schedule. 
+	
+	By using Java we are removing the need of have a manual memory management in order to avoid memory leaks.
+	
+	Java also give us a way to easily deploy the software in many platforms without having special implementations for each one. This reduces development time and removes the platform concerns.
+	
+	\paragraph{Quality Management: Unit tests and Test Apps} Quality of the software will be tracked during every iteration. The strategy we are going to follow is create unit tests for each subsystem, as well as testing applications when necessary.  
+	
+	To develop unit test we are going to use the JUnit framework. It is a widely used way to develop unit test, therefore it will be easy to investigate implementation strategies for our project. 
+	
+	Each sprint will have two test tasks by default: Integration Test and Regression Test. The integration test will consist in test the subsystems interactions that changed after the development work has being completed. The regression test will consist on a set suite of predefined minimal features of the system that have to be executed in order to make sure previous functionality works as expected.
+	
 \subsection{Project Schedule}
 
  For this application, we have total 4 iterations after the Intermediate Report (1st Report). Detail for milestone can be seen in Table \ref{table:milestones}. The detail for iterations and the project functionality can be seen in Table \ref{table:iteration}.
@@ -127,6 +141,12 @@ Our works so far is the design of the application, including the UML for classes
 
 \section{Project Organisation}
 \subsection{Roles}
+Team members will be assigned to an specific role, however this does not mean that she or he will be only doing tasks related. This ones will be balanced and assigned according to the Sprint goal, task complexity, and task completion percentage.
+	\begin{itemize}
+		\item Scrum Master: Daniel Mendoza. 
+		\item Product Owner: All the team will be involved.
+		\item Development team: All the team will be involved.
+	\end{itemize}
 \subsection{Collaboration Tools}
 \begin{itemize}
 	\item Github
