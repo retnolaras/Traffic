@@ -1,0 +1,314 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.3)  4 FEB 2016 14:11
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**InitialReportGP.tex
+(./InitialReportGP.tex
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (/Users/retnolarasati/GitHub/Traffic/.texpadtmp/InitialReportGP.aux)
+\openout1 = `InitialReportGP.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 11.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 11.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 11.
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 27.
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 27.
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+ [1
+
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+ [2]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 77.
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--82
+[]\OT1/cmr/m/n/10.95 Intermediate Re-port
+ []
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 82--82
+[]\OT1/cmr/m/n/10.95 Intermediate Plan-ning
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+\OT1/cmr/m/n/10.95 fixed. It-er-a-tion 1
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--84
+\OT1/cmr/m/n/10.95 fea-tures im-ple-mented.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--86
+[]\OT1/cmr/m/n/10.95 Second it-er-a-tion of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--86
+\OT1/cmr/m/n/10.95 fea-tures im-ple-mented.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 88--88
+[]\OT1/cmr/m/n/10.95 All fea-tures and
+ []
+
+
+Underfull \hbox (badness 1028) in paragraph at lines 88--88
+\OT1/cmr/m/n/10.95 bugs fixed. Pro-gram
+ []
+
+
+Underfull \hbox (badness 4454) in paragraph at lines 90--90
+[]\OT1/cmr/m/n/10.95 Report com-plete and
+ []
+
+
+Overfull \hbox (29.43304pt too wide) in paragraph at lines 77--94
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
+[]\OT1/cmr/m/n/10.95 FT5:Map-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
+[]\OT1/cmr/m/n/10.95 FT7-2:Map-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
+[]\OT1/cmr/m/n/10.95 Final
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--107
+[]\OT1/cmr/m/n/10.95 FT7-1:Map-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--107
+\OT1/cmr/m/n/10.95 Multiple
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--107
+[]\OT1/cmr/m/n/10.95 FT-10:Vehicle-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--107
+[]\OT1/cmr/m/n/10.95 Final Bug
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--109
+[]\OT1/cmr/m/n/10.95 Component
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--109
+\OT1/cmr/m/n/10.95 De-tailed De-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--109
+[]\OT1/cmr/m/n/10.95 FT14:Vehicle-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--109
+\OT1/cmr/m/n/10.95 Driver's Be-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--109
+[]\OT1/cmr/m/n/10.95 FT17:Policy-
+ []
+
+
+Overfull \hbox (4.66652pt too wide) in paragraph at lines 109--109
+\OT1/cmr/m/n/10.95 VariableControl| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--109
+[]\OT1/cmr/m/n/10.95 Final
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 111--111
+[]\OT1/cmr/m/n/10.95 FT15:Vehicle-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 111--111
+[]\OT1/cmr/m/n/10.95 FT22-2:GUI-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 111--111
+\OT1/cmr/m/n/10.95 con-sol-i-dated
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 111--111
+\OT1/cmr/m/n/10.95 added ve-hi-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+[]\OT1/cmr/m/n/10.95 FT6:Map-Network
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+[]\OT1/cmr/m/n/10.95 FT20:GUI-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+[]\OT1/cmr/m/n/10.95 FT23-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+\OT1/cmr/m/n/10.95 2:Optimal
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+\OT1/cmr/m/n/10.95 Sim-u-la-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 115--115
+[]\OT1/cmr/m/n/10.95 FT21:GUI-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 115--115
+\OT1/cmr/m/n/10.95 Consolidated
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 117--117
+[]\OT1/cmr/m/n/10.95 FT19:GUI-Junctions
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 121--121
+[]\OT1/cmr/m/n/10.95 FT12:Vehicle-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 121--121
+\OT1/cmr/m/n/10.95 Acceleration De-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--122
+[]\OT1/cmr/m/n/10.95 FT11:Vehicle-Traffic
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--123
+[]\OT1/cmr/m/n/10.95 FT13:Vehicle-Change
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+[]\OT1/cmr/m/n/10.95 FT23:Simulation En-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 125--125
+[]\OT1/cmr/m/n/10.95 FT16:Policy-Fixed
+ []
+
+
+Overfull \hbox (84.11217pt too wide) in paragraph at lines 100--132
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 16.83405pt on input line 132.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[3] [4] [5] [6] (/Users/retnolarasati/GitHub/Traffic/.texpadtmp/InitialReportGP.aux) ) 
+Here is how much of TeX's memory you used:
+ 255 strings out of 493089
+ 3296 string characters out of 6134842
+ 70199 words of memory out of 5000000
+ 3811 multiletter control sequences out of 15000+600000
+ 8811 words of font info for 31 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 21i,9n,19p,515b,213s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on /Users/retnolarasati/GitHub/Traffic/.texpadtmp/InitialReportGP.pdf (6 pages, 89192 bytes).
+PDF statistics:
+ 47 PDF objects out of 1000 (max. 8388607)
+ 32 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
