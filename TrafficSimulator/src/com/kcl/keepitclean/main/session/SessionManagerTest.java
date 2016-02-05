@@ -1,4 +1,4 @@
-package com.kcl.keepitclean.session;
+package com.kcl.keepitclean.main.session;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;

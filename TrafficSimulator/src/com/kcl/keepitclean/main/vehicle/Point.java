@@ -1,10 +1,10 @@
-package com.kcl.keepitclean.vehicle;
+package com.kcl.keepitclean.main.vehicle;
 
-public class Coordinate {
+public class Point {
 	private float axisX;
 	private float axisY;
 	
-	public Coordinate(float x, float y){
+	public Point(float x, float y){
 		this.axisX =x;
 		this.axisY =y;
 	}
