@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.4)  4 FEB 2016 22:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.4)  5 FEB 2016 22:38
 entering extended mode
 **./InitialReportGP.tex
 (InitialReportGP.tex
@@ -333,17 +333,13 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.191 \end{document}
+l.194 \end{document}
                     
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[7] [8] (InitialReportGP.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- )
+[7] [8] (InitialReportGP.aux) )
 (\end occurred inside a group at level 1)
 
 ### semi simple group (level 1) entered at line 147 (\begingroup)
@@ -355,7 +351,7 @@ Here is how much of TeX's memory you used:
  3712 multiletter control sequences out of 15000+200000
  8811 words of font info for 31 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 21i,9n,19p,638b,247s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 21i,9n,19p,638b,213s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/
 cm/cmbx10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
@@ -363,7 +359,7 @@ mr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr1
 2.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.p
 fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 >
-Output written on InitialReportGP.pdf (8 pages, 97718 bytes).
+Output written on InitialReportGP.pdf (8 pages, 98635 bytes).
 PDF statistics:
  53 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
