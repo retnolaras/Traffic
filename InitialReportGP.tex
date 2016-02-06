@@ -3,11 +3,8 @@
 
 \author{KeepItClean}
 \title{Traffic Simulator}
-\date{February 2016}
-
 
 \begin{document}
-
 
 \maketitle
 
@@ -38,7 +35,7 @@ The software is to simulate the traffic management policy following UK highway c
 
 Within the constraints of time and resources, the project’s scope includes:
 \begin{itemize}
-\item Controlled Map: Minimum multiple-lane roads and a junction. It should support the scalability to a complex traffic network (ie. Multiple roundabouts, multiple junctions, multiple traffic lights, bus lane).
+\item Controlled Map: Minimum multiple-lane roads and a junction. It should support the scalability to a complex traffic network.
 \item Vehicles: Simulate multiple types of vehicles, which include at least cars and ambulances (emergency vehicle) and at least three classes of driver’s behaviours (reckless, cautious, normal).
 \item Policy: the project must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy.
 \item Simulation engine: must test the policies with different levels of traffic density.
@@ -47,10 +44,9 @@ Within the constraints of time and resources, the project’s scope includes:
 
 
 \subsection{Project Approach}
-	\paragraph{Management Approach: Scrum} The team decided that due the nature of the project, they needed a strategy that allowed increments of progress, as well as a product ready to deliver. We are going to follow the Scrum methodology focused in the team goals and needs. Even when people will be assigned to a specific role, it does not mean that she or he will be only do tasks related. Tasks will be assigned according to the Sprint number, task complexity, and task completion percentage. The Scrum methodology will be modified according team needs and only task progress will be reported.
+	\paragraph{Management Approach: Scrum} The team decided that due the nature of the project, we need a strategy that allowed increments of progress, as well as a product ready to deliver. We are going to follow the Scrum methodology focused in the team goals and needs. Even when people will be assigned to a specific role, it does not mean that she or he will be only do tasks related. Tasks will be assigned according to the Sprint number, task complexity, and task completion percentage. The Scrum methodology will be modified according team needs and only task progress will be reported.
 	
 	Taking in account the available development weeks, the Sprint length was defined to last two weeks. At the beginning of each sprint a Scrum Planning Meeting will be held. This is where the team will decide what will be the next target deliverable for the sprint. The daily stand up meeting will be replaced by mechanisms explained in the Communication Process subsection.
-	Next the role assignation is shown. Scrum Master: Daniel Mendoza. Product Owner: All the team will be involved. Development team: All the team will be involved.
 	
 	\paragraph{Technical Approach: Java} The team made the decision to develop in Java SE because it was the technology whom all team members have at least some experience. 
 	
@@ -74,32 +70,32 @@ Within the constraints of time and resources, the project’s scope includes:
 \begin{table}[p]
 		\caption{Project Iteration}
 		\centering
-		\begin{tabular}{p{2.5cm}|p{4cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
+		\begin{tabular}{p{2.5cm}|p{3.5cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
 		\hline\hline
 		Iteration0 (Feb 10) & Iteration1 (Feb 25) & Iteration2 (Mar 3) & Iteration3 (Mar 22) & Iteration4 (Mar 31)\\ [0.5ex]
 		\hline
 		
-		Requirements & FT1:Map-Lane & FT5:Map-Roundabout & FT7-2:Map-Complex & Final Report\\[1ex]
+		Requirements & Map-Lane & Map-Roundabout & Map-Complex & Final Report\\[1ex]
 		
-		System Architecture Design & FT2:Map-Junction & FT7-1:Map-Multiple Roundabout & FT-10:Vehicle-Buses & Final Bug Fixing\\ [1ex]
+		System Architecture Design & Map-Junction & Map-Multiple Roundabout & Vehicle-Buses & Final Bug Fixing\\ [1ex]
 		
-		Component Detailed Design & FT3:Map-Traffic Light & FT14:Vehicle-Driver's Behaviour & FT17:Policy-VariableControl & Final Testing\\ [1ex]
+		Component Design & Map-Traffic Light & Vehicle-Driver's Behaviour & Policy-VariableControl & Final Testing\\ [1ex]
 		
-		Initial Report & FT4:Map-Road & FT15:Vehicle-Emergency & FT22-2:GUI- consolidated added vehicles/maps and animation \\[1ex]
+		Initial Report & Map-Road & Vehicle-Emergency & GUI- consolidated added vehicles/maps and animation \\[1ex]
 		
-		& FT6:Map-Network Boundary & FT20:GUI-Roundabout & FT23-2:Optimal Simulation Engine \\[1ex] 
+		& Map-Network Boundary & GUI-Roundabout & Optimal Simulation Engine \\[1ex] 
 		
-		& FT18:GUI-Lane & FT21:GUI-Consolidated and Animation & \\[1ex]
+		& GUI-Lane & GUI-Consolidated and Animation & \\[1ex]
 		
-		& FT19:GUI-Junctions Traffic Light & FT24:Data log and analysis & &\\[1ex]
-		& FT21:GUI-Multiple Vehicles &&&\\
-		& FT8:Vehicle-Generic &&& \\
-		& FT9:Vehicle-Car &&& \\
-		& FT12:Vehicle-Acc Deacc &&& \\
-		& FT11:Vehicle-Traffic Light &&& \\
-		& FT13:Vehicle-Change Lane Direction &&& \\
-		& FT23:Simulation Engine &&& \\
-		& FT16:Policy-Fixed Control Policy &&&\\
+		& GUI-Junctions Traffic Light & Data log and analysis & &\\[1ex]
+		& GUI-Multiple Vehicles &&&\\[1ex]
+		& Vehicle-Generic &&& \\[1ex]
+		& Vehicle-Car &&& \\[1ex]
+		& Vehicle-Acc Deacc &&& \\[1ex]
+		& Vehicle-Traffic Light &&& \\[1ex]
+		& Vehicle-Change Lane Direction &&& \\[1ex]
+		& Simulation Engine &&& \\[1ex]
+		& Policy-Fixed Control Policy &&&\\
 		
 		\hline
 		\end{tabular}
