@@ -1,0 +1,120 @@
+\documentclass[11pt]{article}
+
+
+\author{KeepItClean}
+\title{Traffic Simulator}
+
+\begin{document}
+
+\maketitle
+
+\section{Project Description}
+\subsection{Project Aim}
+\begin{flushleft}
+\textbf{Project Background}\par	
+\end{flushleft}
+
+	A traffic simulation helps test and verify road policies, in order to facilitate effective traffic management.
+	 the team has pinpointed three detrimental factors that effect accidents and traffic through put. These include: Traffic light timing, Driver behaviour and Speed limit. The goal is to produce a software that simulates these factors and then anlyizes traffic based on the following metrics:
+\begin{itemize}
+	\item Probability of crashes (\%): percentage of crashes in total vehicles per session. This metric is to measure the safety of the policy
+	\item Average speed: average speed of vehicles in a session. This metric is to measure traffic efficiency and reliability.
+\end{itemize}
+
+\begin{flushleft}
+\textbf{Project Scope} \par	
+\end{flushleft}
+
+ In correspondence with UK highway code conventions, and limited by the constraints of time and resources, the project hopes to achieve:
+\begin{itemize}
+\item Controlled Map: Minimum multiple-lane roads and a junction. It should support the scalability to a complex traffic network.
+\item Vehicles: Simulate multiple types of vehicles, which include at least cars and ambulances (emergency vehicle) and at least three classes of driver’s behaviours (reckless, cautious, normal).
+\item Policy: the project must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy.
+\item Simulation engine: must test the policies with different levels of traffic density.
+\item Report: Must provide the statistics and calculates metrics as above.
+\end{itemize}
+
+
+\subsection{Project Approach}
+	\paragraph{Management Approach: Scrum}
+	To allow for a diversified, flexible development process, the group has elected to follow the scrum methodology; Tasks will be assigned based on Sprint number, task complexity, and task completion percentage.
+	The Sprint length was defined to last two weeks. At the beginning of each sprint a Scrum Planning Meeting will be held, where the next deliverable target will be set. The daily stand up meeting will be replaced by mechanisms explained in the Communication Process subsection.
+	
+	\paragraph{Technical Approach: Java} The team will develop in Java SE since its conventional and the least common denominator amongst members. 
+	
+	 Java is also simplifies the development process, facilitates well-known libraries and and automatically manages memory and allowing the development to accommodate different platforms simultaneously. 
+
+	\paragraph{Quality Management: Unit tests and Test Apps}
+	Our quality management strategy will consist of unit tests for each subsystem as well as integration and application tests when necessary.  
+		
+	using the widely-used JUnit framework for unit testing, the group is going to perform both Integration testing and Regression testing at every Sprint. This is to make sure the project's subsystems are cohesive and that no previous functionality was lost.
+		
+\subsection{Project Schedule}
+
+ For this application, we have total 4 iterations after the Intermediate Report (1st Report). For each iteration, we use that as milestone. Detail for milestone and iterations plus the project functionality can be seen in List below.
+
+\begin{itemize}
+\item
+\textbf{Iteration0 (Feb 10):} Requirements, System Architecture, Component Design, Initial Report.
+ \item \textbf{Iteration1(Feb 25):}  Create basic map elements, Create GUI components, and apply policy constraints on them.
+ \item \textbf{Iteration2(Mar 3):} Create more complex map components, GUI and produce Data logs and Analysis.
+ \item \textbf{Iteration3(Mar 22):} Add more vehicles, load full maps, finalize policy control inputs, optimize simulation.
+ \item \textbf{Iteration4(Mar 31):} Final report, Bug Fixing, Final Testing.
+
+
+\end{itemize}
+	
+\subsection{Initial Progress}
+Our works so far is the design of the application, including the UML for classes and objects that we need. 
+
+\section{Project Organisation}
+
+\subsection{Role Management}
+
+Our modular architecture allows independent work units and job rotation. Our work will be initially divided as follows:	\begin{itemize}
+		\item Daniel will be building the session manager that overlooks the program’s operation. He is also the scrum master.
+		\item Retno will design the the vehicle, or the vehicle object, and populate it with properties
+		\item Rosie will design the policies
+		\item Ian will work on the roads, or the environment in which the vehicles interact,
+		\item Abdel-Rahman will work on the visual GUI component of the software
+
+The group will rotate jobs every iteration to increase depth and breadth of understanding of the project by all members, as well as allow for a more flexible work distribution. 
+\subsection{Meeting Procedures}
+
+
+The team meets regularly on Monday of each week, and arranges further meetings during the week if needed. The meeting agenda is guided by the aforementioned schedule and milestones, and is devised by the team members periodically. Real-time informal communication is done through a dedicated whatsapp group.
+
+\subsection{Collaboration Tools}
+
+GitHub, Trello, Whatsapp, Google Mailing List and Google Hangout.
+
+
+\subsection{Process Handling Peer Assessment}
+The team has devised four criteria by which they will judge their own
+and each other's success:
+
+	\item \textbf{Punctuality/ Availability:}
+	Showing up for meetings and joint coding sessions on time, as well as submitting required work on time.
+	Making oneself available for pair/group design, coding, and testing sessions.
+	
+	\item \textbf{Communication:}
+	 Maintaining communication with the team throughout the process. Being open to questions about your design decisions. Being a team player.
+	
+	\item \textbf{Innovation/ Pro-activity:}
+	 Suggesting imaginative ideas, finding innovative solutions to the software decisions.
+	
+	\item \textbf{Functionality:}
+	 Following through on the software deliverables. Making sure that you deliver the best piece of software you can by following the principles of software development, design and testing.
+\end{itemize}
+
+ \subsection{Communication Process}
+With teamwork, software can be produced that is greater than the sum of the individual members. The diversity of team member's skills allows each to learn and teach as the project progresses. Three points will be emphasized.
+  \begin{itemize}
+  	\item Meeting: We replaced the daily scrum meetings by having two weekly meetings Mondays and Thursdays.
+ 	\item Tools: Trello to keep track of tasks and share progress. Whatsapp group for keeping the team updated on what daily activities are being undertaken.
+  	\item Conflict Handling
+ \subitem The team recognizes that with any collaborative piece of work, there is the potential for conflict and disagreement. The first line of defence is that the team will maintain an ethos of openness and understanding. If the team can keep the confidence to comment on each others ideas and decisions without fear, then a large number of potential conflicts will be stopped before they become a problem.
+ \subitem In the unfortunate event of conflicts developing. The issue will be presented to the group as a whole at either the Monday or Thursday Scrum meeting. Each one of the points of contention will be discussed thoroughly, and team members will be allowed to vote on their favoured way forward.
+  \end{itemize}
+
+\end{document}
