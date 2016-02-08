@@ -3,14 +3,10 @@
 
 \author{KeepItClean}
 \title{Traffic Simulator}
-\date{February 2016}
-
 
 \begin{document}
 
-
 \maketitle
-\newpage
 
 \section{Project Description}
 \subsection{Project Aim}
@@ -20,9 +16,7 @@
 
 Traffic simulation software plays an important role in defining the effective traffic management policies. A traffic policy must be simulated and verified before it is actually implemented in real life. Otherwise, it might harm road users’ safety and traffic efficiency.
 
-There are a lot of factors contributing to road accidents and traffic efficiency. The major factors include speed, traffic light timing and driver’s behaviours. For instance, in 2013, in the UK, 3,064 people were killed or seriously injured in crashes where speed was a factor.
-
-Therefore, this project will simulate traffic management policies focusing on those 3 main factors ie. Speed limit; Traffic light timing; Driver’s behaviours.
+There are a lot of factors contributing to road accidents and traffic efficiency. The major factors include speed, traffic light timing and driver’s behaviours. Therefore, this project will simulate traffic management policies focusing on those 3 main factors ie. Speed limit; Traffic light timing; Driver’s behaviours.
 
 The software will test different policies relating to these factors and analyse the traffic efficiency and safety in relation to traffic density, enforcement policy and driver’s behaviours.
 
@@ -41,7 +35,7 @@ The software is to simulate the traffic management policy following UK highway c
 
 Within the constraints of time and resources, the project’s scope includes:
 \begin{itemize}
-\item Controlled Map: Minimum multiple-lane roads and a junction. It should support the scalability to a complex traffic network (ie. Multiple roundabouts, multiple junctions, multiple traffic lights, bus lane).
+\item Controlled Map: Minimum multiple-lane roads and a junction. It should support the scalability to a complex traffic network.
 \item Vehicles: Simulate multiple types of vehicles, which include at least cars and ambulances (emergency vehicle) and at least three classes of driver’s behaviours (reckless, cautious, normal).
 \item Policy: the project must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy.
 \item Simulation engine: must test the policies with different levels of traffic density.
@@ -50,10 +44,9 @@ Within the constraints of time and resources, the project’s scope includes:
 
 
 \subsection{Project Approach}
-	\paragraph{Management Approach: Scrum} The team decided that due the nature of the project, they needed a strategy that allowed increments of progress, as well as a product ready to deliver. We are going to follow the Scrum methodology focused in the team goals and needs. Even when people will be assigned to a specific role, it does not mean that she or he will be only do tasks related. Tasks will be assigned according to the Sprint number, task complexity, and task completion percentage. The Scrum methodology will be modified according team needs and only task progress will be reported.
+	\paragraph{Management Approach: Scrum} The team decided that due the nature of the project, we need a strategy that allowed increments of progress, as well as a product ready to deliver. We are going to follow the Scrum methodology focused in the team goals and needs. Even when people will be assigned to a specific role, it does not mean that she or he will be only do tasks related. Tasks will be assigned according to the Sprint number, task complexity, and task completion percentage. The Scrum methodology will be modified according team needs and only task progress will be reported.
 	
 	Taking in account the available development weeks, the Sprint length was defined to last two weeks. At the beginning of each sprint a Scrum Planning Meeting will be held. This is where the team will decide what will be the next target deliverable for the sprint. The daily stand up meeting will be replaced by mechanisms explained in the Communication Process subsection.
-	Next the role assignation is shown. Scrum Master: Daniel Mendoza. Product Owner: All the team will be involved. Development team: All the team will be involved.
 	
 	\paragraph{Technical Approach: Java} The team made the decision to develop in Java SE because it was the technology whom all team members have at least some experience. 
 	
@@ -71,62 +64,38 @@ Within the constraints of time and resources, the project’s scope includes:
 	
 \subsection{Project Schedule}
 
- For this application, we have total 4 iterations after the Intermediate Report (1st Report). Detail for milestone can be seen in Table \ref{table:milestones}. The detail for iterations and the project functionality can be seen in Table \ref{table:iteration}.
- 
- 	\begin{table}[ht]
-		\caption{Project Milestones} % title of Table
-		\centering % used for cantering table
-		\begin{tabular}{p{2cm}|p{4cm}|p{2cm}|p{4cm}} % centered columns
-		\hline\hline %inserts double horizontal lines
-		Milestone & Deliverable & Date & Dependant Upon \\ [0.5ex] % heading
-		\hline
-		
-		1st Report & Intermediate Report complete (Iteration 0) & Feb 9 & Intermediate Planning and Initial Progress\\[1ex]
-		
-		Initial & Application Ready (Iteration 1) & Feb 18 & First iteration of bugs fixed. Iteration 1 features implemented. Program ready for unit test.  \\ [1ex]
-		
-		Mid & Application Ready (Iteration 2) & Mar 3 &  Second iteration of bugs fixed. Iteration 2 features implemented. Program ready for unit test.\\ [1ex]
-		
-		Pre-Final & Application ready (Iteration 3) & Mar 17 & All features and bugs fixed. Program finalised. \\[1ex]
-		
-		Final & Report complete and application ready (Iteration 4)  & Mar 31 & Completion of packaging and program. Final report ready. All testing done. \\[1ex] % [1ex] adds vertical space
-		\hline
-		\end{tabular}
-		\label{table:milestones} % used to refer this table in the text
-	\end{table}
+ For this application, we have total 4 iterations after the Intermediate Report (1st Report). For each iteration, we use that as milestone. Detail for milestone and iterations plus the project functionality can be seen in Table \ref{table:iteration} below.
 
 
-\begin{table}[h]
+\begin{table}[p]
 		\caption{Project Iteration}
 		\centering
-		\begin{tabular}{p{2.5cm}|p{4cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
+		\begin{tabular}{p{2.5cm}|p{3.5cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
 		\hline\hline
-		Iteration0 & Iteration1 & Iteration2 & Iteration3 & Iteration4 \\ [0.5ex]
+		Iteration0 (Feb 10) & Iteration1 (Feb 25) & Iteration2 (Mar 3) & Iteration3 (Mar 22) & Iteration4 (Mar 31)\\ [0.5ex]
 		\hline
 		
-		Requirements & FT1:Map-Lane & FT5:Map-Roundabout & FT7-2:Map-Complex & Final Report\\[1ex]
+		Requirements & Map-Lane & Map-Roundabout & Map-Complex & Final Report\\[1ex]
 		
-		System Architecture Design & FT2:Map-Junction & FT7-1:Map-Multiple Roundabout & FT-10:Vehicle-Buses & Final Bug Fixing\\ [1ex]
+		System Architecture Design & Map-Junction & Map-Multiple Roundabout & Vehicle-Buses & Final Bug Fixing\\ [1ex]
 		
-		Component Detailed Design & FT3:Map-Traffic Light & FT14:Vehicle-Driver's Behaviour & FT17:Policy-VariableControl & Final Testing\\ [1ex]
+		Component Design & Map-Traffic Light & Vehicle-Driver's Behaviour & Policy-VariableControl & Final Testing\\ [1ex]
 		
-		Initial Report & FT4:Map-Road & FT15:Vehicle-Emergency & FT22-2:GUI- consolidated added vehicles/maps and animation \\[1ex]
+		Initial Report & Map-Road & Vehicle-Emergency & GUI- consolidated added vehicles/maps and animation \\[1ex]
 		
-		& FT6:Map-Network Boundary & FT20:GUI-Roundabout & FT23-2:Optimal Simulation Engine \\[1ex] 
+		& Map-Network Boundary & GUI-Roundabout & Optimal Simulation Engine \\[1ex] 
 		
-		& FT18:GUI-Lane & FT21:GUI-Consolidated and Animation & \\[1ex]
+		& GUI-Lane & GUI-Consolidated and Animation & \\[1ex]
 		
-		& FT19:GUI-Junctions Traffic Light & FT24:Data log and analysis & &\\[1ex]
-		& FT21:GUI-Multiple Vehicles &&&\\
-		& FT8:Vehicle-Generic &&& \\
-		& FT9:Vehicle-Car &&& \\
-		& FT12:Vehicle-Acceleration De-acceleration &&& \\
-		& FT11:Vehicle-Traffic Light &&& \\
-		& FT13:Vehicle-Change Lane Direction &&& \\
-		& FT23:Simulation Engine &&& \\
-		& FT16:Policy-Fixed Control Policy &&&\\
-		
-		
+		& GUI-Junctions Traffic Light & Data log and analysis & &\\[1ex]
+		& GUI-Multiple Vehicles &&&\\[1ex]
+		& Vehicle-Generic &&& \\[1ex]
+		& Vehicle-Car &&& \\[1ex]
+		& Vehicle-Acc Deacc &&& \\[1ex]
+		& Vehicle-Traffic Light &&& \\[1ex]
+		& Vehicle-Change Lane Direction &&& \\[1ex]
+		& Simulation Engine &&& \\[1ex]
+		& Policy-Fixed Control Policy &&&\\
 		
 		\hline
 		\end{tabular}
@@ -141,7 +110,7 @@ Our works so far is the design of the application, including the UML for classes
 
 \subsection{Role Management}
 
-\\indent The group has devised a modular multi-tiered architecture. This will aid in our our organisation as individuals within the group can work on a specific module, module class or function of the program and later integrate it within the collective design. This will also allow the group to rotate positions and collaborate for a bigger depth of understanding.
+The group has devised a modular multi-tiered architecture. This will aid in our our organisation as individuals within the group can work on a specific module, module class or function of the program and later integrate it within the collective design. This will also allow the group to rotate positions and collaborate for a bigger depth of understanding.
 
 Our roles are based on 5 key components:
 	\begin{itemize}
@@ -149,24 +118,22 @@ Our roles are based on 5 key components:
 		\item Retno will design the the vehicle, or the vehicle object, and populate it with properties
 		\item Rosie will design the policies
 		\item Ian will work on the roads, or the environment in which the vehicles interact,
-		\item Abdel-Rahmanwill work on the visual GUI component of the software
+		\item Abdel-Rahman will work on the visual GUI component of the software
 
 Since the project will be relatively of small to medium size, the group will facilitate job rotation at every iteration of development. This will be done to increase depth and breadth of understanding of the project by all members, as well as allow for a more flexible work distribution. 
-Meeting procedures:
 \subsection{Meeting Procedures}
 
-
-The team meets regularly on Monday of each week, and arranges further meetings during the week if needed. The meeting agenda is guided by the aforementioned schedule and milestones, and is devised by the team members periodically. Real-time informal communication is done through a dedicated whatsapp group.
+The team meets regularly on Monday and Thursday of each week, and arranges further meetings during the week if needed. The meeting agenda is guided by the aforementioned schedule and milestones, and is devised by the team members periodically. Real-time informal communication is done through a dedicated whatsapp group.
 
 \subsection{Collaboration Tools}
 
-Other than Githib for sourcefile development, the team uses Trello for taskllist managememt, Whatsapp for informal communication and googlemainling list for deliverables. Google Hangouts will be used as a video conferencing tool when nesscary.
+Other than Github for sourcefile development, the team uses Trello for task-list management, Whatsapp for informal communication and google-mailing list for deliverables. Google Hangouts will be used as a video conferencing tool when necessary. 
 
 
 \subsection{Process Handling Peer Assessment}
 For the purpose of peer assessment the team has devised four criteria by which they will judge their own
 and each other's success. Higher points will be awarded to team members who display their ability to follow the criteria. Points will also be awarded for team members who go above and beyond what could be reasonably expected of them.
-\begin{enumerate}
+
 	\item Punctuality/ Availability
 	\subitem Showing up for meetings and joint coding sessions on time, as well as submitting required work on time.
 	Making oneself available for pair/group design, coding, and testing sessions.
@@ -181,11 +148,14 @@ and each other's success. Higher points will be awarded to team members who disp
 	\subitem Following through on the software deliverables. Making sure that you deliver the best piece of software you can by following the principles of software development, design and testing.
 \end{itemize}
 
-\subsection{Communication Process}
-\begin{itemize}
-	\item Meeting: We replaced the daily scrum meetings by having two weekly meetings Mondays and Thursdays.
-	\item Tools: Trello to keep track of tasks and share progress. Whatsapp group.
-	\item Conflict Handling
-\end{itemize}
+ \subsection{Communication Process}
+With teamwork, software can be produced that is greater than the sum of the individual members. The diversity of team member's skills allows each to learn and teach as the project progresses. Three points will be emphasised.
+  \begin{itemize}
+  	\item Meeting: We replaced the daily scrum meetings by having two weekly meetings Mondays and Thursdays.
+ 	\item Tools: Trello to keep track of tasks and share progress. Whatsapp group for keeping the team updated on what daily activities are being undertaken.
+  	\item Conflict Handling
+ \subitem The team recognises that with any collaborative piece of work, there is the potential for conflict and disagreement. The first line of defence is that the team will maintain an ethos of openness and understanding. If the team can keep the confidence to comment on each others ideas and decisions without fear, then a large number of potential conflicts will be stopped before they become a problem.
+ \subitem In the unfortunate event of conflicts developing. The issue will be presented to the group as a whole at either the Monday or Thursday Scrum meeting. Each one of the points of contention will be discussed thoroughly, and team members will be allowed to vote on their favoured way forward.
+  \end{itemize}
 
 \end{document}
