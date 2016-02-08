@@ -17,7 +17,7 @@ public interface LaneSection {
 	public boolean isOpeanBackward();
 	
 	/*
-	 * method for returning whether or not a Vehlicle currently occupies this 
+	 * method for returning whether or not a Vehicle currently occupies this 
 	 * section of road.
 	 * 
 	 * @return true if there is a Vehicle on the section. False if otherwise
