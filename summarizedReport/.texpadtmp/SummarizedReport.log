@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.3)  8 FEB 2016 15:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.3)  8 FEB 2016 18:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -55,17 +55,8 @@ Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
  [1
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
-
-Overfull \hbox (1.04636pt too wide) in paragraph at lines 89--90
-[]\OT1/cmr/m/n/10.95 The group will ro-tate jobs ev-ery it-er-a-tion to in-crease depth and breadth
- []
-
-[3]
-Overfull \hbox (6.33052pt too wide) in paragraph at lines 109--111
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+Overfull \hbox (6.33052pt too wide) in paragraph at lines 102--104
 []\OT1/cmr/bx/n/10.95 Communication: \OT1/cmr/m/n/10.95 Main-tain-ing com-mu-ni-ca-tion with the team through-
  []
 
@@ -79,7 +70,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  21i,6n,19p,431b,187s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on /Users/retnolarasati/GitHub/Traffic/summarizedReport/.texpadtmp/SummarizedReport.pdf (5 pages, 89458 bytes).
+Output written on /Users/retnolarasati/GitHub/Traffic/summarizedReport/.texpadtmp/SummarizedReport.pdf (5 pages, 89037 bytes).
 PDF statistics:
  44 PDF objects out of 1000 (max. 8388607)
  30 compressed objects within 1 object stream
