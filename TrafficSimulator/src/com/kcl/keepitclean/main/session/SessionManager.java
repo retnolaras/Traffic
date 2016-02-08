@@ -1,20 +1,30 @@
 package com.kcl.keepitclean.main.session;
-
+/**
+ * @author dmendoza
+ */
 import java.util.Observable;
 import java.util.Observer;
 
 public class SessionManager extends Observable implements Observer{
 	
+	// Handling singleton pattern with Java class loader
 	private static class SessionManagerHolder {
 	    static SessionManager instance = new SessionManager();
 	}
-
-	public static SessionManager getInstance() { // Note: "synchronized" not needed
+	
+	private Session session = null;
+	
+	public Thread sessionThread = null;
+	
+	/**
+	 * Method to obtain the <code>SessionManager</code> instance.
+	 * @return The <code>SessionManager</code> instance.
+	 */
+	public static SessionManager getInstance() { 
+		// Synchronization not needed. A single instance is assured by
+		// using the Java class loader.
 	    return SessionManagerHolder.instance;
 	}
-
-	private Session session = null;
-	public Thread sessionThread = null;
 	
 	private SessionManager() {
 		//Do nothing
