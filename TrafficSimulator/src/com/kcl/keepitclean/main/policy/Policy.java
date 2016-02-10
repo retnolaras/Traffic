@@ -16,11 +16,15 @@ public class Policy {
      - Traffic Light Timing at Green, Amber, Red status; using fixed time control 
      - current version: not distinguis policies for different type roads (Single/dual carriageware, urban road, rural road..)
     
+    Usage: classes access policy by using
+    Policy policy = Policy.getPolicy();
+    then can access policy details by calling relevant get methods. 
+    
      */ 
     private SpeedLimit speedLimit;
     private TrafficLight trafficLight;
-       
-    public Policy(){
+    private Policy instance = new Policy();
+    private Policy(){
         /* Creates  policy 
         current version: default speed limit and traffic light timing
         next version:  random generation */
@@ -40,7 +44,11 @@ public class Policy {
         this.speedLimit = speedP;
         this.trafficLight = trafficLightP;
     }   
-    
+ 
+public Policy getPolicy(){
+    return this.instance;
+}
+
 public double getJunctionSpeedLimit(){
     return this.speedLimit.junction;
    
