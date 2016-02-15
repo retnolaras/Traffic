@@ -9,47 +9,40 @@ public abstract class Vehicle {
 	Point destination;
 	int acceleration;
 	int size[];
-	int behaviour;
+	
 	String colour;
 	Road roadinfo;
 	
+	public enum Behaviour{
+		RECKLESS, CAUTIOUS, NORMAL
+	}
+	
+	public enum Direction{
+		LEFT, RIGHT, FORWARD
+	}
 	
 	
 //MOVE ACTION
-	public Point moveForward(Point posi, int speed, int acceleration){
+	public Point move(Point posi, int speed, int acceleration, Direction direction){
 		Point newposi;
-		newposi = addPoint(posi,speed,acceleration,1);
+		newposi = addPoint(posi,speed,acceleration,direction);
 		return newposi;
 		
 	}
 	
-	public Point moveRight(Point posi, float speed, float acceleration){
-		Point newposi;
-		newposi = addPoint(posi,speed,acceleration,2);
-		return newposi;
-		
-	}
-	
-	public Point moveLeft(Point posi, int speed, int acceleration){
-		Point newposi;
-		newposi = addPoint(posi,speed,acceleration,3);
-		return newposi;
-		
-	}
-
-	private Point addPoint(Point posi, float speed2, float acceleration2, int type) {
+	private Point addPoint(Point posi, float speed2, float acceleration2, Direction direction) {
 		Point added = new Point (posi.getAxisX(), posi.getAxisY()); ;
-		if(type==1){
+		if(direction == Direction.FORWARD){
 			float addedX = posi.getAxisX();
 				addedX = addedX + (speed2/10) + (acceleration2/10);
 			    added = new Point (addedX, posi.getAxisY()); 
 		 }
-		else if (type==2){
+		else if (direction == Direction.RIGHT){
 			 float addedY = posi.getAxisY();
 				addedY = addedY + (speed2/10) + (acceleration2/10);
 			    added = new Point (posi.getAxisX(), addedY); 
 		 }
-		else if (type==3){
+		else if (direction == Direction.LEFT){
 			float addedY = posi.getAxisY();
 				addedY = addedY - (speed2/10) - (acceleration2/10);
 			    added = new Point (posi.getAxisX(), addedY); 
@@ -70,7 +63,9 @@ public abstract class Vehicle {
 
 //END DRIVER BEHAVIOUR
 
+//METRIC
 
+//END METRIC
 
 
 class Car extends Vehicle{
