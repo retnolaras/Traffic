@@ -13,13 +13,24 @@ import java.util.Random;
  */
 public class Policy {
     /*
-     The policy is to define:
-     - the speed limit which may be different at junction, curvy road section, straight road section of the same road; using fixed speed limit control
-     - Traffic Light Timing at Green, Amber, Red status; using fixed time control 
-     - current version: not distinguis policies for different type roads (Single/dual carriageware, urban road, rural road..)
+    1) SIMULATION ENGINE: AT THE BEGINNING OF EACH SESSION, CALL setPolicy(PARAMEMTERS) METHOD TO GENERATE POLICY BASED ON USER INPUTS
     
+    PARAMETERS:
+    
+    - MODE: 0 (DEFAULT), 1(CUSTOMISED), 2 (RANDOM)
+    
+    - SPEEDLIMITFROM/ SPEEDLIMITTO: ARRAY OF SPEED LIMIT RANGE SETTINGS  [1]: JUNCTION SPEED LIMIT, [2] STRAIGHT ROAD SPEED LIMIT, [3]: CURVY ROAD SPEED LIMIT
+    IN CASE OF CUSTOMISED POLICY, SPEEDLIMITTO  = NULL;
+    
+   -  TRAFFICLIGHTFROM/TRAFFICLIGHTTO: ARRAY OF TRAFFIC LIGHT TIMING SETTINGS: [1]: GREEN; [2]: AMBER; [3]: RED
+    IN CASE OF CUSTOMISED POLICY: TRAFFICLIGHTTO = NULL;
+    
+    2) OTHER CLASSES: CALL getPolicyInstance() TO GET POLICY INSTANCE.
+    
+    INDIVIDUAL POLICY SETTINGS CAN BE ACCESSED VIA RELEVANT GET METHODS    
       
      */ 
+    
     private SpeedLimit speedLimit;
     private TrafficLight trafficLight;
     private Policy instance;
