@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.kcl.keepitclean.main.policy;
+import java.util.Random;
+
 
 /**
  *
@@ -11,37 +13,91 @@ package com.kcl.keepitclean.main.policy;
  */
 public class Policy {
     /*
-     The policy is to define:
-     - the speed limit which may be different at junction, curvy road section, straight road section of the same road; using fixed speed limit control
-     - Traffic Light Timing at Green, Amber, Red status; using fixed time control 
-     - current version: not distinguis policies for different type roads (Single/dual carriageware, urban road, rural road..)
+    1) SIMULATION ENGINE: AT THE BEGINNING OF EACH SESSION, CALL setPolicy(PARAMEMTERS) METHOD TO GENERATE POLICY BASED ON USER INPUTS
     
+    PARAMETERS:
+    
+    - MODE: 0 (DEFAULT), 1(CUSTOMISED), 2 (RANDOM)
+    
+    - SPEEDLIMITFROM/ SPEEDLIMITTO: ARRAY OF SPEED LIMIT RANGE SETTINGS  [1]: JUNCTION SPEED LIMIT, [2] STRAIGHT ROAD SPEED LIMIT, [3]: CURVY ROAD SPEED LIMIT
+    IN CASE OF CUSTOMISED POLICY, SPEEDLIMITTO  = NULL;
+    
+   -  TRAFFICLIGHTFROM/TRAFFICLIGHTTO: ARRAY OF TRAFFIC LIGHT TIMING SETTINGS: [1]: GREEN; [2]: AMBER; [3]: RED
+    IN CASE OF CUSTOMISED POLICY: TRAFFICLIGHTTO = NULL;
+    
+    2) OTHER CLASSES: CALL getPolicyInstance() TO GET POLICY INSTANCE.
+    
+    INDIVIDUAL POLICY SETTINGS CAN BE ACCESSED VIA RELEVANT GET METHODS    
       
      */ 
+    
     private SpeedLimit speedLimit;
     private TrafficLight trafficLight;
-    private Policy instance = new Policy();
-    public Policy(){
-        /* Creates  policy 
-        current version: default speed limit and traffic light timing
-        next version:  random generation */
+    private Policy instance;
+    
+    
+private Policy(int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, int[] trafficLightTo) /* random generated policy*/
+{
+    //TO-DO: EXCEPTION HANDLING 
+    int straightRoadLimit;
+     int curvyRoadLimit;
+     int junctionLimit;
+     int greenTiming;
+     int amberTiming;
+     int redTiming;
+     Random generator = new Random();
+     
+     junctionLimit = speedLimitFrom[1] + generator.nextInt(speedLimitTo[1]);
+     straightRoadLimit = speedLimitFrom[2] + generator.nextInt(speedLimitTo[2]);
+     curvyRoadLimit = speedLimitFrom[3] + generator.nextInt(speedLimitTo[3]);
+     greenTiming = trafficLightFrom[1] + generator.nextInt(trafficLightFrom[1]);
+     amberTiming = trafficLightFrom[2] + generator.nextInt(trafficLightFrom[2]);
+     redTiming = trafficLightFrom[3] + generator.nextInt(trafficLightFrom[3]);
         
-        SpeedLimit defaultSpeedLimit = new SpeedLimit(30,40,60); //Junction 30mph,  Straight Road 60mph, Curvy Road 40mph
-        TrafficLight defaultTrafficLight = new TrafficLight(30,5,10); //green 30s, amber 5s, red 10s)
-        this.speedLimit = defaultSpeedLimit;
-        this.trafficLight = defaultTrafficLight;
-        
+    speedLimit = new SpeedLimit(junctionLimit,straightRoadLimit,curvyRoadLimit);
+    trafficLight = new TrafficLight(greenTiming,amberTiming,redTiming);
+    
+}
+
+private Policy()  //default policy
+      
+{
+  speedLimit = new SpeedLimit(30,40,60); //Junction 30mph,  Straight Road 60mph, Curvy Road 40mph
+  trafficLight = new TrafficLight(30,5,10); //green 30s, amber 5s, red 10s)   
+}
+
+private Policy(int[] userSpeedLimit, int[] userTrafficLight) //customised policy
+{
+    //TO DO LIST: EXCEPTION HANDLER
+    speedLimit = new SpeedLimit(userSpeedLimit[1], userSpeedLimit[2], userSpeedLimit[3]);
+    trafficLight = new TrafficLight(userTrafficLight[1], userTrafficLight[2],userTrafficLight[3]);
+    
+}
+
+public Policy setPolicy(int mode,int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, int[] trafficLightTo){
+    
+    //TO DO: EXCEPTION HANDLING
+    
+    this.resetPolicy();
+    if (mode == 0)  //DEEFAULT POLICY
+        instance = new Policy();
+    else 
+        if (mode == 1)  //CUSTOMISED POLICY
+            instance = new Policy(speedLimitFrom,trafficLightFrom);
+    else
+            if (mode == 2)  //RANDOM POLICY
+                instance = new Policy(speedLimitFrom, speedLimitTo,trafficLightFrom,trafficLightTo);
+  
+    return instance;
+}
+public Policy getPolicyInstance()
+{
+    if (instance == null)
+    {
+        instance = new Policy();  //default policy
     }
-    public Policy(SpeedLimit speedP, TrafficLight trafficLightP){
-        /* Create variable Policy 
-        for example 
-           Policy urbanRoadPolicy = new Policy(new SpeedLimit(16, 20, 30), new TrafficLight(30,5,15));
-           Policy ruralRoadPolicy = new Policy(new SpeedLimit(20, 30, 40), new TrafficLight(30,5,10));
-        */
-        this.speedLimit = speedP;
-        this.trafficLight = trafficLightP;
-    }   
- 
+    return instance;
+}
 public double getJunctionSpeedLimit(){
     return this.speedLimit.junction;
    
@@ -63,5 +119,10 @@ public int getAmberTrafficLightTime(){
 public int getRedTrafficLightTime(){
     return this.trafficLight.red;
 }
+private void resetPolicy()
+{
+    instance = null;
+}
+
 }
 
