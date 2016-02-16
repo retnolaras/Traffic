@@ -1,6 +1,6 @@
-package com.kcl.keepitclean.main.roadnetwork;
+package com.kcl.keepitclean.main.roadnetwork.laneSection;
 
-public class RightLane extends AbstractLaneSection {
+public class MiddleLane extends AbstractLaneSection {
 
 	@Override
 	public boolean isOpenForward() {
@@ -14,7 +14,7 @@ public class RightLane extends AbstractLaneSection {
 
 	@Override
 	public boolean isOpenRight() {
-		return getClosed();
+		return getOpen();
 	}
 
 	@Override

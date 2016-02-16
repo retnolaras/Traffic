@@ -1,4 +1,4 @@
-package com.kcl.keepitclean.main.roadnetwork;
+package com.kcl.keepitclean.main.roadnetwork.laneSection;
 
 public class SingleLane extends AbstractLaneSection {
 

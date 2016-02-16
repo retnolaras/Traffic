@@ -6,11 +6,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.kcl.keepitclean.main.roadnetwork.LaneFactory;
-import com.kcl.keepitclean.main.roadnetwork.LaneSection;
-import com.kcl.keepitclean.main.roadnetwork.LeftLane;
-import com.kcl.keepitclean.main.roadnetwork.MiddleLane;
-import com.kcl.keepitclean.main.roadnetwork.RightLane;
+import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
+import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
+import com.kcl.keepitclean.main.roadnetwork.laneSection.LeftLane;
+import com.kcl.keepitclean.main.roadnetwork.laneSection.MiddleLane;
+import com.kcl.keepitclean.main.roadnetwork.laneSection.RightLane;
 import com.kcl.keepitclean.main.vehicle.Vehicle;
 
 /**
