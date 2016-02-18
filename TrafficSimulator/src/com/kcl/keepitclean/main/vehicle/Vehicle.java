@@ -68,29 +68,9 @@ public abstract class Vehicle {
 //END METRIC
 
 
-class Car extends Vehicle{
-	String colour = "Green";
-	int size[] = {1,3};
-	
-	
-	void countDistance(float frontX, float frontY, float backX, float backY) {
-	}
 
 
-	public void move() {
-		/*super.move();*/
-	}
-}
 
-class Emergency extends Vehicle{
-	String colour = "Red";
-	int size[] = {1,3};
-	
-}
 
-class Bus extends Vehicle{
-	String colour = "Blue";
-	int size[] = {1,5};
-	
-}
+
 
