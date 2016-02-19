@@ -41,14 +41,14 @@ public class TestLaneSection {
 	
 	@Test
 	public void testVehicleOnLaneSection() {
-		laneSection = lf.getLaneSection("singlelane");
+		laneSection = lf.produceLaneSection("singlelane");
 		laneSection.putVehicleOnSection(vehicle);
 		assertEquals(laneSection.hasVehicleOnSeciton(), true);
 	}
 	
 	@Test
 	public void testRemoveVehicleFromSection() {
-		laneSection = lf.getLaneSection("singlelane");
+		laneSection = lf.produceLaneSection("singlelane");
 		laneSection.putVehicleOnSection(vehicle);
 		laneSection.removeVehicleFromSection();
 		assertEquals(laneSection.hasVehicleOnSeciton(), false);
@@ -56,19 +56,19 @@ public class TestLaneSection {
 	
 	@Test
 	public void testLaneFactoryBuildMiddleLane() {
-		laneSection = lf.getLaneSection("MIDDLELANE");
+		laneSection = lf.produceLaneSection("MIDDLELANE");
 		assertEquals(laneSection.getClass().getName(), MiddleLane.class.getName());
 	}
 	
 	@Test
 	public void testLaneFactoryBuildRightLane() {
-		laneSection = lf.getLaneSection("RIGHTLANE");
+		laneSection = lf.produceLaneSection("RIGHTLANE");
 		assertEquals(laneSection.getClass().getName(), RightLane.class.getName());
 	}
 	
 	@Test
 	public void testLaneFactoryBuildLeftLane() {
-		laneSection = lf.getLaneSection("LEFTLANE");
+		laneSection = lf.produceLaneSection("LEFTLANE");
 		assertEquals(laneSection.getClass().getName(), LeftLane.class.getName());
 	}
 
