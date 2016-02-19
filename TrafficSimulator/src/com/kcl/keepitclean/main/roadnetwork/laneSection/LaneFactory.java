@@ -9,7 +9,7 @@ package com.kcl.keepitclean.main.roadnetwork.laneSection;
  */
 public class LaneFactory {
 
-	public LaneSection getLaneSection(String laneType) {
+	public LaneSection produceLaneSection(String laneType) {
 		if (laneType == null) {
 			return null;
 		}

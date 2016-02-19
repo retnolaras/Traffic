@@ -5,7 +5,7 @@ import com.kcl.keepitclean.main.vehicle.Vehicle;
 
 /**
  * 
- * @author igaln
+ * @author igalna
  *	
  * Default Implementation for checking if there is a vehicle currently on the section of lane.
  * 
