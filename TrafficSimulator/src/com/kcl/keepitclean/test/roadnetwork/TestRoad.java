@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LeftLane;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.MiddleLane;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.RightLane;
@@ -18,7 +19,7 @@ import com.kcl.keepitclean.main.roadnetwork.road.RoadFactory;
 
 public class TestRoad {
 	
-	private RoadFactory rf = new RoadFactory();
+	private RoadFactory rf = new RoadFactory(new LaneFactory());
 	private Road singleLaneRoad;
 	private Road twoLaneRoad;
 	private Road threeLaneRoad;
@@ -199,5 +200,12 @@ public class TestRoad {
 		int expectedY = 564;
 		assertEquals(expectedX, twoLaneRoad.getStartCoordinates().getX(), DELTA);
 		assertEquals(expectedY, twoLaneRoad.getStartCoordinates().getY(), DELTA);
+	}
+	
+	
+	@Test
+	public void testSetSpeedLimit() {
+		((ListOfListsRoadImpl) singleLaneRoad).setSpeedLimit(70);
+		assertEquals(singleLaneRoad.getSpeedLimit(), 70);
 	}
 }
