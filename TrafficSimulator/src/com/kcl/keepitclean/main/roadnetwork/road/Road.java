@@ -1,4 +1,4 @@
-package com.kcl.keepitclean.main.roadnetwork;
+package com.kcl.keepitclean.main.roadnetwork.road;
 
 import java.awt.Point;
 
