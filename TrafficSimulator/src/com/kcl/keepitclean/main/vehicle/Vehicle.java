@@ -1,7 +1,7 @@
 package com.kcl.keepitclean.main.vehicle;
-import com.kcl.keepitclean.main.roadnetwork.Road;
+import com.kcl.keepitclean.main.roadnetwork.road.Road;
 
-public abstract class Vehicle {
+public class Vehicle {
 
 	int speed;
 	Point axom;
