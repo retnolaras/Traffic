@@ -1,19 +1,19 @@
 package com.kcl.keepitclean.main.vehicle;
 
 public class VehicleFactory {
-	public Vehicle getVehicle(String vehicleType){
+	public Vehicle getVehicle(VehicleType vehicleType){
 		 
 	      if(vehicleType == null){
 	         return null;
 	      }		
 	      
-	      if(vehicleType.equalsIgnoreCase("CAR")){
+	      if(vehicleType == VehicleType.CAR){
 	         return new Car();
 	         
-	      }else if(vehicleType.equalsIgnoreCase("BUS")){
+	      }else if(vehicleType == VehicleType.BUS){
 	         return new Bus();
 	         
-	      }else if(vehicleType.equalsIgnoreCase("EMERGENCY")){
+	      }else if(vehicleType == VehicleType.EMERGENCY){
 	         return new Emergency();
 	      }
 	      

@@ -1,5 +1,6 @@
 package com.kcl.keepitclean.main.vehicle;
-import com.kcl.keepitclean.main.roadnetwork.road.Road;
+
+import com.kcl.keepitclean.main.roadnetwork.Road;
 
 public class Vehicle {
 
@@ -13,16 +14,7 @@ public class Vehicle {
 	String colour;
 	Road roadinfo;
 	
-	public enum Behaviour{
-		RECKLESS, CAUTIOUS, NORMAL
-	}
-	
-	public enum Direction{
-		LEFT, RIGHT, FORWARD
-	}
-	
-	
-//MOVE ACTION
+	//MOVE ACTION
 	public Point move(Point posi, int speed, int acceleration, Direction direction){
 		Point newposi;
 		newposi = addPoint(posi,speed,acceleration,direction);
