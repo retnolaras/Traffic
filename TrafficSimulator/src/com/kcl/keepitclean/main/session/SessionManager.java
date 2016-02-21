@@ -30,37 +30,57 @@ public class SessionManager extends Observable implements Observer{
 		//Do nothing
 	}
 	
-	public void startSession() throws IllegalStateException{
-		System.currentTimeMillis();
-		if(session == null){
-			session = new Session();
-			session.addObserver(this);
-			sessionThread = new Thread(session);
-			sessionThread.start();
-		} else {
-			System.out.println("Session already running!");
+	private long startTime;
+	private long pauseTime;
+	private long resumeTime;
+	private long stopTime;
+	
+	
+	public long startSession() throws IllegalStateException{
+		synchronized (this) {
+			if(session == null){
+				session = new Session();
+				session.addObserver(this);
+				sessionThread = new Thread(session, "SessionThread");
+				sessionThread.start();
+			} else {
+				System.out.println("Session already running!");
+			}
+			startTime = System.nanoTime();	
 		}
+		return startTime;
 	}
 	
-	public void pauseSession(){
-		if(session != null){
-			session.pauseSession();
+	public long pauseSession(){
+		synchronized (this) {
+			if(session != null){
+				session.pauseSession();
+			}
+			pauseTime = System.nanoTime();
 		}
+		return pauseTime;
 	}
 	
-	public void resumeSession(){
-		if(session != null){
-			session.resumeSession();
+	public long resumeSession(){
+		synchronized (this) {
+			if(session != null){
+				session.resumeSession();
+			}
+			resumeTime = System.nanoTime();
 		}
+		return resumeTime;
 	}
 	
-	public void stopSession(){
-		if(session != null){
-			session.pauseSession();
-			session = null;
+	public long stopSession(){
+		synchronized (this) {
+			if(session != null){
+				session.pauseSession();
+				session = null;
+			}
+			sessionThread.interrupt();
+			stopTime = System.nanoTime();
 		}
-		sessionThread.interrupt();
-		System.currentTimeMillis();
+		return stopTime;
 	}
 	
 	public void doStepFaster(){
