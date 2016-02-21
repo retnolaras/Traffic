@@ -1,5 +1,7 @@
 package com.kcl.keepitclean.main.session;
-
+/**
+ * @author dmendoza
+ */
 import java.util.Observable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
