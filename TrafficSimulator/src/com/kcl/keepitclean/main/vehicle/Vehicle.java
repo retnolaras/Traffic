@@ -1,6 +1,6 @@
 package com.kcl.keepitclean.main.vehicle;
 
-import com.kcl.keepitclean.main.roadnetwork.Road;
+import com.kcl.keepitclean.main.roadnetwork.LaneSection;
 
 public class Vehicle {
 
@@ -12,7 +12,7 @@ public class Vehicle {
 	int size[];
 	
 	String colour;
-	Road roadinfo;
+	LaneSection roadinfo;
 	
 	//MOVE ACTION
 	public Point move(Point posi, int speed, int acceleration, Direction direction){
