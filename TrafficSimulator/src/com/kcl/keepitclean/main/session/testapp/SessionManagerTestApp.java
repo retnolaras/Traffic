@@ -1,4 +1,4 @@
-package com.kcl.keepitclean.main.session;
+package com.kcl.keepitclean.main.session.testapp;
 /**
  * @author dmendoza
  */
@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
+
+import com.kcl.keepitclean.main.session.SessionManager;
 
 public class SessionManagerTestApp implements Observer, ActionListener{
 	JFrame frame;
