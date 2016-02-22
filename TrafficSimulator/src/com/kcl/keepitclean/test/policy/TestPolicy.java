@@ -5,13 +5,18 @@
  */
 package com.kcl.keepitclean.test.policy;
 
+import org.junit.Test;
+import com.kcl.keepitclean.main.policy.Policy;
+import org.junit.Assert;
+import org.junit.runner.Runner;
+
 /**
  *
- * @author Huong
+ * @author Rosie
  */
 public class TestPolicy {
+    Policy testPolicy;
     
-<<<<<<< HEAD
     @Test
     public void testSetDefaultPolicy()
     {
@@ -123,7 +128,7 @@ public class TestPolicy {
         testPolicy = Policy.getPolicyInstance();
         
         Assert.assertNotNull("Failure - must be not null policy", testPolicy);
-        Assert.assertEquals("Failure- not return the default policy instance", expectedPolicy, testPolicy);
+        Assert.assertEquals("Failure- must return the default policy instance", expectedPolicy, testPolicy);
                 
     }
     @Test
@@ -139,10 +144,8 @@ public class TestPolicy {
         testPolicy = Policy.getPolicyInstance();
         
         Assert.assertNotNull("Failure - must be not null policy", testPolicy);
-        Assert.assertEquals("Failure- not return the predefined policy", expectedPolicy, testPolicy);
+        Assert.assertEquals("Failure- must return the predefined policy", expectedPolicy, testPolicy);
        
                 
     }
-=======
->>>>>>> parent of 38a21e1... update policy code and test
 }
