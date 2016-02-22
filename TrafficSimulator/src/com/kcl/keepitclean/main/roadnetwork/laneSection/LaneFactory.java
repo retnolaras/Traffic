@@ -13,13 +13,13 @@ public class LaneFactory {
 		if (laneType == null) {
 			return null;
 		}
-		if (laneType.equalsIgnoreCase("leftlane")) {
+		if (laneType.equalsIgnoreCase("leftLane")) {
 			return new LeftLane();
 		}
-		else if (laneType.equalsIgnoreCase("rightlane")) {
+		else if (laneType.equalsIgnoreCase("rightLane")) {
 			return new RightLane();
 		}
-		else if (laneType.equalsIgnoreCase("middlelane")) {
+		else if (laneType.equalsIgnoreCase("middleLane")) {
 			return new MiddleLane();
 		}
 		else if (laneType.equalsIgnoreCase("singleLane")) {
