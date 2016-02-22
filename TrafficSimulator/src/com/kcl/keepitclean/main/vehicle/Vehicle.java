@@ -1,7 +1,8 @@
 package com.kcl.keepitclean.main.vehicle;
-import com.kcl.keepitclean.main.roadnetwork.Road;
 
-public abstract class Vehicle {
+import com.kcl.keepitclean.main.roadnetwork.LaneSection;
+
+public class Vehicle {
 
 	int speed;
 	Point axom;
@@ -11,18 +12,9 @@ public abstract class Vehicle {
 	int size[];
 	
 	String colour;
-	Road roadinfo;
+	LaneSection roadinfo;
 	
-	public enum Behaviour{
-		RECKLESS, CAUTIOUS, NORMAL
-	}
-	
-	public enum Direction{
-		LEFT, RIGHT, FORWARD
-	}
-	
-	
-//MOVE ACTION
+	//MOVE ACTION
 	public Point move(Point posi, int speed, int acceleration, Direction direction){
 		Point newposi;
 		newposi = addPoint(posi,speed,acceleration,direction);
@@ -68,29 +60,9 @@ public abstract class Vehicle {
 //END METRIC
 
 
-class Car extends Vehicle{
-	String colour = "Green";
-	int size[] = {1,3};
-	
-	
-	void countDistance(float frontX, float frontY, float backX, float backY) {
-	}
 
 
-	public void move() {
-		/*super.move();*/
-	}
-}
 
-class Emergency extends Vehicle{
-	String colour = "Red";
-	int size[] = {1,3};
-	
-}
 
-class Bus extends Vehicle{
-	String colour = "Blue";
-	int size[] = {1,5};
-	
-}
+
 

@@ -1,5 +1,7 @@
-package com.kcl.keepitclean.main.session;
-
+package com.kcl.keepitclean.main.session.testapp;
+/**
+ * @author dmendoza
+ */
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -12,7 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
-public class SessionManagerTest implements Observer, ActionListener{
+import com.kcl.keepitclean.main.session.SessionManager;
+
+public class SessionManagerTestApp implements Observer, ActionListener{
 	JFrame frame;
 	JButton buttonPlus, buttonMinus, buttonPause, buttonResume, buttonPlay, buttonStop;
 	JTextArea textArea;
@@ -75,7 +79,7 @@ public class SessionManagerTest implements Observer, ActionListener{
 
 		sm.stopSession();
 		System.exit(0);*/
-		SessionManagerTest smt = new SessionManagerTest();
+		SessionManagerTestApp smt = new SessionManagerTestApp();
 		smt.initUI();
 		smt.setup(SessionManager.getInstance());
 	}

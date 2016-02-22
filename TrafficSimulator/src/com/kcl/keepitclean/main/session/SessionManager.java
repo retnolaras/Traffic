@@ -1,56 +1,86 @@
 package com.kcl.keepitclean.main.session;
-
+/**
+ * @author dmendoza
+ */
 import java.util.Observable;
 import java.util.Observer;
 
 public class SessionManager extends Observable implements Observer{
 	
+	// Handling singleton pattern with Java class loader
 	private static class SessionManagerHolder {
 	    static SessionManager instance = new SessionManager();
 	}
-
-	public static SessionManager getInstance() { // Note: "synchronized" not needed
+	
+	private Session session = null;
+	
+	public Thread sessionThread = null;
+	
+	/**
+	 * Method to obtain the <code>SessionManager</code> instance.
+	 * @return The <code>SessionManager</code> instance.
+	 */
+	public static SessionManager getInstance() { 
+		// Synchronization not needed. A single instance is assured by
+		// using the Java class loader.
 	    return SessionManagerHolder.instance;
 	}
-
-	private Session session = null;
-	public Thread sessionThread = null;
 	
 	private SessionManager() {
 		//Do nothing
 	}
 	
-	public void startSession() throws IllegalStateException{
-		System.currentTimeMillis();
-		if(session == null){
-			session = new Session();
-			session.addObserver(this);
-			sessionThread = new Thread(session);
-			sessionThread.start();
-		} else {
-			System.out.println("Session already running!");
+	private long startTime;
+	private long pauseTime;
+	private long resumeTime;
+	private long stopTime;
+	
+	
+	public long startSession() throws IllegalStateException{
+		synchronized (this) {
+			if(session == null){
+				session = new Session();
+				session.addObserver(this);
+				sessionThread = new Thread(session, "SessionThread");
+				sessionThread.start();
+			} else {
+				System.out.println("Session already running!");
+			}
+			startTime = System.nanoTime();	
 		}
+		return startTime;
 	}
 	
-	public void pauseSession(){
-		if(session != null){
-			session.pauseSession();
+	public long pauseSession(){
+		synchronized (this) {
+			if(session != null){
+				session.pauseSession();
+			}
+			pauseTime = System.nanoTime();
 		}
+		return pauseTime;
 	}
 	
-	public void resumeSession(){
-		if(session != null){
-			session.resumeSession();
+	public long resumeSession(){
+		synchronized (this) {
+			if(session != null){
+				session.resumeSession();
+			}
+			resumeTime = System.nanoTime();
 		}
+		return resumeTime;
 	}
 	
-	public void stopSession(){
-		if(session != null){
-			session.pauseSession();
-			session = null;
+	public long stopSession(){
+		synchronized (this) {
+			if(session != null){
+				session.pauseSession();
+				session = null;
+			}
+			sessionThread.interrupt();
+			stopTime = System.nanoTime();
 		}
-		sessionThread.interrupt();
-		System.currentTimeMillis();
+		return stopTime;
 	}
 	
 	public void doStepFaster(){
