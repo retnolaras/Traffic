@@ -1,5 +1,5 @@
 package com.kcl.keepitclean.main.vehicle;
-class Car extends Vehicle{
+public class Car extends Vehicle{
 	String colour = "Green";
 	int size[] = {1,3};
 	
