@@ -33,7 +33,7 @@ public class Policy {
     
     private SpeedLimit speedLimit;
     private TrafficLight trafficLight;
-    private Policy instance;
+    private static Policy instance;
     
     
 private Policy(int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, int[] trafficLightTo) /* random generated policy*/
@@ -74,23 +74,26 @@ private Policy(int[] userSpeedLimit, int[] userTrafficLight) //customised policy
     
 }
 
-public Policy setPolicy(int mode,int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, int[] trafficLightTo){
+public static Policy setPolicy(int mode,int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, int[] trafficLightTo){
     
     //TO DO: EXCEPTION HANDLING
     
-    this.resetPolicy();
-    if (mode == 0)  //DEEFAULT POLICY
-        instance = new Policy();
-    else 
-        if (mode == 1)  //CUSTOMISED POLICY
+    //this.resetPolicy();
+    instance = null;
+    switch (mode) {
+        case (0):  //DEEFAULT POLICY
+            instance = new Policy();
+        case (1):    //CUSTOMISED POLICY
             instance = new Policy(speedLimitFrom,trafficLightFrom);
-    else
-            if (mode == 2)  //RANDOM POLICY
-                instance = new Policy(speedLimitFrom, speedLimitTo,trafficLightFrom,trafficLightTo);
+        case (2):   //RANDOM POLICY
+            instance = new Policy(speedLimitFrom, speedLimitTo,trafficLightFrom,trafficLightTo);
+        default:  //DEFAULT POLICY
+            instance = new Policy();
+    }
   
     return instance;
 }
-public Policy getPolicyInstance()
+public static Policy getPolicyInstance()
 {
     if (instance == null)
     {
@@ -98,15 +101,16 @@ public Policy getPolicyInstance()
     }
     return instance;
 }
-public double getJunctionSpeedLimit(){
+public int getJunctionSpeedLimit()
+{
     return this.speedLimit.junction;
    
 }    
-public double getStraightRoadSpeedLimit(){
+public int getStraightRoadSpeedLimit(){
     return this.speedLimit.straightRoad;
     
 } 
-public double getCurvyRoadSpeedLimit(){
+public int getCurvyRoadSpeedLimit(){
     return this.speedLimit.curvyRoad;
     
 }
@@ -119,7 +123,7 @@ public int getAmberTrafficLightTime(){
 public int getRedTrafficLightTime(){
     return this.trafficLight.red;
 }
-private void resetPolicy()
+private static void resetPolicy()
 {
     instance = null;
 }

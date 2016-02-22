@@ -10,11 +10,11 @@ package com.kcl.keepitclean.main.policy;
  * @author Huong
  */
 public class SpeedLimit {
-    protected double junction;
-    protected double straightRoad;
-    protected double curvyRoad;
+    protected  int junction;
+    protected  int straightRoad;
+    protected  int curvyRoad;
 
-    protected  SpeedLimit(double junctionLimit, double straightRoadLimit, double curvyRoadLimit){
+    protected  SpeedLimit(int junctionLimit, int straightRoadLimit, int curvyRoadLimit){
         this.junction = junctionLimit;
         this.straightRoad = straightRoadLimit;
         this.curvyRoad = curvyRoadLimit;
