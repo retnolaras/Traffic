@@ -123,7 +123,7 @@ public class TestPolicy {
         testPolicy = Policy.getPolicyInstance();
         
         Assert.assertNotNull("Failure - must be not null policy", testPolicy);
-        Assert.assertEquals("Failure- must return the default policy instance", expectedPolicy, testPolicy);
+        Assert.assertEquals("Failure- not return the default policy instance", expectedPolicy, testPolicy);
                 
     }
     @Test
@@ -139,7 +139,7 @@ public class TestPolicy {
         testPolicy = Policy.getPolicyInstance();
         
         Assert.assertNotNull("Failure - must be not null policy", testPolicy);
-        Assert.assertEquals("Failure- must return the predefined policy", expectedPolicy, testPolicy);
+        Assert.assertEquals("Failure- not return the predefined policy", expectedPolicy, testPolicy);
        
                 
     }
