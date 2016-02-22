@@ -5,18 +5,13 @@
  */
 package com.kcl.keepitclean.test.policy;
 
-import org.junit.Test;
-import com.kcl.keepitclean.main.policy.Policy;
-import org.junit.Assert;
-import org.junit.runner.Runner;
-
 /**
  *
- * @author Rosie
+ * @author Huong
  */
 public class TestPolicy {
-    Policy testPolicy;
     
+<<<<<<< HEAD
     @Test
     public void testSetDefaultPolicy()
     {
@@ -148,4 +143,6 @@ public class TestPolicy {
        
                 
     }
+=======
+>>>>>>> parent of 38a21e1... update policy code and test
 }
