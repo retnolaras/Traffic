@@ -33,26 +33,13 @@ public class Policy {
     
     private SpeedLimit speedLimit;
     private TrafficLight trafficLight;
-<<<<<<< HEAD
-    private static Policy instance = new Policy();
-    
-private Policy(int[] userSpeedLimit, int[] userTrafficLight) //customised policy
-{
-    //TO DO LIST: EXCEPTION HANDLER
-    
-      speedLimit = new SpeedLimit(userSpeedLimit[0], userSpeedLimit[1], userSpeedLimit[2]);
-      trafficLight = new TrafficLight(userTrafficLight[0], userTrafficLight[1],userTrafficLight[2]);
-=======
     private static Policy instance;
->>>>>>> refs/remotes/retnolaras/master
     
     
-}
-
 private Policy(int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, int[] trafficLightTo) /* random generated policy*/
 {
     //TO-DO: EXCEPTION HANDLING 
-     int straightRoadLimit;
+    int straightRoadLimit;
      int curvyRoadLimit;
      int junctionLimit;
      int greenTiming;
@@ -75,43 +62,38 @@ private Policy(int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, 
 private Policy()  //default policy
       
 {
-  
-    speedLimit = new SpeedLimit(30,60,40); //Junction 30mph,  Straight Road 60mph, Curvy Road 40mph
-    trafficLight = new TrafficLight(30,5,10); //green 30s, amber 5s, red 10s)   
+  speedLimit = new SpeedLimit(30,60,40); //Junction 30mph,  Straight Road 60mph, Curvy Road 40mph
+  trafficLight = new TrafficLight(30,5,10); //green 30s, amber 5s, red 10s)   
 }
 
+private Policy(int[] userSpeedLimit, int[] userTrafficLight) //customised policy
+{
+    //TO DO LIST: EXCEPTION HANDLER
+    speedLimit = new SpeedLimit(userSpeedLimit[0], userSpeedLimit[1], userSpeedLimit[2]);
+    trafficLight = new TrafficLight(userTrafficLight[0], userTrafficLight[1],userTrafficLight[2]);
+    
+}
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> refs/remotes/retnolaras/master
 public static Policy setPolicy(int mode,int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, int[] trafficLightTo){
     
     //TO DO: EXCEPTION HANDLING
     
     //this.resetPolicy();
     instance = null;
-<<<<<<< HEAD
-    if (mode == 0)
-        instance = new Policy();
-    else if (mode == 1)
-        instance = new Policy(speedLimitFrom,trafficLightFrom);
-    else if (mode == 2)
-        instance = new Policy(speedLimitFrom, speedLimitTo,trafficLightFrom,trafficLightTo);
-     
-=======
     switch (mode) {
-        case (0):  //DEEFAULT POLICY
+        case 0:  //DEEFAULT POLICY
             instance = new Policy();
-        case (1):    //CUSTOMISED POLICY
+            break;
+        case 1:    //CUSTOMISED POLICY
             instance = new Policy(speedLimitFrom,trafficLightFrom);
-        case (2):   //RANDOM POLICY
+            break;
+        case 2:   //RANDOM POLICY
             instance = new Policy(speedLimitFrom, speedLimitTo,trafficLightFrom,trafficLightTo);
+            break;
         default:  //DEFAULT POLICY
             instance = new Policy();
+            break;
     }
->>>>>>> refs/remotes/retnolaras/master
   
     return instance;
 }
