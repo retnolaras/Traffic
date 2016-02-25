@@ -39,7 +39,7 @@ public class Policy {
 private Policy(int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, int[] trafficLightTo) /* random generated policy*/
 {
     //TO-DO: EXCEPTION HANDLING 
-    int straightRoadLimit;
+     int straightRoadLimit;
      int curvyRoadLimit;
      int junctionLimit;
      int greenTiming;
@@ -47,12 +47,12 @@ private Policy(int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, 
      int redTiming;
      Random generator = new Random();
      
-     junctionLimit = speedLimitFrom[0] + generator.nextInt(speedLimitTo[0]);
-     straightRoadLimit = speedLimitFrom[1] + generator.nextInt(speedLimitTo[1]);
-     curvyRoadLimit = speedLimitFrom[2] + generator.nextInt(speedLimitTo[2]);
-     greenTiming = trafficLightFrom[0] + generator.nextInt(trafficLightFrom[0]);
-     amberTiming = trafficLightFrom[1] + generator.nextInt(trafficLightFrom[1]);
-     redTiming = trafficLightFrom[2] + generator.nextInt(trafficLightFrom[2]);
+     junctionLimit = speedLimitFrom[0] + generator.nextInt(speedLimitTo[0] - speedLimitFrom[0] + 1 );
+     straightRoadLimit = speedLimitFrom[1] + generator.nextInt(speedLimitTo[1] - speedLimitFrom[1] + 1 );
+     curvyRoadLimit = speedLimitFrom[2] + generator.nextInt(speedLimitTo[2] - speedLimitFrom[2] + 1 ) ;
+     greenTiming = trafficLightFrom[0] + generator.nextInt(trafficLightFrom[0] - trafficLightFrom[0] + 1 );
+     amberTiming = trafficLightFrom[1] + generator.nextInt(trafficLightFrom[1] - trafficLightFrom[1] + 1 );
+     redTiming = trafficLightFrom[2] + generator.nextInt(trafficLightFrom[2] - trafficLightFrom[2] + 1 );
         
     speedLimit = new SpeedLimit(junctionLimit,straightRoadLimit,curvyRoadLimit);
     trafficLight = new TrafficLight(greenTiming,amberTiming,redTiming);

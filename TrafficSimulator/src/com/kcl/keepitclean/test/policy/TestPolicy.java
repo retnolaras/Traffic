@@ -97,12 +97,12 @@ public class TestPolicy {
             greenTime = testPolicy.getGreenTrafficLightTime();
             redTime = testPolicy.getRedTrafficLightTime();
             amberTime = testPolicy.getAmberTrafficLightTime();
-            Assert.assertTrue("Failure- speed limit for junction not in range", (speedLimitJunction >= minSpeedLimit[0]) && (speedLimitJunction <= maxSpeedLimit[0]) );
-            Assert.assertTrue("Failure- speed limit for straight road not in range", (speedLimitStraight >= minSpeedLimit[1]) && (speedLimitStraight <= maxSpeedLimit[1]) );
-            Assert.assertTrue("Failure- speed limit for curvy road not in range", (speedLimitStraight >= minSpeedLimit[2]) && (speedLimitStraight <= maxSpeedLimit[2]) );
-            Assert.assertTrue("Failure- speed limit for green light not in range", (greenTime >= minTrafficLight[0]) && (greenTime <= maxTrafficLight[0]) );
-            Assert.assertTrue("Failure- speed limit for amber light not in range", (amberTime >= minTrafficLight[1]) && (amberTime <= maxTrafficLight[1]) );
-            Assert.assertTrue("Failure- speed limit for red light not in range", (redTime >= minTrafficLight[2]) && (redTime <= maxTrafficLight[2]) );
+            Assert.assertTrue("Failure- speed limit for junction not in range: " + testPolicy.getJunctionSpeedLimit(), (speedLimitJunction >= minSpeedLimit[0]) && (speedLimitJunction <= maxSpeedLimit[0]) );
+            Assert.assertTrue("Failure- speed limit for straight road not in range: " + testPolicy.getStraightRoadSpeedLimit(), (speedLimitStraight >= minSpeedLimit[1]) && (speedLimitStraight <= maxSpeedLimit[1]) );
+            Assert.assertTrue("Failure- speed limit for curvy road not in range: " + testPolicy.getCurvyRoadSpeedLimit(), (speedLimitCurve >= minSpeedLimit[2]) && (speedLimitCurve <= maxSpeedLimit[2]) );
+            Assert.assertTrue(("Failure- speed limit for green light not in range: " + testPolicy.getGreenTrafficLightTime()), (greenTime >= minTrafficLight[0]) && (greenTime <= maxTrafficLight[0]) );
+            Assert.assertTrue("Failure- speed limit for amber light not in range: " + testPolicy.getAmberTrafficLightTime(), (amberTime >= minTrafficLight[1]) && (amberTime <= maxTrafficLight[1]) );
+            Assert.assertTrue("Failure- speed limit for red light not in range: " + testPolicy.getRedTrafficLightTime(), (redTime >= minTrafficLight[2]) && (redTime <= maxTrafficLight[2]) );
             
         }
                 
