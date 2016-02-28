@@ -32,7 +32,7 @@ public class Policy {
      */ 
     
     private SpeedLimit speedLimit;
-    private TrafficLight trafficLight;
+    private TrafficLightPolicy trafficLight;
     private static Policy instance;
     
     
@@ -55,7 +55,7 @@ private Policy(int[] speedLimitFrom, int[] speedLimitTo,int[] trafficLightFrom, 
      redTiming = trafficLightFrom[2] + generator.nextInt(trafficLightFrom[2] - trafficLightFrom[2] + 1 );
         
     speedLimit = new SpeedLimit(junctionLimit,straightRoadLimit,curvyRoadLimit);
-    trafficLight = new TrafficLight(greenTiming,amberTiming,redTiming);
+    trafficLight = new TrafficLightPolicy(greenTiming,amberTiming,redTiming);
     
 }
 
@@ -63,14 +63,14 @@ private Policy()  //default policy
       
 {
   speedLimit = new SpeedLimit(30,60,40); //Junction 30mph,  Straight Road 60mph, Curvy Road 40mph
-  trafficLight = new TrafficLight(30,5,10); //green 30s, amber 5s, red 10s)   
+  trafficLight = new TrafficLightPolicy(30,5,10); //green 30s, amber 5s, red 10s)   
 }
 
 private Policy(int[] userSpeedLimit, int[] userTrafficLight) //customised policy
 {
     //TO DO LIST: EXCEPTION HANDLER
     speedLimit = new SpeedLimit(userSpeedLimit[0], userSpeedLimit[1], userSpeedLimit[2]);
-    trafficLight = new TrafficLight(userTrafficLight[0], userTrafficLight[1],userTrafficLight[2]);
+    trafficLight = new TrafficLightPolicy(userTrafficLight[0], userTrafficLight[1],userTrafficLight[2]);
     
 }
 
