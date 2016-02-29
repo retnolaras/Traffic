@@ -9,16 +9,15 @@ package com.kcl.keepitclean.main.policy;
  *
  * @author Huong
  */
-public class TrafficLight {
+public class TrafficLightPolicy {
     public int green;
     public int amber;
     public int red;
 
     
-    public  TrafficLight(int greenTime, int amberTime, int redTime){
+    public  TrafficLightPolicy(int greenTime, int amberTime, int redTime){
         this.green = greenTime;
         this.amber = amberTime;
         this.red = redTime;    
 }
 }
-
