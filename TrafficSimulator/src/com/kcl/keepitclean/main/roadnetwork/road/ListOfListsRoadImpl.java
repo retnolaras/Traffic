@@ -76,7 +76,7 @@ public class ListOfListsRoadImpl implements Road {
 	 * getter and setter for the start coordinates
 	 * 
 	 */
-	public void setStartCoordinates(Point point) {
+	public void setStartCoordinate(Point point) {
 		this.startCoordinate = point;
 	}
 	public Point getStartCoordinate() {
