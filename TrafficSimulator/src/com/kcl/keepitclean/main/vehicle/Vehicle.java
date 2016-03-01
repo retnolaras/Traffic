@@ -1,11 +1,12 @@
 package com.kcl.keepitclean.main.vehicle;
 
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
+import java.awt.Point;
 
 public class Vehicle {
 
 	int speed;
-	private Point axom;
+	Point axom;
 	Point distance;
 	Point destination;
 	int acceleration;
@@ -14,8 +15,8 @@ public class Vehicle {
 	String colour;
 	Road roadinfo;	
 	
-	//MOVE ACTION
-	public Point move(Point posi, int speed, int acceleration, Direction direction){
+	//MOVE ACTION --> move this method to engine
+	/*public Point move(Point posi, int speed, int acceleration, Direction direction){
 		Point newposi;
 		newposi = addPoint(posi,speed,acceleration,direction);
 		return newposi;
@@ -41,7 +42,7 @@ public class Vehicle {
 		 }
 		
 		return added;
-	}
+	}*/
 
 	//car position
 	Point getAxom() {
