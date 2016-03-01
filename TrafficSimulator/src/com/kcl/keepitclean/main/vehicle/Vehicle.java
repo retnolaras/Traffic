@@ -1,6 +1,7 @@
 package com.kcl.keepitclean.main.vehicle;
 
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
+import java.awt.Point;
 
 public class Vehicle {
 
@@ -12,10 +13,10 @@ public class Vehicle {
 	int size[];
 	
 	String colour;
-	Road roadinfo;
+	Road roadinfo;	
 	
-	//MOVE ACTION
-	public Point move(Point posi, int speed, int acceleration, Direction direction){
+	//MOVE ACTION --> move this method to engine
+	/*public Point move(Point posi, int speed, int acceleration, Direction direction){
 		Point newposi;
 		newposi = addPoint(posi,speed,acceleration,direction);
 		return newposi;
@@ -41,6 +42,15 @@ public class Vehicle {
 		 }
 		
 		return added;
+	}*/
+
+	//car position
+	public Point getAxom() {
+		return axom;
+	}
+
+	public void setAxom(Point axom) {
+		this.axom = axom;
 	}
 	
 }

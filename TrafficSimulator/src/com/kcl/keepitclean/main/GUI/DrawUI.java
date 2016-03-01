@@ -18,12 +18,26 @@ public class DrawUI {
 public static void Draw(int[][] a, int min, int max){
     for(int i=0; i<a[0].length; i++){
     for(int j=0; j<a.length; j++){
-        switch (a[i][j]){
+         switch (a[i][j]){
+            case 2:
+               Rectangle blue= new Rectangle(50.0,50.0);
+               blue.setFill(Color.BLUE);
+               UIComponent.grid.add(blue,i,j);
+             break;
+            
             case 1:
                 //draw blue rectangle
-               Rectangle blue= new Rectangle(100.0,100.0);
-               UIComponent.leftPane.getChildren().add(blue);
+               Rectangle green= new Rectangle(50.0,50.0);
+               green.setFill(Color.GREEN);
+               UIComponent.grid.add(green,i,j);
+                break;
                 
+
+            default:
+                Rectangle white= new Rectangle(50.0,50.0);
+               white.setFill(Color.WHITE);
+               UIComponent.grid.add(white,i,j);
+                break;
              
         }
     }}    

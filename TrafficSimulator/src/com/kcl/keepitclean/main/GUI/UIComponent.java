@@ -25,6 +25,7 @@ public class UIComponent extends Application {
     public int tileMin=9;
     public int tileMax=9;
     public StackPane root = new StackPane();         
+    public static GridPane grid= new GridPane();
     public int[][] dataInput= new int[tileMin][tileMax]; //assumed external input
     public static StackPane rightPane= new StackPane(); // right frame to hold  components
     public static StackPane leftPane= new StackPane(); // left frame to hold simulation engine
@@ -42,6 +43,13 @@ public class UIComponent extends Application {
         primaryStage.show();
                 
         setLayout();
+        //sampleInput
+         dataInput [1][1]= 1;
+        dataInput [2][6]= 2;
+        dataInput [3][3]= 1;
+        dataInput [4][4]= 1;
+        dataInput [5][5]= 2;
+        dataInput [6][6]= 1;
         
         DrawUI.Draw(dataInput, tileMin, tileMax);
     }
@@ -54,7 +62,18 @@ public class UIComponent extends Application {
         HBox mainFrame= new HBox(); //the Main frame component.
         root.getChildren().add(mainFrame); //add it to the scene
                 
+         //defining number of rows and colums in grid view and setting their width
         
+        for (int i = 0; i < tileMax; i++) {
+            ColumnConstraints colConst = new ColumnConstraints();
+            colConst.setPercentWidth(100.0 / tileMax);
+            grid.getColumnConstraints().add(colConst);
+        }
+        for (int i = 0; i < tileMin; i++) {
+            RowConstraints rowConst = new RowConstraints();
+            rowConst.setPercentHeight(100.0 / tileMin);
+            grid.getRowConstraints().add(rowConst);         
+        }
         
         mainFrame.getChildren().addAll(leftPane,rightPane);
         
