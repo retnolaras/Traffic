@@ -45,11 +45,11 @@ public class Vehicle {
 	}*/
 
 	//car position
-	Point getAxom() {
+	public Point getAxom() {
 		return axom;
 	}
 
-	void setAxom(Point axom) {
+	public void setAxom(Point axom) {
 		this.axom = axom;
 	}
 	
