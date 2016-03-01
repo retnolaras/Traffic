@@ -37,13 +37,13 @@ public class UIComponent extends Application {
       //  StackPane root = new StackPane();         
         Scene scene = new Scene(root, 900, 900); //set up a window with these propotions
         
-        primaryStage.setTitle("Keep it Clean simulator"); //window title
+        primaryStage.setTitle("KeepItClean Traffic Simulator"); //window title
         primaryStage.setScene(scene);
         primaryStage.show();
                 
         setLayout();
         
-        drawUI.Draw(dataInput, tileMin, tileMax);
+        DrawUI.Draw(dataInput, tileMin, tileMax);
     }
     
     //class that takes in a 2d Array and shows it on the scree
@@ -59,16 +59,18 @@ public class UIComponent extends Application {
         mainFrame.getChildren().addAll(leftPane,rightPane);
         
         Rectangle leftR= new Rectangle(600.0, 900.0);
-        leftR.setFill(Color.WHITE);
+        leftR.setFill(Color.GREEN);
         Rectangle rightR= new Rectangle(300.0, 900.0);
-        rightR.setFill(Color.RED);
+        rightR.setFill(Color.GREY);
         rightPane.getChildren().add(rightR);
         leftPane.getChildren().add(leftR);
     
     
     };
     
-    
+    private void layoutSettings(){
+        
+    }
     /**
      * @param args the command line arguments
      */
