@@ -19,5 +19,4 @@ public class PrePlannedRouteJunction implements Junction {
 	public Set<LaneSection> produceRoute(Point endCoordinateOfCurrentRoad, Point startCoordinateOfNextRoad) {
 		return null;
 	}
-
 }
