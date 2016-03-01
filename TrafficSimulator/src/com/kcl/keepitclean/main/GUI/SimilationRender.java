@@ -11,6 +11,7 @@ import com.kcl.keepitclean.main.roadnetwork.laneSection.*;
 import com.kcl.keepitclean.main.roadnetwork.trafficLight.*;
 import com.kcl.keepitclean.main.vehicle.*;
 import com.kcl.keepitclean.main.simulatorengine.*;
+import java.awt.Point;
 import java.util.List;
 
 
@@ -24,19 +25,25 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.RED;
 import javafx.stage.Stage;
 
 /**
  *
  * @author rosiengo
  */
-public class SimilationRender extends Application {
+public class SimilationRender extends Application implements IRenderer {
     private GraphicsContext gc;
     private SimulatorEngine simulation;
     private List<Road> roads;
     private List<Vehicle> vehicles;
     private List<TrafficLightSection> trafficLights;
     
+   public SimilationRender (GraphicsContext gc, SimulatorEngine simulation)
+   {
+       this.gc = gc;
+       this.simulation = simulation;
+   }
     
     @Override
     public void start(Stage primaryStage) {
@@ -57,12 +64,10 @@ public class SimilationRender extends Application {
      * @param args the command line arguments
      */
     
-    public static void SimulationRender(GraphicsContext gc, SimulatorEngine simulation)
-    {
-        
-    }
+    
     
     //GENERATE FAKE DATA FOR TESTING
+    //TO BE REMOVED
     private void fakeData()
     {
       LaneFactory laneFactory =  new LaneFactory();
@@ -80,6 +85,10 @@ public class SimilationRender extends Application {
       @Override
       public void run() {
         clear();
+        fakeData();  /*TO BE REMOVED */
+        drawRoads(roads);
+        drawVehicles(vehicles);
+        //drawTrafficLights(trafficLights);
     
       }
     }
@@ -99,8 +108,8 @@ public class SimilationRender extends Application {
         parameters: List of Roads, that is provided by simulation engine
         */
        int LANE_SIZE = 3;
-       java.awt.Point rightStartPoint;
-       java.awt.Point rightEndPoint;
+       Point rightStartPoint;
+       Point rightEndPoint;
        int rightStartPointX;
        int rightStartPointY;
        int rightEndPointX;
@@ -109,9 +118,9 @@ public class SimilationRender extends Application {
        
        for (Road road: roads)
        {
-        java.awt.Point leftStartPoint = road.getStartCoordinates();
+        Point leftStartPoint = road.getStartCoordinates();
         //Point rightStartPoint = road.getRightStartPoint();
-        java.awt.Point leftEndPoint = road.getEndCoordinates();
+        Point leftEndPoint = road.getEndCoordinates();
         
         //calculate right starting point
         rightStartPointX = leftStartPoint.x + road.getNumberOfLanes()* LANE_SIZE;
@@ -145,10 +154,14 @@ public class SimilationRender extends Application {
         if (Car.class.isInstance(vehicle)) {
         //    Double angle = vehicle.getDirectionVector().angleVectorDegree();
         //gc.getFill(BLUE);
-        //gc.drawImage(img, vehicle., VEHICLE_WIDTH, VEHICLE_WIDTH, VEHICLE_WIDTH);
+          gc.setFill(Color.BLUE);
+          gc.fillRect(vehicle.getAxom().x, vehicle.getAxom().y, vehicle.getAxom().x + VEHICLE_WIDTH, vehicle.getAxom().y + VEHICLE_LENGTH);
+      //gc.drawImage(img, vehicle., VEHICLE_WIDTH, VEHICLE_WIDTH, VEHICLE_WIDTH);
         //drawRotatedImage(gc, car, angle, (vehicle.getPosition().getX() - car.getWidth() / 2), (vehicle.getPosition().getY() - car.getHeight() / 2));
       } else if (Emergency.class.isInstance(vehicle)) {
-         // gc.getFill(RED);
+          gc.setFill(Color.RED);
+          gc.fillRect(vehicle.getAxom().x, vehicle.getAxom().y, vehicle.getAxom().x + VEHICLE_WIDTH, vehicle.getAxom().y + VEHICLE_LENGTH);
+        
         //Double angle = vehicle.getDirectionVector().angleVectorDegree();
         //drawRotatedImage(gc, bus, angle, (vehicle.getPosition().getX() - bus.getWidth() / 2), (vehicle.getPosition().getY() - bus.getHeight() / 2));
       }

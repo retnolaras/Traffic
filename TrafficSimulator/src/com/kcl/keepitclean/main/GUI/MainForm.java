@@ -62,12 +62,21 @@ public class MainForm extends Application {
   
   public ToggleGroup policySelector;
   
+  
+   protected IRenderer renderer;  //TO BE REMOVED- TEST RENDERER
+   
+  
     @Override
     public void start(Stage primaryStage) {
+        
+       
+
+        
         GridPane leftPane = new GridPane();
         GridPane rightPane = new GridPane();
+        StackPane root = new StackPane();
         
-        Button btn = new Button();
+        /*Button btn = new Button();
         btn.setText("Say 'Hello World'");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -79,17 +88,35 @@ public class MainForm extends Application {
         
         StackPane root = new StackPane();
         root.getChildren().add(btn);
-        
+        */
         Scene scene = new Scene(root, 300, 250);
         
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Simulation!");
         primaryStage.setScene(scene);
+        /* TO BE REMOVED- TEST RENDERER */
+        if (renderer != null) {
+            renderer.render();  
+        /* END TEST RENDERER */
+    }
         primaryStage.show();
     }
 
+    
+     /* START TEST RENDERER- TO BE REMOVED*/
+    public IRenderer getRenderer() {
+        return renderer;
+    }
+
+     public void setRenderer(IRenderer renderer) {
+        this.renderer = renderer;
+    }
+    /* END TEST RENDERER */
+     
+     
     /**
      * @param args the command line arguments
      */
+    
     
     public static void main(String[] args) {
         launch(args);
