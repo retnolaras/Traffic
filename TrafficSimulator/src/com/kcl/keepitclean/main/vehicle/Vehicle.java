@@ -5,14 +5,14 @@ import com.kcl.keepitclean.main.roadnetwork.road.Road;
 public class Vehicle {
 
 	int speed;
-	Point axom;
+	private Point axom;
 	Point distance;
 	Point destination;
 	int acceleration;
 	int size[];
 	
 	String colour;
-	Road roadinfo;
+	Road roadinfo;	
 	
 	//MOVE ACTION
 	public Point move(Point posi, int speed, int acceleration, Direction direction){
@@ -41,6 +41,15 @@ public class Vehicle {
 		 }
 		
 		return added;
+	}
+
+	//car position
+	Point getAxom() {
+		return axom;
+	}
+
+	void setAxom(Point axom) {
+		this.axom = axom;
 	}
 	
 }
