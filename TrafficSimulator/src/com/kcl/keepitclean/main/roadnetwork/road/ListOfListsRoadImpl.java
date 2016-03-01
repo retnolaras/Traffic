@@ -3,6 +3,7 @@ package com.kcl.keepitclean.main.roadnetwork.road;
 import java.awt.Point;
 import java.util.List;
 
+import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
 
 
@@ -26,7 +27,9 @@ public class ListOfListsRoadImpl implements Road {
 	private Point startCoordinate;
 	private Point endCoordinate;
 	
+	private Junction endOfRoad;
 	
+
 	public ListOfListsRoadImpl(int length, int numberOfLanes) {
 		this.length = length;
 		this.numberOfLanes = numberOfLanes;
@@ -95,5 +98,16 @@ public class ListOfListsRoadImpl implements Road {
 	
 	public void setSpeedLimit(int speedLimit) {
 		this.speedLimit = speedLimit;
+	}
+	
+	/*
+	 * Getter and setter for the Junction that is at the end of each Road Object
+	 */
+	public Junction getEndOfRoad() {
+		return endOfRoad;
+	}
+
+	public void setEndOfRoad(Junction endOfRoad) {
+		this.endOfRoad = endOfRoad;
 	}
 }
