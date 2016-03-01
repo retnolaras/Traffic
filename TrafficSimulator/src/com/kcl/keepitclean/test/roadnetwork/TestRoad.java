@@ -186,7 +186,7 @@ public class TestRoad {
 	@Test
 	public void testSetStartCoordinatesForRoad() {
 		Point point = new Point(1,1);
-		((ListOfListsRoadImpl) singleLaneRoad).setStartCoordinates(point);
+		((ListOfListsRoadImpl) singleLaneRoad).setStartCoordinate(point);
 		int expected = 1;
 		assertEquals(expected, singleLaneRoad.getStartCoordinates().getX(), DELTA);
 		assertEquals(expected, singleLaneRoad.getStartCoordinates().getY(), DELTA);
@@ -195,7 +195,7 @@ public class TestRoad {
 	@Test
 	public void testSetEndCoordinatesForRoad() {
 		Point point = new Point(221, 564);
-		((ListOfListsRoadImpl) twoLaneRoad).setStartCoordinates(point);
+		((ListOfListsRoadImpl) twoLaneRoad).setStartCoordinate(point);
 		int expectedX = 221;
 		int expectedY = 564;
 		assertEquals(expectedX, twoLaneRoad.getStartCoordinates().getX(), DELTA);
