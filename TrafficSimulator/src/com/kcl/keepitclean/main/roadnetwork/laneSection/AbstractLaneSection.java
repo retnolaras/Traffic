@@ -47,4 +47,7 @@ public abstract class AbstractLaneSection implements LaneSection {
 		this.vehicleOnSection = null;
 	}
 
+	public Vehicle getVehicle() {
+		return vehicleOnSection;
+	}
 }
