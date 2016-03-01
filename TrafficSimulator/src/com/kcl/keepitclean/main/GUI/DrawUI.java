@@ -12,10 +12,10 @@ import com.kcl.keepitclean.main.GUI.UIComponent;
  *
  * Draws elements on screen based on the 2d mapping array
  */
-public class DrawUI {
+public class drawUI {
   
 //if array has a 1, draw a 100 by 100 triangle, a 2, then make it blue.
-public static void Draw(int[][] a, int min, int max){
+public void Draw(int[][] a, int min, int max){
     for(int i=0; i<a[0].length; i++){
     for(int j=0; j<a.length; j++){
          switch (a[i][j]){
