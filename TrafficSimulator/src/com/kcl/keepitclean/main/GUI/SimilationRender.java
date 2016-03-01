@@ -151,26 +151,23 @@ public class SimilationRender extends Application implements IRenderer {
       
       for (Vehicle vehicle:vehicles)
       {
-        if (Car.class.isInstance(vehicle)) {
+        if (Car.class.isInstance(vehicle)) 
         //    Double angle = vehicle.getDirectionVector().angleVectorDegree();
         //gc.getFill(BLUE);
           gc.setFill(Color.BLUE);
-          gc.fillRect(vehicle.getAxom().x, vehicle.getAxom().y, vehicle.getAxom().x + VEHICLE_WIDTH, vehicle.getAxom().y + VEHICLE_LENGTH);
+        else if (Emergency.class.isInstance(vehicle))
+           gc.setFill(Color.RED);
+        
+        gc.fillRect(vehicle.getAxom().x, vehicle.getAxom().y, vehicle.getAxom().x + VEHICLE_WIDTH, vehicle.getAxom().y + VEHICLE_LENGTH);
       //gc.drawImage(img, vehicle., VEHICLE_WIDTH, VEHICLE_WIDTH, VEHICLE_WIDTH);
         //drawRotatedImage(gc, car, angle, (vehicle.getPosition().getX() - car.getWidth() / 2), (vehicle.getPosition().getY() - car.getHeight() / 2));
-      } else if (Emergency.class.isInstance(vehicle)) {
-          gc.setFill(Color.RED);
-          gc.fillRect(vehicle.getAxom().x, vehicle.getAxom().y, vehicle.getAxom().x + VEHICLE_WIDTH, vehicle.getAxom().y + VEHICLE_LENGTH);
         
         //Double angle = vehicle.getDirectionVector().angleVectorDegree();
         //drawRotatedImage(gc, bus, angle, (vehicle.getPosition().getX() - bus.getWidth() / 2), (vehicle.getPosition().getY() - bus.getHeight() / 2));
       }
-      }
+      
     }
-    public void drawTrafficLight(List<TrafficLightSection>  trafficLights)
-    {
-        
-    }
+    
     
     
     
