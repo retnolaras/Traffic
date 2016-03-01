@@ -28,7 +28,6 @@ public class ListOfListsRoadImpl implements Road {
 	private Point endCoordinate;
 	
 	private Junction endOfRoad;
-	
 
 	public ListOfListsRoadImpl(int length, int numberOfLanes) {
 		this.length = length;
