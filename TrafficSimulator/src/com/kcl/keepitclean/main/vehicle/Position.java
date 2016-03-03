@@ -1,4 +1,8 @@
 
+/*
+* Defines car position based on Lane, Road and LaneSection Indexes 
+*/
+
 package com.kcl.keepitclean.main.vehicle;
 public class Position (){
 	int road=0;
