@@ -5,19 +5,50 @@
  */
 package com.kcl.keepitclean.main.policy;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.Timer;
+
 /**
  *
  * @author Huong
  */
 public class TrafficLightPolicy {
-    public int green;
-    public int amber;
-    public int red;
+	private Timer trLightTimer = new Timer(1500, null);
+	private TrafficLightColour colour;
+		
+		
+	public TrafficLightPolicy()
+	{	
+		setColour(TrafficLightColour.GREEN);
+		
+		//this.start();
+	}
+		
+	
+	public void setColour(TrafficLightColour colour) {
+		this.colour = colour;
+	}
 
-    
-    public  TrafficLightPolicy(int greenTime, int amberTime, int redTime){
-        this.green = greenTime;
-        this.amber = amberTime;
-        this.red = redTime;    
-}
+	
+	public TrafficLightColour getColour() {
+		if(colour!=null){
+			
+		return colour;}
+		else {
+		
+			return null;}
+	}
+	
+	public void actionPerformed (ActionEvent e)
+		{	
+			if(getColour()==TrafficLightColour.RED)
+			{
+				setColour(TrafficLightColour.GREEN);
+			}
+			else if(getColour()==TrafficLightColour.RED)
+			{
+				setColour(TrafficLightColour.GREEN);
+			}
+		} 
 }
