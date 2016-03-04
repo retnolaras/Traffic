@@ -4,8 +4,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kcl.keepitclean.main.roadnetwork.road.Junction;
+import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
+import com.kcl.keepitclean.main.vehicle.Position;
 import com.kcl.keepitclean.main.vehicle.Vehicle;
 
 public class Context implements IContext {
@@ -47,19 +48,51 @@ public class Context implements IContext {
 		return res;
 	}
 	
-	/*public Set<Vehicle> getVehicleSet(){
-		 return vehicleSet;
-	}*/
+	public List<Vehicle> getVehicleList(){
+		 return vehicleList;
+	}
+	
+	@Override
+	public void moveVehicle(Vehicle vehicle, Position oldPos, Position newPos){
+		Point p;
 		
+		Road road = roadList.get(newPos.getRoad());
+		
+		if(oldPos.getRoad() == newPos.getRoad()){
+			//need to find the start point first
+			double x = road.getStartCoordinates().getX();
+			for(int i = 0; i < oldPos.getLaneSection(); i++){
+				x += 50;
+			}
+			for(int i = 0; i < newPos.getLaneSection(); i++){
+				x += 50;
+			}
+			p = new Point((int)x, (int)road.getStartCoordinates().getY());
+		} else {
+			//need to find the start point first
+			double x = road.getStartCoordinates().getX();
+			for(int i = 0; i < newPos.getLaneSection(); i++){
+				x += 50;
+			}
+			p = new Point((int)x, (int)road.getStartCoordinates().getY());
+		}
+		
+		vehicle.setAxom(p);
+			
+	}
+	
 	@Override
 	public void moveVehicle(int roadIndex, int laneIndex, int sectionIndex, 
-							Vehicle vehicle, int lanesToMove) {
+							Vehicle vehicle, int fromThisLane , int toThisLane) {
 		
 		Road road = roadList.get(roadIndex);
 		
 		//need to find the start point first
 		double x = road.getStartCoordinates().getX();
-		for(int i = 0; i < sectionIndex; i++){
+		for(int i = 0; i < fromThisLane; i++){
+			x += 50;
+		}
+		for(int i = 0; i < toThisLane; i++){
 			x += 50;
 		}
 		Point p = new Point((int)x, (int)road.getStartCoordinates().getY());
