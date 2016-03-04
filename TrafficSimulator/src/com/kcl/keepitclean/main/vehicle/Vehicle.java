@@ -11,6 +11,7 @@ public class Vehicle {
 	Point destination;
 	int acceleration;
 	int size[];
+	Position Pos;
 	
 	String colour;
 	Road roadinfo;	
@@ -44,7 +45,7 @@ public class Vehicle {
 		return added;
 	}*/
 
-	//car position
+	//car absolute position
 	public Point getAxom() {
 		return axom;
 	}
@@ -53,6 +54,13 @@ public class Vehicle {
 		this.axom = axom;
 	}
 	
+	//car relative position
+	public void setPos(Position p){
+		p= Pos;
+	}
+	public Position getPos(){
+		return Pos;
+	}
 }
 
 //END MOVE ACTION
@@ -68,11 +76,6 @@ public class Vehicle {
 //METRIC
 
 //END METRIC
-
-
-
-
-
 
 
 
