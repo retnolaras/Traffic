@@ -91,7 +91,7 @@ public class SimulatorEngine implements Observer{
 		
 		
 		for ( int i ; i< vehicleList.size(); i++){
-			if (vehicleList.get(i).lookAhead(5));
+			if (vehicleList.ge lookAhead(vehicleList.get(i).getPos(), 5));
 			else {
 				
 				Position  newPos;
@@ -115,11 +115,41 @@ private boolean NotEmpty(Position startingPos2) {
 	// (()r).
 	List<LaneSection> lanes= ((ListOfListsRoadImpl)r).getLaneSectionsOfRoad().get(startingPos2.getLane());
 	if (lanes.get(startingPos2.getLaneSection()).hasVehicleOnSeciton())
-		return true;
+		return false;
 	
-	return false;
+	return true;
 }
 	}
+
+/*
+* check the five positions ahead of the car
+*/
+
+ private bool LookAhead (Position p , int a){
+   int lane= p.getLane();
+   int LaneSection= P.getLaneSection();
+   int Road = p.getRoad();
+   Road R;
+   R=RoadList.get(Road);
+   Position Pos=p;
+   
+    for ( int x= LaneSection; x< LaneSection+5 || x<R.size(); x++){
+         
+      Pos.update(Road, Lane, LaneSection+1);
+      if (NotEmpty(Pos)) return false;
+
+      x++;
+
+
+      }
+   
+
+   
+
+
+Return true;
+ 
+}
 
 /*
  * Adds a car and its position to the Active Cars List 
