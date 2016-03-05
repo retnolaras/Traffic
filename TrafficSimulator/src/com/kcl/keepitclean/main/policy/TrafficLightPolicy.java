@@ -14,15 +14,23 @@ import javax.swing.Timer;
  * @author Huong
  */
 public class TrafficLightPolicy {
-	private Timer trLightTimer = new Timer(1500, null);
-	private TrafficLightColour colour;
+	public Timer trLightTimer = new Timer(1500, null);
+	public TrafficLightColour colour;
+	public int green;
+	public int amber;
+	public int red;
+
+	    
+	public  TrafficLightPolicy(int greenTime, int amberTime, int redTime){
+	        this.green = greenTime;
+	        this.amber = amberTime;
+	        this.red = redTime;    
+	}
 		
 		
 	public TrafficLightPolicy()
 	{	
 		setColour(TrafficLightColour.GREEN);
-		
-		//this.start();
 	}
 		
 	
@@ -36,7 +44,6 @@ public class TrafficLightPolicy {
 			
 		return colour;}
 		else {
-		
 			return null;}
 	}
 	
@@ -46,9 +53,9 @@ public class TrafficLightPolicy {
 			{
 				setColour(TrafficLightColour.GREEN);
 			}
-			else if(getColour()==TrafficLightColour.RED)
+			else if(getColour()==TrafficLightColour.GREEN)
 			{
-				setColour(TrafficLightColour.GREEN);
+				setColour(TrafficLightColour.RED);
 			}
 		} 
 }
