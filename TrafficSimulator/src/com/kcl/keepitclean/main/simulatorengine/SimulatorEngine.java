@@ -91,18 +91,15 @@ public class SimulatorEngine implements Observer{
 		
 		
 		for ( int i ; i< vehicleList.size(); i++){
-			if (vehicleList.get(i).lookAhead(5));
+			if (LookAhead(vehicleList.get(i).getPos(), 5));
 			else {
 				
 				Position  newPos;
 				newPos.update(i, vehicleList.get(i).getPos().getLane(), vehicleList.get(i).getPos().getLaneSection()+1) ;
 				context.moveVehicle(vehicleList.get(i), vehicleList.get(i).getPos(), newPos);
+				}
 			}
 		}
-		
-		
-
-}
 
 
 
@@ -115,11 +112,33 @@ private boolean NotEmpty(Position startingPos2) {
 	// (()r).
 	List<LaneSection> lanes= ((ListOfListsRoadImpl)r).getLaneSectionsOfRoad().get(startingPos2.getLane());
 	if (lanes.get(startingPos2.getLaneSection()).hasVehicleOnSeciton())
-		return true;
+		return false;
 	
-	return false;
+	return true;
 }
-	}
+	
+
+/*
+* check the five positions ahead of the car
+*/
+
+		 private boolean LookAhead (Position p , int a){
+		   int LaneIndex= p.getLane();
+		   int LaneSection= p.getLaneSection();
+		   int Road = p.getRoad();
+		   Road R;
+		   R = roadList.get(Road);
+		   Position Pos=p;
+                   List<LaneSection> Lane =((ListOfListsRoadImpl)R).getLaneSectionsOfRoad().get(LaneIndex);
+		   
+		    for ( int x= LaneSection; x< LaneSection+5 || x<Lane.size(); x++){
+		         
+		      Pos.update(Road, Lane, LaneSection+1);
+		      if (NotEmpty(Pos)) return false;
+		      x++;
+		      }		   
+		return true;		 
+		}
 
 /*
  * Adds a car and its position to the Active Cars List 
@@ -143,8 +162,6 @@ private void generateCar(Position p){
 float chance = r.nextFloat();
  if (chance <= freq) {
 	 Vehicle Car = vehicleFactory.getVehicle(VehicleType.CAR);
-	AddToActive( Car, StartingPos);
+	AddToActive(Car, StartingPos);
 	}
-	
 }
-
