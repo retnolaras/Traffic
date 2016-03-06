@@ -130,7 +130,7 @@ private boolean NotEmpty(Position startingPos2) {
 		   R = roadList.get(Road);
 		   Position Pos=p;
 		   
-		    for ( int x= LaneSection; x< LaneSection+5 || x<R.size(); x++){
+		    for ( int x= LaneSection; x< LaneSection+5 || x<Lane.size(); x++){
 		         
 		      Pos.update(Road, Lane, LaneSection+1);
 		      if (NotEmpty(Pos)) return false;
