@@ -28,46 +28,50 @@ import com.kcl.keepitclean.main.vehicle.VehicleType;
 
 public class SimulatorEngine implements Observer{
 	
-	private Object simulatorGUI; // instance of the GUY
+	//private Object simulatorGUI; // instance of the GUY
 	static float freq = 0.10f ;
 	private Random r;
 	Position StartingPos;
 	private VehicleFactory vehicleFactory;
 	private List<Vehicle> vehicleList;
 	
-	private LaneFactory laneFactory;
+	//private LaneFactory laneFactory;
 	
-	private RoadFactory roadFactory;
+	//private RoadFactory roadFactory;
 	private List<Road> roadList;
 	private Context context;
 	
 	public SimulatorEngine(Object simulatorGUI) {
 		
-		this.simulatorGUI = simulatorGUI;
+	//	this.simulatorGUI = simulatorGUI;
 		
 		vehicleFactory = new VehicleFactory();
-		laneFactory =  new LaneFactory();
-		roadFactory =  new RoadFactory(laneFactory);
+	//	laneFactory =  new LaneFactory();
+		//roadFactory =  new RoadFactory(laneFactory);
 	}
 	
 	public void init(){
 		
 		SessionManager.getInstance().addObserver(this);
 		
-		roadList.add(roadFactory.produceRoad("", 5, 5));
-		Policy.getPolicyInstance();
-		vehicleList.add(vehicleFactory.getVehicle(VehicleType.CAR));
+	//	roadList.add(roadFactory.produceRoad("", 5, 5));
+	//	Policy.getPolicyInstance();
+	//	vehicleList.add(vehicleFactory.getVehicle(VehicleType.CAR));
 		
 		//StartingPos.update(0,0,0);
 		//lood policy variables: add them into RoadList 
 		roadList = context.getRoadList();
-		
+		System.out.println("Got Road List"); //test line
+
 		
 		
 	}
 	
 	public void startSimulation(){
 		SessionManager.getInstance().startSession();
+		
+		System.out.println("Session Started"); //test line
+
 	}
 
 //	private updateSimulationStatus(){
@@ -76,6 +80,8 @@ public class SimulatorEngine implements Observer{
 	
 	int iteration = 0;
 	
+	@SuppressWarnings("null")
+	@Override
 	public void update(Observable o, Object arg) {
 	
 		
@@ -84,17 +90,21 @@ public class SimulatorEngine implements Observer{
 			Vehicle Car;
 			Car = vehicleFactory.getVehicle(VehicleType.CAR);
 			AddToActive( Car, StartingPos);
+		/	System.out.println("First Car Generated"); //test line
+
 		}
 			else if (NotEmpty(StartingPos)){
 				generateCar(StartingPos); //generates car at starting point with factor  'freq'
+				System.out.println("Car Generated"); //test line
+
 			}
 		
-		
-		for ( int i ; i< vehicleList.size(); i++){
+		// iterate on all cars, move car only if LookAhead is true
+		for ( int i = 0 ; i< vehicleList.size(); i++){
 			if (LookAhead(vehicleList.get(i).getPos(), 5));
 			else {
 				
-				Position  newPos;
+				Position  newPos = null;
 				newPos.update(i, vehicleList.get(i).getPos().getLane(), vehicleList.get(i).getPos().getLaneSection()+1) ;
 				context.moveVehicle(vehicleList.get(i), vehicleList.get(i).getPos(), newPos);
 				}
@@ -133,7 +143,7 @@ private boolean NotEmpty(Position startingPos2) {
 		   
 		    for ( int x= LaneSection; x< LaneSection+5 || x<Lane.size(); x++){
 		         
-		      Pos.update(Road, Lane, LaneSection+1);
+		      Pos.update(Road, LaneIndex, LaneSection+1);
 		      if (NotEmpty(Pos)) return false;
 		      x++;
 		      }		   
@@ -164,4 +174,6 @@ float chance = r.nextFloat();
 	 Vehicle Car = vehicleFactory.getVehicle(VehicleType.CAR);
 	AddToActive(Car, StartingPos);
 	}
-}
+
+}}
+
