@@ -9,6 +9,8 @@
 
 package com.kcl.keepitclean.main.simulatorengine;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -31,35 +33,46 @@ public class SimulatorEngine implements Observer{
 	//private Object simulatorGUI; // instance of the GUY
 	static float freq = 0.10f ;
 	private Random r;
-	Position StartingPos;
+	Position startingPos;
 	private VehicleFactory vehicleFactory;
 	private List<Vehicle> vehicleList;
 	
-	//private LaneFactory laneFactory;
+	private Point startCoord = new Point(0,0);
+	private Point endCoord = new Point(0,100);
+
+	private LaneFactory laneFactory;
 	
-	//private RoadFactory roadFactory;
+	private RoadFactory roadFactory;
 	private List<Road> roadList;
 	private Context context;
+	private Road masterRoad;
 	
 	public SimulatorEngine(Object simulatorGUI) {
 		
 	//	this.simulatorGUI = simulatorGUI;
-		
+		roadList = new ArrayList<>();
+		vehicleList = new ArrayList<>();
+		startingPos= new Position();
+		r= new Random();
+		context = new Context(roadList); 
+
 		vehicleFactory = new VehicleFactory();
-	//	laneFactory =  new LaneFactory();
-		//roadFactory =  new RoadFactory(laneFactory);
+		laneFactory =  new LaneFactory();
+		roadFactory =  new RoadFactory(laneFactory);
 	}
 	
 	public void init(){
 		
-		SessionManager.getInstance().addObserver(this);
+		
+		
 		
 	//	roadList.add(roadFactory.produceRoad("", 5, 5));
 	//	Policy.getPolicyInstance();
 	//	vehicleList.add(vehicleFactory.getVehicle(VehicleType.CAR));
 		
-		//StartingPos.update(0,0,0);
+		startingPos.update(0,0,0);
 		//lood policy variables: add them into RoadList 
+		generateRoad();
 		roadList = context.getRoadList();
 		System.out.println("Got Road List"); //test line
 
@@ -67,8 +80,22 @@ public class SimulatorEngine implements Observer{
 		
 	}
 	
+	private void generateRoad() {
+		masterRoad =roadFactory.produceRoad("listoflistsroadimpl", 50, 1);
+		((ListOfListsRoadImpl)masterRoad).setEndCoordinate(endCoord); 
+		((ListOfListsRoadImpl)masterRoad).setStartCoordinate(startCoord); 
+
+		context.addRoad(masterRoad);
+		
+	}
+
 	public void startSimulation(){
+
 		SessionManager.getInstance().startSession();
+		init();
+		SessionManager.getInstance().addObserver(this);
+
+		//init();
 		
 		System.out.println("Session Started"); //test line
 
@@ -88,27 +115,29 @@ public class SimulatorEngine implements Observer{
 		// Generate Car 
 		if (iteration==0){
 			Vehicle Car;
-			Car = vehicleFactory.getVehicle(VehicleType.CAR);
-			AddToActive( Car, StartingPos);
-		/	System.out.println("First Car Generated"); //test line
+			Car = vehicleFactory.getVehicle(VehicleType.CAR); //generate a car 
+			AddToActive( Car, startingPos); //add to Active List of cars
+			
+			System.out.println("First Car Generated"); //test line
 
+		}	
+		else if (NotEmpty(startingPos)){
+			generateCar(startingPos); //generates car at starting point with factor  'freq'
+			System.out.println("Car Generated"); //test line
 		}
-			else if (NotEmpty(StartingPos)){
-				generateCar(StartingPos); //generates car at starting point with factor  'freq'
-				System.out.println("Car Generated"); //test line
-
-			}
 		
 		// iterate on all cars, move car only if LookAhead is true
 		for ( int i = 0 ; i< vehicleList.size(); i++){
-			if (LookAhead(vehicleList.get(i).getPos(), 5));
-			else {
+			if (lookAhead(vehicleList.get(i).getPos(), 5)){
 				
-				Position  newPos = null;
+				Position  newPos = new Position();
 				newPos.update(i, vehicleList.get(i).getPos().getLane(), vehicleList.get(i).getPos().getLaneSection()+1) ;
 				context.moveVehicle(vehicleList.get(i), vehicleList.get(i).getPos(), newPos);
+				System.out.println("Car Moved"); //test line
+
 				}
 			}
+		iteration++;
 		}
 
 
@@ -122,9 +151,9 @@ private boolean NotEmpty(Position startingPos2) {
 	// (()r).
 	List<LaneSection> lanes= ((ListOfListsRoadImpl)r).getLaneSectionsOfRoad().get(startingPos2.getLane());
 	if (lanes.get(startingPos2.getLaneSection()).hasVehicleOnSeciton())
-		return false;
+		return true;
 	
-	return true;
+	return false;
 }
 	
 
@@ -132,7 +161,7 @@ private boolean NotEmpty(Position startingPos2) {
 * check the five positions ahead of the car
 */
 
-		 private boolean LookAhead (Position p , int a){
+		 private boolean lookAhead (Position p , int a){
 		   int LaneIndex= p.getLane();
 		   int LaneSection= p.getLaneSection();
 		   int Road = p.getRoad();
@@ -141,7 +170,7 @@ private boolean NotEmpty(Position startingPos2) {
 		   Position Pos=p;
                    List<LaneSection> Lane =((ListOfListsRoadImpl)R).getLaneSectionsOfRoad().get(LaneIndex);
 		   
-		    for ( int x= LaneSection; x< LaneSection+5 || x<Lane.size(); x++){
+		    for ( int x= LaneSection; x< LaneSection+a && x<Lane.size(); x++){
 		         
 		      Pos.update(Road, LaneIndex, LaneSection+1);
 		      if (NotEmpty(Pos)) return false;
@@ -172,7 +201,8 @@ private void generateCar(Position p){
 float chance = r.nextFloat();
  if (chance <= freq) {
 	 Vehicle Car = vehicleFactory.getVehicle(VehicleType.CAR);
-	AddToActive(Car, StartingPos);
+	 Car.setPos(p);
+	AddToActive(Car, p);
 	}
 
 }}
