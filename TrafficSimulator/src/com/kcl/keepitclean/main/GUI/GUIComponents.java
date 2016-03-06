@@ -5,6 +5,8 @@
  */
 package com.kcl.keepitclean.main.GUI;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,12 +15,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
 
 /**
  *
@@ -33,7 +38,7 @@ public class GUIComponents extends BorderPane{
   protected HBox policyOptionsBox;  
   protected VBox policySettings;
   protected Label lblSelectPolicy = new Label("Select Policy Option:");
-  protected ToggleGroup policiesOptions;
+  final protected ToggleGroup policiesOptions = new ToggleGroup();
   protected RadioButton defaultPolicy = new RadioButton("Default");
   protected RadioButton randomPolicy = new RadioButton("Random");
   protected RadioButton customisedPolicy = new RadioButton("Customised") ;
@@ -48,24 +53,24 @@ public class GUIComponents extends BorderPane{
   protected Label lblAmber = new Label("Amber Light Duration:");
   protected Label lblRed = new Label("Red Light Duration:");
   
-  protected TextField txtMinStraight = new TextField();
-  protected TextField txtMaxStraight  = new TextField() ;
-  protected TextField txtMinJunction = new TextField();
-  protected TextField txtMaxJunction  = new TextField() ;  
-  protected TextField txtMinCurvy = new TextField();
-  protected TextField txtMaxCurvy  = new TextField() ;
-  protected TextField txtMinGreen = new TextField();
-  protected TextField txtMaxGreen = new TextField();
-  protected TextField txtMinAmber = new TextField();
-  protected TextField txtMaxAmber = new TextField();
-  protected TextField txtMinRed = new TextField();
-  protected TextField txtMaxRed = new TextField();
+  protected TextField txtMinStraight = new IntegerTextField();
+  protected TextField txtMaxStraight  = new IntegerTextField() ;
+  protected TextField txtMinJunction = new IntegerTextField();
+  protected TextField txtMaxJunction  = new IntegerTextField() ;  
+  protected TextField txtMinCurvy = new IntegerTextField();
+  protected TextField txtMaxCurvy  = new IntegerTextField() ;
+  protected TextField txtMinGreen = new IntegerTextField();
+  protected TextField txtMaxGreen = new IntegerTextField();
+  protected TextField txtMinAmber = new IntegerTextField();
+  protected TextField txtMaxAmber = new IntegerTextField();
+  protected TextField txtMinRed = new IntegerTextField();
+  protected TextField txtMaxRed = new IntegerTextField();
   
   
   protected Label lblDensity = new Label("Traffic Density:");
   protected ComboBox txtDensity = new ComboBox();
   protected Label lblDuration = new Label("Session Duration (s):");
-  protected TextField txtDuration =  new TextField();
+  protected TextField txtDuration =  new IntegerTextField();
   
   
 
@@ -82,8 +87,10 @@ public class GUIComponents extends BorderPane{
   public StackPane setSimulationPanel(){
     simulationPane = new StackPane();       
     simulationPane.setStyle("-fx-background-color: darkgreen");
+    
     simulationPane.getChildren().add(canvas);
     gcontext = canvas.getGraphicsContext2D();
+    
     return simulationPane;        
   }
   
@@ -99,7 +106,37 @@ public class GUIComponents extends BorderPane{
       defaultPolicy.setToggleGroup(policiesOptions);
       randomPolicy.setToggleGroup(policiesOptions);
       customisedPolicy.setToggleGroup(policiesOptions);
+      defaultPolicy.setUserData(0);
+      randomPolicy.setUserData(1);
+      customisedPolicy.setUserData(2);
+      
       defaultPolicy.setSelected(true);
+      disableMin();
+      disableMax();
+      policiesOptions.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+        @Override
+        public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+            switch (Integer.parseInt(policiesOptions.getSelectedToggle().getUserData().toString())) {
+                case 0:
+                    disableMin();
+                    disableMax();
+                    break;
+                case 1:
+                    enableMin();
+                    enableMax();
+                    break;
+                case 2:
+                    enableMin();
+                    disableMax();
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+      }
+      );
+    
       policyOptionsBox = new HBox(8);
       policyOptionsBox.getChildren().addAll(defaultPolicy, randomPolicy, customisedPolicy);
       policySettings = new VBox();
@@ -159,18 +196,10 @@ public class GUIComponents extends BorderPane{
       
   }
   
-  
-     public int getSelectedPolicy()
+    
+    public int getSelectedPolicy()
     {
-        int selected = 0;
-        if (defaultPolicy.isSelected())
-            selected = 0;
-        else if (customisedPolicy.isSelected())
-            selected = 1;
-        else if (randomPolicy.isSelected())
-            selected = 2;
-        
-        return selected;
+        return Integer.parseInt(policiesOptions.getSelectedToggle().getUserData().toString());
     }
     
     public int[] getMinSpeedLimitSettings()
@@ -222,6 +251,47 @@ public class GUIComponents extends BorderPane{
     {
         return txtDensity.getValue().toString();
     }
+    
+    //disable Mininum policy value textfields
+    public void disableMin(){
+        txtMinStraight.setDisable(true);
+        txtMinJunction.setDisable(true);
+        txtMinCurvy.setDisable(true);
+        txtMinGreen.setDisable(true);
+        txtMinAmber.setDisable(true);
+        txtMinRed.setDisable(true);
+               
+    }
+    
+    //disable maximum policy value textfields
+    public void disableMax(){
+        txtMaxStraight.setDisable(true);
+        txtMaxJunction.setDisable(true);
+        txtMaxCurvy.setDisable(true);
+        txtMaxGreen.setDisable(true);
+        txtMaxAmber.setDisable(true);
+        txtMaxRed.setDisable(true);
+    }
+    
+    public void enableMin(){
+        txtMinStraight.setDisable(false);
+        txtMinJunction.setDisable(false);
+        txtMinCurvy.setDisable(false);
+        txtMinGreen.setDisable(false);
+        txtMinAmber.setDisable(false);
+        txtMinRed.setDisable(false);
+               
+    }
+    
+    public void enableMax(){
+        txtMaxStraight.setDisable(false);
+        txtMaxJunction.setDisable(false);
+        txtMaxCurvy.setDisable(false);
+        txtMaxGreen.setDisable(false);
+        txtMaxAmber.setDisable(false);
+        txtMaxRed.setDisable(false);
+    }
+    
  
   
 }
