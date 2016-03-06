@@ -6,7 +6,7 @@ public class TrafficSimulatorApplication {
 	Object sGUI;
 	
 	public TrafficSimulatorApplication() {
-		sGUI = new Object();
+	//	sGUI = new Object();
 		sEngine = new SimulatorEngine(sGUI);
 	}
 	
