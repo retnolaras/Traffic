@@ -123,12 +123,13 @@ private boolean NotEmpty(Position startingPos2) {
 */
 
 		 private boolean LookAhead (Position p , int a){
-		   int Lane= p.getLane();
+		   int LaneIndex= p.getLane();
 		   int LaneSection= p.getLaneSection();
 		   int Road = p.getRoad();
 		   Road R;
 		   R = roadList.get(Road);
 		   Position Pos=p;
+                   List<LaneSection> Lane =((ListOfListsRoadImpl)R).getLaneSectionsOfRoad().get(LaneIndex);
 		   
 		    for ( int x= LaneSection; x< LaneSection+5 || x<Lane.size(); x++){
 		         
@@ -164,4 +165,3 @@ float chance = r.nextFloat();
 	AddToActive(Car, StartingPos);
 	}
 }
-
