@@ -11,7 +11,7 @@ public class Vehicle {
 	Point destination;
 	int acceleration;
 	int size[];
-	Position Pos;
+	Position pos;
 	
 	String colour;
 	Road roadinfo;	
@@ -56,10 +56,10 @@ public class Vehicle {
 	
 	//car relative position
 	public void setPos(Position p){
-		p= Pos;
+		 pos = p;
 	}
 	public Position getPos(){
-		return Pos;
+		return pos;
 	}
 }
 
