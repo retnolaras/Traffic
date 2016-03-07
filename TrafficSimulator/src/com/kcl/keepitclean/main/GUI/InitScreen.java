@@ -5,6 +5,7 @@
  */
 package com.kcl.keepitclean.main.GUI;
 
+import com.kcl.keepitclean.main.policy.Policy;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import com.kcl.keepitclean.main.roadnetwork.road.RoadFactory;
@@ -28,16 +29,52 @@ public class InitScreen extends Application {
     private SimulationRender renderer;
     private GUIComponents pscene;
     private SimulatorEngine simulation;
+    private SimulationSettings simulationSettings;
     
     @Override
     public void start(Stage primaryStage) {
         
         pscene = new GUIComponents();
-        simulation = new SimulatorEngine(null);
         
-        renderer = new SimulationRender(pscene.gcontext, simulation);
-        //roads.add(roadFactory.produceRoad("", 100, 100));
-        renderer.render();
+        
+        
+        pscene.btnStart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //Disable Start button and enable Terminate button
+                pscene.btnTerminate.setDisable(false);
+                pscene.btnStart.setDisable(true);
+                
+                //get simulation settings
+                simulationSettings = new SimulationSettings(pscene.getSelectedPolicy(), pscene.getMinSpeedLimitSettings(),
+                                         pscene.getMaxSpeedLimitSettings(), pscene.getMinTrafficLightSettings(), pscene.getMaxTrafficLightSettings(), 
+                                         pscene.getTrafficDesity(), pscene.getSessionDuration());
+                
+                //pass simulation settings to simulation engin
+                //Start the simulation Session
+                simulation = new SimulatorEngine(null);        
+                renderer = new SimulationRender(pscene.gcontext, simulation);
+                //roads.add(roadFactory.produceRoad("", 100, 100));
+                renderer.render();
+            
+            }
+      
+        }
+        );
+        
+        pscene.btnTerminate.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                //Terminate Simulation Session
+                //Show Report
+                //Enable Start button
+                pscene.btnStart.setDisable(false);
+                //Disable Terminate Button
+                pscene.btnTerminate.setDisable(true);
+            }
+        }
+        
+        );
 
                 
         Scene scene = new Scene(pscene,1300 ,700 );
