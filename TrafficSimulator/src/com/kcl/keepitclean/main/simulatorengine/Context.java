@@ -10,6 +10,9 @@ import com.kcl.keepitclean.main.vehicle.Position;
 import com.kcl.keepitclean.main.vehicle.Vehicle;
 
 public class Context implements IContext {
+	private static int MARGIN_X = 2;
+	private static int MARGIN_Y = 3;
+	
 	private List<Vehicle> vehicleList;
 	private List<Junction> junctionList;
 	
@@ -31,9 +34,9 @@ public class Context implements IContext {
 		 return roadList;
 	}
 	
-	public List<Road> getRoadList(List<Road> roadList){
+	/*public List<Road> getRoadList(List<Road> roadList){
 		 return roadList;
-	}	
+	}*/	
 	
 	public boolean addJunction(Junction junction){
 		return junctionList.add(junction);
@@ -53,7 +56,7 @@ public class Context implements IContext {
 	}
 	
 	@Override
-	public void moveVehicle(Vehicle vehicle, Position oldPos, Position newPos){
+	public Point moveVehicle(Vehicle vehicle, Position oldPos, Position newPos){
 		Point p;
 		
 		Road road = roadList.get(newPos.getRoad());
@@ -67,18 +70,22 @@ public class Context implements IContext {
 			for(int i = 0; i < newPos.getLaneSection(); i++){
 				x += 50;
 			}
-			p = new Point((int)x, (int)road.getStartCoordinates().getY());
+			//adding 2 to x to place the car in the middle of the lane
+			p = new Point((int)x + MARGIN_X,
+							(int)road.getStartCoordinates().getY() + MARGIN_Y);
 		} else {
 			//need to find the start point first
 			double x = road.getStartCoordinates().getX();
 			for(int i = 0; i < newPos.getLaneSection(); i++){
 				x += 50;
 			}
-			p = new Point((int)x, (int)road.getStartCoordinates().getY());
+			//adding 2 to x to place the car in the middle of the lane
+			p = new Point((int)x + MARGIN_X,
+							(int)road.getStartCoordinates().getY() + MARGIN_Y);
 		}
 		
 		vehicle.setAxom(p);
-			
+		return p;		
 	}
 	
 	@Override

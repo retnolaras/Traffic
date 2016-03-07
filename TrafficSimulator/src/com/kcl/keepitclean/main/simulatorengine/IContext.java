@@ -1,5 +1,9 @@
 package com.kcl.keepitclean.main.simulatorengine;
 
+import java.awt.Point;
+import java.util.List;
+
+import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import com.kcl.keepitclean.main.vehicle.Position;
 import com.kcl.keepitclean.main.vehicle.Vehicle;
 
@@ -11,5 +15,10 @@ public interface IContext {
 	void moveVehicle(int roadIndex, int laneIndex, int sectionIndex, Vehicle vehicle, int fromThisLane,
 			int toThisLane);
 	
-	void moveVehicle(Vehicle vehicle, Position oldPos, Position newPos);
+	public Point moveVehicle(Vehicle vehicle, Position oldPos, Position newPos);
+	
+	public List<Road> getRoadList();
+	
+	public List<Vehicle> getVehicleList();
+	
 }
