@@ -9,6 +9,8 @@
 
 package com.kcl.keepitclean.main.simulatorengine;
 
+import com.kcl.keepitclean.main.GUI.IRenderer;
+import com.kcl.keepitclean.main.GUI.SimulationSettings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -43,10 +45,13 @@ public class SimulatorEngine implements Observer{
 	private List<Road> roadList;
 	private Context context;
 	private Road masterRoad;
+        private IRenderer renderer;
+        private SimulationSettings settings;
 	
-	public SimulatorEngine(Object simulatorGUI) {
+	public SimulatorEngine(SimulationSettings settings) {
 		
 	//	this.simulatorGUI = simulatorGUI;
+                this.settings = settings;
 		roadList = new ArrayList<>();
 		vehicleList = new ArrayList<>();
 		startingPos= new Position();
@@ -89,7 +94,9 @@ public class SimulatorEngine implements Observer{
 		SessionManager.getInstance().startSession();
 		
 		init();
-		
+		if (renderer != null) {
+                    renderer.render();
+                }
 		System.out.println("Session Started"); //test line
 
 	}
@@ -198,5 +205,15 @@ float chance = r.nextFloat();
 	AddToActive(Car, p);
 	}
 
-}}
+}
+
+public IRenderer getRenderer() {
+  return renderer;
+}
+public void setRenderer(IRenderer renderer) {
+ this.renderer = renderer;
+}
+
+
+}
 
