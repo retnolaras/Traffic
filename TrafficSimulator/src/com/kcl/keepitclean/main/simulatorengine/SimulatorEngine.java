@@ -9,8 +9,7 @@
 
 package com.kcl.keepitclean.main.simulatorengine;
 
-import com.kcl.keepitclean.main.GUI.IRenderer;
-import com.kcl.keepitclean.main.GUI.SimulationSettings;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -31,27 +30,27 @@ import com.kcl.keepitclean.main.vehicle.VehicleType;
 
 public class SimulatorEngine implements Observer{
 	
-	//private Object simulatorGUI; // instance of the GUY
-	static float freq = 0.10f ;
-	private Random r;
-	Position startingPos;
-	private VehicleFactory vehicleFactory;
-	private List<Vehicle> vehicleList;
-	
-	
-	private LaneFactory laneFactory;
-	
-	private RoadFactory roadFactory;
-	private List<Road> roadList;
-	private Context context;
-	private Road masterRoad;
-        private IRenderer renderer;
-        private SimulationSettings settings;
-	
-	public SimulatorEngine(SimulationSettings settings) {
+	//private Object simulatorGUI; // instance of the GUI
+		static float freq = 0.10f ;
+		private Random r;
+		Position startingPos;
+		private VehicleFactory vehicleFactory;
+		private List<Vehicle> vehicleList;
 		
-	//	this.simulatorGUI = simulatorGUI;
-                this.settings = settings;
+		private Point startCoord = new Point(0,0);
+		private Point endCoord = new Point(0,100);
+
+		private LaneFactory laneFactory;
+		
+		private RoadFactory roadFactory;
+		private List<Road> roadList;
+		private Context context;
+		private Road masterRoad;
+
+	
+	public SimulatorEngine(Object simulatorGUI) {
+		
+		// this.simulatorGUI = simulatorGUI;
 		roadList = new ArrayList<>();
 		vehicleList = new ArrayList<>();
 		startingPos= new Position();
@@ -61,11 +60,11 @@ public class SimulatorEngine implements Observer{
 		vehicleFactory = new VehicleFactory();
 		laneFactory =  new LaneFactory();
 		roadFactory =  new RoadFactory(laneFactory);
+		
 	}
 	
 	public void init(){
 		
-		SessionManager.getInstance().addObserver(this);
 		
 		
 		
@@ -74,7 +73,7 @@ public class SimulatorEngine implements Observer{
 	//	vehicleList.add(vehicleFactory.getVehicle(VehicleType.CAR));
 		
 		startingPos.update(0,0,0);
-		//lood policy variables: add them into RoadList 
+		//load policy variables: add them into RoadList 
 		generateRoad();
 		roadList = context.getRoadList();
 		System.out.println("Got Road List"); //test line
@@ -85,6 +84,8 @@ public class SimulatorEngine implements Observer{
 	
 	private void generateRoad() {
 		masterRoad =roadFactory.produceRoad("listoflistsroadimpl", 50, 1);
+		((ListOfListsRoadImpl)masterRoad).setEndCoordinate(endCoord); 
+		((ListOfListsRoadImpl)masterRoad).setStartCoordinate(startCoord);
 		context.addRoad(masterRoad);
 		
 	}
@@ -92,11 +93,9 @@ public class SimulatorEngine implements Observer{
 	public void startSimulation(){
 		
 		SessionManager.getInstance().startSession();
-		
-		init();
-		if (renderer != null) {
-                    renderer.render();
-                }
+		init();		
+		SessionManager.getInstance().addObserver(this);
+
 		System.out.println("Session Started"); //test line
 
 	}
@@ -107,7 +106,6 @@ public class SimulatorEngine implements Observer{
 	
 	int iteration = 0;
 	
-	@SuppressWarnings("null")
 	@Override
 	public void update(Observable o, Object arg) {
 	
@@ -136,8 +134,7 @@ public class SimulatorEngine implements Observer{
 				System.out.println("Car Moved"); //test line
 
 				}
-			}
-		iteration++;
+			}		iteration++;
 		}
 
 
@@ -205,15 +202,5 @@ float chance = r.nextFloat();
 	AddToActive(Car, p);
 	}
 
-}
-
-public IRenderer getRenderer() {
-  return renderer;
-}
-public void setRenderer(IRenderer renderer) {
- this.renderer = renderer;
-}
-
-
-}
+}}
 
