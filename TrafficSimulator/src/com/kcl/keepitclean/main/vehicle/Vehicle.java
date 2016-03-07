@@ -4,7 +4,7 @@ import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import java.awt.Point;
 
 public class Vehicle {
-
+	static int CarID = 0;
 	int speed;
 	Point axom;
 	Point distance;
@@ -12,6 +12,7 @@ public class Vehicle {
 	int acceleration;
 	int size[];
 	Position pos;
+	int UCarID;
 	
 	String colour;
 	Road roadinfo;	
@@ -60,6 +61,9 @@ public class Vehicle {
 	}
 	public Position getPos(){
 		return pos;
+	}
+	public int getID() {
+		return UCarID;
 	}
 }
 
