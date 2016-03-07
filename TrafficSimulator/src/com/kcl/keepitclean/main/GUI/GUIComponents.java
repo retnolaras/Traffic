@@ -204,46 +204,78 @@ public class GUIComponents extends BorderPane{
     
     public int[] getMinSpeedLimitSettings()
     {
+        
         int[] speedLimits = new int[3];
-        speedLimits[1] = Integer.parseInt(txtMinJunction.getText());
-        speedLimits[2] = Integer.parseInt(txtMinStraight.getText());
-        speedLimits[3] = Integer.parseInt(txtMinCurvy.getText());
-        return speedLimits;
+        int selected = getSelectedPolicy();
+        if (selected == 1 || selected == 2)
+        {
+            speedLimits[1] = Integer.parseInt(txtMinJunction.getText());
+            speedLimits[2] = Integer.parseInt(txtMinStraight.getText());
+            speedLimits[3] = Integer.parseInt(txtMinCurvy.getText());
+            return speedLimits;
+        }
+        else 
+            return null;
+        
               
     }
     
     public int[] getMaxSpeedLimitSettings()
     {
+        
         int[] speedLimits = new int[3];
-        speedLimits[1] = Integer.parseInt(txtMaxJunction.getText());
-        speedLimits[2] = Integer.parseInt(txtMaxStraight.getText());
-        speedLimits[3] = Integer.parseInt(txtMaxCurvy.getText());
-        return speedLimits;
+        int selected = getSelectedPolicy();
+        if (selected == 1) 
+        {
+            speedLimits[1] = Integer.parseInt(txtMaxJunction.getText());
+            speedLimits[2] = Integer.parseInt(txtMaxStraight.getText());
+            speedLimits[3] = Integer.parseInt(txtMaxCurvy.getText());
+            return speedLimits;
+        }
+        else 
+            return null;
               
     }
     
     public int[] getMinTrafficLightSettings()
     {
         int[] trafficLights = new int[3];
-        trafficLights [1] = Integer.parseInt(txtMinGreen.getText());
-        trafficLights [2] = Integer.parseInt(txtMinAmber.getText());
-        trafficLights [3] = Integer.parseInt(txtMinRed.getText());
-        return trafficLights;
+        int selected = getSelectedPolicy();
+        if (selected == 1 || selected == 2)
+        {
+            trafficLights [1] = Integer.parseInt(txtMinGreen.getText());
+            trafficLights [2] = Integer.parseInt(txtMinAmber.getText());
+            trafficLights [3] = Integer.parseInt(txtMinRed.getText());
+            return trafficLights;
+        }
+        else 
+            return null;
               
     }
     public int[] getMaxTrafficLightSettings()
     {
         int[] trafficLights = new int[3];
+        int selected = getSelectedPolicy();
+        
+        if (selected == 1) 
+        {
         trafficLights [1] = Integer.parseInt(txtMaxGreen.getText());
         trafficLights [2] = Integer.parseInt(txtMaxAmber.getText());
         trafficLights [3] = Integer.parseInt(txtMaxRed.getText());
         return trafficLights;
+        }
+        else
+            return null;
               
     }
     
     public int getSessionDuration()
     {
-        return Integer.parseInt(txtDuration.getText());
+        if (txtDuration.getText().isEmpty())
+            return 60;
+        else 
+            return Integer.parseInt(txtDuration.getText());
+        
     }
  
   
