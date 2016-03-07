@@ -119,7 +119,7 @@ public int getCurvyRoadSpeedLimit(){
     
 }
 public int getGreenTrafficLightTime(){
-     return this.trafficLight.getGreen();
+     return this.trafficLight.green;
  }
 public int getAmberTrafficLightTime(){
     return this.trafficLight.amber;
