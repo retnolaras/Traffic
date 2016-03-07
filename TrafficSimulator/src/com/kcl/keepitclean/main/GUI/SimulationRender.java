@@ -64,11 +64,11 @@ public class SimulationRender  implements IRenderer {
       @Override
       public void run() {
         clear();
-        roads = simulation.roadList;
-        vehicles = simulation.vehicleList;
-        //drawRoads();
-        //drawVehicles();
-        drawTest();
+        roads = simulation.getContext().getRoadList();
+        vehicles = simulation.getContext().getVehicleList();
+        drawRoads();
+        drawVehicles();
+        //drawTest();
         //drawTrafficLights(trafficLights);
     
       }
@@ -93,7 +93,6 @@ public class SimulationRender  implements IRenderer {
        for (Road road: roads)
        {
         Point leftStartPoint = road.getStartCoordinates();
-        Point leftEndPoint = road.getEndCoordinates();
         
         
         //draw road
@@ -119,8 +118,6 @@ public class SimulationRender  implements IRenderer {
     //DRAW VEHICLES
     public void drawVehicles()
     {
-      int VEHICLE_WIDTH = 2;
-      int VEHICLE_LENGTH = 2;
       Point leftStartPoint;
       Point rightStartPoint;
       Point leftEndPoint;
