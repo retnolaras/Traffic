@@ -52,12 +52,13 @@ public class InitScreen extends Application {
                 
                 //pass simulation settings to simulation engin
                 //Start the simulation Session
-                simulation = new SimulatorEngine(null);   
+                simulation = new SimulatorEngine(simulationSettings);   
                 renderer = new SimulationRender(pscene.gcontext, simulation);
                 simulation.setRenderer(renderer);
+                simulation.startSimulation();
                 
                 //roads.add(roadFactory.produceRoad("", 100, 100));
-                renderer.render();
+                //renderer.render();
             
             }
       
