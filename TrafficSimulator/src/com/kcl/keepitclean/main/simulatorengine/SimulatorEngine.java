@@ -50,7 +50,7 @@ public class SimulatorEngine implements Observer{
 	
 	public SimulatorEngine(Object simulatorGUI) {
 		
-	//	this.simulatorGUI = simulatorGUI;
+		// this.simulatorGUI = simulatorGUI;
 		roadList = new ArrayList<>();
 		vehicleList = new ArrayList<>();
 		startingPos= new Position();
@@ -60,11 +60,11 @@ public class SimulatorEngine implements Observer{
 		vehicleFactory = new VehicleFactory();
 		laneFactory =  new LaneFactory();
 		roadFactory =  new RoadFactory(laneFactory);
+		
 	}
 	
 	public void init(){
 		
-		SessionManager.getInstance().addObserver(this);
 		
 		
 		
@@ -73,7 +73,7 @@ public class SimulatorEngine implements Observer{
 	//	vehicleList.add(vehicleFactory.getVehicle(VehicleType.CAR));
 		
 		startingPos.update(0,0,0);
-		//lood policy variables: add them into RoadList 
+		//load policy variables: add them into RoadList 
 		generateRoad();
 		roadList = context.getRoadList();
 		System.out.println("Got Road List"); //test line
@@ -93,9 +93,9 @@ public class SimulatorEngine implements Observer{
 	public void startSimulation(){
 		
 		SessionManager.getInstance().startSession();
-		
-		init();
-		
+		init();		
+		SessionManager.getInstance().addObserver(this);
+
 		System.out.println("Session Started"); //test line
 
 	}
@@ -134,8 +134,7 @@ public class SimulatorEngine implements Observer{
 				System.out.println("Car Moved"); //test line
 
 				}
-			}
-		iteration++;
+			}		iteration++;
 		}
 
 
