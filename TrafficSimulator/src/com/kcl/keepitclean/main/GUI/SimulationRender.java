@@ -8,21 +8,15 @@ package com.kcl.keepitclean.main.GUI;
 import com.kcl.keepitclean.main.policy.Policy;
 import com.kcl.keepitclean.main.roadnetwork.road.*;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.*;
-import com.kcl.keepitclean.main.roadnetwork.trafficLight.*;
 import com.kcl.keepitclean.main.vehicle.*;
 import com.kcl.keepitclean.main.simulatorengine.*;
 import java.awt.Point;
 import java.util.List;
 
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.RED;
@@ -32,39 +26,21 @@ import javafx.stage.Stage;
  *
  * @author rosiengo
  */
-public class SimilationRender extends Application implements IRenderer {
+public class SimulationRender  implements IRenderer {
     private GraphicsContext gc;
     private SimulatorEngine simulation;
     private List<Road> roads;
     private List<Vehicle> vehicles;
-    private List<TrafficLightSection> trafficLights;
-    
-   public SimilationRender (GraphicsContext gc, SimulatorEngine simulation)
+    private Stage stage;
+        
+   public SimulationRender (GraphicsContext gc, SimulatorEngine simulation)
    {
        this.gc = gc;
        this.simulation = simulation;
+       this.stage = stage;       
    }
     
-    @Override
-    public void start(Stage primaryStage) {
-        
-        
-        
-        StackPane root = new StackPane();
-       // root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    
-    
+     
     
     //GENERATE FAKE DATA FOR TESTING
     //TO BE REMOVED
@@ -73,7 +49,7 @@ public class SimilationRender extends Application implements IRenderer {
       LaneFactory laneFactory =  new LaneFactory();
       RoadFactory roadFactory =  new RoadFactory(laneFactory);
       VehicleFactory vehicleFactory = new VehicleFactory();
-      roads.add(roadFactory.produceRoad("", 5, 5));
+      roads.add(roadFactory.produceRoad("", 100, 100));
       vehicles.add(vehicleFactory.getVehicle(VehicleType.CAR));
 	
     }
@@ -85,9 +61,8 @@ public class SimilationRender extends Application implements IRenderer {
       @Override
       public void run() {
         clear();
-        fakeData();  /*TO BE REMOVED */
         drawRoads(roads);
-        drawVehicles(vehicles);
+       // drawVehicles(vehicles);
         //drawTrafficLights(trafficLights);
     
       }
@@ -98,7 +73,7 @@ public class SimilationRender extends Application implements IRenderer {
 
     /*Clear canvas before painting updated components*/
     private void clear() {
-        gc.clearRect(0, 0, 700, 700);
+        gc.clearRect(0, 0, 900, 600);
     }
     //DRAW ROADS
     public  void drawRoads(List<Road> roads)
@@ -115,7 +90,7 @@ public class SimilationRender extends Application implements IRenderer {
        int rightEndPointX;
        int rightEndPointY;
        
-       
+       /*
        for (Road road: roads)
        {
         Point leftStartPoint = road.getStartCoordinates();
@@ -133,10 +108,17 @@ public class SimilationRender extends Application implements IRenderer {
         rightEndPoint = new java.awt.Point(rightEndPointX, rightEndPointY);
         
         //draw road
-        gc.setFill(Color.GRAY);
-        gc.fillPolygon(new double[]{leftStartPoint.getX(), leftEndPoint.getX(), rightEndPoint.getX(), rightStartPoint.getX()}, new double[]{leftStartPoint.getY(), leftEndPoint.getY(), rightEndPoint.getY(), rightStartPoint.getY()}, 4);
-    
-       }
+        //gc.setFill(Color.GRAY);
+        //gc.fillPolygon(new double[]{leftStartPoint.getX(), leftEndPoint.getX(), rightEndPoint.getX(), rightStartPoint.getX()}, new double[]{leftStartPoint.getY(), leftEndPoint.getY(), rightEndPoint.getY(), rightStartPoint.getY()}, 4);
+                        
+       }*/
+       //test- TO BE REMOVED
+        gc.setFill(Color.DARKGREY);
+        gc.fillRect(350, 0, 100,800);
+        gc.setFill(Color.DARKGREY);
+        gc.fillRect(100, 250, 600,100);
+        
+        
     }
     
     //DRAW VEHICLES
@@ -169,10 +151,6 @@ public class SimilationRender extends Application implements IRenderer {
     }
     
     
-    
-    
-    public static void main(String[] args) {
-        launch(args);
-    }
+
     
 }
