@@ -25,6 +25,10 @@ import javafx.stage.Stage;
  *
  * @author rosiengo
  */
+/*
+TO DO LIST:
+VALIDATION FOR TEXTFIELDS
+*/
 public class InitScreen extends Application {
     private SimulationRender renderer;
     private GUIComponents pscene;
@@ -74,6 +78,8 @@ public class InitScreen extends Application {
                 pscene.btnStart.setDisable(false);
                 //Disable Terminate Button
                 pscene.btnTerminate.setDisable(true);
+                renderer.clear();
+                
             }
         }
         

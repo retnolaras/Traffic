@@ -4,17 +4,11 @@
  * and open the template in the editor.
  */
 package com.kcl.keepitclean.main.policy;
-
-import java.awt.event.ActionEvent;
-
-import javax.swing.Timer;
-
 /**
  *
  * @author Huong
  */
 public class TrafficLightPolicy {
-	public Timer trLightTimer = new Timer(1500, null);
 	public TrafficLightColour colour;
 	public int green;
 	public int amber;
@@ -26,36 +20,9 @@ public class TrafficLightPolicy {
 	        this.amber = amberTime;
 	        this.red = redTime;    
 	}
-		
-		
-	public TrafficLightPolicy()
-	{	
-		setColour(TrafficLightColour.GREEN);
-	}
-		
-	
-	public void setColour(TrafficLightColour colour) {
-		this.colour = colour;
-	}
+
 
 	
-	public TrafficLightColour getColour() {
-		if(colour!=null){
-			
-		return colour;}
-		else {
-			return null;}
-	}
 	
-	public void actionPerformed (ActionEvent e)
-		{	
-			if(getColour()==TrafficLightColour.RED)
-			{
-				setColour(TrafficLightColour.GREEN);
-			}
-			else if(getColour()==TrafficLightColour.GREEN)
-			{
-				setColour(TrafficLightColour.RED);
-			}
-		} 
+	
 }

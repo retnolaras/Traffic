@@ -63,7 +63,7 @@ private Policy()  //default policy
       
 {
   speedLimit = new SpeedLimit(30,60,40); //Junction 30mph,  Straight Road 60mph, Curvy Road 40mph
-  trafficLight = new TrafficLightPolicy(30,5,10); //green 30s, amber 5s, red 10s)   
+  trafficLight = new TrafficLightPolicy(5,1,5); //green 5 steps, amber 1 step, red 5 steps)   
 }
 
 private Policy(int[] userSpeedLimit, int[] userTrafficLight) //customised policy

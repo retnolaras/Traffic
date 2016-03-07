@@ -10,6 +10,7 @@ import com.kcl.keepitclean.main.roadnetwork.road.*;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.*;
 import com.kcl.keepitclean.main.vehicle.*;
 import com.kcl.keepitclean.main.simulatorengine.*;
+import com.kcl.keepitclean.main.utils.Constant;
 import java.awt.Point;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class SimulationRender  implements IRenderer {
     private List<Road> roads;
     private List<Vehicle> vehicles;
     private Stage stage;
+    Constant constant = new Constant();
+   
         
    public SimulationRender (GraphicsContext gc, SimulatorEngine simulation)
    {
@@ -61,8 +64,11 @@ public class SimulationRender  implements IRenderer {
       @Override
       public void run() {
         clear();
-        drawRoads(roads);
-       // drawVehicles(vehicles);
+        roads = simulation.getContext().getRoadList();
+        vehicles = simulation.getContext().getVehicleList();
+        drawRoads();
+        drawVehicles();
+        //drawTest();
         //drawTrafficLights(trafficLights);
     
       }
@@ -72,64 +78,50 @@ public class SimulationRender  implements IRenderer {
   }
 
     /*Clear canvas before painting updated components*/
-    private void clear() {
-        gc.clearRect(0, 0, 900, 600);
+    public void clear() {
+        gc.clearRect(0, 0, 800, 600);
     }
     //DRAW ROADS
-    public  void drawRoads(List<Road> roads)
+    public  void drawRoads()
     {
         
         /* draw list of roads generated from simulation engine 
         parameters: List of Roads, that is provided by simulation engine
         */
-       int LANE_SIZE = 3;
-       Point rightStartPoint;
-       Point rightEndPoint;
-       int rightStartPointX;
-       int rightStartPointY;
-       int rightEndPointX;
-       int rightEndPointY;
+      
        
-       /*
        for (Road road: roads)
        {
         Point leftStartPoint = road.getStartCoordinates();
-        //Point rightStartPoint = road.getRightStartPoint();
-        Point leftEndPoint = road.getEndCoordinates();
         
-        //calculate right starting point
-        rightStartPointX = leftStartPoint.x + road.getNumberOfLanes()* LANE_SIZE;
-        rightStartPointY = leftStartPoint.y;
-        rightStartPoint = new java.awt.Point(rightStartPointX, rightStartPointY);
-        
-        //calculate right end point
-        rightEndPointX = leftEndPoint.x + road.getNumberOfLanes()* LANE_SIZE;
-        rightEndPointY = leftEndPoint.y;
-        rightEndPoint = new java.awt.Point(rightEndPointX, rightEndPointY);
         
         //draw road
-        //gc.setFill(Color.GRAY);
-        //gc.fillPolygon(new double[]{leftStartPoint.getX(), leftEndPoint.getX(), rightEndPoint.getX(), rightStartPoint.getX()}, new double[]{leftStartPoint.getY(), leftEndPoint.getY(), rightEndPoint.getY(), rightStartPoint.getY()}, 4);
-                        
-       }*/
-       //test- TO BE REMOVED
+        gc.setFill(Color.DARKGRAY);
+        gc.fillRect(leftStartPoint.x * constant.PIXELS, leftStartPoint.y * constant.PIXELS, road.getNumberOfLanes()* constant.LANE_SIZE, road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT );
+       }
+                       
+    }
+    
+    //TEST - TO BE REMOVED
+    public void drawTest()
+    {
         gc.setFill(Color.DARKGREY);
-        gc.fillRect(350, 0, 100,800);
+        gc.fillRect(350, 0, 60,900);
         gc.setFill(Color.DARKGREY);
-        gc.fillRect(100, 250, 600,100);
-        
-        
+        gc.fillRect(100, 250, 600,60);
+        gc.setFill(Color.RED);
+        gc.fillRect(370, 0, 20, 20);
+        gc.setFill(Color.BLUE);
+        gc.fillRect(370, 30, 20, 20);
     }
     
     //DRAW VEHICLES
-    public void drawVehicles(List<Vehicle> vehicles)
+    public void drawVehicles()
     {
-      int VEHICLE_WIDTH = 1;
-      int VEHICLE_LENGTH = 2;
-      java.awt.Point leftStartPoint;
-      java.awt.Point rightStartPoint;
-      java.awt.Point leftEndPoint;
-      java.awt.Point rightEndPoint;
+      Point leftStartPoint;
+      Point rightStartPoint;
+      Point leftEndPoint;
+      Point rightEndPoint;
       
       for (Vehicle vehicle:vehicles)
       {
@@ -140,12 +132,7 @@ public class SimulationRender  implements IRenderer {
         else if (Emergency.class.isInstance(vehicle))
            gc.setFill(Color.RED);
         
-        gc.fillRect(vehicle.getAxom().x, vehicle.getAxom().y, vehicle.getAxom().x + VEHICLE_WIDTH, vehicle.getAxom().y + VEHICLE_LENGTH);
-      //gc.drawImage(img, vehicle., VEHICLE_WIDTH, VEHICLE_WIDTH, VEHICLE_WIDTH);
-        //drawRotatedImage(gc, car, angle, (vehicle.getPosition().getX() - car.getWidth() / 2), (vehicle.getPosition().getY() - car.getHeight() / 2));
-        
-        //Double angle = vehicle.getDirectionVector().angleVectorDegree();
-        //drawRotatedImage(gc, bus, angle, (vehicle.getPosition().getX() - bus.getWidth() / 2), (vehicle.getPosition().getY() - bus.getHeight() / 2));
+        gc.fillRect(vehicle.getAxom().x * constant.PIXELS, vehicle.getAxom().y * constant.PIXELS, constant.VEHICLE_WIDTH * constant.PIXELS, constant.VEHICLE_HEIGHT * constant.PIXELS);
       }
       
     }

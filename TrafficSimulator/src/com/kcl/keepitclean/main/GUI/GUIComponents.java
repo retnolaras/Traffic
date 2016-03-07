@@ -88,7 +88,7 @@ public class GUIComponents extends BorderPane{
     simulationPane = new StackPane();       
     simulationPane.setStyle("-fx-background-color: darkgreen");
     
-    simulationPane.getChildren().add(canvas);
+    simulationPane.getChildren().add(canvas);  //(800,600)
     gcontext = canvas.getGraphicsContext2D();
     
     return simulationPane;        
@@ -184,10 +184,15 @@ public class GUIComponents extends BorderPane{
       policySettings.getChildren().add(policyPane);
       
       btnTerminate.setDisable(true);
+      
+      button_box.setStyle("-fx-border-color: lightgrey" );
+      button_box.setPadding(new Insets(10,10,10,10));
+      
      
       button_box.getChildren().addAll(btnStart, btnTerminate, btnReport);
       
-     
+      Label blank3 = new Label("");
+      policySettings.getChildren().add(blank3);
       policySettings.getChildren().add(button_box);
       
    
