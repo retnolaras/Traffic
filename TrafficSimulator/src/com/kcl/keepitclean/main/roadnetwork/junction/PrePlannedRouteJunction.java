@@ -58,14 +58,28 @@ public class PrePlannedRouteJunction implements Junction {
 		this.sectionsOfJunction = new ArrayList<LaneSection>();
 		LaneFactory lf = new LaneFactory();
 		
+		int widthOfJunction;
+		
 		if (roadsEnteringJunction.size() == 1 && roadsLeavingJunction.size() == 1) {
 			if (roadsEnteringJunction.get(0).getNumberOfLanes() == roadsLeavingJunction.get(0).getNumberOfLanes()) {
-				for (int x = 0; x < roadsEnteringJunction.get(0).getNumberOfLanes(); x++) {
+				widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes();
+				for (int x = 0; x < widthOfJunction; x++) {
 					sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
 				}
 			}
 			else {
-				System.out.println("Now I'm Here");
+				if (roadsEnteringJunction.get(0).getNumberOfLanes() < roadsLeavingJunction.get(0).getNumberOfLanes()) {
+					widthOfJunction = roadsLeavingJunction.get(0).getNumberOfLanes();
+					for (int x = 0; x < widthOfJunction; x++) {
+						sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
+					}
+				}
+				else {
+					widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes();
+					for (int x = 0; x < widthOfJunction; x++) {
+						sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
+					}
+				}
 			}
 		}
 		else {
