@@ -45,18 +45,7 @@ public class SimulationRender  implements IRenderer {
     
      
     
-    //GENERATE FAKE DATA FOR TESTING
-    //TO BE REMOVED
-    private void fakeData()
-    {
-      LaneFactory laneFactory =  new LaneFactory();
-      RoadFactory roadFactory =  new RoadFactory(laneFactory);
-      VehicleFactory vehicleFactory = new VehicleFactory();
-      roads.add(roadFactory.produceRoad("", 100, 100));
-      vehicles.add(vehicleFactory.getVehicle(VehicleType.CAR));
-	
-    }
-    
+     
     
     public void render() {
       Platform.runLater(new Runnable() {
@@ -97,7 +86,11 @@ public class SimulationRender  implements IRenderer {
         
         //draw road
         gc.setFill(Color.DARKGRAY);
-        gc.fillRect(leftStartPoint.x * constant.PIXELS, leftStartPoint.y * constant.PIXELS, road.getNumberOfLanes()* constant.LANE_SIZE, road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT );
+        gc.fillRect(leftStartPoint.x * constant.PIXELS, 
+                    leftStartPoint.y * constant.PIXELS, 
+                    road.getNumberOfLanes()* constant.LANE_SIZE * constant.PIXELS, 
+                    road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT * constant.PIXELS 
+        );
        }
                        
     }
@@ -118,21 +111,19 @@ public class SimulationRender  implements IRenderer {
     //DRAW VEHICLES
     public void drawVehicles()
     {
-      Point leftStartPoint;
-      Point rightStartPoint;
-      Point leftEndPoint;
-      Point rightEndPoint;
       
       for (Vehicle vehicle:vehicles)
       {
         if (Car.class.isInstance(vehicle)) 
-        //    Double angle = vehicle.getDirectionVector().angleVectorDegree();
-        //gc.getFill(BLUE);
-          gc.setFill(Color.BLUE);
+           gc.setFill(Color.BLUE);
         else if (Emergency.class.isInstance(vehicle))
            gc.setFill(Color.RED);
         
-        gc.fillRect(vehicle.getAxom().x * constant.PIXELS, vehicle.getAxom().y * constant.PIXELS, constant.VEHICLE_WIDTH * constant.PIXELS, constant.VEHICLE_HEIGHT * constant.PIXELS);
+        gc.fillRect(vehicle.getAxom().x * constant.PIXELS, 
+                    vehicle.getAxom().y * constant.PIXELS, 
+                    constant.VEHICLE_WIDTH * constant.PIXELS, 
+                    constant.VEHICLE_HEIGHT * constant.PIXELS
+        );
       }
       
     }
