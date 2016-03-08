@@ -133,4 +133,20 @@ public class TestJunction {
 		
 		assertEquals(widthOfOutput, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
 	}
+	
+	@Test
+	public void buildJunctionWithInputWidthTwoOutputWidthOne() {
+		int widthOfInput = 2;
+		int widthOfOutput = 1;
+		
+		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfInput);
+		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfOutput);
+		
+		roadsGoingIntoJunction.add(inputRoad);
+		roadsLeavingJunction.add(outputRoad);
+		
+		junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
+		
+		assertEquals(widthOfInput, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
+	}
 }
