@@ -103,4 +103,34 @@ public class TestJunction {
 		
 		assertEquals(widthOfJunction, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
 	}
+	
+	@Test
+	public void buildJunctionWithOneInputOneOutputWidthFour() {
+		int widthOfJunction = 4;
+		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
+		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
+		
+		roadsGoingIntoJunction.add(inputRoad);
+		roadsLeavingJunction.add(outputRoad);
+		
+		junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
+		
+		assertEquals(widthOfJunction, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
+	}
+	
+	@Test
+	public void buildJunctionWithInputWidthOneOutputWidthTwo() {
+		int widthOfInput = 1;
+		int widthOfOutput = 2;
+		
+		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfInput);
+		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfOutput);
+		
+		roadsGoingIntoJunction.add(inputRoad);
+		roadsLeavingJunction.add(outputRoad);
+		
+		junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
+		
+		assertEquals(widthOfOutput, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
+	}
 }
