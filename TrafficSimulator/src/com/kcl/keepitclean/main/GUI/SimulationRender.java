@@ -66,6 +66,7 @@ public class SimulationRender  implements IRenderer {
         clear();
         roads = simulation.getContext().getRoadList();
         vehicles = simulation.getContext().getVehicleList();
+        System.out.println("GUI- number of vehicles:" + vehicles.size());
         drawRoads();
         drawVehicles();
         //drawTest();
@@ -97,7 +98,7 @@ public class SimulationRender  implements IRenderer {
         
         //draw road
         gc.setFill(Color.DARKGRAY);
-        gc.fillRect(leftStartPoint.x * constant.PIXELS, leftStartPoint.y * constant.PIXELS, road.getNumberOfLanes()* constant.LANE_SIZE, road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT );
+        gc.fillRect(leftStartPoint.x * constant.PIXELS, leftStartPoint.y * constant.PIXELS, road.getNumberOfLanes()* constant.LANE_SIZE * constant.PIXELS, road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT * constant.PIXELS );
        }
                        
     }
