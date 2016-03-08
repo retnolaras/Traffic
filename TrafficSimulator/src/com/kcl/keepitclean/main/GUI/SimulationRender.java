@@ -97,11 +97,7 @@ public class SimulationRender  implements IRenderer {
         
         //draw road
         gc.setFill(Color.DARKGRAY);
-        gc.fillRect(leftStartPoint.x * constant.PIXELS, 
-                    leftStartPoint.y * constant.PIXELS, 
-                    road.getNumberOfLanes()* constant.LANE_SIZE * constant.PIXELS, 
-                    road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT * constant.PIXELS 
-        );
+        gc.fillRect(leftStartPoint.x * constant.PIXELS, leftStartPoint.y * constant.PIXELS, road.getNumberOfLanes()* constant.LANE_SIZE, road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT );
        }
                        
     }
@@ -122,6 +118,10 @@ public class SimulationRender  implements IRenderer {
     //DRAW VEHICLES
     public void drawVehicles()
     {
+      Point leftStartPoint;
+      Point rightStartPoint;
+      Point leftEndPoint;
+      Point rightEndPoint;
       
       for (Vehicle vehicle:vehicles)
       {
@@ -132,11 +132,7 @@ public class SimulationRender  implements IRenderer {
         else if (Emergency.class.isInstance(vehicle))
            gc.setFill(Color.RED);
         
-        gc.fillRect(vehicle.getAxom().x * constant.PIXELS, 
-                    vehicle.getAxom().y * constant.PIXELS, 
-                    constant.VEHICLE_WIDTH * constant.PIXELS, 
-                    constant.VEHICLE_HEIGHT * constant.PIXELS
-        );
+        gc.fillRect(vehicle.getAxom().x * constant.PIXELS, vehicle.getAxom().y * constant.PIXELS, constant.VEHICLE_WIDTH * constant.PIXELS, constant.VEHICLE_HEIGHT * constant.PIXELS);
       }
       
     }
