@@ -66,6 +66,7 @@ public class SimulationRender  implements IRenderer {
         clear();
         roads = simulation.getContext().getRoadList();
         vehicles = simulation.getContext().getVehicleList();
+        System.out.println("GUI- number of vehicles:" + vehicles.size());
         drawRoads();
         drawVehicles();
         //drawTest();
