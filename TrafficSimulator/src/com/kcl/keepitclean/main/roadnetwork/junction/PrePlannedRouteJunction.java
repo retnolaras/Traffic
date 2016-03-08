@@ -63,27 +63,28 @@ public class PrePlannedRouteJunction implements Junction {
 		if (roadsEnteringJunction.size() == 1 && roadsLeavingJunction.size() == 1) {
 			if (roadsEnteringJunction.get(0).getNumberOfLanes() == roadsLeavingJunction.get(0).getNumberOfLanes()) {
 				widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes();
-				for (int x = 0; x < widthOfJunction; x++) {
-					sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
-				}
+				buildJunctionSections(widthOfJunction);
 			}
 			else {
 				if (roadsEnteringJunction.get(0).getNumberOfLanes() < roadsLeavingJunction.get(0).getNumberOfLanes()) {
 					widthOfJunction = roadsLeavingJunction.get(0).getNumberOfLanes();
-					for (int x = 0; x < widthOfJunction; x++) {
-						sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
-					}
+					buildJunctionSections(widthOfJunction);
 				}
 				else {
 					widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes();
-					for (int x = 0; x < widthOfJunction; x++) {
-						sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
-					}
+					buildJunctionSections(widthOfJunction);
 				}
 			}
 		}
 		else {
 			System.out.println("Nope I'm HERE");
+		}
+	}
+	
+	private void buildJunctionSections(int widthOfJunction) {
+		LaneFactory lf = new LaneFactory();
+		for (int index = 0; index < widthOfJunction; index++) {
+			sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
 		}
 	}
 
