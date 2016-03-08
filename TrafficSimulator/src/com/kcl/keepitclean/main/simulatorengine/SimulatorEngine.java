@@ -37,7 +37,7 @@ public class SimulatorEngine implements Observer{
 		private VehicleFactory vehicleFactory;
 		private List<Vehicle> vehicleList;
 		
-		private Point startCoord = new Point(0,0);
+		private Point startCoord = new Point(35,0);
 		private Point endCoord = new Point(0,100);
 
 		private LaneFactory laneFactory;
@@ -97,8 +97,10 @@ public class SimulatorEngine implements Observer{
 	
 	private void generateRoad() {
 		masterRoad =roadFactory.produceRoad("listoflistsroadimpl", 50, 1);
-		((ListOfListsRoadImpl)masterRoad).setEndCoordinate(endCoord); 
+		
 		((ListOfListsRoadImpl)masterRoad).setStartCoordinate(startCoord);
+		((ListOfListsRoadImpl)masterRoad).setEndCoordinate(endCoord); 
+		
 		context.addRoad(masterRoad);
 		
 	}
