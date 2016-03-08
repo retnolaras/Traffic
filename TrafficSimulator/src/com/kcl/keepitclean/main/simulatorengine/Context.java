@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
+import com.kcl.keepitclean.main.utils.Constant;
 import com.kcl.keepitclean.main.vehicle.Position;
 import com.kcl.keepitclean.main.vehicle.Vehicle;
 
@@ -21,9 +22,9 @@ public class Context implements IContext {
 	//and it is a list of ListOfListsRoadImpl objects.
 	private List<Road> roadList;
 	
-	public Context(List<Road> roadList) {
+	public Context(List<Road> roadList, List<Vehicle> vehicleList) {
 		this.roadList = roadList;
-		vehicleList =  new ArrayList<Vehicle>();
+		this.vehicleList =  vehicleList;
 	}
 	
 	public boolean addRoad(Road road){
@@ -63,32 +64,36 @@ public class Context implements IContext {
 		
 		if(oldPos.getRoad() == newPos.getRoad()){
 			//need to find the start point first
-			double x = road.getStartCoordinates().getX();
+			double y = road.getStartCoordinates().getY();
 			for(int i = 0; i < oldPos.getLaneSection(); i++){
-				x += 50;
+				y += 1;
 			}
 			for(int i = 0; i < newPos.getLaneSection(); i++){
-				x += 50;
+				y += 1;
 			}
 			//adding 2 to x to place the car in the middle of the lane
-			p = new Point((int)x + MARGIN_X,
-							(int)road.getStartCoordinates().getY() + MARGIN_Y);
+			p = new Point((int)road.getStartCoordinates().getX()
+													+ Constant.VEHICLE_LEFT_MARGIN,
+													(int)y);
 		} else {
 			//need to find the start point first
-			double x = road.getStartCoordinates().getX();
+			double y = road.getStartCoordinates().getY();
 			for(int i = 0; i < newPos.getLaneSection(); i++){
-				x += 50;
+				y += 1;
 			}
 			//adding 2 to x to place the car in the middle of the lane
-			p = new Point((int)x + MARGIN_X,
-							(int)road.getStartCoordinates().getY() + MARGIN_Y);
+			p = new Point((int)road.getStartCoordinates().getX() 
+													+ Constant.VEHICLE_LEFT_MARGIN,
+													(int)y);
 		}
 		
 		vehicle.setAxom(p);
+		
 		return p;		
 	}
 	
 	@Override
+	@Deprecated
 	public void moveVehicle(int roadIndex, int laneIndex, int sectionIndex, 
 							Vehicle vehicle, int fromThisLane , int toThisLane) {
 		
@@ -97,27 +102,15 @@ public class Context implements IContext {
 		//need to find the start point first
 		double x = road.getStartCoordinates().getX();
 		for(int i = 0; i < fromThisLane; i++){
-			x += 50;
+			x += 5;
 		}
 		for(int i = 0; i < toThisLane; i++){
-			x += 50;
+			x += 5;
 		}
-		Point p = new Point((int)x, (int)road.getStartCoordinates().getY());
+		Point p = new Point((int)x + Constant.LANE_SECTION_HEIGHT, 
+							(int)road.getStartCoordinates().getY());
 		
 		vehicle.setAxom(p);
-		
-		
-		/*
-		List<LaneSection> lane = ((ListOfListsRoadImpl)road).getLaneSectionsOfRoad().get(laneIndex);
-		Point startCoordinates = road.getStartCoordinates();
-		Point endCoordinates = road.getEndCoordinates();
-		if(startCoordinates.getX() == endCoordinates.getX()){
-			
-		}
-		int numOfLanes = road.getNumberOfLanes();
-		
-		double yPerSeg = endCoordinates.getX() / numOfLanes;
-		*/
 		
 	}
 
