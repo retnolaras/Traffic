@@ -97,7 +97,7 @@ public class SimulationRender  implements IRenderer {
         
         //draw road
         gc.setFill(Color.DARKGRAY);
-        gc.fillRect(leftStartPoint.x * constant.PIXELS, leftStartPoint.y * constant.PIXELS, road.getNumberOfLanes()* constant.LANE_SIZE, road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT );
+        gc.fillRect(leftStartPoint.x * constant.PIXELS, leftStartPoint.y * constant.PIXELS, road.getNumberOfLanes()* constant.LANE_SIZE * constant.PIXELS, road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT * constant.PIXELS );
        }
                        
     }
