@@ -1,5 +1,7 @@
 package com.kcl.keepitclean.main.roadnetwork.junction;
 
+import java.awt.Point;
+
 import com.kcl.keepitclean.main.policy.TrafficLightColour;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
@@ -13,6 +15,8 @@ public class TrafficLight extends PrePlannedRouteJunction {
 	public List LanePath;
 	public boolean IsEnable;
 	public TrafficLightColour clr;
+	private Point trafficLightCoordinate;
+	
 	
 	public void setColour() {
 		clr = TrafficLightColour.GREEN;	
@@ -29,14 +33,27 @@ public class TrafficLight extends PrePlannedRouteJunction {
 			    clr = TrafficLightColour.RED;
 			}			
 		}
+	
+	public TrafficLightColour getColour(){
+		return clr;
+	}
 
-	public boolean setState(TrafficLightColour clr){
+	public void setState(TrafficLightColour clr){
 		if(clr == TrafficLightColour.GREEN) IsEnable = true;
 		else IsEnable = false;
-		return IsEnable;
 	}
 	
-	
+	public boolean getState(){
+		return IsEnable;
+	}
+
+	public Point getTrafficLightCoordinate() {
+		return trafficLightCoordinate;
+	}
+
+	public void setTrafficLightCoordinate(Point trafficLightCoordinate) {
+		this.trafficLightCoordinate = trafficLightCoordinate;
+	}
 	
 	
 	
