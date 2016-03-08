@@ -5,12 +5,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 
+/**
+ * 
+ * Class for PrePlannedRouteJunction
+ * 
+ * Is a node for connecting different Roads together.
+ * Allowing Vehicles to pass from Road to Road by providing them a PrePlannedRoute across a junction.
+ * 
+ * Dynamically builds junctions based on input roads and output roads
+ * 
+ * 
+ * @author igalna
+ *
+ */
 public class PrePlannedRouteJunction implements Junction {
 
 	private List<Road> roadsLeavingJunction;
@@ -24,7 +36,7 @@ public class PrePlannedRouteJunction implements Junction {
 		this.roadsEnteringJunction = roadsEnteringThisJunction;
 		this.roadsLeavingJunction = roadsLeavingThisJunction;
 		
-		generateSectionsOfJunction(roadsLeavingThisJunction.size());
+		generateSectionsOfJunction();
 		createMappings();
 	}
 	
@@ -42,11 +54,22 @@ public class PrePlannedRouteJunction implements Junction {
 		
 	}
 
-	private void generateSectionsOfJunction(int numberOfSections) {
+	private void generateSectionsOfJunction() {
 		this.sectionsOfJunction = new ArrayList<LaneSection>();
 		LaneFactory lf = new LaneFactory();
-		for (int index = 0; index < numberOfSections;index++) {
-			sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
+		
+		if (roadsEnteringJunction.size() == 1 && roadsLeavingJunction.size() == 1) {
+			if (roadsEnteringJunction.get(0).getNumberOfLanes() == roadsLeavingJunction.get(0).getNumberOfLanes()) {
+				for (int x = 0; x < roadsEnteringJunction.get(0).getNumberOfLanes(); x++) {
+					sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
+				}
+			}
+			else {
+				System.out.println("Now I'm Here");
+			}
+		}
+		else {
+			System.out.println("Nope I'm HERE");
 		}
 	}
 
@@ -57,5 +80,9 @@ public class PrePlannedRouteJunction implements Junction {
 	
 	public Map<String, List<LaneSection>> getMappings() {
 		return mapOfInputRoadsToOutputRoads;
+	}
+	
+	public List<LaneSection> getLaneSectionsOfJunction() {
+		return sectionsOfJunction;
 	}
 }
