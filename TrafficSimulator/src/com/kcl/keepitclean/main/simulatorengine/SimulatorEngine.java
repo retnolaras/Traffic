@@ -144,7 +144,7 @@ public class SimulatorEngine implements Observer {
 			System.out.println("<SimulatorEngine>iterating on car number " + i); // test
 																					// line
 
-			if (lookAhead(vehicleList.get(i).getPos(), 5)) {
+			if (lookAhead(vehicleList.get(i).getPos(), 5) && (!reachedEnd(vehicleList.get(i)))) {
 
 				Position newPos = new Position();
 				newPos.update(0, vehicleList.get(i).getPos().getLane(),
@@ -154,8 +154,28 @@ public class SimulatorEngine implements Observer {
 				System.out.println("<SimulatorEngine> Car Moved [" + " ID:" + vehicleList.get(i).getID() + " "
 						+ debugPoint.getX() + ", " + debugPoint.getY() + "]");
 			}
+			
+			else if((reachedEnd(vehicleList.get(i))) ){
+				vehicleList.remove(i);
+				System.out.println("Car "+vehicleList.get(i).getID()+ " removed" );
+				continue; 
+			}
 		}
 		iteration++;
+	}
+	
+	/*
+	 * Check if a car has reached an exit point, in this case the end of the road
+	 * TODO: define exit points  
+	 */
+
+private boolean reachedEnd(Vehicle vehicle) {
+	Road r = roadList.get(vehicle.getPos().getRoad()) ;
+	List<LaneSection> lsList = ((ListOfListsRoadImpl)r).getLaneSectionsOfRoad().get(0);
+	//if the car's position is smaller that the road length the car is on, return false
+	if (vehicle.getPos().getLaneSection()< lsList.size())
+	return false;
+	else return true;
 	}
 
 	/*
