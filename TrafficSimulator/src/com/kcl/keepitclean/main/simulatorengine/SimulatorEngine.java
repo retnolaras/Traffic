@@ -1,4 +1,7 @@
-
+//Checklist:
+/*Check when car has reached the end of the road
+ * 
+ */
 
 // Load Map 
 // Update UI 
@@ -16,7 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
-import com.kcl.keepitclean.main.GUI.IRenderer;
+import com.kcl.keepitclean.main.policy.Policy;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
 import com.kcl.keepitclean.main.roadnetwork.road.ListOfListsRoadImpl;
@@ -46,8 +49,7 @@ public class SimulatorEngine implements Observer{
 		private List<Road> roadList;
 		private Context context;
 		private Road masterRoad;
-		private IRenderer renderer;
-		
+
 	
 	public SimulatorEngine(Object simulatorGUI) {
 		
@@ -87,14 +89,6 @@ public class SimulatorEngine implements Observer{
 		return this.context;
 	}
 	
-	public void setRenderer(IRenderer renderer){
-		this.renderer = renderer;
-	}
-	
-	public IRenderer getRenderer() {
-		return this.renderer;
-	}
-	
 	private void generateRoad() {
 		masterRoad =roadFactory.produceRoad("listoflistsroadimpl", 50, 1);
 		
@@ -110,7 +104,7 @@ public class SimulatorEngine implements Observer{
 		SessionManager.getInstance().startSession();
 		init();		
 		SessionManager.getInstance().addObserver(this);
-		renderer.render();
+
 		System.out.println("Session Started"); //test line
 
 	}
@@ -132,7 +126,7 @@ public class SimulatorEngine implements Observer{
 
 			System.out.println("First Car Generated"); // test line
 
-		} else if (NotEmpty(startingPos)) {
+		} else if (!NotEmpty(startingPos)) {
 			generateCar(startingPos); // generates car at starting point with
 										// factor 'freq'
 			System.out.println("Car Generated"); // test line
@@ -140,15 +134,18 @@ public class SimulatorEngine implements Observer{
 
 		// iterate on all cars, move car only if LookAhead is true
 		for (int i = 0; i < vehicleList.size(); i++) {
+			
+		System.out.println("<SimulatorEngine>iterating on car number "+ i); // test line
+
 			if (lookAhead(vehicleList.get(i).getPos(), 5)) {
 
 				Position newPos = new Position();
-				newPos.update(i, vehicleList.get(i).getPos().getLane(),
+				newPos.update(0, vehicleList.get(i).getPos().getLane(),
 						vehicleList.get(i).getPos().getLaneSection() + 1);
 				Point debugPoint = context.moveVehicle(vehicleList.get(i), vehicleList.get(i).getPos(), newPos);
 
 				System.out
-						.println("<SimulatorEngine> Car Moved [" + debugPoint.getX() + ", " + debugPoint.getY() + "]");
+						.println("<SimulatorEngine> Car Moved ["+ " ID:"+ vehicleList.get(i).getID()+ " " + debugPoint.getX() + ", " + debugPoint.getY() + "]");
 			}
 		}
 		iteration++;
