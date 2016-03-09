@@ -35,9 +35,9 @@ import com.kcl.keepitclean.main.vehicle.VehicleType;
 public class SimulatorEngine implements Observer {
 
 	// private Object simulatorGUI; // instance of the GUI
-	static float freq = 0.50f;
+	static float freq = 1.0f;
 	private Random r;
-	Position startingPos;
+	private Position startingPos;
 	private VehicleFactory vehicleFactory;
 	private List<Vehicle> vehicleList;
 
@@ -61,6 +61,9 @@ public class SimulatorEngine implements Observer {
 		roadList = new ArrayList<>();
 		vehicleList = new ArrayList<>();
 		startingPos = new Position();
+
+
+		
 		r = new Random();
 		context = new Context(roadList, vehicleList);
 
@@ -123,15 +126,18 @@ public class SimulatorEngine implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 
-		// Generate Car
+		// Generate Car, assign its position to be the starting Position.
 		if (iteration == 0) {
 			Vehicle Car;
 			Car = vehicleFactory.getVehicle(VehicleType.CAR); // generate a car
-			AddToActive(Car, startingPos); // add to Active List of cars
+			startingPos.update(0, 0, 0);
+			Position carPos = new Position();
+			carPos.update(startingPos.getRoad(),startingPos.getLane(),startingPos.getLaneSection());
+			AddToActive(Car, carPos); // add to Active List of cars
 
 			System.out.println("First Car Generated"); // test line
 
-		} else if (NotEmpty(startingPos)) {
+		} else if (!NotEmpty(startingPos)) {
 			generateCar(startingPos); // generates car at starting point with
 										// factor 'freq'
 			System.out.println("Car Generated"); // test line
@@ -148,8 +154,9 @@ public class SimulatorEngine implements Observer {
 
 				Position newPos = new Position();
 				newPos.update(0, vehicleList.get(i).getPos().getLane(),
-						vehicleList.get(i).getPos().getLaneSection() + 1);
+						vehicleList.get(i).getPos().getLaneSection()+1); 
 				Point debugPoint = context.moveVehicle(vehicleList.get(i), vehicleList.get(i).getPos(), newPos);
+				vehicleList.get(i).getPos().update(newPos.getRoad(), newPos.getLane(), newPos.getLaneSection());;
 
 				System.out.println("<SimulatorEngine> Car Moved [" + " ID:" + vehicleList.get(i).getID() + " "
 						+ debugPoint.getX() + ", " + debugPoint.getY() + "]");
@@ -202,15 +209,17 @@ private boolean reachedEnd(Vehicle vehicle) {
 		int Road = p.getRoad();
 		Road R;
 		R = roadList.get(Road);
-		Position Pos = p;
+		int newLane = LaneSection;
+		Position Pos = new Position();
+		Pos.update(p.getRoad(), p.getLane(), p.getLaneSection());
 		List<LaneSection> Lane = ((ListOfListsRoadImpl) R).getLaneSectionsOfRoad().get(LaneIndex);
 
 		for (int x = LaneSection; x < LaneSection + a && x < Lane.size(); x++) {
 
-			Pos.update(Road, LaneIndex, LaneSection + 1);
+			Pos.update(Road, LaneIndex, newLane++);
 			if (NotEmpty(Pos))
 				return false;
-			x++;
+			//x++;
 		}
 		return true;
 	}
@@ -231,12 +240,14 @@ private boolean reachedEnd(Vehicle vehicle) {
 
 	private void generateCar(Position p) {
 		float chance = r.nextFloat();
+		Position carPos = new Position();
+		carPos.update(p.getRoad(), p.getLane(), p.getLaneSection());
 		if (chance <= freq) {
 			Vehicle Car = vehicleFactory.getVehicle(VehicleType.CAR);
 			Car.setPos(p);
 			System.out.println(vehicleStartCoord);
 			Car.setAxom(vehicleStartCoord);
-			AddToActive(Car, p);
+			AddToActive(Car, carPos);
 		}
 
 	}
