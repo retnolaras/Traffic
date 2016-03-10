@@ -63,32 +63,27 @@ public class PrePlannedRouteJunction implements Junction {
 	private void generateSectionsOfJunction() {
 		int widthOfJunction;
 		
-		if (roadsEnteringJunction.size() == roadsLeavingJunction.size()) {
-			if (roadsEnteringJunction.get(0).getNumberOfLanes() == roadsLeavingJunction.get(0).getNumberOfLanes()) {
+		if (roadsEnteringJunction.get(0).getNumberOfLanes() == roadsLeavingJunction.get(0).getNumberOfLanes()) {
+			widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes();
+			buildJunctionSections(widthOfJunction);
+		}
+		if (roadsEnteringJunction.size() >= 2 && roadsLeavingJunction.size() >= 2) {
+			widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes() * 2;
+			for (Road r : roadsEnteringJunction) {
+				if (r.getNumberOfLanes() * 2 > widthOfJunction)
+					widthOfJunction = r.getNumberOfLanes() * 2;
+			}
+			buildJunctionSections(widthOfJunction * widthOfJunction);
+		}
+		else {
+			if (roadsEnteringJunction.get(0).getNumberOfLanes() < roadsLeavingJunction.get(0).getNumberOfLanes()) {
+				widthOfJunction = roadsLeavingJunction.get(0).getNumberOfLanes();
+				buildJunctionSections(widthOfJunction);
+			}
+			else {
 				widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes();
 				buildJunctionSections(widthOfJunction);
 			}
-			if (roadsEnteringJunction.size() >= 2 && roadsLeavingJunction.size() >= 2) {
-				widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes() * 2;
-				for (Road r : roadsEnteringJunction) {
-					if (r.getNumberOfLanes() * 2 > widthOfJunction)
-						widthOfJunction = r.getNumberOfLanes() * 2;
-				}
-				buildJunctionSections(widthOfJunction * widthOfJunction);
-			}
-			else {
-				if (roadsEnteringJunction.get(0).getNumberOfLanes() < roadsLeavingJunction.get(0).getNumberOfLanes()) {
-					widthOfJunction = roadsLeavingJunction.get(0).getNumberOfLanes();
-					buildJunctionSections(widthOfJunction);
-				}
-				else {
-					widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes();
-					buildJunctionSections(widthOfJunction);
-				}
-			}
-		}
-		else {
-			System.out.println("Nope I'm HERE");
 		}
 	}
 	

@@ -62,7 +62,7 @@ public class TestJunction {
 		PrePlannedRouteJunction j = new PrePlannedRouteJunction(null, null);
 		assertEquals(j.getMappings().size(), 0);
 	}
-	@Ignore
+	
 	@Test
 	public void testBuildJunctionWithOneInputOneOutputWidthOne() {
 		int widthOfJunction = 1;
@@ -70,6 +70,9 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
 		
@@ -77,13 +80,16 @@ public class TestJunction {
 		
 		assertEquals(widthOfJunction, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
 	}
-	@Ignore
+	
 	@Test
 	public void testBuildJunctionWithOneInputOneOutputWidthTwo() {
 		int widthOfJunction = 2;
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
 		
@@ -91,13 +97,16 @@ public class TestJunction {
 		
 		assertEquals(widthOfJunction, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
 	}
-	@Ignore
+	
 	@Test
 	public void testBuildJunctionWithOneInputOneOutputWidthThree() {
 		int widthOfJunction = 3;
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
 		
@@ -105,13 +114,16 @@ public class TestJunction {
 		
 		assertEquals(widthOfJunction, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
 	}
-	@Ignore
+	
 	@Test
 	public void testBuildJunctionWithOneInputOneOutputWidthFour() {
 		int widthOfJunction = 4;
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
 		
@@ -119,7 +131,7 @@ public class TestJunction {
 		
 		assertEquals(widthOfJunction, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
 	}
-	@Ignore
+	
 	@Test
 	public void testBuildJunctionWithInputWidthOneOutputWidthTwo() {
 		int widthOfInput = 1;
@@ -128,6 +140,9 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfInput);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfOutput);
 		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
 		
@@ -135,7 +150,7 @@ public class TestJunction {
 		
 		assertEquals(widthOfOutput, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
 	}
-	@Ignore
+	
 	@Test
 	public void testBuildJunctionWithInputWidthTwoOutputWidthOne() {
 		int widthOfInput = 2;
@@ -144,6 +159,9 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfInput);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfOutput);
 		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
 		
@@ -151,7 +169,7 @@ public class TestJunction {
 		
 		assertEquals(widthOfInput, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
 	}
-	@Ignore
+	
 	@Test
 	public void testBuildJunctionWithThreeConnections() {
 		int width = 1;
@@ -162,6 +180,13 @@ public class TestJunction {
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, width);
 		Road outputRoad1 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
 		Road outputRoad2 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
+		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) inputRoad1).setEndCoordinate(new Point(2,2));
+		((ListOfListsRoadImpl) inputRoad2).setEndCoordinate(new Point(3,3));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		((ListOfListsRoadImpl) outputRoad1).setStartCoordinate(new Point(6,6));
+		((ListOfListsRoadImpl) outputRoad2).setStartCoordinate(new Point(7,7));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsGoingIntoJunction.add(inputRoad1);
@@ -174,7 +199,7 @@ public class TestJunction {
 		
 		assertEquals(4, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
 	}
-	@Ignore
+	
 	@Test
 	public void testBuildJunctionWithFourConnections() {
 		int width = 1;
@@ -187,6 +212,15 @@ public class TestJunction {
 		Road outputRoad1 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
 		Road outputRoad2 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
 		Road outputRoad3 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
+		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) inputRoad1).setEndCoordinate(new Point(2,2));
+		((ListOfListsRoadImpl) inputRoad2).setEndCoordinate(new Point(3,3));
+		((ListOfListsRoadImpl) inputRoad3).setEndCoordinate(new Point(4,4));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		((ListOfListsRoadImpl) outputRoad1).setStartCoordinate(new Point(6,6));
+		((ListOfListsRoadImpl) outputRoad2).setStartCoordinate(new Point(7,7));
+		((ListOfListsRoadImpl) outputRoad3).setStartCoordinate(new Point(8,8));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsGoingIntoJunction.add(inputRoad1);
@@ -276,5 +310,34 @@ public class TestJunction {
 		assertEquals(true, map.containsKey("1.0,1.0-4.0,4.0"));
 		assertEquals(true, map.containsKey("2.0,2.0-3.0,3.0"));
 		assertEquals(true, map.containsKey("2.0,2.0-4.0,4.0"));
+	}
+	
+	@Test
+	public void testCreateMappingsSingleInputMultipleOutputs() {
+		int widthOfJunction = 1;
+		
+		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
+		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
+		Road outputRoad1 = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
+		Road outputRoad2 = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
+		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(3,3));
+		((ListOfListsRoadImpl) outputRoad1).setStartCoordinate(new Point(4,4));
+		((ListOfListsRoadImpl) outputRoad2).setStartCoordinate(new Point(5,5));
+		
+		roadsGoingIntoJunction.add(inputRoad);
+		roadsLeavingJunction.add(outputRoad);
+		roadsLeavingJunction.add(outputRoad1);
+		roadsLeavingJunction.add(outputRoad2);
+		
+		junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
+		
+		Map<String, List<LaneSection>> map = ((PrePlannedRouteJunction) junction).getMappings();
+		
+		assertEquals(3, map.size());
+		assertEquals(true, map.containsKey("1.0,1.0-3.0,3.0"));
+		assertEquals(true, map.containsKey("1.0,1.0-4.0,4.0"));
+		assertEquals(true, map.containsKey("1.0,1.0-5.0,5.0"));
 	}
 }
