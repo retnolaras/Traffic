@@ -32,6 +32,8 @@ public class PrePlannedRouteJunction implements Junction {
 	
 	private Map<String, List<LaneSection>> mapOfInputRoadsToOutputRoads;
 	
+	private final String junctionLaneType = "SINGLELANE";
+	
 	public PrePlannedRouteJunction(List<Road> roadsEnteringThisJunction, List<Road> roadsLeavingThisJunction) {
 		this.roadsEnteringJunction = roadsEnteringThisJunction;
 		this.roadsLeavingJunction = roadsLeavingThisJunction;
@@ -48,22 +50,31 @@ public class PrePlannedRouteJunction implements Junction {
 			inputRoadCoords = road.getEndCoordinates();
 			for (Road exitRoad : roadsLeavingJunction) {
 				exitRoadCoords = exitRoad.getStartCoordinates();
-				mapOfInputRoadsToOutputRoads.put("" + inputRoadCoords + exitRoadCoords, produceRoute(inputRoadCoords, exitRoadCoords));
+				mapOfInputRoadsToOutputRoads.put("" + coordinateStringFormatter(inputRoadCoords, exitRoadCoords), produceRoute(inputRoadCoords, exitRoadCoords));
 			}
 		}
 		
 	}
+	
+	private String coordinateStringFormatter(Point inputRoadCoords, Point exitRoadCoords) {
+		return "" + inputRoadCoords.getX() + "," + inputRoadCoords.getY() + "-" + exitRoadCoords.getX() + "," + exitRoadCoords.getY();
+	}
 
 	private void generateSectionsOfJunction() {
-		this.sectionsOfJunction = new ArrayList<LaneSection>();
-		LaneFactory lf = new LaneFactory();
-		
 		int widthOfJunction;
 		
-		if (roadsEnteringJunction.size() == 1 && roadsLeavingJunction.size() == 1) {
+		if (roadsEnteringJunction.size() == roadsLeavingJunction.size()) {
 			if (roadsEnteringJunction.get(0).getNumberOfLanes() == roadsLeavingJunction.get(0).getNumberOfLanes()) {
 				widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes();
 				buildJunctionSections(widthOfJunction);
+			}
+			if (roadsEnteringJunction.size() >= 2 && roadsLeavingJunction.size() >= 2) {
+				widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes() * 2;
+				for (Road r : roadsEnteringJunction) {
+					if (r.getNumberOfLanes() * 2 > widthOfJunction)
+						widthOfJunction = r.getNumberOfLanes() * 2;
+				}
+				buildJunctionSections(widthOfJunction * widthOfJunction);
 			}
 			else {
 				if (roadsEnteringJunction.get(0).getNumberOfLanes() < roadsLeavingJunction.get(0).getNumberOfLanes()) {
@@ -83,6 +94,8 @@ public class PrePlannedRouteJunction implements Junction {
 	
 	private void buildJunctionSections(int widthOfJunction) {
 		LaneFactory lf = new LaneFactory();
+		this.sectionsOfJunction = new ArrayList<LaneSection>();
+		
 		for (int index = 0; index < widthOfJunction; index++) {
 			sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
 		}
@@ -90,7 +103,10 @@ public class PrePlannedRouteJunction implements Junction {
 
 	@Override
 	public List<LaneSection> produceRoute(Point endCoordinateOfCurrentRoad, Point startCoordinateOfNextRoad) {
-		return sectionsOfJunction;
+		LaneFactory lf = new LaneFactory();
+		List<LaneSection> dummyRoute = new ArrayList<LaneSection>();
+		dummyRoute.add(lf.produceLaneSection(junctionLaneType));
+		return dummyRoute;
 	}
 	
 	public Map<String, List<LaneSection>> getMappings() {
