@@ -207,7 +207,7 @@ public class TestJunction {
 	 * Tests for the createMappings method of PreplannedRouteJunction
 	 */
 	@Test
-	public void testGenerateMappingOneToOne() {
+	public void testCreateMappingOneToOne() {
 		int widthOfJunction = 1;
 		
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
@@ -223,11 +223,12 @@ public class TestJunction {
 		
 		Map<String, List<LaneSection>> map = ((PrePlannedRouteJunction) junction).getMappings();
 		
+		assertEquals(1, map.size());
 		assertEquals(true, map.containsKey("1.0,1.0-2.0,2.0"));
 	}
 	
 	@Test
-	public void testGenerateMappingOneToOneWidthTwo() {
+	public void testCreateMappingOneToOneWidthTwo() {
 		int widthOfJunction = 2;
 		
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
@@ -243,7 +244,37 @@ public class TestJunction {
 		
 		Map<String, List<LaneSection>> map = ((PrePlannedRouteJunction) junction).getMappings();
 		
+		assertEquals(1, map.size());
 		assertEquals(true, map.containsKey("4.0,4.0-3.0,3.0"));
 	}
 	
+	@Test
+	public void testCreateMappingsTwoInputsTwoOutputs() {
+		int widthOfJunction = 1;
+		
+		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
+		Road inputRoad1 = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
+		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
+		Road outputRoad1 = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
+		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) inputRoad1).setEndCoordinate(new Point(2,2));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(3,3));
+		((ListOfListsRoadImpl) outputRoad1).setStartCoordinate(new Point(4,4));
+		
+		roadsGoingIntoJunction.add(inputRoad);
+		roadsGoingIntoJunction.add(inputRoad1);
+		roadsLeavingJunction.add(outputRoad);
+		roadsLeavingJunction.add(outputRoad1);
+		
+		junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
+		
+		Map<String, List<LaneSection>> map = ((PrePlannedRouteJunction) junction).getMappings();
+		
+		assertEquals(4, map.size());
+		assertEquals(true, map.containsKey("1.0,1.0-3.0,3.0"));
+		assertEquals(true, map.containsKey("1.0,1.0-4.0,4.0"));
+		assertEquals(true, map.containsKey("2.0,2.0-3.0,3.0"));
+		assertEquals(true, map.containsKey("2.0,2.0-4.0,4.0"));
+	}
 }
