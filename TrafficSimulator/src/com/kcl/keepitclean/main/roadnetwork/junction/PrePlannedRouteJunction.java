@@ -32,6 +32,8 @@ public class PrePlannedRouteJunction implements Junction {
 	
 	private Map<String, List<LaneSection>> mapOfInputRoadsToOutputRoads;
 	
+	private LaneFactory lf;
+	
 	private final String junctionLaneType = "SINGLELANE";
 	
 	public PrePlannedRouteJunction(List<Road> roadsEnteringThisJunction, List<Road> roadsLeavingThisJunction) {
@@ -88,19 +90,21 @@ public class PrePlannedRouteJunction implements Junction {
 	}
 	
 	private void buildJunctionSections(int widthOfJunction) {
-		LaneFactory lf = new LaneFactory();
+		lf = new LaneFactory();
 		this.sectionsOfJunction = new ArrayList<LaneSection>();
 		
 		for (int index = 0; index < widthOfJunction; index++) {
 			sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
 		}
+		lf = null;
 	}
 
 	@Override
 	public List<LaneSection> produceRoute(Point endCoordinateOfCurrentRoad, Point startCoordinateOfNextRoad) {
-		LaneFactory lf = new LaneFactory();
+		lf = new LaneFactory();
 		List<LaneSection> dummyRoute = new ArrayList<LaneSection>();
 		dummyRoute.add(lf.produceLaneSection(junctionLaneType));
+		lf = null;
 		return dummyRoute;
 	}
 	
