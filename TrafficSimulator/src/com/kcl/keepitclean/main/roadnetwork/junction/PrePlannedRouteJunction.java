@@ -64,7 +64,6 @@ public class PrePlannedRouteJunction implements Junction {
 
 	private void generateSectionsOfJunction() {
 		int widthOfJunction;
-		
 		if (roadsEnteringJunction.get(0).getNumberOfLanes() == roadsLeavingJunction.get(0).getNumberOfLanes()) {
 			widthOfJunction = roadsEnteringJunction.get(0).getNumberOfLanes();
 			buildJunctionSections(widthOfJunction);
