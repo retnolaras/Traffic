@@ -46,23 +46,36 @@ public class InitScreen extends Application {
             @Override
             public void handle(ActionEvent event) {
                 //Disable Start button and enable Terminate button
-                pscene.btnTerminate.setDisable(false);
-                pscene.btnStart.setDisable(true);
                 
                 //get simulation settings
-                simulationSettings = new SimulationSettings(pscene.getSelectedPolicy(), pscene.getMinSpeedLimitSettings(),
-                                         pscene.getMaxSpeedLimitSettings(), pscene.getMinTrafficLightSettings(), pscene.getMaxTrafficLightSettings(), 
-                                         pscene.getTrafficDesity(), pscene.getSessionDuration());
+                pscene.blank3.setText("");
+                if (!pscene.validateBlank())
+                {
+                    pscene.blank3.setText("please enter all required values");
+                    pscene.blank3.setStyle("-fx-text-fill: red");
+                }
+                else if ( !pscene.validateRange())
+                    {
+                        pscene.blank3.setText("Max values must be greater than min values");
+                        pscene.blank3.setStyle("-fx-text-fill: red");
+                    }
+                else
+                {
+                    simulationSettings = new SimulationSettings(pscene.getSelectedPolicy(), pscene.getMinSpeedLimitSettings(),
+                                             pscene.getMaxSpeedLimitSettings(), pscene.getMinTrafficLightSettings(), pscene.getMaxTrafficLightSettings(), 
+                                             pscene.getTrafficDesity(), pscene.getSessionDuration());
+
+                    //pass simulation settings to simulation engin
+                    //Start the simulation Session
+                    simulation = new SimulatorEngine(simulationSettings);   
+                    renderer = new SimulationRender(pscene.gcontext, simulation);
+                    simulation.setRenderer(renderer);
+                    simulation.startSimulation();
+                    pscene.btnTerminate.setDisable(false);
+                    pscene.btnStart.setDisable(true);
+                }
                 
-                //pass simulation settings to simulation engin
-                //Start the simulation Session
-                simulation = new SimulatorEngine(simulationSettings);   
-                renderer = new SimulationRender(pscene.gcontext, simulation);
-                simulation.setRenderer(renderer);
-                simulation.startSimulation();
                 
-                //roads.add(roadFactory.produceRoad("", 100, 100));
-                //renderer.render();
             
             }
       
