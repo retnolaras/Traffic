@@ -20,6 +20,8 @@ import java.util.Observer;
 import java.util.Random;
 
 import com.kcl.keepitclean.main.GUI.IRenderer;
+import com.kcl.keepitclean.main.GUI.SimulationSettings;
+import com.kcl.keepitclean.main.policy.Policy;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
 import com.kcl.keepitclean.main.roadnetwork.road.ListOfListsRoadImpl;
@@ -54,8 +56,12 @@ public class SimulatorEngine implements Observer {
 	private Road masterRoad;
 
 	private IRenderer renderer;
+        private SimulationSettings settings;
+        private Policy policy;
+        private int sessionDuration;
+        private String trafficDensity;
 
-	public SimulatorEngine(Object simulatorGUI) {
+	public SimulatorEngine(SimulationSettings settings) {
 
 		// this.simulatorGUI = simulatorGUI;
 		roadList = new ArrayList<>();
@@ -70,6 +76,8 @@ public class SimulatorEngine implements Observer {
 		vehicleFactory = new VehicleFactory();
 		laneFactory = new LaneFactory();
 		roadFactory = new RoadFactory(laneFactory);
+                this.settings = settings;
+                
 		
 	}
 
@@ -79,9 +87,25 @@ public class SimulatorEngine implements Observer {
 		// vehicleList.add(vehicleFactory.getVehicle(VehicleType.CAR));
 
 		startingPos.update(0, 0, 0);
+                
+                policy = Policy.setPolicy(settings.getPolicyOption(), 
+                                        settings.getMinSpeeds(), 
+                                        settings.getMaxSpeeds(), 
+                                        settings.getMinTrafficLightDuration(),
+                                        settings.getMaxTrafficLightDuration()
+                );
+                this.sessionDuration = settings.getSessionDuration();
+                this.trafficDensity = settings.getTrafficDensity();
 		// load policy variables: add them into RoadList
-		generateRoad();
-		roadList = context.getRoadList();
+		//generateRoad();
+                Map1 map = new Map1();
+                roadList = map.getRoads();
+                for (Road road:roadList)
+                {
+                    context.addRoad(road);
+                }
+                
+		//roadList = context.getRoadList();
 		System.out.println("Got Road List"); // test line
 	}
 
