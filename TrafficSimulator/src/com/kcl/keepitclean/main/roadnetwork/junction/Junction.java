@@ -9,4 +9,5 @@ public interface Junction {
 
 	
 	public List<LaneSection> produceRoute(Point endCoordinateOfCurrentRoad, Point startCoordinateOfNextRoad);
+	public List<Point> getCoordinates();
 }
