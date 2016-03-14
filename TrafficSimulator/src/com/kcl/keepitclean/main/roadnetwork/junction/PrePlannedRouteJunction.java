@@ -30,6 +30,8 @@ public class PrePlannedRouteJunction implements Junction {
 	
 	List<LaneSection> sectionsOfJunction;
 	
+	List<Point> junctionPoints;
+	
 	private Map<String, List<LaneSection>> mapOfInputRoadsToOutputRoads;
 	
 	private LaneFactory lf;
@@ -42,6 +44,8 @@ public class PrePlannedRouteJunction implements Junction {
 		
 		generateSectionsOfJunction();
 		createMappings();
+		
+		this.junctionPoints = new ArrayList<>();
 	}
 	
 	private void createMappings() {
@@ -114,4 +118,14 @@ public class PrePlannedRouteJunction implements Junction {
 	public List<LaneSection> getLaneSectionsOfJunction() {
 		return sectionsOfJunction;
 	}
+
+	@Override
+	public List<Point> getCoordinates() {
+		for (Road road : roadsEnteringJunction) {
+			junctionPoints.add(road.getEndCoordinates());
+		}
+		return junctionPoints;
+	}
+	
+	
 }
