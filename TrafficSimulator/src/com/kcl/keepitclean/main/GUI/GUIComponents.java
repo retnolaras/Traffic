@@ -23,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javax.swing.event.HyperlinkEvent;
 
 
 /**
@@ -78,6 +79,8 @@ public class GUIComponents extends BorderPane{
   public Button btnStart = new Button("Start");
   public Button btnTerminate = new Button("Terminate");
   public Button btnReport = new Button("Report");
+  public Label blank3 = new Label("");
+      
   
  public GUIComponents()
  {
@@ -128,6 +131,7 @@ public class GUIComponents extends BorderPane{
                 case 2:
                     enableMin();
                     disableMax();
+                    clearMax();
                     break;
                 default:
                     break;
@@ -136,6 +140,7 @@ public class GUIComponents extends BorderPane{
         }
       }
       );
+      
     
       policyOptionsBox = new HBox(8);
       policyOptionsBox.getChildren().addAll(defaultPolicy, randomPolicy, customisedPolicy);
@@ -190,8 +195,8 @@ public class GUIComponents extends BorderPane{
       
      
       button_box.getChildren().addAll(btnStart, btnTerminate, btnReport);
-      
-      Label blank3 = new Label("");
+      blank3.setStyle("-fx-font-color : red");
+            
       policySettings.getChildren().add(blank3);
       policySettings.getChildren().add(button_box);
       
@@ -212,15 +217,19 @@ public class GUIComponents extends BorderPane{
         
         int[] speedLimits = new int[3];
         int selected = getSelectedPolicy();
-        if (selected == 1 || selected == 2)
+        if (selected == 1 || selected == 2) 
+           
         {
-            speedLimits[1] = Integer.parseInt(txtMinJunction.getText());
-            speedLimits[2] = Integer.parseInt(txtMinStraight.getText());
-            speedLimits[3] = Integer.parseInt(txtMinCurvy.getText());
+            speedLimits[0] = Integer.parseInt(txtMinJunction.getText());
+            speedLimits[1] = Integer.parseInt(txtMinStraight.getText());
+            speedLimits[2] = Integer.parseInt(txtMinCurvy.getText());
             return speedLimits;
         }
         else 
+        {
             return null;
+        }
+           
         
               
     }
@@ -230,15 +239,19 @@ public class GUIComponents extends BorderPane{
         
         int[] speedLimits = new int[3];
         int selected = getSelectedPolicy();
-        if (selected == 1) 
+        if (selected == 1)
         {
-            speedLimits[1] = Integer.parseInt(txtMaxJunction.getText());
-            speedLimits[2] = Integer.parseInt(txtMaxStraight.getText());
-            speedLimits[3] = Integer.parseInt(txtMaxCurvy.getText());
+                        
+            
+            speedLimits[0] = Integer.parseInt(txtMaxJunction.getText());
+            speedLimits[1] = Integer.parseInt(txtMaxStraight.getText());
+            speedLimits[2] = Integer.parseInt(txtMaxCurvy.getText());
             return speedLimits;
         }
         else 
+        {
             return null;
+        }
               
     }
     
@@ -248,9 +261,9 @@ public class GUIComponents extends BorderPane{
         int selected = getSelectedPolicy();
         if (selected == 1 || selected == 2)
         {
-            trafficLights [1] = Integer.parseInt(txtMinGreen.getText());
-            trafficLights [2] = Integer.parseInt(txtMinAmber.getText());
-            trafficLights [3] = Integer.parseInt(txtMinRed.getText());
+            trafficLights [0] = Integer.parseInt(txtMinGreen.getText());
+            trafficLights [1] = Integer.parseInt(txtMinAmber.getText());
+            trafficLights [2] = Integer.parseInt(txtMinRed.getText());
             return trafficLights;
         }
         else 
@@ -264,9 +277,9 @@ public class GUIComponents extends BorderPane{
         
         if (selected == 1) 
         {
-        trafficLights [1] = Integer.parseInt(txtMaxGreen.getText());
-        trafficLights [2] = Integer.parseInt(txtMaxAmber.getText());
-        trafficLights [3] = Integer.parseInt(txtMaxRed.getText());
+        trafficLights [0] = Integer.parseInt(txtMaxGreen.getText());
+        trafficLights [1] = Integer.parseInt(txtMaxAmber.getText());
+        trafficLights [2] = Integer.parseInt(txtMaxRed.getText());
         return trafficLights;
         }
         else
@@ -277,9 +290,11 @@ public class GUIComponents extends BorderPane{
     public int getSessionDuration()
     {
         if (txtDuration.getText().isEmpty())
-            return 60;
-        else 
-            return Integer.parseInt(txtDuration.getText());
+        {
+            txtDuration.setText("60");
+        }
+            
+        return Integer.parseInt(txtDuration.getText());
         
     }
  
@@ -290,7 +305,7 @@ public class GUIComponents extends BorderPane{
     }
     
     //disable Mininum policy value textfields
-    public void disableMin(){
+    private void disableMin(){
         txtMinStraight.setDisable(true);
         txtMinJunction.setDisable(true);
         txtMinCurvy.setDisable(true);
@@ -301,7 +316,7 @@ public class GUIComponents extends BorderPane{
     }
     
     //disable maximum policy value textfields
-    public void disableMax(){
+    private void disableMax(){
         txtMaxStraight.setDisable(true);
         txtMaxJunction.setDisable(true);
         txtMaxCurvy.setDisable(true);
@@ -310,7 +325,7 @@ public class GUIComponents extends BorderPane{
         txtMaxRed.setDisable(true);
     }
     
-    public void enableMin(){
+    private void enableMin(){
         txtMinStraight.setDisable(false);
         txtMinJunction.setDisable(false);
         txtMinCurvy.setDisable(false);
@@ -320,7 +335,7 @@ public class GUIComponents extends BorderPane{
                
     }
     
-    public void enableMax(){
+    private void enableMax(){
         txtMaxStraight.setDisable(false);
         txtMaxJunction.setDisable(false);
         txtMaxCurvy.setDisable(false);
@@ -329,6 +344,81 @@ public class GUIComponents extends BorderPane{
         txtMaxRed.setDisable(false);
     }
     
- 
+    public  boolean validateBlank(){
+        int selected = getSelectedPolicy();
+        boolean valid = true;
+        if (((selected == 1) || (selected ==2)) &&
+                !validateMinValues()
+                )
+            valid = false;
+        
+        if (selected == 1 && !validateMaxValues())
+            valid = false;
+        
+        return valid;         
+                
+    }
+    
+    public  boolean validateRange(){
+        int selected = getSelectedPolicy();
+        boolean valid = true;
+        if ((selected == 1) &&
+            (Integer.parseInt(txtMinJunction.getText()) > Integer.parseInt(txtMaxJunction.getText()) ||
+             Integer.parseInt(txtMinStraight.getText()) > Integer.parseInt(txtMaxStraight.getText()) ||
+             Integer.parseInt(txtMinCurvy.getText()) > Integer.parseInt(txtMaxCurvy.getText()) ||
+             Integer.parseInt(txtMinGreen.getText()) > Integer.parseInt(txtMaxGreen.getText()) ||
+             Integer.parseInt(txtMinAmber.getText()) > Integer.parseInt(txtMaxAmber.getText()) ||
+             Integer.parseInt(txtMinRed.getText()) > Integer.parseInt(txtMaxRed.getText())       
+            )
+            )
+            valid = false;
+        
+      
+        
+        return valid;         
+                
+    }
+    
+    private void clearMax(){
+        txtMaxStraight.setText("");
+        txtMaxJunction.setText("");
+        txtMaxCurvy.setText("");
+        txtMaxGreen.setText("");
+        txtMaxAmber.setText("");
+        txtMaxRed.setText("");
+    }
+        
+    
+    private boolean validateMinValues()
+    {
+         if (txtMinStraight.getText().isEmpty()||
+             txtMinJunction.getText().isEmpty() ||
+             txtMinCurvy.getText().isEmpty() ||
+             txtMinGreen.getText().isEmpty() ||
+             txtMinAmber.getText().isEmpty() ||
+             txtMinRed.getText().isEmpty()
+            )
+             
+             return false;
+         else 
+             return true;
+                     
+    }
+    
+    private boolean validateMaxValues()
+    {
+         if (txtMaxStraight.getText().isEmpty()||
+             txtMaxJunction.getText().isEmpty() ||
+             txtMaxCurvy.getText().isEmpty() ||
+             txtMaxGreen.getText().isEmpty() ||
+             txtMaxAmber.getText().isEmpty() ||
+             txtMaxRed.getText().isEmpty()
+            )
+             
+             return false;
+         else 
+             return true;
+                     
+    }
   
 }

@@ -6,12 +6,16 @@
 package com.kcl.keepitclean.main.GUI;
 
 import com.kcl.keepitclean.main.policy.Policy;
+import com.kcl.keepitclean.main.policy.TrafficLightColour;
+import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
+import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight;
 import com.kcl.keepitclean.main.roadnetwork.road.*;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.*;
 import com.kcl.keepitclean.main.vehicle.*;
 import com.kcl.keepitclean.main.simulatorengine.*;
 import com.kcl.keepitclean.main.utils.Constant;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,6 +36,8 @@ public class SimulationRender  implements IRenderer {
     private SimulatorEngine simulation;
     private List<Road> roads;
     private List<Vehicle> vehicles;
+    private List<TrafficLight> trafficLights;
+    private List<Junction> junctions;
     private Stage stage;
     Constant constant = new Constant();
    
@@ -41,22 +47,9 @@ public class SimulationRender  implements IRenderer {
        this.gc = gc;
        this.simulation = simulation;
        this.stage = stage;       
+       
    }
-    
      
-    
-    //GENERATE FAKE DATA FOR TESTING
-    //TO BE REMOVED
-    private void fakeData()
-    {
-      LaneFactory laneFactory =  new LaneFactory();
-      RoadFactory roadFactory =  new RoadFactory(laneFactory);
-      VehicleFactory vehicleFactory = new VehicleFactory();
-      roads.add(roadFactory.produceRoad("", 100, 100));
-      vehicles.add(vehicleFactory.getVehicle(VehicleType.CAR));
-	
-    }
-    
     
     public void render() {
       Platform.runLater(new Runnable() {
@@ -66,8 +59,11 @@ public class SimulationRender  implements IRenderer {
         clear();
         roads = simulation.getContext().getRoadList();
         vehicles = simulation.getContext().getVehicleList();
+        //junctions = simulation.getContext().getJunctionList().;
+                
         System.out.println("GUI- number of vehicles:" + vehicles.size());
         drawRoads();
+        drawTrafficLights();
         drawVehicles();
         //drawTest();
         //drawTrafficLights(trafficLights);
@@ -98,7 +94,12 @@ public class SimulationRender  implements IRenderer {
         
         //draw road
         gc.setFill(Color.DARKGRAY);
-        gc.fillRect(leftStartPoint.x * constant.PIXELS, leftStartPoint.y * constant.PIXELS, road.getNumberOfLanes()* constant.LANE_SIZE * constant.PIXELS, road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT * constant.PIXELS );
+        gc.fillRect(leftStartPoint.x * constant.PIXELS, 
+                    leftStartPoint.y * constant.PIXELS, 
+                    road.getNumberOfLanes()* constant.LANE_SIZE * constant.PIXELS, 
+                    road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT * constant.PIXELS 
+               
+        );
        }
                        
     }
@@ -119,11 +120,7 @@ public class SimulationRender  implements IRenderer {
     //DRAW VEHICLES
     public void drawVehicles()
     {
-      Point leftStartPoint;
-      Point rightStartPoint;
-      Point leftEndPoint;
-      Point rightEndPoint;
-      
+        
       for (Vehicle vehicle:vehicles)
       {
         if (Car.class.isInstance(vehicle)) 
@@ -133,12 +130,63 @@ public class SimulationRender  implements IRenderer {
         else if (Emergency.class.isInstance(vehicle))
            gc.setFill(Color.RED);
         
-        gc.fillRect(vehicle.getAxom().x * constant.PIXELS, vehicle.getAxom().y * constant.PIXELS, constant.VEHICLE_WIDTH * constant.PIXELS, constant.VEHICLE_HEIGHT * constant.PIXELS);
+        gc.fillRect(vehicle.getAxom().x * constant.PIXELS, 
+                    vehicle.getAxom().y * constant.PIXELS, 
+                    constant.VEHICLE_WIDTH * constant.PIXELS, 
+                    constant.VEHICLE_HEIGHT * constant.PIXELS);
       }
       
     }
     
+    //DRAW TRAFFIC LIGHT
+    public void drawTrafficLights(){
+        
+        /* test data */
+        TrafficLight trafficLight1 = new TrafficLight(roads, roads);
+        trafficLight1.setState(TrafficLightColour.GREEN);
+        trafficLight1.setColour(5,5,5);
+        trafficLight1.setTrafficLightCoordinate(new Point(410,200));
+        
+        trafficLights = new ArrayList<>();
+        
+        trafficLights.add(trafficLight1);
+        /* end test data */
+        
+        
+        for (TrafficLight trafficLight:trafficLights)
+        {
+            if (trafficLight.getColour() == TrafficLightColour.RED)
+                gc.setFill(Color.RED);
+            else 
+                gc.setFill(Color.GREY);
+            gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 30, trafficLight.getTrafficLightCoordinate().y, 10, 10);
+            
+            if (trafficLight.getColour() == TrafficLightColour.AMBER )
+                gc.setFill(Color.YELLOW);
+            else
+                gc.setFill(Color.GREY);
+            gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 20, trafficLight.getTrafficLightCoordinate().y, 10, 10);
+            
+            if (trafficLight.getColour() == TrafficLightColour.GREEN )
+                gc.setFill(Color.GREEN);
+            else
+                gc.setFill(Color.GREY);
+            gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 10, trafficLight.getTrafficLightCoordinate().y, 10, 10);
+                
+        }
+        /* TEST
+        gc.setFill(Color.RED);
+        gc.fillOval(400,200,10,10);
+        gc.setFill(Color.YELLOW);
+        gc.fillOval(390, 200, 10, 10);
+        gc.setFill(Color.GREEN);
+        gc.fillOval(380, 200, 10, 10);  
+        */
+        
+    }
+        
+ }
     
 
     
-}
+
