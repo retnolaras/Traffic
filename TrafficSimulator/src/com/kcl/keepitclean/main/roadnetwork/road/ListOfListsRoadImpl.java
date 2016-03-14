@@ -28,6 +28,7 @@ public class ListOfListsRoadImpl implements Road {
 	private Point endCoordinate;
 	
 	private Junction endOfRoad;
+	private Orientation orientation;
 
 	public ListOfListsRoadImpl(int length, int numberOfLanes) {
 		this.length = length;
@@ -95,6 +96,10 @@ public class ListOfListsRoadImpl implements Road {
 		return this.endCoordinate;
 	}
 	
+	public void setOrientation(Orientation orientation){
+		this.orientation = orientation;
+	}
+	
 	public void setSpeedLimit(int speedLimit) {
 		this.speedLimit = speedLimit;
 	}
@@ -108,5 +113,10 @@ public class ListOfListsRoadImpl implements Road {
 
 	public void setEndOfRoad(Junction endOfRoad) {
 		this.endOfRoad = endOfRoad;
+	}
+
+	@Override
+	public Orientation getOrientation() {
+		return this.orientation;
 	}
 }
