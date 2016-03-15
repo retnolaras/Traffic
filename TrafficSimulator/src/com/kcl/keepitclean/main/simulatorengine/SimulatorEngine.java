@@ -80,7 +80,16 @@ public class SimulatorEngine implements Observer {
 
 		startingPos.update(0, 0, 0);
 		// load policy variables: add them into RoadList
-		generateRoad();
+		//generateRoad();
+                Map1 map = new Map1();
+                roadList = map.getRoads();
+                for (Road road:roadList)
+                {
+                    context.addRoad(road);
+                }
+                
+		//roadList = context.getRoadList();
+	
 		roadList = context.getRoadList();
 		System.out.println("Got Road List"); // test line
 	}
