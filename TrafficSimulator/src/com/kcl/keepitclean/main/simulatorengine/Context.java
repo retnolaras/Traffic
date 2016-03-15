@@ -123,19 +123,18 @@ public class Context implements IContext {
 					road.getOrientation() == Orientation.LEFT_HORIZONTAL ||
 					road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
 				
-				//adding 2 to x to place the car in the middle of the lane
-				p = new Point((int)road.getStartCoordinates().getX()
-														+ Constant.VEHICLE_LEFT_MARGIN,
-														(int)move);
+				//adding VEHICLE_LEFT_MARGIN to place the car in the middle of the lane
+				p = new Point((int)move, (int)road.getStartCoordinates().getY()
+														+ Constant.VEHICLE_LEFT_MARGIN);
 			} else {
 				
-				//adding 2 to x to place the car in the middle of the lane
-				p = new Point((int)road.getStartCoordinates().getY()
+				//adding VEHICLE_LEFT_MARGIN to place the car in the middle of the lane
+				p = new Point((int)road.getStartCoordinates().getX()
 														+ Constant.VEHICLE_LEFT_MARGIN,
 														(int)move);
 			}
 		}
-		
+		vehicle.setAxom(p);
 		return p;
 	}
 	
