@@ -10,13 +10,13 @@ package com.kcl.keepitclean.main.GUI;
  * @author rosiengo
  */
 public class SimulationSettings {
-    public int policyOption;
-    public int[] minSpeed;
-    public int[] maxSpeed;
-    public int[] minTrafficLight;
-    public int[] maxTrafficLight;
-    public String trafficDensity;
-    public int sessionDuration;
+    private int policyOption;
+    private int[] minSpeed;
+    private int[] maxSpeed;
+    private int[] minTrafficLight;
+    private int[] maxTrafficLight;
+    private String trafficDensity;
+    private int sessionDuration;
     
     public SimulationSettings(int policyOption, int[] minSpeed, int[] maxSpeed, int[] minTrafficLight, int[] maxTrafficLight, String trafficDensity, int sessionDuration){
         this.policyOption = policyOption;
@@ -29,4 +29,26 @@ public class SimulationSettings {
         
     }
     
+    public int getPolicyOption(){
+        return this.policyOption;
+    }
+    public int[] getMinSpeeds(){
+        return this.minSpeed;
+    }
+    public int[] getMaxSpeeds(){
+        return this.maxSpeed;
+    }
+    public int[] getMinTrafficLightDuration(){
+        return this.minTrafficLight;
+    }
+    public int[] getMaxTrafficLightDuration(){
+        return this.maxTrafficLight;
+    }
+    public String getTrafficDensity(){
+        return this.trafficDensity;
+    }
+    public int getSessionDuration(){
+        return this.sessionDuration;
+    }
+           
 }

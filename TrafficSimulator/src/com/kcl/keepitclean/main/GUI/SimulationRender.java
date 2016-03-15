@@ -86,20 +86,42 @@ public class SimulationRender  implements IRenderer {
         parameters: List of Roads, that is provided by simulation engine
         */
       
-       
+       int j = 0;
        for (Road road: roads)
        {
-        Point leftStartPoint = road.getStartCoordinates();
-        
+        j++;
+        System.out.println("Road " + j + " start: (" + road.getStartCoordinates().x + "," +  road.getStartCoordinates().y + ")");
+        System.out.println("Road " + j + " end: (" + road.getEndCoordinates().x + "," +  road.getEndCoordinates().y + ")");
         
         //draw road
         gc.setFill(Color.DARKGRAY);
-        gc.fillRect(leftStartPoint.x * constant.PIXELS, 
+        
+        gc.fillPolygon(new double[] {road.getStartCoordinates().x, road.getEndCoordinates().x, road.getEndCoordinates().x, road.getStartCoordinates().x},
+                new double[] {road.getStartCoordinates().y, road.getStartCoordinates().y, road.getEndCoordinates().y, road.getEndCoordinates().y},
+                4);
+        
+        
+        
+        //draw stroke lane line
+        for (int i = 1; i<= road.getNumberOfLanes() -1; i++)
+        {
+            gc.setStroke(Color.WHITE);
+            gc.setLineWidth(2);
+            gc.setLineDashes(new double[]{25d, 10d});
+            gc.strokeLine(road.getStartCoordinates().x, 
+                          road.getStartCoordinates().y + i * constant.LANE_SIZE * constant.PIXELS, 
+                          road.getEndCoordinates().x,
+                          road.getStartCoordinates().y + i * constant.LANE_SIZE * constant.PIXELS
+                          );
+                    
+        }
+        /*gc.fillRect(leftStartPoint.x * constant.PIXELS, 
                     leftStartPoint.y * constant.PIXELS, 
                     road.getNumberOfLanes()* constant.LANE_SIZE * constant.PIXELS, 
                     road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT * constant.PIXELS 
                
-        );
+        );*/
+        
        }
                        
     }
