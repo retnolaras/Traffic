@@ -35,7 +35,7 @@ import com.kcl.keepitclean.main.vehicle.VehicleType;
 public class SimulatorEngine implements Observer {
 
 	// private Object simulatorGUI; // instance of the GUI
-	static float freq = 1.0f;
+	static float freq = 0.5f;
 	private Random r;
 	private Position startingPos;
 	private VehicleFactory vehicleFactory;
@@ -91,7 +91,7 @@ public class SimulatorEngine implements Observer {
 		//roadList = context.getRoadList();
 	
 		roadList = context.getRoadList();
-		System.out.println("Got Road List"); // test line
+//		System.out.println("<SimulatorEngine> Got Road List"); // test line
 	}
 
 	public IContext getContext() {
@@ -122,10 +122,14 @@ public class SimulatorEngine implements Observer {
 		init();
 		SessionManager.getInstance().addObserver(this);
 		renderer.render();
-		System.out.println("Session Started"); // test line
+//		System.out.println("<Simulator Engine> Session Started"); // test line
 
 	}
 
+	public void stopSimulation(){
+		SessionManager.getInstance().stopSession();
+	}
+	
 	// private updateSimulationStatus(){
 	//
 	// }
@@ -144,19 +148,19 @@ public class SimulatorEngine implements Observer {
 			carPos.update(startingPos.getRoad(),startingPos.getLane(),startingPos.getLaneSection());
 			AddToActive(Car, carPos); // add to Active List of cars
 
-			System.out.println("First Car Generated"); // test line
+//			System.out.println("<SimulatorEngine> First Car Generated"); // test line
 
 		} else if (!NotEmpty(startingPos)) {
 			generateCar(startingPos); // generates car at starting point with
 										// factor 'freq'
-			System.out.println("Car Generated"); // test line
+//			System.out.println("<SimulatorEngine>Car Generated"); // test line
 		}
 		renderer.render();
 		
 		// iterate on all cars, move car only if LookAhead is true
 		for (int i = 0; i < vehicleList.size(); i++) {
 
-			System.out.println("<SimulatorEngine>iterating on car number " + i); // test
+//			System.out.println("<SimulatorEngine>iterating on car number " + i); // test
 																					// line
 
 			if (lookAhead(vehicleList.get(i).getPos(), 5) && (!reachedEnd(vehicleList.get(i)))) {
@@ -167,13 +171,13 @@ public class SimulatorEngine implements Observer {
 				Point debugPoint = context.moveVehicle(vehicleList.get(i), vehicleList.get(i).getPos(), newPos);
 				vehicleList.get(i).getPos().update(newPos.getRoad(), newPos.getLane(), newPos.getLaneSection());;
 
-				System.out.println("<SimulatorEngine> Car Moved [" + " ID:" + vehicleList.get(i).getID() + " "
-						+ debugPoint.getX() + ", " + debugPoint.getY() + "]");
+//				System.out.println("<SimulatorEngine> Car Moved [" + " ID:" + vehicleList.get(i).getID() + " "
+//						+ debugPoint.getX() + ", " + debugPoint.getY() + "]");
 			}
 			
 			else if((reachedEnd(vehicleList.get(i))) ){
 				vehicleList.remove(i);
-				System.out.println("Car "+vehicleList.get(i).getID()+ " removed" );
+//				System.out.println("<SimulatorEngine> Car "+vehicleList.get(i).getID()+ " removed" );
 				continue; 
 			}
 		}
@@ -254,7 +258,7 @@ private boolean reachedEnd(Vehicle vehicle) {
 		if (chance <= freq) {
 			Vehicle Car = vehicleFactory.getVehicle(VehicleType.CAR);
 			Car.setPos(p);
-			System.out.println(vehicleStartCoord);
+//			System.out.println("<SimulatorEngine>" + vehicleStartCoord);
 			Car.setAxom(vehicleStartCoord);
 			AddToActive(Car, carPos);
 		}
