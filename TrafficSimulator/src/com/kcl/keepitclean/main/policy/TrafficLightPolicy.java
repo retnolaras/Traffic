@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 package com.kcl.keepitclean.main.policy;
+
+import javafx.scene.paint.Color;
+
 /**
  *
  * @author Huong
  */
 public class TrafficLightPolicy {
-	public TrafficLightColour colour;
+	public Color colour;
 	public int green;
 	public int amber;
 	public int red;

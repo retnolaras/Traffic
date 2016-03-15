@@ -6,7 +6,6 @@
 package com.kcl.keepitclean.main.GUI;
 
 import com.kcl.keepitclean.main.policy.Policy;
-import com.kcl.keepitclean.main.policy.TrafficLightColour;
 import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
 import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight;
 import com.kcl.keepitclean.main.roadnetwork.road.*;
@@ -165,8 +164,8 @@ public class SimulationRender  implements IRenderer {
         
         /* test data */
         TrafficLight trafficLight1 = new TrafficLight(roads, roads);
-        trafficLight1.setState(TrafficLightColour.GREEN);
-        trafficLight1.setColour(5,5,5);
+        trafficLight1.setState(Color.GREEN);
+        trafficLight1.setColour(Color.GREEN);
         trafficLight1.setTrafficLightCoordinate(new Point(410,200));
         
         trafficLights = new ArrayList<>();
@@ -177,19 +176,19 @@ public class SimulationRender  implements IRenderer {
         
         for (TrafficLight trafficLight:trafficLights)
         {
-            if (trafficLight.getColour() == TrafficLightColour.RED)
+            if (trafficLight.getColour() == Color.RED)
                 gc.setFill(Color.RED);
             else 
                 gc.setFill(Color.GREY);
             gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 30, trafficLight.getTrafficLightCoordinate().y, 10, 10);
             
-            if (trafficLight.getColour() == TrafficLightColour.AMBER )
+            if (trafficLight.getColour() == Color.YELLOW )
                 gc.setFill(Color.YELLOW);
             else
                 gc.setFill(Color.GREY);
             gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 20, trafficLight.getTrafficLightCoordinate().y, 10, 10);
             
-            if (trafficLight.getColour() == TrafficLightColour.GREEN )
+            if (trafficLight.getColour() == Color.GREEN )
                 gc.setFill(Color.GREEN);
             else
                 gc.setFill(Color.GREY);
