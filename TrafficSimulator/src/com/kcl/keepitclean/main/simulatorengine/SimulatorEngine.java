@@ -35,7 +35,7 @@ import com.kcl.keepitclean.main.vehicle.VehicleType;
 public class SimulatorEngine implements Observer {
 
 	// private Object simulatorGUI; // instance of the GUI
-	static float freq = 0.3f;
+	static float freq = 1.0f;
 	private Random r;
 	private Position startingPos;
 	private VehicleFactory vehicleFactory;
@@ -80,7 +80,16 @@ public class SimulatorEngine implements Observer {
 
 		startingPos.update(0, 0, 0);
 		// load policy variables: add them into RoadList
-		generateRoad();
+		//generateRoad();
+                Map1 map = new Map1();
+                roadList = map.getRoads();
+                for (Road road:roadList)
+                {
+                    context.addRoad(road);
+                }
+                
+		//roadList = context.getRoadList();
+	
 		roadList = context.getRoadList();
 		System.out.println("Got Road List"); // test line
 	}
@@ -147,18 +156,20 @@ public class SimulatorEngine implements Observer {
 		// iterate on all cars, move car only if LookAhead is true
 		for (int i = 0; i < vehicleList.size(); i++) {
 
-			System.out.println("<SimulatorEngine>iterating on car number " + i); // test // line
+			System.out.println("<SimulatorEngine>iterating on car number " + i); // test
+																					// line
+
 			if (lookAhead(vehicleList.get(i).getPos(), 5) && (!reachedEnd(vehicleList.get(i)))) {
 
 				Position newPos = new Position();
 				newPos.update(0, vehicleList.get(i).getPos().getLane(),
 						vehicleList.get(i).getPos().getLaneSection()+1); 
-				
-				Point debugPoint=null;
-				moveWrapper (debugPoint, vehicleList.get(i).getPos(), newPos, i);
+				Point debugPoint = context.moveVehicle(vehicleList.get(i), vehicleList.get(i).getPos(), newPos);
+				vehicleList.get(i).getPos().update(newPos.getRoad(), newPos.getLane(), newPos.getLaneSection());;
+
+				System.out.println("<SimulatorEngine> Car Moved [" + " ID:" + vehicleList.get(i).getID() + " "
+						+ debugPoint.getX() + ", " + debugPoint.getY() + "]");
 			}
-				
-			
 			
 			else if((reachedEnd(vehicleList.get(i))) ){
 				vehicleList.remove(i);
@@ -169,26 +180,6 @@ public class SimulatorEngine implements Observer {
 		iteration++;
 	}
 	
-	private void moveWrapper(Point debugPoint, Position pos, Position newPos, int i) {
-		//inform context about the change
-		debugPoint=context.moveVehicle(vehicleList.get(i), vehicleList.get(i).getPos(), newPos);
-		//inform the vehicle list
-		vehicleList.get(i).getPos().update(newPos.getRoad(), newPos.getLane(), newPos.getLaneSection());;
-		//output to terminal
-		System.out.println("<SimulatorEngine> Car Moved [" + " ID:" + vehicleList.get(i).getID() + " "
-				+ debugPoint.getX() + ", " + debugPoint.getY() + "]");
-		//empty old section
-		Road r1 = roadList.get(vehicleList.get(i).getPos().getRoad()) ;
-		 LaneSection ls =((ListOfListsRoadImpl)r1).getLaneSectionsOfRoad().get(pos.getLane()).get(pos.getLaneSection());	
-		 ls.removeVehicleFromSection();
-		 
-		 //fill new section
-		 Road r2 = roadList.get(vehicleList.get(i).getPos().getRoad()) ;
-		 LaneSection ls2 =((ListOfListsRoadImpl)r2).getLaneSectionsOfRoad().get(newPos.getLane()).get(newPos.getLaneSection());	
-		 ls2.removeVehicleFromSection();
-		 
-	}		
-
 	/*
 	 * Check if a car has reached an exit point, in this case the end of the road
 	 * TODO: define exit points  
@@ -229,7 +220,7 @@ private boolean reachedEnd(Vehicle vehicle) {
 		R = roadList.get(Road);
 		int newLane = LaneSection;
 		Position Pos = new Position();
-		Pos.update( p.getRoad(), p.getLane(), p.getLaneSection());
+		Pos.update(p.getRoad(), p.getLane(), p.getLaneSection());
 		List<LaneSection> Lane = ((ListOfListsRoadImpl) R).getLaneSectionsOfRoad().get(LaneIndex);
 
 		for (int x = LaneSection; x < LaneSection + a && x < Lane.size(); x++) {

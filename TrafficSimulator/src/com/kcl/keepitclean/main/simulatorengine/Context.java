@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
-import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import com.kcl.keepitclean.main.utils.Constant;
 import com.kcl.keepitclean.main.vehicle.Position;
 import com.kcl.keepitclean.main.vehicle.Vehicle;
 
 public class Context implements IContext {
+	private static int MARGIN_X = 2;
+	private static int MARGIN_Y = 3;
 	
 	private List<Vehicle> vehicleList;
 	private List<Junction> junctionList;
@@ -20,27 +21,12 @@ public class Context implements IContext {
 	//This List represents the entire network road
 	//and it is a list of ListOfListsRoadImpl objects.
 	private List<Road> roadList;
-	private List<TrafficLight> trafficLightList;
 	
-	public Context(List<Road> roadList, List<Vehicle> vehicleList /*, List<Junction> junctionList*/) {
+	public Context(List<Road> roadList, List<Vehicle> vehicleList) {
 		this.roadList = roadList;
 		this.vehicleList =  vehicleList;
-		
-		trafficLightList = new ArrayList<>();
-		trafficLightList = getTrafficLights(junctionList);
 	}
 	
-	private List<TrafficLight> getTrafficLights(List<Junction> jList) {
-		if (jList != null) {
-			for (Junction junction : jList) {
-				if (junction instanceof TrafficLight) {
-					trafficLightList.add(((TrafficLight) junction));
-				}
-			}
-		}
-		return trafficLightList;
-	}
-
 	public boolean addRoad(Road road){
 		return roadList.add(road);
 	}
@@ -49,16 +35,16 @@ public class Context implements IContext {
 		 return roadList;
 	}
 	
+	/*public List<Road> getRoadList(List<Road> roadList){
+		 return roadList;
+	}*/	
+	
 	public boolean addJunction(Junction junction){
 		return junctionList.add(junction);
 	}
 	
 	public List<Junction> getJunctionList(){
 		 return junctionList;
-	}
-	
-	public List<TrafficLight> getTrafficLightList(){
-		return trafficLightList;
 	}
 	
 	public boolean addVehicle(Vehicle vehicle){
@@ -73,29 +59,22 @@ public class Context implements IContext {
 	@Override
 	public Point moveVehicle(Vehicle vehicle, Position oldPos, Position newPos){
 		Point p;
-		double move;
 		
 		Road road = roadList.get(newPos.getRoad());
 		
 		if(oldPos.getRoad() == newPos.getRoad()){
-
-//			if (road.getOrientation() == Orientation.HORIZONTAL) {
-//				move = getStartCoordinates().getX();
-//			} else if (){
- 
 			//need to find the start point first
-			move = road.getStartCoordinates().getY();
-			
+			double y = road.getStartCoordinates().getY();
 			for(int i = 0; i < oldPos.getLaneSection(); i++){
-				move += 1;
+				y += 1;
 			}
 			for(int i = 0; i < newPos.getLaneSection(); i++){
-				move += 1;
+				y += 1;
 			}
 			//adding 2 to x to place the car in the middle of the lane
 			p = new Point((int)road.getStartCoordinates().getX()
 													+ Constant.VEHICLE_LEFT_MARGIN,
-													(int)move);
+													(int)y);
 		} else {
 			//need to find the start point first
 			double y = road.getStartCoordinates().getY();
