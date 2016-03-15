@@ -2,6 +2,8 @@ package com.kcl.keepitclean.main.vehicle;
 
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import java.awt.Point;
+import java.util.Collections;
+
 
 public class Vehicle {
 	static int CarID = 0;
@@ -13,7 +15,8 @@ public class Vehicle {
 	int size[];
 	Position pos;
 	int UCarID;
-	
+	bool onJunction= false;
+	list<Position> path;
 	String colour;
 	Road roadinfo;	
 	
@@ -64,6 +67,23 @@ public class Vehicle {
 	}
 	public int getID() {
 		return UCarID;
+	}
+	public void setOnJunction(bool b){
+		if (b) onJunction=true;
+		else onJunction=false;
+	}
+	public bool getOnJunction(){
+		if (onJunction) return true;
+		else return false;
+	}
+	public void updatePath(List<Position> p){
+		Collections.copy(path,p);
+		
+	}
+	
+	public void removePath(){
+		path.clear();
+		onJunction= false;
 	}
 }
 
