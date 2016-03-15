@@ -39,28 +39,28 @@ public class Map1 {
     private void generateRoads() {
         
         RoadFactory roadFactory = new RoadFactory(new LaneFactory());	
-        Point startPoint = new Point(10,0);
+        Point startPoint = new Point(0,0);
         Point endPoint = new Point();
         int length = 0;
         int lanes = 0;
         
         //road[0]: top road - horizontal 
-        generateRoad(new Point(startPoint.x, startPoint.y), 65, 2, Orientation.HORIZONTAL);
+        generateRoad(new Point(startPoint.x, startPoint.y), 63, 2, Orientation.HORIZONTAL);
         
         //road[1]: bottom road - horizontal 
-        startPoint.x = 10;
+        startPoint.x = 0;
         startPoint.y = 568;
-        generateRoad(new Point(startPoint.x, startPoint.y), 65, 2, Orientation.HORIZONTAL);
+        generateRoad(new Point(startPoint.x, startPoint.y), 63, 2, Orientation.HORIZONTAL);
         
         //road[2]: middle road1 - horizontal 
-        startPoint.x = 10;
-        startPoint.y = 300;
-        generateRoad(new Point(startPoint.x, startPoint.y), 30, 2, Orientation.HORIZONTAL);
+        startPoint.x = 0;
+        startPoint.y = 350;
+        generateRoad(new Point(startPoint.x, startPoint.y), 20, 2, Orientation.HORIZONTAL);
         
         //road[3]: middle road2 - horizontal 
         startPoint.x = 500;
-        startPoint.y = 350;
-        generateRoad(new Point(startPoint.x, startPoint.y), 20, 2, Orientation.HORIZONTAL);
+        startPoint.y = 450;
+        generateRoad(new Point(startPoint.x, startPoint.y), 12, 2, Orientation.HORIZONTAL);
         
         //road[4]: first Vertical Road- joint with road 0, road 1, road 2
         startPoint.x = roads.get(2).getEndCoordinates().x;
@@ -76,6 +76,19 @@ public class Map1 {
         startPoint.x = roads.get(3).getStartCoordinates().x - lanes * constant.LANE_SIZE * constant.PIXELS;
         endPoint.x = roads.get(3).getStartCoordinates().x;
         endPoint.y = roads.get(1).getStartCoordinates().y;
+        generateRoad(new Point(startPoint.x, startPoint.y), new Point(endPoint.x, endPoint.y), Orientation.VERTICAL);
+        
+        //road[6]: middle road 3- horizontal
+        startPoint.x = 0;
+        startPoint.y = 200;
+        generateRoad(new Point(startPoint.x, startPoint.y), 63, 2, Orientation.HORIZONTAL);
+        
+        //road[7]: vertical road, joint with road 0,1,3,6
+        lanes = 2;
+        startPoint.y = 0;
+        startPoint.x = roads.get(0).getEndCoordinates().x;
+        endPoint.x = roads.get(1).getEndCoordinates().x + lanes * constant.LANE_SIZE * constant.PIXELS ;
+        endPoint.y = roads.get(1).getEndCoordinates().y ;
         generateRoad(new Point(startPoint.x, startPoint.y), new Point(endPoint.x, endPoint.y), Orientation.VERTICAL);
         
 	}
