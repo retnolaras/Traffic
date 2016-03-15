@@ -107,11 +107,22 @@ public class SimulationRender  implements IRenderer {
             gc.setStroke(Color.WHITE);
             gc.setLineWidth(2);
             gc.setLineDashes(new double[]{25d, 10d});
-            gc.strokeLine(road.getStartCoordinates().x, 
+            if (road.getOrientation() == Orientation.HORIZONTAL)
+            {
+                gc.strokeLine(road.getStartCoordinates().x, 
                           road.getStartCoordinates().y + i * constant.LANE_SIZE * constant.PIXELS, 
                           road.getEndCoordinates().x,
                           road.getStartCoordinates().y + i * constant.LANE_SIZE * constant.PIXELS
                           );
+            }
+            else if (road.getOrientation() == Orientation.VERTICAL)
+            {
+                gc.strokeLine(road.getStartCoordinates().x + i * constant.LANE_SIZE * constant.PIXELS, 
+                          road.getStartCoordinates().y, 
+                          road.getStartCoordinates().x + i * constant.LANE_SIZE * constant.PIXELS,
+                          road.getEndCoordinates().y
+                          );
+            }
                     
         }
         /*gc.fillRect(leftStartPoint.x * constant.PIXELS, 
