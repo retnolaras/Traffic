@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,7 +37,7 @@ import com.kcl.keepitclean.main.roadnetwork.road.RoadFactory;
  * The arrows show the direction of travel.
  * The routes R1 and R2 both go over junction section 'J2'.
  * 
- * @author igaln
+ * @author igalna
  *
  */
 
@@ -58,6 +59,9 @@ public class TestSingleLaneFourEntryFourExitOverlappingJunction {
 	List<Road> roadsLeavingJunction;
 	
 	Junction junction;
+	
+	List<LaneSection> r1;
+	List<LaneSection> r2;
 	
 	@Before
 	public void buildSingleLaneOverlappingJunction() {
@@ -99,22 +103,157 @@ public class TestSingleLaneFourEntryFourExitOverlappingJunction {
 		junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
 	}
 	
+	@After
+	public void tearDownSingleLaneOverlappingJunction() {
+		rf = null;
+		
+		roadsGoingIntoJunction = null;
+		roadsLeavingJunction = null;
+		
+		inputRoad = null;
+		inputRoad1 = null;
+		inputRoad2 = null;
+		inputRoad3 = null;
+		outputRoad = null;
+		outputRoad1 = null;
+		outputRoad2 = null;
+		outputRoad3 = null;
+		
+		junction = null;
+	}
+	
+	/**
+	 * 
+	 * Test Example map
+	 * 
+	 * 			 ^
+	 * 			[R2]
+	 * 			[J2][J3]
+	 * 	   <[R1][J0][J1]
+	 * 			[R1]
+	 * 			[R2]
+	 * 			 ^
+	 * 
+	 */
 	@Test
 	public void testOverLapBetweenZerothEntryFirstExitAndSecondExit() {
-		List<LaneSection> route = junction.produceRoute(new Point(1,1), new Point(1,1));
-		List<LaneSection> anotherRoute = junction.produceRoute(new Point(1,1), new Point(1,3));
+		List<LaneSection> r1 = junction.produceRoute(new Point(1,1), new Point(1,1));
+		List<LaneSection> r2 = junction.produceRoute(new Point(1,1), new Point(1,3));
 		
-		assertEquals(route.get(0), anotherRoute.get(0));
+		assertEquals(r1.get(0), r2.get(0));
 	}
-
+	
+	/**
+	 * 
+	 * Test Example map
+	 * 
+	 * 			 
+	 * 			
+	 * 			[J2][J3][R2]>
+	 * 	   <[R1][J0][J1]
+	 * 			[R1]
+	 * 			[R2]
+	 * 			 ^
+	 * 
+	 */
 	@Test
 	public void testOverLapBetweenZerothEntryFirstExitAndThirdExit() {
-		List<LaneSection> route = junction.produceRoute(new Point(1,1), new Point(1,1));
-		List<LaneSection> anotherRoute = junction.produceRoute(new Point(1,1), new Point(3,3));
+		List<LaneSection> r1 = junction.produceRoute(new Point(1,1), new Point(1,1));
+		List<LaneSection> r2 = junction.produceRoute(new Point(1,1), new Point(3,3));
+		
+		assertEquals(r1.get(0), r2.get(0));
+	}
+	
+	/**
+	 * 
+	 * Test Example map
+	 * 
+	 * 			  ^
+	 * 			 [R1]
+	 * 	>[R2][R1][J2][J3][R2]>
+	 * 	   		 [J0][J1]			
+	 * 
+	 */
+	@Test
+	public void testOverLapBetweenFirstEntrySecondExitAndThirdExit() {
+		List<LaneSection> route = junction.produceRoute(new Point(1,3), new Point(1,3));
+		List<LaneSection> anotherRoute = junction.produceRoute(new Point(1,3), new Point(3,3));
 		
 		assertEquals(route.get(0), anotherRoute.get(0));
 	}
 	
+	/**
+	 * 
+	 * Test Example map
+	 * 
+	 * 			 ^
+	 * 			[R1]
+	 * 	[R2][R1][J2][J3]
+	 * 	   		[J0][J1]
+	 * 				[R2]
+	 * 				 V
+	 * 
+	 */
+	@Test
+	public void testOverLapBetweenFirstEntrySecondExitAndZerothExit() {
+		List<LaneSection> route = junction.produceRoute(new Point(1,3), new Point(1,3));
+		List<LaneSection> anotherRoute = junction.produceRoute(new Point(1,3), new Point(3,1));
+		
+		assertEquals(route.get(0), anotherRoute.get(0));
+	}
+	
+	/**
+	 * 
+	 * Test Example map
+	 * 
+	 * 			
+	 * 	   >[R1][J2][J3]
+	 * 	   <[R2][J0][J1][R2]<
+	 * 				[R1]
+	 * 				 V
+	 * 
+	 */
+	@Test
+	public void testOverLapBetweenFirstEntryZerothExitAndThirdEntryFirstExit() {
+		List<LaneSection> route = junction.produceRoute(new Point(1,3), new Point(3,1));
+		List<LaneSection> anotherRoute = junction.produceRoute(new Point(3,1), new Point(3,1));
+		
+		assertEquals(route.get(1), anotherRoute.get(0));
+	}
+	
+	/**
+	 * 
+	 * Test Example map
+	 * 			
+	 * 			 ^
+	 * 			[R2]
+	 * 			[R1]
+	 * 			[J2][J3]
+	 * 	   		[J0][J1][R2]<
+	 * 			[R1]
+	 * 			 ^	
+	 * 
+	 */
+	@Test
+	public void testOverLapBetweenZerothEntrySecondExitAndThirdEntrySecondExit() {
+		List<LaneSection> route = junction.produceRoute(new Point(1,1), new Point(1,3));
+		List<LaneSection> anotherRoute = junction.produceRoute(new Point(3,1), new Point(1,3));
+		
+		assertEquals(route.get(1), anotherRoute.get(1));
+	}
+	
+	/**
+	 * 
+	 * Test Example map
+	 * 
+	 * 			 ^
+	 * 			[R1]
+	 * 	   >[R2][J2][J3]
+	 * 	   		[J0][J1][R2]>
+	 * 			[R1]
+	 * 			 ^
+	 * 
+	 */
 	@Test
 	public void testOverLapBetweenZerothEntrySecondExitAndFirstEntryThirdExit() {
 		List<LaneSection> route = junction.produceRoute(new Point(1,1), new Point(1,3));
