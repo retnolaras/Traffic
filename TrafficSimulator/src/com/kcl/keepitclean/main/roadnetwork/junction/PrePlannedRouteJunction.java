@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
@@ -97,18 +98,122 @@ public class PrePlannedRouteJunction implements Junction {
 		this.sectionsOfJunction = new ArrayList<LaneSection>();
 		
 		for (int index = 0; index < widthOfJunction; index++) {
-			sectionsOfJunction.add(lf.produceLaneSection("SingleLane"));
+			sectionsOfJunction.add(lf.produceLaneSection(junctionLaneType));
 		}
 		lf = null;
 	}
 
 	@Override
-	public List<LaneSection> produceRoute(Point endCoordinateOfCurrentRoad, Point startCoordinateOfNextRoad) {
-		lf = new LaneFactory();
-		List<LaneSection> dummyRoute = new ArrayList<LaneSection>();
-		dummyRoute.add(lf.produceLaneSection(junctionLaneType));
-		lf = null;
-		return dummyRoute;
+	public List<LaneSection> produceRoute(Point roadEnteringCoord, Point roadLeavingCoord) {
+		List<LaneSection> route = new ArrayList<LaneSection>();
+		
+		int roadEnteringIndex = 0;
+		int roadLeavingIndex = 0;
+		
+		for (int x = 0; x < roadsEnteringJunction.size(); x++) {
+			if (roadsEnteringJunction.get(x).getEndCoordinates().equals(roadEnteringCoord)) {
+				roadEnteringIndex = x;
+			}
+		}
+		for (int x = 0; x < roadsLeavingJunction.size(); x++) {
+			if (roadsLeavingJunction.get(x).getStartCoordinates().equals(roadLeavingCoord)) {
+				roadLeavingIndex = x;
+			}
+		}
+		
+		if (sectionsOfJunction.size() > 1) {
+			if(roadEnteringIndex == 0) {
+				if (roadLeavingIndex == 0) {
+					route.add(getLaneSectionsOfJunction().get(0));
+					route.add(getLaneSectionsOfJunction().get(1));
+					return route;
+				}
+				if (roadLeavingIndex == 1) {
+					route.add(getLaneSectionsOfJunction().get(0));
+					return route;
+				}
+				if (roadLeavingIndex == 2) {
+					route.add(getLaneSectionsOfJunction().get(0));
+					route.add(getLaneSectionsOfJunction().get(2));
+					return route;
+				}
+				if (roadLeavingIndex == 3) {
+					route.add(getLaneSectionsOfJunction().get(0));
+					route.add(getLaneSectionsOfJunction().get(3));
+					return route;
+				}
+			}
+			if(roadEnteringIndex == 1) {
+				if (roadLeavingIndex == 1) {
+					route.add(getLaneSectionsOfJunction().get(2));
+					route.add(getLaneSectionsOfJunction().get(0));
+					return route;
+				}
+				if (roadLeavingIndex == 2) {
+					route.add(getLaneSectionsOfJunction().get(2));
+					return route;
+				}
+				if (roadLeavingIndex == 3) {
+					route.add(getLaneSectionsOfJunction().get(2));
+					route.add(getLaneSectionsOfJunction().get(3));
+					return route;
+				}
+				if (roadLeavingIndex == 0) {
+					route.add(getLaneSectionsOfJunction().get(2));
+					route.add(getLaneSectionsOfJunction().get(1));
+					return route;
+				}
+			}
+			if(roadEnteringIndex == 2) {
+				if (roadLeavingIndex == 2) {
+					route.add(getLaneSectionsOfJunction().get(3));
+					route.add(getLaneSectionsOfJunction().get(2));
+					return route;
+				}
+				if (roadLeavingIndex == 3) {
+					route.add(getLaneSectionsOfJunction().get(3));
+					return route;
+				}
+				if (roadLeavingIndex == 0) {
+					route.add(getLaneSectionsOfJunction().get(3));
+					route.add(getLaneSectionsOfJunction().get(1));
+					return route;
+				}
+				if (roadLeavingIndex == 1) {
+					route.add(getLaneSectionsOfJunction().get(3));
+					route.add(getLaneSectionsOfJunction().get(0));
+					return route;
+				}
+			}
+			if(roadEnteringIndex == 3) {
+				if (roadLeavingIndex == 3) {
+					route.add(getLaneSectionsOfJunction().get(1));
+					route.add(getLaneSectionsOfJunction().get(3));
+					return route;
+				}
+				if (roadLeavingIndex == 0) {
+					route.add(getLaneSectionsOfJunction().get(1));
+					return route;
+				}
+				if (roadLeavingIndex == 1) {
+					route.add(getLaneSectionsOfJunction().get(1));
+					route.add(getLaneSectionsOfJunction().get(0));
+					return route;
+				}
+				if (roadLeavingIndex == 2) {
+					route.add(getLaneSectionsOfJunction().get(1));
+					route.add(getLaneSectionsOfJunction().get(2));
+					return route;
+				}
+			}
+		}
+		else {
+			route.add(getLaneSectionsOfJunction().get(0));
+			return route;
+		}
+		
+		
+		return route;
 	}
 	
 	public Map<String, List<LaneSection>> getMappings() {
