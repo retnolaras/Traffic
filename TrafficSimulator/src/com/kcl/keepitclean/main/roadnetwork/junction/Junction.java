@@ -7,7 +7,7 @@ import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
 
 public interface Junction {
 
-	
 	public List<LaneSection> produceRoute(Point roadEnteringCoord, Point roadLeavingCoord);
 	public List<Point> getCoordinates();
+
 }

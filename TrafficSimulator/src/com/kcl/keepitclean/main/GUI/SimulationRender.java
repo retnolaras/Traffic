@@ -6,7 +6,6 @@
 package com.kcl.keepitclean.main.GUI;
 
 import com.kcl.keepitclean.main.policy.Policy;
-import com.kcl.keepitclean.main.policy.TrafficLightColour;
 import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
 import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight;
 import com.kcl.keepitclean.main.roadnetwork.road.*;
@@ -86,20 +85,53 @@ public class SimulationRender  implements IRenderer {
         parameters: List of Roads, that is provided by simulation engine
         */
       
-       
+       int j = 0;
        for (Road road: roads)
        {
-        Point leftStartPoint = road.getStartCoordinates();
-        
+        j++;
+        System.out.println("Road " + j + " start: (" + road.getStartCoordinates().x + "," +  road.getStartCoordinates().y + ")");
+        System.out.println("Road " + j + " end: (" + road.getEndCoordinates().x + "," +  road.getEndCoordinates().y + ")");
         
         //draw road
         gc.setFill(Color.DARKGRAY);
-        gc.fillRect(leftStartPoint.x * constant.PIXELS, 
+        
+        gc.fillPolygon(new double[] {road.getStartCoordinates().x, road.getEndCoordinates().x, road.getEndCoordinates().x, road.getStartCoordinates().x},
+                new double[] {road.getStartCoordinates().y, road.getStartCoordinates().y, road.getEndCoordinates().y, road.getEndCoordinates().y},
+                4);
+        
+        
+        
+        //draw stroke lane line
+        for (int i = 1; i<= road.getNumberOfLanes() -1; i++)
+        {
+            gc.setStroke(Color.WHITE);
+            gc.setLineWidth(2);
+            gc.setLineDashes(new double[]{25d, 10d});
+            if (road.getOrientation() == Orientation.HORIZONTAL)
+            {
+                gc.strokeLine(road.getStartCoordinates().x, 
+                          road.getStartCoordinates().y + i * constant.LANE_SIZE * constant.PIXELS, 
+                          road.getEndCoordinates().x,
+                          road.getStartCoordinates().y + i * constant.LANE_SIZE * constant.PIXELS
+                          );
+            }
+            else if (road.getOrientation() == Orientation.VERTICAL)
+            {
+                gc.strokeLine(road.getStartCoordinates().x + i * constant.LANE_SIZE * constant.PIXELS, 
+                          road.getStartCoordinates().y, 
+                          road.getStartCoordinates().x + i * constant.LANE_SIZE * constant.PIXELS,
+                          road.getEndCoordinates().y
+                          );
+            }
+                    
+        }
+        /*gc.fillRect(leftStartPoint.x * constant.PIXELS, 
                     leftStartPoint.y * constant.PIXELS, 
                     road.getNumberOfLanes()* constant.LANE_SIZE * constant.PIXELS, 
                     road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT * constant.PIXELS 
                
-        );
+        );*/
+        
        }
                        
     }
@@ -143,8 +175,8 @@ public class SimulationRender  implements IRenderer {
         
         /* test data */
         TrafficLight trafficLight1 = new TrafficLight(roads, roads);
-        trafficLight1.setState(TrafficLightColour.GREEN);
-        trafficLight1.setColour(5,5,5);
+        trafficLight1.setState(Color.GREEN);
+        trafficLight1.setColour(Color.GREEN);
         trafficLight1.setTrafficLightCoordinate(new Point(410,200));
         
         trafficLights = new ArrayList<>();
@@ -155,19 +187,19 @@ public class SimulationRender  implements IRenderer {
         
         for (TrafficLight trafficLight:trafficLights)
         {
-            if (trafficLight.getColour() == TrafficLightColour.RED)
+            if (trafficLight.getColour() == Color.RED)
                 gc.setFill(Color.RED);
             else 
                 gc.setFill(Color.GREY);
             gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 30, trafficLight.getTrafficLightCoordinate().y, 10, 10);
             
-            if (trafficLight.getColour() == TrafficLightColour.AMBER )
+            if (trafficLight.getColour() == Color.YELLOW )
                 gc.setFill(Color.YELLOW);
             else
                 gc.setFill(Color.GREY);
             gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 20, trafficLight.getTrafficLightCoordinate().y, 10, 10);
             
-            if (trafficLight.getColour() == TrafficLightColour.GREEN )
+            if (trafficLight.getColour() == Color.GREEN )
                 gc.setFill(Color.GREEN);
             else
                 gc.setFill(Color.GREY);
