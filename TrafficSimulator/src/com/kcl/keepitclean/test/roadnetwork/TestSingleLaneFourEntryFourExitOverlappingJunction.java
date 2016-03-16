@@ -26,7 +26,7 @@ import com.kcl.keepitclean.main.roadnetwork.road.RoadFactory;
  * 			   ^
  * 			   ^
  * 			  [R1]
- * 			>>[R2][J2][J3][R2]>>
+ * 		  >>[R2][J2][J3][R2]>>
  * 		 	  [J0][J1]
  * 			  [R1]
  * 			   ^
