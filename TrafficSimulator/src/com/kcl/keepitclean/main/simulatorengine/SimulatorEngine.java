@@ -53,7 +53,7 @@ public class SimulatorEngine implements Observer {
 	private List<Road> roadList;
 	private Context context;
 	private Road masterRoad;
-	private list<Position> startingPositions;
+	private List<Position> startingPositions;
 
 	private IRenderer renderer;
 
@@ -340,9 +340,8 @@ private boolean reachedEnd(Vehicle vehicle) {
 	* function that links a car to a certain junction path
 	*/
 	private void carOnPath(int vehicleIndex , List<Position> path){
-	vehicleList.get(vehicleIndex).setOnJunction=true;
-	vehicleList.get(vehicleIndex).setPath(path);
-	
+	vehicleList.get(vehicleIndex).setOnJunction(true);
+	//vehicleList.get(vehicleIndex).setPath(path);
 	
 	}
 	
@@ -350,14 +349,13 @@ private boolean reachedEnd(Vehicle vehicle) {
 	* function to compare if two positions are equal
 	*
 	*/
-	}
-	private bool isEqual(Position a, Position b){
-		if (  (a.getLaneSection== b.getLaneSection)
+	private boolean isEqual(Position a, Position b){
+		/*if (  (a.getLaneSection == b.getLaneSection)
 			&&(a.getLane== b.getLane)
 			&&(a.getRoad== b.getRoad) )
 			return true;
 			
-		else 
+		else*/ 
 			return false;
 		
 	}
