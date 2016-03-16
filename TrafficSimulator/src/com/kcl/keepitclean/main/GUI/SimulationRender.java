@@ -13,6 +13,9 @@ import com.kcl.keepitclean.main.roadnetwork.laneSection.*;
 import com.kcl.keepitclean.main.vehicle.*;
 import com.kcl.keepitclean.main.simulatorengine.*;
 import com.kcl.keepitclean.main.utils.Constant;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,12 +97,39 @@ public class SimulationRender  implements IRenderer {
         
         //draw road
         gc.setFill(Color.DARKGRAY);
-        
+               
+                
         gc.fillPolygon(new double[] {road.getStartCoordinates().x, road.getEndCoordinates().x, road.getEndCoordinates().x, road.getStartCoordinates().x},
                 new double[] {road.getStartCoordinates().y, road.getStartCoordinates().y, road.getEndCoordinates().y, road.getEndCoordinates().y},
                 4);
+        if (road.getOrientation() == Orientation.HORIZONTAL || 
+            road.getOrientation() == Orientation.LEFT_HORIZONTAL ||
+            road.getOrientation() == Orientation.RIGHT_HORIZONTAL)
+        {
+            gc.setStroke(Color.WHITE);
+            gc.setLineWidth(2);
+            gc.setLineDashes(new double[]{10d,0d});
+            gc.strokeLine(road.getStartCoordinates().x, road.getEndCoordinates().y, road.getEndCoordinates().x, road.getEndCoordinates().y);
         
+            gc.setStroke(Color.WHITE);
+            gc.setLineWidth(2);
+            gc.setLineDashes(new double[]{10d,0d});
+            gc.strokeLine(road.getStartCoordinates().x, road.getStartCoordinates().y, road.getEndCoordinates().x, road.getStartCoordinates().y);
+        }
         
+        else 
+        {
+            gc.setStroke(Color.WHITE);
+            gc.setLineWidth(2);
+            gc.setLineDashes(new double[]{10d,0d});
+            gc.strokeLine(road.getStartCoordinates().x, road.getStartCoordinates().y, road.getStartCoordinates().x, road.getEndCoordinates().y);
+        
+            gc.setStroke(Color.WHITE);
+            gc.setLineWidth(2);
+            gc.setLineDashes(new double[]{10d,0d});
+            gc.strokeLine(road.getEndCoordinates().x, road.getStartCoordinates().y, road.getEndCoordinates().x, road.getEndCoordinates().y);
+ 
+        }
         
         //draw stroke lane line
         for (int i = 1; i<= road.getNumberOfLanes() -1; i++)
@@ -123,7 +153,8 @@ public class SimulationRender  implements IRenderer {
                           road.getEndCoordinates().y
                           );
             }
-                    
+            
+            
         }
         /*gc.fillRect(leftStartPoint.x * constant.PIXELS, 
                     leftStartPoint.y * constant.PIXELS, 
