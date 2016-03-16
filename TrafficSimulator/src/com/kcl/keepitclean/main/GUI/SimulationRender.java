@@ -61,15 +61,15 @@ public class SimulationRender  implements IRenderer {
         clear();
         roads = simulation.getContext().getRoadList();
         vehicles = simulation.getContext().getVehicleList();
-        //junctions = simulation.getContext().getJunctionList().;
+        junctions = simulation.getContext().getJunctionList();
+        trafficLights = simulation.getContext().getTrafficLightList();
                 
         System.out.println("GUI- number of vehicles:" + vehicles.size());
         drawRoads();
         drawTrafficLights();
+        drawJunctions();
         drawVehicles();
-        //drawTest();
-        //drawTrafficLights(trafficLights);
-    
+        
       }
     }
     );
@@ -107,12 +107,12 @@ public class SimulationRender  implements IRenderer {
             road.getOrientation() == Orientation.RIGHT_HORIZONTAL)
         {
             gc.setStroke(Color.WHITE);
-            gc.setLineWidth(2);
+            gc.setLineWidth(1);
             gc.setLineDashes(new double[]{10d,0d});
             gc.strokeLine(road.getStartCoordinates().x, road.getEndCoordinates().y, road.getEndCoordinates().x, road.getEndCoordinates().y);
         
             gc.setStroke(Color.WHITE);
-            gc.setLineWidth(2);
+            gc.setLineWidth(1);
             gc.setLineDashes(new double[]{10d,0d});
             gc.strokeLine(road.getStartCoordinates().x, road.getStartCoordinates().y, road.getEndCoordinates().x, road.getStartCoordinates().y);
         }
@@ -120,12 +120,12 @@ public class SimulationRender  implements IRenderer {
         else 
         {
             gc.setStroke(Color.WHITE);
-            gc.setLineWidth(2);
+            gc.setLineWidth(1);
             gc.setLineDashes(new double[]{10d,0d});
             gc.strokeLine(road.getStartCoordinates().x, road.getStartCoordinates().y, road.getStartCoordinates().x, road.getEndCoordinates().y);
         
             gc.setStroke(Color.WHITE);
-            gc.setLineWidth(2);
+            gc.setLineWidth(1);
             gc.setLineDashes(new double[]{10d,0d});
             gc.strokeLine(road.getEndCoordinates().x, road.getStartCoordinates().y, road.getEndCoordinates().x, road.getEndCoordinates().y);
  
@@ -135,9 +135,11 @@ public class SimulationRender  implements IRenderer {
         for (int i = 1; i<= road.getNumberOfLanes() -1; i++)
         {
             gc.setStroke(Color.WHITE);
-            gc.setLineWidth(2);
+            gc.setLineWidth(1);
             gc.setLineDashes(new double[]{25d, 10d});
-            if (road.getOrientation() == Orientation.HORIZONTAL)
+            if (road.getOrientation() == Orientation.HORIZONTAL ||
+                road.getOrientation() == Orientation.LEFT_HORIZONTAL ||
+                road.getOrientation() == Orientation.RIGHT_HORIZONTAL)
             {
                 gc.strokeLine(road.getStartCoordinates().x, 
                           road.getStartCoordinates().y + i * constant.LANE_SIZE * constant.PIXELS, 
@@ -145,7 +147,9 @@ public class SimulationRender  implements IRenderer {
                           road.getStartCoordinates().y + i * constant.LANE_SIZE * constant.PIXELS
                           );
             }
-            else if (road.getOrientation() == Orientation.VERTICAL)
+            else if (road.getOrientation() == Orientation.VERTICAL ||
+                    road.getOrientation() == Orientation.DOWN_VERTICAL ||
+                    road.getOrientation() == Orientation.UP_VERTICAL)
             {
                 gc.strokeLine(road.getStartCoordinates().x + i * constant.LANE_SIZE * constant.PIXELS, 
                           road.getStartCoordinates().y, 
@@ -156,29 +160,13 @@ public class SimulationRender  implements IRenderer {
             
             
         }
-        /*gc.fillRect(leftStartPoint.x * constant.PIXELS, 
-                    leftStartPoint.y * constant.PIXELS, 
-                    road.getNumberOfLanes()* constant.LANE_SIZE * constant.PIXELS, 
-                    road.getLengthOfRoad() * constant.LANE_SECTION_HEIGHT * constant.PIXELS 
-               
-        );*/
+       
         
        }
                        
     }
     
-    //TEST - TO BE REMOVED
-    public void drawTest()
-    {
-        gc.setFill(Color.DARKGREY);
-        gc.fillRect(350, 0, 60,900);
-        gc.setFill(Color.DARKGREY);
-        gc.fillRect(100, 250, 600,60);
-        gc.setFill(Color.RED);
-        gc.fillRect(370, 0, 20, 20);
-        gc.setFill(Color.BLUE);
-        gc.fillRect(370, 30, 20, 20);
-    }
+   
     
     //DRAW VEHICLES
     public void drawVehicles()
@@ -201,50 +189,48 @@ public class SimulationRender  implements IRenderer {
       
     }
     
+    //DRAW JUNCTION
+    public void drawJunctions(){
+        //Image image = new Image("images/pattern.png");
+        //ImagePattern pattern = new ImagePattern(image);
+        
+        for (Junction junction:junctions){
+            gc.setStroke(Color.YELLOW);
+            gc.setFill(Color.BLANCHEDALMOND);
+            gc.fillPolygon(new double[] {junction.getCoordinates().get(0).x, 
+                                         junction.getCoordinates().get(1).x, 
+                                         junction.getCoordinates().get(2).x,
+                                         junction.getCoordinates().get(3).x},
+                           new double[] {junction.getCoordinates().get(0).y, 
+                                         junction.getCoordinates().get(1).y, 
+                                         junction.getCoordinates().get(2).y,
+                                         junction.getCoordinates().get(3).y},
+                           4);
+            
+               
+        }
+    }
     //DRAW TRAFFIC LIGHT
     public void drawTrafficLights(){
         
-        /* test data */
-        TrafficLight trafficLight1 = new TrafficLight(roads, roads);
-        trafficLight1.setState(Color.GREEN);
-        trafficLight1.setColour(Color.GREEN);
-        trafficLight1.setTrafficLightCoordinate(new Point(410,200));
-        
-        trafficLights = new ArrayList<>();
-        
-        trafficLights.add(trafficLight1);
-        /* end test data */
+        TrafficLight trafficLight1 = new TrafficLight(roads.get(0), junctions.get(0));
         
         
         for (TrafficLight trafficLight:trafficLights)
         {
             if (trafficLight.getColour() == Color.RED)
                 gc.setFill(Color.RED);
-            else 
-                gc.setFill(Color.GREY);
-            gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 30, trafficLight.getTrafficLightCoordinate().y, 10, 10);
             
-            if (trafficLight.getColour() == Color.YELLOW )
-                gc.setFill(Color.YELLOW);
-            else
-                gc.setFill(Color.GREY);
-            gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 20, trafficLight.getTrafficLightCoordinate().y, 10, 10);
-            
-            if (trafficLight.getColour() == Color.GREEN )
+            if (trafficLight.getColour() == Color.GREEN)
                 gc.setFill(Color.GREEN);
-            else
-                gc.setFill(Color.GREY);
-            gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 10, trafficLight.getTrafficLightCoordinate().y, 10, 10);
+            
+            if (trafficLight.getColour() == Color.YELLOW)
+                gc.setFill(Color.YELLOW);
+            
+            gc.fillOval(trafficLight.getTrafficLightCoordinate().x , trafficLight.getTrafficLightCoordinate().y - 5, 5, 5);
                 
         }
-        /* TEST
-        gc.setFill(Color.RED);
-        gc.fillOval(400,200,10,10);
-        gc.setFill(Color.YELLOW);
-        gc.fillOval(390, 200, 10, 10);
-        gc.setFill(Color.GREEN);
-        gc.fillOval(380, 200, 10, 10);  
-        */
+        
         
     }
         

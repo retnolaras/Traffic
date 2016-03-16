@@ -17,6 +17,7 @@ import com.kcl.keepitclean.main.utils.Constant;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -35,6 +36,8 @@ public class Map2 {
     public Map2()
     {
         generateRoads();
+        generateJunctions();
+        generateTrafficLights();
     }
        
     public ArrayList<Junction> getJunctions()
@@ -45,7 +48,10 @@ public class Map2 {
     {
         return roads;
     }
-    
+    public List<TrafficLight> getTrafficLights()
+    {
+        return trafficLights;
+    }
     private void generateRoads() {
         
         RoadFactory roadFactory = new RoadFactory(new LaneFactory());	
@@ -55,11 +61,11 @@ public class Map2 {
         int lanes = 0;
         
         //road[0]: top road - horizontal 
-        generateRoad(new Point(0,0), 30, 2, Orientation.HORIZONTAL);
+        generateRoad(new Point(0,0), 30, 1, Orientation.RIGHT_HORIZONTAL);
         //road[0]: top road - horizontal 
-        generateRoad(new Point(33* constant.LANE_SECTION_HEIGHT * constant.PIXELS,0), 30, 2, Orientation.HORIZONTAL);
+        generateRoad(new Point(31* constant.LANE_SECTION_HEIGHT * constant.PIXELS + 4,0), 30, 1, Orientation.RIGHT_HORIZONTAL) ;
         
-        generateRoad(new Point(roads.get(0).getEndCoordinates().x, roads.get(0).getEndCoordinates().y), 20, 2, Orientation.VERTICAL);
+        generateRoad(new Point(roads.get(0).getEndCoordinates().x, roads.get(0).getEndCoordinates().y), 20, 1, Orientation.DOWN_VERTICAL);
         
            /*
         //road[1]: bottom road - horizontal 
@@ -108,14 +114,18 @@ public class Map2 {
        /* this method generates a road with given start point and road size */
        Point endPoint = new Point();
        Road road = roadFactory.produceRoad("listoflistsroadimpl", length, lanes);
-       if (orientation == Orientation.HORIZONTAL) //HORIZONTAL
+       if (orientation == Orientation.HORIZONTAL ||
+           orientation == Orientation.LEFT_HORIZONTAL ||
+           orientation == Orientation.RIGHT_HORIZONTAL) //HORIZONTAL
        {
            endPoint.x = startPoint.x + road.getLengthOfRoad()* constant.LANE_SECTION_HEIGHT* constant.PIXELS;
            endPoint.y = startPoint.y + road.getNumberOfLanes() * constant.LANE_SIZE * constant.PIXELS; 
            
        }
        
-       else if (orientation == Orientation.VERTICAL) //VERTICAL
+       else if (orientation == Orientation.VERTICAL ||
+               orientation == Orientation.DOWN_VERTICAL ||
+               orientation == Orientation.UP_VERTICAL) //VERTICAL
        {
         endPoint.x = startPoint.x + road.getNumberOfLanes() * constant.LANE_SIZE * constant.PIXELS; 
         endPoint.y = startPoint.y + road.getLengthOfRoad()* constant.LANE_SECTION_HEIGHT* constant.PIXELS;
@@ -136,12 +146,16 @@ public class Map2 {
        int length = 0;
        int lanes = 0;
        
-       if (orientation == Orientation.HORIZONTAL)  //HORIZONTAL 
+       if (orientation == Orientation.HORIZONTAL ||
+           orientation == Orientation.LEFT_HORIZONTAL ||
+           orientation == Orientation.RIGHT_HORIZONTAL) //HORIZONTAL
        {
            length = Math.round((endPoint.x - startPoint.x)/(constant.LANE_SECTION_HEIGHT * constant.PIXELS));
            lanes = Math.round((endPoint.y - startPoint.y)/(constant.LANE_SIZE * constant.PIXELS));
        }
-       else if (orientation == Orientation.VERTICAL) //VERTICAL 
+       else if (orientation == Orientation.VERTICAL ||
+               orientation == Orientation.DOWN_VERTICAL ||
+               orientation == Orientation.UP_VERTICAL) //VERTICAL
        {
            lanes = Math.round((endPoint.x - startPoint.x)/(constant.LANE_SECTION_HEIGHT * constant.PIXELS));
            length = Math.round((endPoint.y - startPoint.y)/(constant.LANE_SIZE * constant.PIXELS));
@@ -166,13 +180,25 @@ public class Map2 {
        roadsLeavingJunction.add(roads.get(1));
        roadsLeavingJunction.add(roads.get(2));
        Junction junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
+       System.out.println("Junction Coordinate 0: " + junction.getCoordinates().get(0));
+       System.out.println("Junction Coordinate 1: " + junction.getCoordinates().get(1));
+       System.out.println("Junction Coordinate 2: " + junction.getCoordinates().get(2));
+       
+       System.out.println("Junction Coordinate 3: " + junction.getCoordinates().get(3));
+       
+       
        junctions.add(junction);  //junction (0)
         
          
     }
     
-    private void generateTrafficLight()
+    private void generateTrafficLights()
     {
+        TrafficLight trafficLight = new TrafficLight(roads.get(0), junctions.get(0));
+        trafficLight.setColour(Color.RED);
+        trafficLight.setTrafficLightCoordinate(new Point(trafficLight.getRoad().getEndCoordinates().x, 
+                                                         trafficLight.getRoad().getEndCoordinates().y));
+        trafficLights.add(trafficLight);
         
     }
     

@@ -4,46 +4,48 @@ import java.awt.Point;
 
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import javafx.scene.paint.Color;
 
 
-public class TrafficLight extends PrePlannedRouteJunction {
-    public TrafficLight(java.util.List<Road> roadsEnteringThisJunction, java.util.List<Road> roadsLeavingThisJunction) {
-		super(roadsEnteringThisJunction, roadsLeavingThisJunction);
-	}
+public class TrafficLight {
+    private Junction junction;
+    private Road road;  
 
-	public List LanePath;
-	public boolean IsEnable;
-	public Color clr;
-	private Point trafficLightCoordinate;
+    private Color clr;
+    private Point trafficLightCoordinate;
+    
+     public TrafficLight(Road road, Junction junction) {
+        this.road = road;
+        this.junction = junction;
+	}
 	
 	
-	public void setColour(Color clr) {
-		this.clr = clr;			
-		}
+    public void setColour(Color clr) {
+	this.clr = clr;			
+    }
 	
-	public Color getColour(){
-		return clr;
-	}
+    public Color getColour(){
+	return clr;
+    }
+    
+    public Road getRoad()
+    {
+        return this.road;
+    }
 
-	public void setState(Color clr){
-		if(clr == Color.GREEN) IsEnable = true;
-		else IsEnable = false;
-	}
+    public Junction getJunction(){
+        return this.junction;
+    }
 	
-	public boolean getState(){
-		return IsEnable;
-	}
+    public Point getTrafficLightCoordinate() {
+        return trafficLightCoordinate;
+    }
 
-	public Point getTrafficLightCoordinate() {
-		return trafficLightCoordinate;
-	}
-
-	public void setTrafficLightCoordinate(Point trafficLightCoordinate) {
-		this.trafficLightCoordinate = trafficLightCoordinate;
-	}
+    public void setTrafficLightCoordinate(Point trafficLightCoordinate) {
+        this.trafficLightCoordinate = trafficLightCoordinate;
+    }
+    
 	
 	
 	
