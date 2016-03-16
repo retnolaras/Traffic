@@ -143,6 +143,7 @@ public class TestSingleLaneFourEntryFourExitOverlappingJunction {
 		assertEquals(r1.get(0), r2.get(0));
 	}
 	
+	
 	/**
 	 * 
 	 * Test Example map
