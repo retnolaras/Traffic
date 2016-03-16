@@ -236,10 +236,46 @@ public class TestJunction {
 		assertEquals(4, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
 	}
 	
+	@Test
+	public void testBuildJunctionWithFourConnectionsWidthTwo() {
+		int width = 2;
+		
+		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, width);
+		Road inputRoad1 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
+		Road inputRoad2 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
+		Road inputRoad3 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
+		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, width);
+		Road outputRoad1 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
+		Road outputRoad2 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
+		Road outputRoad3 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
+		
+		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
+		((ListOfListsRoadImpl) inputRoad1).setEndCoordinate(new Point(2,2));
+		((ListOfListsRoadImpl) inputRoad2).setEndCoordinate(new Point(3,3));
+		((ListOfListsRoadImpl) inputRoad3).setEndCoordinate(new Point(4,4));
+		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		((ListOfListsRoadImpl) outputRoad1).setStartCoordinate(new Point(6,6));
+		((ListOfListsRoadImpl) outputRoad2).setStartCoordinate(new Point(7,7));
+		((ListOfListsRoadImpl) outputRoad3).setStartCoordinate(new Point(8,8));
+		
+		roadsGoingIntoJunction.add(inputRoad);
+		roadsGoingIntoJunction.add(inputRoad1);
+		roadsGoingIntoJunction.add(inputRoad2);
+		roadsGoingIntoJunction.add(inputRoad3);
+		roadsLeavingJunction.add(outputRoad);
+		roadsLeavingJunction.add(outputRoad1);
+		roadsLeavingJunction.add(outputRoad2);
+		roadsLeavingJunction.add(outputRoad3);
+		
+		junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
+		
+		assertEquals(16, ((PrePlannedRouteJunction) junction).getLaneSectionsOfJunction().size());
+	}
 	
 	/*
 	 * Tests for the createMappings method of PreplannedRouteJunction
 	 */
+	
 	@Test
 	public void testCreateMappingOneToOne() {
 		int widthOfJunction = 1;
