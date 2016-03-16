@@ -53,7 +53,7 @@ public class SimulatorEngine implements Observer {
 	private List<Road> roadList;
 	private Context context;
 	private Road masterRoad;
-	private list<Position> startingPositions;
+	private List<Position> startingPositions;
 
 	private IRenderer renderer;
 
