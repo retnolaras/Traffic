@@ -25,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+
 /**
  *
  * @author rosiengo
@@ -38,6 +39,7 @@ public class InitScreen extends Application {
     private GUIComponents pscene;
     private SimulatorEngine simulation;
     private SimulationSettings simulationSettings;
+    private static XYChart.Series simulationEngine;
     
     @Override
     public void start(Stage primaryStage) {
@@ -90,6 +92,7 @@ public class InitScreen extends Application {
             @Override
             public void handle(ActionEvent event){
                 //Terminate Simulation Session
+            	simulation.stopSimulation();
                 //Show Report
                 //Enable Start button
                 pscene.btnStart.setDisable(false);
@@ -112,6 +115,39 @@ public class InitScreen extends Application {
         primaryStage.show();
     }
     
+    
+    
+    private static void createStat(Stage stage) {
+		try {
+			stage.setTitle("Report");
+			final NumberAxis xAxis = new NumberAxis();
+	        final NumberAxis yAxis = new NumberAxis();
+			final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+			xAxis.setLabel("Time");
+			yAxis.setLabel("Number of Vehicles");
+			
+			lineChart.setTitle("Report");
+			int xvalue = 10;
+			int yvalue = 20;
+			Scene scene = new Scene(lineChart,400,400);
+			
+			 simulationEngine = new XYChart.Series();
+			 XYChart.Series seriesAvg = new XYChart.Series();
+		     simulationEngine.setName("Volume of Cars");
+		     seriesAvg.setName("Number of Cells Crossed");
+		       
+		     XYChart.Data<Integer, Integer> datathing = new Data<Integer, Integer>((Integer)xvalue,(Integer)yvalue);
+		        
+		     lineChart.getData().add(simulationEngine);
+		     lineChart.getData().add(seriesAvg);
+		       
+			stage.setScene(scene);
+			stage.show();
+		        
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
     
    
 
