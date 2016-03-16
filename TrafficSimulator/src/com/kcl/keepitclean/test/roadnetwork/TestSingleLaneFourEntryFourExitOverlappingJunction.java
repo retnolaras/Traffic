@@ -17,6 +17,29 @@ import com.kcl.keepitclean.main.roadnetwork.road.ListOfListsRoadImpl;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import com.kcl.keepitclean.main.roadnetwork.road.RoadFactory;
 
+/**
+ * 
+ * Overlapping Junctions are ones where the sections of the junction are used by multiple routes through the junction.
+ * 
+ * For Example
+ * 
+ * 			   ^
+ * 			   ^
+ * 			  [R1]
+ * 		>>[R2][J2][J3][R2]>>
+ * 		 	  [J0][J1]
+ * 			  [R1]
+ * 			   ^
+ * 			   ^
+ * 
+ * Here is a Junction with four sections and two example routes through the junction 'R1' and 'R2'.
+ * The arrows show the direction of travel.
+ * The routes R1 and R2 both go over junction section 'J2'.
+ * 
+ * @author igaln
+ *
+ */
+
 public class TestSingleLaneFourEntryFourExitOverlappingJunction {
 
 	RoadFactory rf;
