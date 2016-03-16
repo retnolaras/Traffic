@@ -193,8 +193,8 @@ public class SimulationRender  implements IRenderer {
         else if (Emergency.class.isInstance(vehicle))
            gc.setFill(Color.RED);
         
-        gc.fillRect(vehicle.getAxom().x * constant.PIXELS, 
-                    vehicle.getAxom().y * constant.PIXELS, 
+        gc.fillRect(vehicle.getAxom().x , 
+                    vehicle.getAxom().y , 
                     constant.VEHICLE_WIDTH * constant.PIXELS, 
                     constant.VEHICLE_HEIGHT * constant.PIXELS);
       }

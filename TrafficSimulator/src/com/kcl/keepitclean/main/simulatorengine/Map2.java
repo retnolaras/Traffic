@@ -5,7 +5,9 @@
  */
 package com.kcl.keepitclean.main.simulatorengine;
 
+import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
 import com.kcl.keepitclean.main.roadnetwork.junction.PrePlannedRouteJunction;
+import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.road.ListOfListsRoadImpl;
 import com.kcl.keepitclean.main.roadnetwork.road.Orientation;
@@ -24,6 +26,8 @@ public class Map2 {
     
     Road road;
     ArrayList<Road> roads = new ArrayList();
+    ArrayList<Junction> junctions = new ArrayList();
+    ArrayList<TrafficLight> trafficLights = new ArrayList();
     Constant constant = new Constant();
     RoadFactory roadFactory = new RoadFactory(new LaneFactory());
     
@@ -33,6 +37,10 @@ public class Map2 {
         generateRoads();
     }
        
+    public ArrayList<Junction> getJunctions()
+    {
+        return junctions;
+    }
     public List<Road> getRoads()
     {
         return roads;
@@ -43,8 +51,6 @@ public class Map2 {
         RoadFactory roadFactory = new RoadFactory(new LaneFactory());	
         Point startPoint = new Point(0,0);
         Point endPoint = new Point();
-        ArrayList<Road> roadsGoingIntoJunction = new ArrayList();
-        ArrayList<Road> roadsLeavingJunction = new ArrayList();
         int length = 0;
         int lanes = 0;
         
@@ -55,8 +61,7 @@ public class Map2 {
         
         generateRoad(new Point(roads.get(0).getEndCoordinates().x, roads.get(0).getEndCoordinates().y), 20, 2, Orientation.VERTICAL);
         
-        PrePlannedRouteJunction junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
-        /*
+           /*
         //road[1]: bottom road - horizontal 
         startPoint.x = 0;
         startPoint.y = 568;
@@ -160,7 +165,8 @@ public class Map2 {
        roadsGoingIntoJunction.add(roads.get(0));
        roadsLeavingJunction.add(roads.get(1));
        roadsLeavingJunction.add(roads.get(2));
-       PrePlannedRouteJunction junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
+       Junction junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
+       junctions.add(junction);  //junction (0)
         
          
     }
