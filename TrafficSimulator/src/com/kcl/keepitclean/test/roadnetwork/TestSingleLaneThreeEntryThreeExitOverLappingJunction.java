@@ -60,6 +60,9 @@ public class TestSingleLaneThreeEntryThreeExitOverLappingJunction {
 	List<LaneSection> r1;
 	List<LaneSection> r2;
 	
+	LaneSection expected;
+	LaneSection actual;
+	
 	@Before
 	public void buildSingleLaneOverlappingJunction() {
 		
@@ -116,7 +119,9 @@ public class TestSingleLaneThreeEntryThreeExitOverLappingJunction {
 		List<LaneSection> r1 = junction.produceRoute(new Point(1,1), new Point(1,1));
 		List<LaneSection> r2 = junction.produceRoute(new Point(1,1), new Point(1,3));
 		
-		assertEquals(r1.get(0), r2.get(0));
+		expected = r1.get(0);
+		
+		assertEquals(expected, r2.get(0));
 	}
 
 	@Test
@@ -124,7 +129,9 @@ public class TestSingleLaneThreeEntryThreeExitOverLappingJunction {
 		List<LaneSection> r1 = junction.produceRoute(new Point(1,3), new Point(3,1));
 		List<LaneSection> r2 = junction.produceRoute(new Point(3,3), new Point(3,1));
 		
-		assertEquals(r1.get(1), r2.get(1));
+		expected = r1.get(1);
+		
+		assertEquals(expected, r2.get(1));
 	}
 	
 }
