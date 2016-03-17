@@ -15,19 +15,19 @@ import com.kcl.keepitclean.main.vehicle.Vehicle;
 public class Context implements IContext {
 	
 	private List<Vehicle> vehicleList;
-	private List<Junction> junctionList;
+	private List<Junction> junctionList = new ArrayList();
 	
 	//Remember a single Road is a ListOfListsRoadImpl
 	//This List represents the entire network road
 	//and it is a list of ListOfListsRoadImpl objects.
 	private List<Road> roadList;
-	private List<TrafficLight> trafficLightList;
+	private List<TrafficLight> trafficLightList = new ArrayList();
 	
 	public Context(List<Road> roadList, List<Vehicle> vehicleList /*, List<Junction> junctionList*/) {
 		this.roadList = roadList;
 		this.vehicleList =  vehicleList;
 		
-		trafficLightList = new ArrayList<>();
+		//trafficLightList = new ArrayList<>();
 		trafficLightList = getTrafficLights(junctionList);
 	}
 	
@@ -52,6 +52,9 @@ public class Context implements IContext {
 	
 	public boolean addJunction(Junction junction){
 		return junctionList.add(junction);
+	}
+        public boolean addTrafficLight(TrafficLight trafficLight){
+		return trafficLightList.add(trafficLight);
 	}
 	
 	public List<Junction> getJunctionList(){

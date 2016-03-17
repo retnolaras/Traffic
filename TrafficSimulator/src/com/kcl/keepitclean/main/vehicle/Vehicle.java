@@ -16,7 +16,7 @@ public class Vehicle {
 	int size[];
 	Position pos;
 	int UCarID;
-	boolean onJunction = false;
+	boolean onJunction= false;
 	List<Position> path;
 	String colour;
 	Road roadinfo;	
