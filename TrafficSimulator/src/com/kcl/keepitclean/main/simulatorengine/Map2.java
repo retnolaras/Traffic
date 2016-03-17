@@ -8,6 +8,7 @@ package com.kcl.keepitclean.main.simulatorengine;
 import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
 import com.kcl.keepitclean.main.roadnetwork.junction.PrePlannedRouteJunction;
 import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight;
+import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight.State;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.road.ListOfListsRoadImpl;
 import com.kcl.keepitclean.main.roadnetwork.road.Orientation;
@@ -63,9 +64,13 @@ public class Map2 {
         //road[0]: top road - horizontal 
         generateRoad(new Point(0,0), 30, 1, Orientation.RIGHT_HORIZONTAL);
         //road[0]: top road - horizontal 
-        generateRoad(new Point(31* constant.LANE_SECTION_HEIGHT * constant.PIXELS + 4,0), 30, 1, Orientation.RIGHT_HORIZONTAL) ;
+        generateRoad(new Point(0,16), 30, 1, Orientation.LEFT_HORIZONTAL);
+        generateRoad(new Point(32* constant.LANE_SECTION_HEIGHT * constant.PIXELS + 8,0), 30, 1, Orientation.RIGHT_HORIZONTAL) ;
         
-        generateRoad(new Point(roads.get(0).getEndCoordinates().x, roads.get(0).getEndCoordinates().y), 20, 1, Orientation.DOWN_VERTICAL);
+        generateRoad(new Point(32* constant.LANE_SECTION_HEIGHT * constant.PIXELS + 8,16), 30, 1, Orientation.LEFT_HORIZONTAL) ;
+        
+        generateRoad(new Point(roads.get(1).getEndCoordinates().x, roads.get(1).getEndCoordinates().y), 20, 1, Orientation.UP_VERTICAL);
+        generateRoad(new Point(roads.get(4).getStartCoordinates().x + 16, roads.get(4).getStartCoordinates().y), 20, 1, Orientation.DOWN_VERTICAL);
         
            /*
         //road[1]: bottom road - horizontal 
@@ -177,8 +182,13 @@ public class Map2 {
        ArrayList<Road> roadsLeavingJunction = new ArrayList();
        
        roadsGoingIntoJunction.add(roads.get(0));
+       roadsGoingIntoJunction.add(roads.get(3));
+       roadsGoingIntoJunction.add(roads.get(4));
+       
        roadsLeavingJunction.add(roads.get(1));
        roadsLeavingJunction.add(roads.get(2));
+       roadsLeavingJunction.add(roads.get(5));
+       
        Junction junction = new PrePlannedRouteJunction(roadsGoingIntoJunction, roadsLeavingJunction);
        System.out.println("Junction Coordinate 0: " + junction.getCoordinates().get(0));
        System.out.println("Junction Coordinate 1: " + junction.getCoordinates().get(1));
@@ -194,10 +204,18 @@ public class Map2 {
     
     private void generateTrafficLights()
     {
-        TrafficLight trafficLight = new TrafficLight(roads.get(0), junctions.get(0));
-        trafficLight.setColour(Color.RED);
-        trafficLight.setTrafficLightCoordinate(new Point(trafficLight.getRoad().getEndCoordinates().x, 
-                                                         trafficLight.getRoad().getEndCoordinates().y));
+        TrafficLight trafficLight;
+        trafficLight = new TrafficLight(roads.get(4), junctions.get(0));
+        trafficLight.setState(State.RED);
+        trafficLight.setTrafficLightCoordinate(new Point(trafficLight.getRoad().getStartCoordinates().x, 
+                                                         trafficLight.getRoad().getStartCoordinates().y));
+        trafficLights.add(trafficLight);
+        
+        
+        trafficLight = new TrafficLight(roads.get(0), junctions.get(0));
+        trafficLight.setState(State.RED);
+        trafficLight.setTrafficLightCoordinate(new Point(trafficLight.getRoad().getStartCoordinates().x, 
+                                                         trafficLight.getRoad().getStartCoordinates().y));
         trafficLights.add(trafficLight);
         
     }

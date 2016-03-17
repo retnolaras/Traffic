@@ -8,6 +8,7 @@ package com.kcl.keepitclean.main.simulatorengine;
 import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
 import com.kcl.keepitclean.main.roadnetwork.junction.PrePlannedRouteJunction;
 import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight;
+import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight.State;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.road.ListOfListsRoadImpl;
 import com.kcl.keepitclean.main.roadnetwork.road.Orientation;
@@ -35,6 +36,8 @@ public class Map1 {
     public Map1()
     {
         generateRoads();
+        generateJunctions();
+        generateTrafficLights();
     }
        
     public List<Road> getRoads()
@@ -192,7 +195,7 @@ public class Map1 {
     private void generateTrafficLights()
     {
         TrafficLight trafficLight = new TrafficLight(roads.get(0), junctions.get(0));
-        trafficLight.setColour(Color.RED);
+        trafficLight.setState(State.RED);
         trafficLight.setTrafficLightCoordinate(new Point(trafficLight.getRoad().getEndCoordinates().x, 
                                                          trafficLight.getRoad().getEndCoordinates().y));
         trafficLights.add(trafficLight);
