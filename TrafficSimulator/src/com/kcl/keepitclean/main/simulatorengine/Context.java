@@ -75,9 +75,11 @@ public class Context implements IContext {
 		Point p;
 		
 		switch (moveType) {
+		//Move within a road
 		case 0:
 			p = moveVehicle(vehicle, oldPos, newPos);
 			break;
+		//Move within a junction
 		case 1:
 			p = moveVehicle(vehicle, 3, 3);
 			break;
@@ -111,20 +113,21 @@ public class Context implements IContext {
 				//need to find the start point first
 				move = road.getStartCoordinates().getY();
 			}
-			
-			for(int i = 0; i < oldPos.getLaneSection(); i++){
-				move += 1;
-			}
-			for(int i = 0; i < newPos.getLaneSection(); i++){
-				move += 1;
-			}
+			move += newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT* Constant.PIXELS;
+//			for(int i = 0; i < oldPos.getLaneSection(); i++){
+//				move += 1;
+//			}
+//			for(int i = 0; i < newPos.getLaneSection(); i++){
+//				move += 1;
+//			}
 			
 			if (road.getOrientation() == Orientation.HORIZONTAL ||
 					road.getOrientation() == Orientation.LEFT_HORIZONTAL ||
 					road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
 				
 				//adding VEHICLE_LEFT_MARGIN to place the car in the middle of the lane
-				p = new Point((int)move, (int)road.getStartCoordinates().getY()
+				p = new Point((int)move,
+							  (int)road.getStartCoordinates().getY()
 														+ Constant.VEHICLE_LEFT_MARGIN);
 			} else {
 				
@@ -137,6 +140,28 @@ public class Context implements IContext {
 		vehicle.setAxom(p);
 		return p;
 	}
+	
+	/**
+	 * Obtains data to be passed to the junction to produce a path.
+	 * @param oldPos
+	 * @param newPos
+	 * @return A List with the start and end positions within a junction.
+	 * <br>Position 0 in the list is the start.
+	 * <br>Position 1 in the list is the end.
+	 */
+	public List<Point> getCoordinates(Position oldPos, Position newPos){
+		
+		List<Point> coordinates = new ArrayList<>(); 
+		
+		Road oldRoad = roadList.get(oldPos.getRoad());
+		coordinates.add(oldRoad.getEndCoordinates());
+		
+		Road newRoad = roadList.get(newPos.getRoad());
+		coordinates.add(newRoad.getStartCoordinates());
+		
+		return coordinates;
+	}
+	
 	
 	@Override
 	@Deprecated
