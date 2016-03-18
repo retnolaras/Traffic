@@ -8,12 +8,14 @@ public class Position {
 	private int lane = 0;
 	private int laneSection = 0;
 	
-	public Position ( int i, int j, int k ){
-		this.update(i, j, k);
-		
+	public Position() {
 	}
 
-	public Position() {}
+	public Position(int road, int lane, int laneSection) {
+		this.road = road;
+		this.lane = lane;
+		this.laneSection = laneSection;
+	}
 
 	public void setRoad(int x) {
 		road = x;
