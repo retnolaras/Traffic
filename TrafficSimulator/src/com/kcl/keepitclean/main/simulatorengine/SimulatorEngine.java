@@ -352,7 +352,7 @@ Vehicle car;
 
 		for (int x = laneSectionIndex; (x < (laneSectionIndex + posToLookAhead) && x < Lane.size() ); x++) {
 
-			pos.update(roadIndex, laneIndex, newLaneSectionIndex++);
+			pos.update(roadIndex, laneIndex, ++newLaneSectionIndex);
 			if (!isPositionEmpty(pos)) {
 				return false;
 			}
