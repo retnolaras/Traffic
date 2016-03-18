@@ -8,17 +8,6 @@ public class Position{
 	private int lane = 0;
 	private int laneSection = 0;
 	
-	public Position(){
-		this.road = 0;
-		this.lane = 0;
-		this.laneSection = 0;
-	}
-	
-	public Position(int road, int lane, int laneSection){
-		this.road = road;
-		this.lane = lane;
-		this.laneSection = laneSection;
-	}
 	
 	public void setRoad(int x){
 		road= x;
@@ -44,10 +33,10 @@ public class Position{
 		return laneSection; 
 	}
 	
-	public void update (int road ,int lane, int  laneSection){
-		this.road = road;
-		this.lane=lane;
-		this.laneSection=laneSection;
+	public void update (int i ,int j, int  k){
+		road = i;
+		lane=j;
+		laneSection=k;
 	}
 	
 }
