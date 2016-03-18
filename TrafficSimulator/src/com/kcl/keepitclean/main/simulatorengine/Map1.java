@@ -36,8 +36,8 @@ public class Map1 {
     public Map1()
     {
         generateRoads();
-        generateJunctions();
-        generateTrafficLights();
+        //generateJunctions();
+        //generateTrafficLights();
     }
        
     public List<Road> getRoads()
