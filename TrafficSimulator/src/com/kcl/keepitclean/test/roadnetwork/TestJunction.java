@@ -70,8 +70,8 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(5,5));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
@@ -87,8 +87,8 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(5,5));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
@@ -104,8 +104,8 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(5,5));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
@@ -121,8 +121,8 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(5,5));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
@@ -140,8 +140,8 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfInput);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfOutput);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(5,5));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
@@ -159,8 +159,8 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfInput);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfOutput);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(5,5));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
@@ -181,12 +181,12 @@ public class TestJunction {
 		Road outputRoad1 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
 		Road outputRoad2 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) inputRoad1).setEndCoordinate(new Point(2,2));
-		((ListOfListsRoadImpl) inputRoad2).setEndCoordinate(new Point(3,3));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
-		((ListOfListsRoadImpl) outputRoad1).setStartCoordinate(new Point(6,6));
-		((ListOfListsRoadImpl) outputRoad2).setStartCoordinate(new Point(7,7));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) inputRoad1).setJuctionEndCoordinates(new Point(2,2));
+		((ListOfListsRoadImpl) inputRoad2).setJuctionEndCoordinates(new Point(3,3));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(5,5));
+		((ListOfListsRoadImpl) outputRoad1).setJuctionStartCoordinates(new Point(6,6));
+		((ListOfListsRoadImpl) outputRoad2).setJuctionStartCoordinates(new Point(7,7));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsGoingIntoJunction.add(inputRoad1);
@@ -213,14 +213,14 @@ public class TestJunction {
 		Road outputRoad2 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
 		Road outputRoad3 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) inputRoad1).setEndCoordinate(new Point(2,2));
-		((ListOfListsRoadImpl) inputRoad2).setEndCoordinate(new Point(3,3));
-		((ListOfListsRoadImpl) inputRoad3).setEndCoordinate(new Point(4,4));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
-		((ListOfListsRoadImpl) outputRoad1).setStartCoordinate(new Point(6,6));
-		((ListOfListsRoadImpl) outputRoad2).setStartCoordinate(new Point(7,7));
-		((ListOfListsRoadImpl) outputRoad3).setStartCoordinate(new Point(8,8));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) inputRoad1).setJuctionEndCoordinates(new Point(2,2));
+		((ListOfListsRoadImpl) inputRoad2).setJuctionEndCoordinates(new Point(3,3));
+		((ListOfListsRoadImpl) inputRoad3).setJuctionEndCoordinates(new Point(4,4));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(5,5));
+		((ListOfListsRoadImpl) outputRoad1).setJuctionStartCoordinates(new Point(6,6));
+		((ListOfListsRoadImpl) outputRoad2).setJuctionStartCoordinates(new Point(7,7));
+		((ListOfListsRoadImpl) outputRoad3).setJuctionStartCoordinates(new Point(8,8));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsGoingIntoJunction.add(inputRoad1);
@@ -249,14 +249,14 @@ public class TestJunction {
 		Road outputRoad2 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
 		Road outputRoad3 = rf.produceRoad("ListOfListsRoadImpl", 10, width);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) inputRoad1).setEndCoordinate(new Point(2,2));
-		((ListOfListsRoadImpl) inputRoad2).setEndCoordinate(new Point(3,3));
-		((ListOfListsRoadImpl) inputRoad3).setEndCoordinate(new Point(4,4));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(5,5));
-		((ListOfListsRoadImpl) outputRoad1).setStartCoordinate(new Point(6,6));
-		((ListOfListsRoadImpl) outputRoad2).setStartCoordinate(new Point(7,7));
-		((ListOfListsRoadImpl) outputRoad3).setStartCoordinate(new Point(8,8));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) inputRoad1).setJuctionEndCoordinates(new Point(2,2));
+		((ListOfListsRoadImpl) inputRoad2).setJuctionEndCoordinates(new Point(3,3));
+		((ListOfListsRoadImpl) inputRoad3).setJuctionEndCoordinates(new Point(4,4));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(5,5));
+		((ListOfListsRoadImpl) outputRoad1).setJuctionStartCoordinates(new Point(6,6));
+		((ListOfListsRoadImpl) outputRoad2).setJuctionStartCoordinates(new Point(7,7));
+		((ListOfListsRoadImpl) outputRoad3).setJuctionStartCoordinates(new Point(8,8));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsGoingIntoJunction.add(inputRoad1);
@@ -283,8 +283,8 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(2,2));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(2,2));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
@@ -304,8 +304,8 @@ public class TestJunction {
 		inputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(4,4));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(3,3));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(4,4));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(3,3));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);
@@ -327,10 +327,10 @@ public class TestJunction {
 		outputRoad = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		Road outputRoad1 = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) inputRoad1).setEndCoordinate(new Point(2,2));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(3,3));
-		((ListOfListsRoadImpl) outputRoad1).setStartCoordinate(new Point(4,4));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) inputRoad1).setJuctionEndCoordinates(new Point(2,2));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(3,3));
+		((ListOfListsRoadImpl) outputRoad1).setJuctionStartCoordinates(new Point(4,4));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsGoingIntoJunction.add(inputRoad1);
@@ -357,10 +357,10 @@ public class TestJunction {
 		Road outputRoad1 = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		Road outputRoad2 = rf.produceRoad("ListOfListsRoadImpl", 10, widthOfJunction);
 		
-		((ListOfListsRoadImpl) inputRoad).setEndCoordinate(new Point(1,1));
-		((ListOfListsRoadImpl) outputRoad).setStartCoordinate(new Point(3,3));
-		((ListOfListsRoadImpl) outputRoad1).setStartCoordinate(new Point(4,4));
-		((ListOfListsRoadImpl) outputRoad2).setStartCoordinate(new Point(5,5));
+		((ListOfListsRoadImpl) inputRoad).setJuctionEndCoordinates(new Point(1,1));
+		((ListOfListsRoadImpl) outputRoad).setJuctionStartCoordinates(new Point(3,3));
+		((ListOfListsRoadImpl) outputRoad1).setJuctionStartCoordinates(new Point(4,4));
+		((ListOfListsRoadImpl) outputRoad2).setJuctionStartCoordinates(new Point(5,5));
 		
 		roadsGoingIntoJunction.add(inputRoad);
 		roadsLeavingJunction.add(outputRoad);

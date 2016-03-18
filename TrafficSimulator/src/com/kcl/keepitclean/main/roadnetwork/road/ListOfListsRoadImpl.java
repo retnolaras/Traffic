@@ -29,7 +29,9 @@ public class ListOfListsRoadImpl implements Road {
 	
 	private Junction endOfRoad;
         private Orientation orientation;
-        private Point junctionCoordinates;
+        private Point junctionStartCoordinates;
+        private Point junctionEndCoordinates;
+
 
 	public ListOfListsRoadImpl(int length, int numberOfLanes) {
 		this.length = length;
@@ -42,12 +44,21 @@ public class ListOfListsRoadImpl implements Road {
 	}
         
         @Override
-	public Point getJuctionCoordinates() {
-		return junctionCoordinates;
+	public Point getJuctionStartCoordinates() {
+		return junctionStartCoordinates;
 	}
         
-        public void setJuctionCoordinates(Point coordinates) {
-		this.junctionCoordinates = coordinates;
+        public void setJuctionStartCoordinates(Point coordinates) {
+		this.junctionStartCoordinates = coordinates;
+	}
+        
+         @Override
+	public Point getJuctionEndCoordinates() {
+		return junctionEndCoordinates;
+	}
+        
+        public void setJuctionEndCoordinates(Point coordinates) {
+		this.junctionEndCoordinates = coordinates;
 	}
 
 
