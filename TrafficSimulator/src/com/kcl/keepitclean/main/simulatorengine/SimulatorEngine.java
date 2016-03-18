@@ -41,7 +41,7 @@ public class SimulatorEngine implements Observer {
 	private Position startingPos;
 	private VehicleFactory vehicleFactory;
 	private List<Vehicle> vehicleList;
-	private ArrayList<Position> entrancePoints = new ArrayList<>();
+	private static final ArrayList<Position> entrancePoints = new ArrayList<>();
 
 //	private Point startCoord = new Point(35, 0);
 //	private Point endCoord = new Point(0, 100);
@@ -72,7 +72,7 @@ public class SimulatorEngine implements Observer {
 		vehicleList = new ArrayList<>();
 		junctionList = new ArrayList<>();
 		trafficLightList = new ArrayList<>();
-		startingPos = new Position();
+	//	startingPos = new Position();
 		startingPositions = new ArrayList<>();
 
 		r = new Random();
@@ -152,7 +152,12 @@ public class SimulatorEngine implements Observer {
 
 		// Generate Car, assign its position to be the starting Position.
 		Random generator = new Random();
-		startingPos = entrancePoints.get(2);//entrancePoints.get(generator.nextInt(3));
+		int temp= generator.nextInt(3);
+		
+		Position startingPos   = new Position ();
+		startingPos.update(entrancePoints.get(temp).getRoad(),
+				entrancePoints.get(temp).getLane(),
+				entrancePoints.get(temp).getLaneSection());
 		
 		if (iteration == 0) {
 Vehicle car;
@@ -176,7 +181,12 @@ Vehicle car;
 			 * test line } }
 			 * 
 			 */
-		} else if (isPositionEmpty(startingPos)) {
+		} 
+		
+		
+		
+		
+		else if (isPositionEmpty(startingPos)) {
 			generateCar(startingPos); // generates car at starting point with
 										// factor 'freq'
 			System.out.println("<SimulatorEngine>Car Generated"); // test line
@@ -206,6 +216,8 @@ Vehicle car;
 				
 				
 					moveWrapper ( vehicleList.get(i).getPos(), newPos, i);
+					System.out.println("<SimulatorEngine>Car " + vehicleList.get(i)+" moved to "+ newPos.getLaneSection()); // test line
+
 				}
 				else
 				{
@@ -215,9 +227,9 @@ Vehicle car;
 					
 			}
 			// TODO: junctionNext and getNextJunction and carOnPath
-			// TODO: in vehicle, add attricute, onJunction, a setter a getter.
-			// TODO: in vehicle, add a list of positions for current route, also
-			// a function to clear positions. DONE
+
+
+
 			// TODO: support for different maps.
 
 			// if the car reached the end,and a junction is upcoming, check if
@@ -340,7 +352,7 @@ Vehicle car;
 
 		for (int x = laneSectionIndex; (x < (laneSectionIndex + posToLookAhead) && x < Lane.size() ); x++) {
 
-			pos.update(roadIndex, laneIndex, newLaneSectionIndex++);
+			pos.update(roadIndex, laneIndex, ++newLaneSectionIndex);
 			if (!isPositionEmpty(pos)) {
 				return false;
 			}
