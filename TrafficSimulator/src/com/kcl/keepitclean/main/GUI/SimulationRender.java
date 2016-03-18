@@ -8,6 +8,7 @@ package com.kcl.keepitclean.main.GUI;
 import com.kcl.keepitclean.main.policy.Policy;
 import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
 import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight;
+import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight.State;
 import com.kcl.keepitclean.main.roadnetwork.road.*;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.*;
 import com.kcl.keepitclean.main.vehicle.*;
@@ -218,16 +219,16 @@ public class SimulationRender  implements IRenderer {
         
         for (TrafficLight trafficLight:trafficLights)
         {
-            if (trafficLight.getColour() == Color.RED)
+            if (trafficLight.getState()== State.RED)
                 gc.setFill(Color.RED);
             
-            if (trafficLight.getColour() == Color.GREEN)
+            if (trafficLight.getState() == State.GREEN)
                 gc.setFill(Color.GREEN);
             
-            if (trafficLight.getColour() == Color.YELLOW)
+            if (trafficLight.getState() == State.AMBER)
                 gc.setFill(Color.YELLOW);
             
-            gc.fillOval(trafficLight.getTrafficLightCoordinate().x , trafficLight.getTrafficLightCoordinate().y - 5, 5, 5);
+            gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 10 , trafficLight.getTrafficLightCoordinate().y - 10, 10, 10);
                 
         }
         

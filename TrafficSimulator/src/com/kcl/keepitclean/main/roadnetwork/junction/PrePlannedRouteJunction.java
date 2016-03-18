@@ -53,9 +53,9 @@ public class PrePlannedRouteJunction implements Junction {
 		Point inputRoadCoords;
 		Point exitRoadCoords;
 		for (Road road : roadsEnteringJunction) {
-			inputRoadCoords = road.getEndCoordinates();
+			inputRoadCoords = road.getJuctionCoordinates();
 			for (Road exitRoad : roadsLeavingJunction) {
-				exitRoadCoords = exitRoad.getStartCoordinates();
+				exitRoadCoords = exitRoad.getJuctionCoordinates();
 				mapOfInputRoadsToOutputRoads.put("" + coordinateStringFormatter(inputRoadCoords, exitRoadCoords), produceRoute(inputRoadCoords, exitRoadCoords));
 			}
 		}
@@ -110,12 +110,12 @@ public class PrePlannedRouteJunction implements Junction {
 		int roadLeavingIndex = 0;
 		
 		for (int x = 0; x < roadsEnteringJunction.size(); x++) {
-			if (roadsEnteringJunction.get(x).getEndCoordinates().equals(roadEnteringCoord)) {
+			if (roadsEnteringJunction.get(x).getJuctionCoordinates().equals(roadEnteringCoord)) {
 				roadEnteringIndex = x;
 			}
 		}
 		for (int x = 0; x < roadsLeavingJunction.size(); x++) {
-			if (roadsLeavingJunction.get(x).getStartCoordinates().equals(roadLeavingCoord)) {
+			if (roadsLeavingJunction.get(x).getJuctionCoordinates().equals(roadLeavingCoord)) {
 				roadLeavingIndex = x;
 			}
 		}
@@ -226,8 +226,12 @@ public class PrePlannedRouteJunction implements Junction {
 	@Override
 	public List<Point> getCoordinates() {
 		for (Road road : roadsEnteringJunction) {
-			junctionPoints.add(road.getEndCoordinates());
+			junctionPoints.add(road.getJuctionCoordinates());
 		}
+                for (Road road:roadsLeavingJunction){
+                    if (!junctionPoints.contains(road.getJuctionCoordinates()))
+                        junctionPoints.add(road.getJuctionCoordinates());
+                }
 		return junctionPoints;
 	}
 }
