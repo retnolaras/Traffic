@@ -97,42 +97,40 @@ public class Context implements IContext {
 		return null;
 	}
 
-	public Point moveVehicle(Vehicle vehicle, Position oldPos, Position newPos) {
+	public Point moveVehicle(Vehicle vehicle, Position oldPos, Position newPos){
 		Point p = null;
 		double move;
-
+		
 		Road road = roadList.get(newPos.getRoad());
-
-		if (oldPos.getRoad() == newPos.getRoad()) {
-			// In this case we are in the same road after moving
-
-			if (road.getOrientation() == Orientation.HORIZONTAL || road.getOrientation() == Orientation.LEFT_HORIZONTAL
-					|| road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
-				// need to find the start point first
+		
+		if(oldPos.getRoad() == newPos.getRoad()){
+			//In this case we are in the same road after moving
+			
+			if (road.getOrientation() == Orientation.HORIZONTAL ||
+					road.getOrientation() == Orientation.LEFT_HORIZONTAL ||
+					road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
+				//need to find the start point first
 				move = road.getStartCoordinates().getX();
 			} else {
-				// need to find the start point first
+				//need to find the start point first
 				move = road.getStartCoordinates().getY();
 			}
+			move += newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT* Constant.PIXELS;
 
-			for (int i = 0; i < oldPos.getLaneSection(); i++) {
-				move += 1;
-			}
-			for (int i = 0; i < newPos.getLaneSection(); i++) {
-				move += 1;
-			}
-
-			if (road.getOrientation() == Orientation.HORIZONTAL || road.getOrientation() == Orientation.LEFT_HORIZONTAL
-					|| road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
-
-				// adding VEHICLE_LEFT_MARGIN to place the car in the middle of
-				// the lane
-				p = new Point((int) move, (int) road.getStartCoordinates().getY() + Constant.VEHICLE_LEFT_MARGIN);
+			if (road.getOrientation() == Orientation.HORIZONTAL ||
+					road.getOrientation() == Orientation.LEFT_HORIZONTAL ||
+					road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
+				
+				//adding VEHICLE_LEFT_MARGIN to place the car in the middle of the lane
+				p = new Point((int)move,
+							  (int)road.getStartCoordinates().getY()
+														+ Constant.VEHICLE_LEFT_MARGIN);
 			} else {
-
-				// adding VEHICLE_LEFT_MARGIN to place the car in the middle of
-				// the lane
-				p = new Point((int) road.getStartCoordinates().getX() + Constant.VEHICLE_LEFT_MARGIN, (int) move);
+				
+				//adding VEHICLE_LEFT_MARGIN to place the car in the middle of the lane
+				p = new Point((int)road.getStartCoordinates().getX()
+														+ Constant.VEHICLE_LEFT_MARGIN,
+														(int)move);
 			}
 		}
 		vehicle.setAxom(p);
