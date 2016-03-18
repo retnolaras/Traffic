@@ -107,7 +107,9 @@ public class SimulatorEngine implements Observer {
                 }
                 trafficLightList = map.getTrafficLights();
                 for (TrafficLight trafficLight:trafficLightList){
+                    trafficLight.activate();
                     context.addTrafficLight(trafficLight);
+                    
                 }
                 
 		System.out.println("<SimulatorEngine>Got Road List"); // test line
