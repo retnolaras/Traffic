@@ -4,6 +4,7 @@ import com.kcl.keepitclean.main.policy.Policy;
 import java.awt.Point;
 
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
+import com.kcl.keepitclean.main.utils.Constant;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,6 +30,7 @@ public class TrafficLight {
         @Override
         public void actionPerformed(ActionEvent e) {
             nextState();
+            timer.stop();
             timer.setDelay(getDelay());
             timer.restart();
             
@@ -54,18 +56,19 @@ public class TrafficLight {
     
     private int getDelay(){
         int delay = 0;
+        Constant constant = new Constant();
         switch(state){
             case GREEN:
-                delay = policy.getGreenTrafficLightTime();
+                delay = policy.getGreenTrafficLightTime(); // * 1000* constant.TIMER_RATIO;
                 break;
             case RED:
-                delay = policy.getRedTrafficLightTime();
+                delay = policy.getRedTrafficLightTime(); //* 1000* constant.TIMER_RATIO;
                 break;
             case AMBER:
-                delay = policy.getAmberTrafficLightTime();
+                delay = policy.getAmberTrafficLightTime();//* 1000* constant.TIMER_RATIO;
                 break;
             default:
-                delay = policy.getRedTrafficLightTime();
+                delay = policy.getRedTrafficLightTime();//* 1000* constant.TIMER_RATIO;
                 break;
         }
         return delay;
