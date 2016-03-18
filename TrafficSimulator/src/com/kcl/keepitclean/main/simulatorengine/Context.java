@@ -162,5 +162,34 @@ public class Context implements IContext {
 		vehicle.setAxom(p);
 		
 	}
+        
+        public TrafficLight getTrafficLight(Road road, Junction junction){
+            
+            /* get TrafficLight object for road <road> at junction <junction>
+            if there is not a traffic light at the junction <junction> for road <road>, the procedure will return NULL
+            For example:
+            
+            TraffiLight trafficLight = getTrafficLight(road1, junction1);
+            if (trafficLight != null)
+            {
+              if ((traiffcLight.getState()  == State.GREEN)
+                    produceroute();
+              else 
+                     vehicle.stop();
+            }
+            */
+            
+            TrafficLight myTrafficLight = null;
+            for (TrafficLight trafficLight:trafficLightList){
+                if ((trafficLight.getRoad() == road) && (trafficLight.getJunction() == junction))
+                {
+                    myTrafficLight = trafficLight;
+                    break;
+                }
+            }
+            
+            return myTrafficLight;
+            
+        }
 
 }
