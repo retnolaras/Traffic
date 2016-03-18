@@ -21,6 +21,8 @@ import java.util.Observer;
 import java.util.Random;
 
 import com.kcl.keepitclean.main.GUI.IRenderer;
+import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
+import com.kcl.keepitclean.main.roadnetwork.junction.TrafficLight;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
 import com.kcl.keepitclean.main.roadnetwork.road.ListOfListsRoadImpl;
@@ -51,6 +53,9 @@ public class SimulatorEngine implements Observer {
 
 	private RoadFactory roadFactory;
 	private List<Road> roadList;
+        private List<Junction> junctionList;
+	private List<TrafficLight> trafficLightList;
+	
 	private Context context;
 	private Road masterRoad;
 	private List<Position> startingPositions;
@@ -62,6 +67,8 @@ public class SimulatorEngine implements Observer {
 		// this.simulatorGUI = simulatorGUI;
 		roadList = new ArrayList<>();
 		vehicleList = new ArrayList<>();
+                junctionList = new ArrayList();
+                trafficLightList = new ArrayList();
 		startingPos = new Position();
     	startingPositions = new ArrayList<>();
 
@@ -93,6 +100,16 @@ public class SimulatorEngine implements Observer {
 		//roadList = context.getRoadList();
 	
 		roadList = context.getRoadList();
+                
+                junctionList = map.getJunctions();
+                for (Junction junction:junctionList){
+                    context.addJunction(junction);
+                }
+                trafficLightList = map.getTrafficLights();
+                for (TrafficLight trafficLight:trafficLightList){
+                    context.addTrafficLight(trafficLight);
+                }
+                
 		System.out.println("<SimulatorEngine>Got Road List"); // test line
 	}
 
