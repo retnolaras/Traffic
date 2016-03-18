@@ -7,6 +7,13 @@ public class Position {
 	private int road = 0;
 	private int lane = 0;
 	private int laneSection = 0;
+	
+	public Position ( int i, int j, int k ){
+		this.update(i, j, k);
+		
+	}
+
+	public Position() {}
 
 	public void setRoad(int x) {
 		road = x;
