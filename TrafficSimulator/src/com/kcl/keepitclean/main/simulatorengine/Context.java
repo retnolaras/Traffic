@@ -75,27 +75,27 @@ public class Context implements IContext {
 		return vehicleList;
 	}
 
-	public Point moveVehicle(int moveType, Vehicle vehicle, Position oldPos, Position newPos) {
-		Point p;
-
-		switch (moveType) {
-		case 0:
-			p = moveVehicle(vehicle, oldPos, newPos);
-			break;
-		case 1:
-			p = moveVehicle(vehicle, 3, 3);
-			break;
-		default:
-			p = null;
-			break;
-		}
-
-		return p;
-	}
-
-	private Point moveVehicle(Vehicle vehicle, int junctionGridX, int junctionGridY) {
-		return null;
-	}
+//	public Point moveVehicle(int moveType, Vehicle vehicle, Position oldPos, Position newPos) {
+//		Point p;
+//
+//		switch (moveType) {
+//			case 0:
+//				p = moveVehicle(vehicle, oldPos, newPos);
+//				break;
+//			case 1:
+//				p = moveVehicleInJunction(vehicle, oldPos, newPos);
+//				break;
+//			default:
+//				p = null;
+//				break;
+//		}
+//
+//		return p;
+//	}
+//
+//	private Point moveVehicleInJunction(Vehicle vehicle, Position oldPos, Position newPos) {
+//		return null;
+//	}
 
 	public Point moveVehicle(Vehicle vehicle, Position oldPos, Position newPos){
 		Point p = null;
@@ -103,59 +103,42 @@ public class Context implements IContext {
 		
 		Road road = roadList.get(newPos.getRoad());
 		
-		if(oldPos.getRoad() == newPos.getRoad()){
-			//In this case we are in the same road after moving
-			
-			if (road.getOrientation() == Orientation.HORIZONTAL ||
-					road.getOrientation() == Orientation.LEFT_HORIZONTAL ||
-					road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
-				//need to find the start point first
-				move = road.getStartCoordinates().getX();
-			} else {
-				//need to find the start point first
-				move = road.getStartCoordinates().getY();
-			}
-			move += newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT* Constant.PIXELS;
+		if (newPos.getMode() == Constant.MOVE_IN_ROAD) {
 
-			if (road.getOrientation() == Orientation.HORIZONTAL ||
-					road.getOrientation() == Orientation.LEFT_HORIZONTAL ||
-					road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
-				
-				//adding VEHICLE_LEFT_MARGIN to place the car in the middle of the lane
-				p = new Point((int)move,
-							  (int)road.getStartCoordinates().getY()
-														+ Constant.VEHICLE_LEFT_MARGIN);
-			} else {
-				
-				//adding VEHICLE_LEFT_MARGIN to place the car in the middle of the lane
-				p = new Point((int)road.getStartCoordinates().getX()
-														+ Constant.VEHICLE_LEFT_MARGIN,
-														(int)move);
+			if (oldPos.getRoad() == newPos.getRoad()) {
+				// In this case we are in the same road after moving
+
+				if (road.getOrientation() == Orientation.HORIZONTAL
+						|| road.getOrientation() == Orientation.LEFT_HORIZONTAL
+						|| road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
+					// need to find the start point first
+					move = road.getStartCoordinates().getX();
+				} else {
+					// need to find the start point first
+					move = road.getStartCoordinates().getY();
+				}
+				move += newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT * Constant.PIXELS;
+
+				if (road.getOrientation() == Orientation.HORIZONTAL
+						|| road.getOrientation() == Orientation.LEFT_HORIZONTAL
+						|| road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
+
+					// adding VEHICLE_LEFT_MARGIN to place the car in the middle
+					// of the lane
+					p = new Point((int) move, (int) road.getStartCoordinates().getY() + Constant.VEHICLE_LEFT_MARGIN);
+				} else {
+
+					// adding VEHICLE_LEFT_MARGIN to place the car in the middle
+					// of the lane
+					p = new Point((int) road.getStartCoordinates().getX() + Constant.VEHICLE_LEFT_MARGIN, (int) move);
+				}
 			}
+		} else { // Moving through a Junction
+			p = getPointInJunction(newPos.getLane(), junctionList.get(newPos.getRoad()));
 		}
+		
 		vehicle.setAxom(p);
 		return p;
-	}
-
-	@Override
-	@Deprecated
-	public void moveVehicle(int roadIndex, int laneIndex, int sectionIndex, Vehicle vehicle, int fromThisLane,
-			int toThisLane) {
-
-		Road road = roadList.get(roadIndex);
-
-		// need to find the start point first
-		double x = road.getStartCoordinates().getX();
-		for (int i = 0; i < fromThisLane; i++) {
-			x += 5;
-		}
-		for (int i = 0; i < toThisLane; i++) {
-			x += 5;
-		}
-		Point p = new Point((int) x + Constant.LANE_SECTION_HEIGHT, (int) road.getStartCoordinates().getY());
-
-		vehicle.setAxom(p);
-
 	}
 
 	public Point getPointInJunction(int index, Junction junction){
