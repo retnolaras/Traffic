@@ -19,6 +19,8 @@ public interface Road {
 	public int getSpeedLimit();
 	public Point getStartCoordinates();
 	public Point getEndCoordinates();
-        public Point getJuctionCoordinates();
-	public Orientation getOrientation();
+        public Point getJuctionStartCoordinates();
+	public Point getJuctionEndCoordinates();
+	
+        public Orientation getOrientation();
 }
