@@ -3,10 +3,13 @@
 */
 package com.kcl.keepitclean.main.vehicle;
 
+import com.kcl.keepitclean.main.utils.Constant;
+
 public class Position {
 	private int road = 0;
 	private int lane = 0;
 	private int laneSection = 0;
+	private int mode = Constant.MOVE_IN_ROAD;
 	
 	public Position() {
 	}
@@ -15,6 +18,13 @@ public class Position {
 		this.road = road;
 		this.lane = lane;
 		this.laneSection = laneSection;
+	}
+	
+	public Position(int mode, int road, int lane, int laneSection) {
+		this.road = road;
+		this.lane = lane;
+		this.laneSection = laneSection;
+		this.mode = mode;
 	}
 
 	public void setRoad(int x) {
@@ -51,6 +61,14 @@ public class Position {
 		this.road = road;
 		this.lane = lane;
 		this.laneSection = laneSection;
+	}
+
+	public int getMode() {
+		return mode;
+	}
+
+	public void setMode(int mode) {
+		this.mode = mode;
 	}
 
 }
