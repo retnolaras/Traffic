@@ -42,6 +42,7 @@ public class SimulatorEngine implements Observer {
 	private VehicleFactory vehicleFactory;
 	private List<Vehicle> vehicleList;
 	private static final ArrayList<Position> entrancePoints = new ArrayList<>();
+	private int vehicleCounter = 0;
 
 //	private Point startCoord = new Point(35, 0);
 //	private Point endCoord = new Point(0, 100);
@@ -368,6 +369,7 @@ Vehicle car;
 	private void addToActive(Vehicle car, Position Pos) {
 		car.setPos(Pos);
 		vehicleList.add(car);
+		vehicleCounter++;
 
 	}
 
@@ -419,5 +421,15 @@ Vehicle car;
 		else 
 			return false;
 		
+	}
+	
+	//adding for SimulationData
+
+	public int getVehicleCounter() {
+		return vehicleCounter;
+	}
+	
+	public List<Vehicle> getVehicleList() {
+		return vehicleList;
 	}
 }
