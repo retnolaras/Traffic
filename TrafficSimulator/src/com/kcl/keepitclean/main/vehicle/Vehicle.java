@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Vehicle {
 	static int CarID = 0;
-	int speed;
+	private int speed;
 	Point axom;
 	Point distance;
 	Point destination;
@@ -85,6 +85,14 @@ public class Vehicle {
 	public void removePath(){
 		path.clear();
 		onJunction= false;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	void setSpeed(int speed) {
+		this.speed = speed;
 	}
 }
 

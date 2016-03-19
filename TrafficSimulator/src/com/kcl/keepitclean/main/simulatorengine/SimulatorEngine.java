@@ -43,6 +43,7 @@ public class SimulatorEngine implements Observer {
 	private List<Vehicle> vehicleList;
 	private static final ArrayList<Position> entrancePoints = new ArrayList<>();
 	private int vehicleCounter = 0;
+	private List<Integer> speedList;
 
 //	private Point startCoord = new Point(35, 0);
 //	private Point endCoord = new Point(0, 100);
@@ -75,6 +76,9 @@ public class SimulatorEngine implements Observer {
 		trafficLightList = new ArrayList<>();
 	//	startingPos = new Position();
 		startingPositions = new ArrayList<>();
+		
+		//listofspeed
+		speedList = new ArrayList<>();
 
 		r = new Random();
 		context = new Context(roadList, vehicleList);
@@ -370,7 +374,7 @@ Vehicle car;
 		car.setPos(Pos);
 		vehicleList.add(car);
 		vehicleCounter++;
-
+		speedList.add(car.getSpeed());
 	}
 
 	// System.out.println("Step " + ++iteration);
@@ -431,5 +435,9 @@ Vehicle car;
 	
 	public List<Vehicle> getVehicleList() {
 		return vehicleList;
+	}
+	
+	public List<Integer> getSpeedList() {
+		return speedList;
 	}
 }
