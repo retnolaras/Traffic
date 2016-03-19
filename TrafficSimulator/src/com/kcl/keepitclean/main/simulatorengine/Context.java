@@ -99,7 +99,7 @@ public class Context implements IContext {
 
 	public Point moveVehicle(Vehicle vehicle, Position oldPos, Position newPos){
 		Point p = null;
-		double move;
+		double move = 0;
 		
 		Road road = roadList.get(newPos.getRoad());
 		
@@ -108,17 +108,32 @@ public class Context implements IContext {
 			if (oldPos.getRoad() == newPos.getRoad()) {
 				// In this case we are in the same road after moving
 
-				if (road.getOrientation() == Orientation.HORIZONTAL
-						|| road.getOrientation() == Orientation.LEFT_HORIZONTAL
-						|| road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
-					// need to find the start point first
-					move = road.getStartCoordinates().getX();
-				} else {
-					// need to find the start point first
-					move = road.getStartCoordinates().getY();
+				if (road.getOrientation() == Orientation.RIGHT_HORIZONTAL
+						|| road.getOrientation() == Orientation.DOWN_VERTICAL) {
+					
+					if (road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
+						// need to find the start point first
+						move = road.getStartCoordinates().getX();
+					} else if (road.getOrientation() == Orientation.DOWN_VERTICAL) {
+						// need to find the start point first
+						move = road.getStartCoordinates().getY();
+					}
+					move += newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT * Constant.PIXELS;
+				
+				} else if (road.getOrientation() == Orientation.LEFT_HORIZONTAL
+						|| road.getOrientation() == Orientation.UP_VERTICAL) {
+					
+					if (road.getOrientation() == Orientation.LEFT_HORIZONTAL) {
+						// need to find the start point first
+						move = road.getEndCoordinates().getX();
+					} else if (road.getOrientation() == Orientation.UP_VERTICAL) {
+						// need to find the start point first
+						//move = road.getStartCoordinates().getY();
+						move = road.getEndCoordinates().getY();
+					}
+					move -= newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT * Constant.PIXELS;
 				}
-				move += newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT * Constant.PIXELS;
-
+				
 				if (road.getOrientation() == Orientation.HORIZONTAL
 						|| road.getOrientation() == Orientation.LEFT_HORIZONTAL
 						|| road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
@@ -133,6 +148,7 @@ public class Context implements IContext {
 					p = new Point((int) road.getStartCoordinates().getX() + Constant.VEHICLE_LEFT_MARGIN, (int) move);
 				}
 			}
+			
 		} else { // Moving through a Junction
 			p = getPointInJunction(newPos.getLane(), junctionList.get(newPos.getRoad()));
 		}
