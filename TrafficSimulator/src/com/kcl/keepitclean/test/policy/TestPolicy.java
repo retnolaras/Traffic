@@ -49,9 +49,9 @@ public class TestPolicy {
         int expectedSpeedLimitJunction = 30;
         int expectedSpeedLimitStraight = 60;
         int expectedSpeedLimitCurve = 40;
-        int expectedGreenTime = 30;
-        int expectedRedTime = 10;
-        int expectedAmberTime = 5;
+        int expectedGreenTime = 3;
+        int expectedRedTime = 3;
+        int expectedAmberTime = 3;
         testPolicy = Policy.setPolicy(0, null, null, null, null);
        
         Assert.assertNotNull("Failure - must be not null policy", testPolicy);
