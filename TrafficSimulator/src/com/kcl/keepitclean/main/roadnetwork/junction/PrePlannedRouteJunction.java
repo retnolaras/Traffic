@@ -9,6 +9,7 @@ import java.util.Map;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
+import java.util.Random;
 
 /**
  * 
@@ -214,7 +215,17 @@ public class PrePlannedRouteJunction implements Junction {
 		
 		return route;
 	}
-	
+        /* ROSIE---- generate random junction exit [oint >>>START */
+        @Override
+        public Point getRandomExitPoint(){
+            Random generator = new Random();
+            int exitPointIndex;
+            exitPointIndex = generator.nextInt(this.roadsLeavingJunction.size()-1);
+            return this.roadsLeavingJunction.get(exitPointIndex).getJuctionStartCoordinates();
+            
+        }
+	/* ROSIE---- generate random junction exit [oint <<<<END */
+        
 	public Map<String, List<LaneSection>> getMappings() {
 		return mapOfInputRoadsToOutputRoads;
 	}
