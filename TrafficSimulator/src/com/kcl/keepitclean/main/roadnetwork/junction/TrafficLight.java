@@ -31,7 +31,7 @@ public class TrafficLight {
         public void actionPerformed(ActionEvent e) {
             nextState();
             timer.stop();
-            timer.setDelay(getDelay());
+            timer.setDelay((int) getDelay());
             timer.restart();
             
         }
@@ -48,27 +48,27 @@ public class TrafficLight {
     public void activate()
     {
         
-        timer = new Timer(getDelay(),taskPerformer );
+        timer = new Timer((int) getDelay(),taskPerformer );
         timer.start();
         
                
     }
     
-    private int getDelay(){
-        int delay = 0;
+    private long getDelay(){
+        long delay = 0;
         Constant constant = new Constant();
         switch(state){
             case GREEN:
-                delay = policy.getGreenTrafficLightTime(); // * 1000* constant.TIMER_RATIO;
+                delay = policy.getGreenTrafficLightTime() * 1_000L; // * 1000* constant.TIMER_RATIO;
                 break;
             case RED:
-                delay = policy.getRedTrafficLightTime(); //* 1000* constant.TIMER_RATIO;
+                delay = policy.getRedTrafficLightTime()* 1_000L; //* 1000* constant.TIMER_RATIO;
                 break;
             case AMBER:
-                delay = policy.getAmberTrafficLightTime();//* 1000* constant.TIMER_RATIO;
+                delay = policy.getAmberTrafficLightTime()* 1_000L;//* 1000* constant.TIMER_RATIO;
                 break;
             default:
-                delay = policy.getRedTrafficLightTime();//* 1000* constant.TIMER_RATIO;
+                delay = policy.getRedTrafficLightTime()* 1_000L;//* 1000* constant.TIMER_RATIO;
                 break;
         }
         return delay;
