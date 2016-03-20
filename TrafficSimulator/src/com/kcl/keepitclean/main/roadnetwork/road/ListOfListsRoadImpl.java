@@ -26,6 +26,9 @@ public class ListOfListsRoadImpl implements Road {
 	private int speedLimit;
 	private Point startCoordinate;
 	private Point endCoordinate;
+	private Junction startJunction= null; //the junction at the start of road
+	private Junction endJunction =null; //the junction at the end of road
+	private boolean hasJunction;
 	
 	private Junction endOfRoad;
         private Orientation orientation;
@@ -140,4 +143,31 @@ public class ListOfListsRoadImpl implements Road {
         public Orientation getOrientation(){
             return this.orientation;
         }
+
+		public Junction getStartJunction() {
+			return startJunction;
+		}
+
+		public void setStartJunction(Junction startJunction) {
+			this.startJunction = startJunction;
+		}
+
+		public Junction getEndJunction() {
+			return endJunction;
+		}
+
+		public void setEndJunction(Junction endJunction) {
+			this.endJunction = endJunction;
+			this.setHasJunction(true);
+			
+		}
+
+		public boolean hasJunction() {
+			if (endJunction== null) return false;
+			else return true;
+		}
+
+		private void setHasJunction(boolean hasJunction) {
+			this.hasJunction = hasJunction;
+		}
 }
