@@ -19,6 +19,7 @@ import javafx.scene.paint.ImagePattern;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -67,8 +68,9 @@ public class SimulationRender  implements IRenderer {
                 
         System.out.println("GUI- number of vehicles:" + vehicles.size());
         drawRoads();
-        drawTrafficLights();
         drawJunctions();
+        drawTrafficLights();
+        
         drawVehicles();
         
       }
@@ -195,9 +197,12 @@ public class SimulationRender  implements IRenderer {
         //Image image = new Image("images/pattern.png");
         //ImagePattern pattern = new ImagePattern(image);
         
+            
         for (Junction junction:junctions){
+            
             gc.setStroke(Color.YELLOW);
             gc.setFill(Color.BLANCHEDALMOND);
+            
             gc.fillPolygon(new double[] {junction.getCoordinates().get(0).x, 
                                          junction.getCoordinates().get(1).x, 
                                          junction.getCoordinates().get(2).x,
@@ -228,7 +233,7 @@ public class SimulationRender  implements IRenderer {
             if (trafficLight.getState() == State.AMBER)
                 gc.setFill(Color.YELLOW);
             
-            gc.fillOval(trafficLight.getTrafficLightCoordinate().x - 10 , trafficLight.getTrafficLightCoordinate().y - 10, 10, 10);
+            gc.fillOval(trafficLight.getTrafficLightCoordinate().x -5 , trafficLight.getTrafficLightCoordinate().y -5 , 10, 10);
                 
         }
         
