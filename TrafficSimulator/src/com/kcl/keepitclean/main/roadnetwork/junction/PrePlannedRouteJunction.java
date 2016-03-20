@@ -220,7 +220,7 @@ public class PrePlannedRouteJunction implements Junction {
         public Point getRandomExitPoint(){
             Random generator = new Random();
             int exitPointIndex;
-            exitPointIndex = generator.nextInt(this.roadsLeavingJunction.size()-1);
+            exitPointIndex = generator.nextInt(this.roadsLeavingJunction.size());
             return this.roadsLeavingJunction.get(exitPointIndex).getJuctionStartCoordinates();
             
         }
