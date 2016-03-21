@@ -1,5 +1,6 @@
 package com.kcl.keepitclean.main.vehicle;
 
+import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import java.awt.Point;
 import java.util.Collections;
@@ -17,36 +18,37 @@ public class Vehicle {
 	Position pos;
 	int UCarID;
 	boolean onJunction = false;
-	List<Position> path;
+	List<LaneSection> path;
 	String colour;
-	Road roadinfo;	
-	
+	Road roadinfo;
+	int pindex;
+
 	//MOVE ACTION --> move this method to engine
 	/*public Point move(Point posi, int speed, int acceleration, Direction direction){
 		Point newposi;
 		newposi = addPoint(posi,speed,acceleration,direction);
 		return newposi;
-		
+
 	}
-	
+
 	private Point addPoint(Point posi, float speed2, float acceleration2, Direction direction) {
 		Point added = new Point (posi.getAxisX(), posi.getAxisY()); ;
 		if(direction == Direction.FORWARD){
 			float addedX = posi.getAxisX();
 				addedX = addedX + (speed2/10) + (acceleration2/10);
-			    added = new Point (addedX, posi.getAxisY()); 
+			    added = new Point (addedX, posi.getAxisY());
 		 }
 		else if (direction == Direction.RIGHT){
 			 float addedY = posi.getAxisY();
 				addedY = addedY + (speed2/10) + (acceleration2/10);
-			    added = new Point (posi.getAxisX(), addedY); 
+			    added = new Point (posi.getAxisX(), addedY);
 		 }
 		else if (direction == Direction.LEFT){
 			float addedY = posi.getAxisY();
 				addedY = addedY - (speed2/10) - (acceleration2/10);
-			    added = new Point (posi.getAxisX(), addedY); 
+			    added = new Point (posi.getAxisX(), addedY);
 		 }
-		
+
 		return added;
 	}*/
 
@@ -58,7 +60,7 @@ public class Vehicle {
 	public void setAxom(Point axom) {
 		this.axom = axom;
 	}
-	
+
 	//car relative position
 	public void setPos(Position p){
 		 pos = p;
@@ -77,14 +79,15 @@ public class Vehicle {
 		if (onJunction) return true;
 		else return false;
 	}
-	public void updatePath(List<Position> p){
+	public void updatePath(List<LaneSection> p){
 		Collections.copy(path,p);
-		
+
 	}
-	
+
 	public void removePath(){
 		path.clear();
 		onJunction= false;
+		pindex=0;
 	}
 
 	public int getSpeed() {
@@ -94,6 +97,18 @@ public class Vehicle {
 	void setSpeed(int speed) {
 		this.speed = speed;
 	}
+
+	public void IncrementPIndex() {
+		pindex++;
+	}
+	public int getPIndex() {
+		return pindex;
+	}
+
+	public List<LaneSection> getPath() {
+		return path;
+	}
+
 }
 
 //END MOVE ACTION
