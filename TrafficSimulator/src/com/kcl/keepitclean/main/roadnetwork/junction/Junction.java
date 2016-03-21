@@ -10,6 +10,10 @@ public interface Junction {
 	public List<LaneSection> produceRoute(Point roadEnteringCoord, Point roadLeavingCoord);
 	public List<Point> getCoordinates();
         public Point getRandomExitPoint();
-        
+		public void setIndex(int i);
+		public int getIndex();
+		public List<LaneSection> getSectionsOfJunction();
+
+
 
 }
