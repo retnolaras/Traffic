@@ -1,0 +1,376 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,pdftex]{geometry}
+\usepackage[english]{babel}
+\usepackage{xcolor,enumitem} 
+\usepackage{graphicx}
+\usepackage{array} % for m[{x cm} in tables
+\usepackage[lofdepth,lotdepth]{subfig}
+\usepackage{colortbl}
+
+%--- for subsubsubsection
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+%---
+
+\begin{document}
+	\begin{titlepage}
+	\center
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
+
+        {\huge \bfseries Final Report}\\[0.4cm]
+        	\ Team Keep It Clean
+        
+        {\large \today}\\[10cm] 
+        
+        \begin{minipage}{0.4\textwidth}
+        		\emph{Authors:}\\
+        			1474524/1	Retno Larasati\\
+                    1581767/1	Ian Galna Johnson\\	
+                    1579212/1	Thi Thanh Huong Ngo\\
+                    1557762/1	Daniel Arturo Mendoza Hernandez\\
+                    1530247/1	Abdelrahman Hamdy Hassan\\
+        \end{minipage}
+
+\end{titlepage}
+\tableofcontents
+\newpage
+	
+\section{Introduction}
+\subsection{Background}
+Traffic simulation software plays an important role in defining the effective traffic management policies. A traffic policy must be simulated and verified before it is actually implemented in real life. Otherwise, it might harm road users’ safety and traffic efficiency. There are a lot of factors contributing to road accidents and traffic efficiency. The major factors include speed, traffic light timing and driver’s behaviours. For instance, in 2013, in the UK, 3,064 people were killed or seriously injured in crashes where speed was a factor.
+Therefore, this project will simulate traffic management policies focusing on those 3 main factors ie. Speed limit; Traffic light timing; Driver's behaviours. The software will test different policies relating to these factors and analyse the traffic efficiency and safety in relation to traffic density, enforcement policy and driver's behaviours.
+
+The analysis will be based on the average speed: average speed of vehicles in a session. This metric is to measure traffic efficiency and reliability.
+
+In this report, we will explain how our traffic simulator works and how the simulator implements (what we implement? what our purposes)
+	
+\subsection{Descriptions}
+%description of the project
+This system will try to simulate the traffic with.
+
+\subsection{Objectives}
+Our initial objectives for this project where as follows:
+\begin{itemize}[noitemsep]
+\item Develop traffic simulator program with functional road system with vehicles, roads, junctions, intersections and traffic lights.
+\item Analyse how the simulator working in emergency situation by creating emergency vehicle in the simulation session. (?)
+\end{itemize}
+
+\subsection{Scope}
+The software is to simulate the traffic management policy following UK highway code which is left-lane oriented and using the speed limit within the range of speed limit defined in the UK highway code.
+Within the constraints of time and resources, the project's scope includes:
+\begin{itemize}[noitemsep]
+\item Controlled Map: Minimum multiple-lane roads and a junction. It should support the scalability to a complex traffic network (ie. Multiple roundabouts, multiple junctions, multiple traffic lights, bus lane).
+\item Vehicles: Simulate multiple types of vehicles, which include at least cars and ambulances (emergency vehicle) and at least three classes of driver’s behaviours (reckless, cautious, normal).
+\item Policy: the project must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy.
+\item Simulation engine: must test the policies with different levels of traffic density.
+\item Report: Must provide the statistics and calculates metrics as above.
+\end{itemize}
+
+	
+\subsection{Methodology}
+\begin{enumerate}
+\item Analysing: 
+\item Planing and Organising:
+    \begin{itemize}[noitemsep]
+	\item Class Diagram
+	\item Schedule: Gantt Chart
+	\item Tasks management: Trello
+	\end{itemize}
+\item Developing:
+	\begin{itemize}[noitemsep]
+	\item Software: Java
+	\item Source code: GitHub
+	\end{itemize}
+\item 	Evaluating:
+	\begin{itemize}[noitemsep]
+	\item Program
+	\item Peer Assessment
+	\end{itemize}
+\item  	Reporting:
+	\begin{itemize}[noitemsep]
+	\item Documentation: LaTeX
+	\item Presentation
+	\end{itemize}
+\end{enumerate}
+
+\section{Review}
+
+Several papers reviewed, such as \cite{SewWilMer10} and \cite{NameUeda05}.  One of the application reviewed is   .From this system, the group got an insight to how sophisticated a car simulation program can get .  
+
+\newpage
+\section{Requirements and Design}
+\subsection{Requirement}
+The following initial requirements come from the \textcolor{black}{\emph{Introductory Lecture Slides:}}\\
+	{\bf{Technology:}}
+	\begin{itemize}[noitemsep]
+		\item Use whatever language / tools you see fit with 2 exceptions.
+		\item All development of source code and documentation must be
+		done through a public GitHub repository. Failure to do so will
+		lead to a deduction of 25 marks from the final team grade.
+		\item All documentation must be created with LATEX and handed in
+		PDF format. Failure to do so will lead to a deduction of 25
+		marks from the final team grade.
+		\item Use the standard article class with the default margins and
+		11pt font and produce the PDF with pdflatex.
+	\end{itemize}
+	
+	{\bf{System Requirements:}} \newline
+	\indent Develop a simulation engine for testing traffic management
+	policies
+	\begin{itemize}[noitemsep]
+	\item Should simulate individual vehicles (cars, coaches, buses etc.)
+	operating in different parts of a road network (e.g. roundabouts,
+	multi-lane junctions).
+	\item Consider where vehicles enter road network and where they
+	leave it.
+	\item Consider individual behaviours (e.g. reckless, cautious, normal).
+	\item Consider timing of journeys (based on purpose and patterns of
+	use).
+	\item Consider support for emergency services (e.g. prioritise
+	ambulances at traffic lights).
+	\item Allow different traffic management policies to be plugged in and
+	compared.
+	\item Decide on a time granularity for the simulation (e.g. 10 seconds).
+	\item Each tick of the simulation clock will require all parts of the
+	simulation to update.
+	\item The simulation engine will record vehicle positions, new entries
+	and exits and any other data and then update the state before
+	moving to the next tick.
+	\end{itemize}
+	
+\subsection{Design}
+In this section we will discuss the design process for this project.
+
+\begin{center}
+% \begin{table}[!htb]
+
+		
+% 		\centering % used for cantering table
+% 		\begin{tabular}{|p{1.8cm}|p{5cm}|p{1.2cm}|p{5cm}|} % centered columns
+% 		\hline\hline %inserts double horizontal lines
+% 		Milestone & Deliverable & Date & Dependant Upon \\ [0.5ex] % heading
+% 		\hline
+		
+% 		1st Report & Intermediate Report complete (Iteration 0) & Feb 9 & Intermediate Planning and Initial Progress\\[1ex]
+		
+% 		Initial & Application Ready (Iteration 1) & Feb 18 & First iteration of bugs fixed. Iteration 1 features implemented. Program ready for unit test.  \\ [1ex]
+		
+% 		Mid & Application Ready (Iteration 2) & Mar 3 &  Second iteration of bugs fixed. Iteration 2 features implemented. Program ready for unit test.\\ [1ex]
+		
+% 		Pre-Final & Application ready (Iteration 3) & Mar 17 & All features and bugs fixed. Program finalised. \\[1ex]
+		
+% 		Final & Report complete and application ready (Iteration 4)  & Mar 31 & Completion of packaging and program. Final report ready. All testing done. \\[1ex] % [1ex] adds vertical space
+% 		\hline
+% 		\end{tabular}
+% 		\caption{Planning: Project Milestones} % title of Table
+% 		\label{table:milestones} % used to refer this table in the text
+% 	\end{table}
+
+\begin{table}[!htb]
+		
+		\centering
+		%\begin{tabular}{p{2.5cm}|p{4cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
+		\begin{tabular}{|m{2.5cm}|m{3.5cm}|m{2.5cm}|m{2.5cm}|m{2.2cm}|}
+		\hline
+		\multicolumn{5}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{Iterations}} \\
+		\hline
+		\textbf{Iteration 0} & \textbf{Iteration 1} & \textbf{Iteration 2} & \textbf{Iteration 3}& \textbf{Iteration 4} \\ \hline
+		
+		Requirements & Map-Lane & Map-Roundabout & Map-Complex & Final Report\\ \hline
+		
+		System Architecture Design & Map-Junction & Map-Multiple Roundabout & Vehicle-Buses & Final Bug Fixing\\ \hline
+		
+		Component Detailed Design & Map-Traffic Light & Vehicle-Driver's Behaviour & Policy-VariableControl & Final Testing\\ \hline
+		
+		Initial Report & Map-Road & Vehicle-Emergency & GUI-consolidated added vehicles/maps and animation & \\ \hline
+		
+		& Map-Network Boundary & GUI-Roundabout & Optimal Simulation Engine & \\ \hline
+		
+		& GUI-Lane & GUI-Consolidated and Animation && \\ \hline
+		
+		& GUI-Junctions Traffic Light & Data log and analysis & &\\ \hline
+		& GUI-Multiple Vehicles &&&\\ \hline
+		& Vehicle-Generic &&& \\ \hline
+		& Vehicle-Car &&& \\ \hline
+		& Vehicle-Acceleration De-acceleration &&& \\ \hline
+		& Vehicle-Traffic Light &&& \\ \hline
+		& Vehicle-Change Lane Direction &&& \\ \hline
+		& Simulation Engine &&& \\ \hline
+		& Policy-Fixed Control Policy &&&\\ \hline
+		\end{tabular}
+		\caption{Project Iteration (Planning phase)}
+		\label{table:iteration} 
+		\end{table}
+\end{center}
+ 
+ %insert class diagram
+	
+\section{Implementation} 
+% st significant implementation details, focussing on those where unusual or detailed solutions were required. Quote code fragments where necessary, but remember that the full source code will be included as an appendix. Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
+% This section of the report shall discusses the actual implementation of the traffic simulator system. The section will begin by discussing the initial prototypes that were developed and follow up with the technical discussion of the final implemented system.
+
+This section of the report discusses about some of the implementation details that are deemed important to the project. The section is divided into different subsections.
+\subsection{Overall Architecture}
+This project was developed in Java, in (?) architecture. This decision was made. 
+\subsection{Development}
+\subsubsection{GUI}
+
+\subsubsection{Road Network}
+What is road network
+    \paragraph{Road}
+    \textbf{Road Factory}\\
+    \paragraph{Lane}
+    \begin{itemize}[noitemsep]
+    \item \textbf{LeftLane:} this  
+    \item \textbf{RightLane:} this
+    \item \textbf{SingleLane:} this
+    \item \textbf{MiddleLane:} this  
+    \item \textbf{LaneFactory:} this
+    \end{itemize}
+    \paragraph{Junction}
+    \begin{itemize}[noitemsep]
+    \item \textbf{PrePlannedRouteJuntion:} this  
+    \item \textbf{TrafficLight:} this
+    \item \textbf{TrafficLightWrapper:} this
+    \end{itemize}
+    
+\subsubsection{Vehicle}
+What is vehicle
+\textbf{Vehicle Factory}\\
+
+
+\subsubsection{Policy}        
+\begin{itemize}[noitemsep]
+\item \textbf{Policy} 
+\item \textbf{SpeedLimit} 
+\item \textbf{TrafficLightPolicy}
+\end{itemize}
+
+\subsubsection{Simulator Engine}
+        
+\begin{itemize}[noitemsep]
+\item \textbf{Context} 
+\item \textbf{SimulationEngine} is the engine that control the entire system and simulation.
+\item \textbf{Context} is the list for all needed information.
+\item \textbf{SimulationData} is the class for collecting all the data during the simulation iteration. Data including the number of vehicles, average speed from all the vehicles, and . This data will presented as a report.
+\end{itemize}.
+	
+\subsection{Development Adjustment}
+Several functions that we planned in our iteration before that changed
+\begin{enumerate}[noitemsep]
+	\item No Vehicle Bus 
+	\item No Vehicle Emergency
+	\item No Roundabout  
+\end{enumerate}
+
+\section{Team Work}
+%Describe how you worked together, including the tools and processes you used to facilitate group work.
+On the first sprint, or iteration 1, we managed to do almost all the tasks that we listed before. Since it's still initiation state, we mostly created different classes and objects that we thought we will need later. Files from policy (Policy, Speedlimit, Trafficlight), GUI (UIComponent, drawUI), road network (AbstractLaneSection, LaneFactory, LaneSection, LeftLane, MiddleLane, RightLane, SingleLane, ListOfListRoadImpl, Road, RoadFactory), main (SessionManager, SimulatorEngine, TrafficSimulatorApplication), and vehicle (Behaviour, Bus, Car, Direction, Emergency, Point, Vehicle, VehicleFactory, VehicleType). We also created JUnit test files for unit testing such as testpolicy, testlanesection, sessionmanagersprtest, sessionmanagertest and testvehicle. 
+
+In the end of iteration 1 we decided to change our designed by moving all the control from the engine to the vehicle. Therefore the vehicle itself would have the method to accelerate and decelerate, and the behaviour towards traffic light. The decision making will still be on simulation engine but the behaviour will be declared on the vehicle itself. 
+For the iteration 2, we added new classes. Files from: policy (TrafficLightColour), and roadnetwork (Junction, PrePlannedRouteJunction, TrafficLight). We also developed the GUI class again from scratch, because in iteration 1 we still unsure about the detail design and how the data flow will work from the simulation engine to the UI component. We deleted UIComponent and drawUI, and added GUIComponent, InitScreen, integertextfield, irenderer, simulationrender, simulationsetting). However, some of the tasks that we designated for this iteration could not be done and moved to the next sprint/iteration.  
+
+We used Trello for the project management. Tasks in each iterations breaks down and assigned it to member. In the end of each iteration we have a meeting to discuss what are the tasks that we need to do for the next iteration. We created a list for each iteration, and wrote cards to put the task in. After the task is done, we can move it to the DONE list, so we know which task that have not finished yet. The unfinished task then moved to the next iteration, and added as the new workload.
+
+In initial planning, we intend to have biweekly meeting, on Monday and Thursday. However, during development phase, we had a meeting almost three or four times a week, and increased to meet five to six times a week starting in iteration 3. We used the whatsapp group to arranged the meeting time and place. 
+
+We used sharelatex to edit our final report together. This collaboration application work better than what we did for our initial report. We divided our part for the initial report into two groups, project description and project organisation. We then worked it separately and combined it in Github. This method appeared to created a lot of problem. We had a lot of document conflicts, from five people doing the edit the same file. Sharelatex is a good solution for this problem, since the group can collaborate in parallel and stimultaniously. 
+
+\subsection{Work Load Division:}
+Since the project will be relatively of small to medium size, in our initial planning, we decided that the group will facilitate job rotation at every iteration of development. This will be done to increase depth and breadth of understanding of the project by all members, as well as allow for a more flexible work distribution. In our first iteration we divided the tasks to 5 important components, such as Session Manager, Vehicle, Policy, Road, and GUI.
+
+This strategy works perfectly fine until the end of iteration 2, but in the beginning of iteration 3, we change strategy to stop rotating the roles, and stick to the area because the deadline was approaching. The problem about this strategy is that we spend a lot of time to discuss specific logic together, rather than use the time to develop the code. We also need time to explaining the logic that the previous programmer to the next programmer. 
+
+	
+\section{Evaluation} %Critically evaluate your project: what worked well, and what didn’t? how did you do relative to your plan? what changes were the result of improved thinking and what changes were forced upon you? how did your team work together? etc. Note that you need to show that you understand the weaknesses in your work as well as its strengths. You may wish to identify relevant future work that could be done on your project.
+\begin{enumerate}
+	\item \textbf{Road development:} 
+	\\@TODO
+	\item \textbf{Simulation Engine development:} 
+	\\@TODO
+	\item \textbf{GUI:} 
+	\\@TODO
+\end{enumerate}
+
+\subsection{Testing} 
+%Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
+@TODO
+\\Test unit with JUnit. Test app with Black Box. 
+Table~\ref{table:TestingTable} illustrates the bugs that were found within the system during black box testing tested by a random user and the team:
+\begin{center}
+	\begin{table}[!htb]
+	\begin{tabular}{|m{7cm}|m{7cm}|}
+		 \hline
+		\multicolumn{2}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{Black Box Testing}} \\ 
+		\hline 
+		 \centering \textbf{Bug} & \textbf{Status}\\\hline
+		 &  \\  \hline
+		
+	\end{tabular}
+	\caption{Testing Table}
+		\label{table:TestingTable}
+	\end{table}
+\end{center}
+
+\subsection{Lessons Learned and Challenges} 
+%How did you do relative to your plan?
+@TODO
+
+
+\subsubsection{Group Work Lessons Learned}
+%What we learnt about group work and working together
+@TODO
+
+	
+\subsection{Future Work} 
+%How the project could be extended
+@TODO
+\\add parallel processing 
+\\add user designed maps
+\\add draw maps from google maps API or something similar
+
+  
+	
+\subsection{Peer Assessment}
+@TODO
+	%In a simple table, allocate the 100 ‘points’ you are given to each team member. Valid values range from 0 to 100 inclusive. You may assign decimal values, but the entire points must add up to precisely 100. As stated at the beginning of the project, when awarding points to each member it would based on contribution, ...below is the grade table for each member totalling up to 100. 
+\\As stated in the initial report peer assessment would be based on how much each team member was able to contribute based on their individual skills.	
+\begin{center}
+	\begin{tabular}[!htb]{|m{4cm}||m{0.9cm}|}
+		\hline
+		\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{ \textbf{Peer Assessment}} \\  \hline
+		 & 20\\  \hline
+		 & 20 \\  \hline
+		 & 20 \\  \hline
+		 & 20 \\  \hline
+		& 20\\  \hline
+		& 100\\  \hline
+	\end{tabular}
+\end{center}	
+\newpage
+
+
+\bibliography{main}
+@TODO
+\bibliographystyle{plain}
+
+
+\newpage
+
+\section{Appendices} % ALL THE EXTRA STUFF.
+
+\subsection{Project Risk Table}
+@TODO
+\subsection{Class Diagrams}
+@TODO
+\subsection{Package Diagram}
+@TODO
+\subsection{Live Application}
+@TODO
+\subsection{Gantt Chart}
+@TODO
+\end{document} %END OF REPORT
