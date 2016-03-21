@@ -80,8 +80,7 @@ public class Vehicle {
 		else return false;
 	}
 	public void updatePath(List<LaneSection> p){
-		Collections.copy(path,p);
-
+		path=p;
 	}
 
 	public void removePath(){
