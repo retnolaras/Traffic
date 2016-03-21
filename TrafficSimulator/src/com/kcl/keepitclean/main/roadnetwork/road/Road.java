@@ -2,6 +2,8 @@ package com.kcl.keepitclean.main.roadnetwork.road;
 
 import java.awt.Point;
 
+import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
+
 /**
  * 
  * @author igalna
@@ -13,12 +15,19 @@ import java.awt.Point;
  *
  */
 public interface Road {
-
+	
 	public int getLengthOfRoad();
 	public int getNumberOfLanes();
 	public int getSpeedLimit();
 	public Point getStartCoordinates();
 	public Point getEndCoordinates();
-        public Point getJuctionCoordinates();
-	public Orientation getOrientation();
+        public Point getJuctionStartCoordinates();
+	public Point getJuctionEndCoordinates();
+	public boolean hasJunction();
+	public void setEndJunction(Junction endJunction) ;
+	public Junction getEndJunction() ;
+	public void setStartJunction(Junction startJunction);
+	public Junction getStartJunction();
+	
+        public Orientation getOrientation();
 }

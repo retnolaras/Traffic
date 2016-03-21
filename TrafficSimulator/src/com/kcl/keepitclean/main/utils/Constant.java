@@ -14,7 +14,9 @@ public class Constant {
     public static int VEHICLE_WIDTH = 2;
     public static int VEHICLE_HEIGHT = 2;
     public static int PIXELS = 4;   //number of pixels per coordinate increment
-    public static int LANE_SECTION_HEIGHT = 3;  //HEIGHT OF LANE SECTION
+    public static int LANE_SECTION_HEIGHT = 1;  //HEIGHT OF LANE SECTION
     public static int VEHICLE_LEFT_MARGIN = 1;
     public static int TIMER_RATIO = 1/100;
+    public static int MOVE_IN_ROAD = 0;
+    public static int MOVE_IN_JUNCTION = 1;
 }

@@ -9,5 +9,7 @@ public interface Junction {
 
 	public List<LaneSection> produceRoute(Point roadEnteringCoord, Point roadLeavingCoord);
 	public List<Point> getCoordinates();
+        public Point getRandomExitPoint();
+        
 
 }
