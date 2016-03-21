@@ -9,6 +9,7 @@ import com.kcl.keepitclean.main.policy.Policy;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import com.kcl.keepitclean.main.roadnetwork.road.RoadFactory;
+import com.kcl.keepitclean.main.session.SessionManager;
 import com.kcl.keepitclean.main.simulatorengine.SimulatorEngine;
 import com.kcl.keepitclean.main.vehicle.VehicleFactory;
 import com.kcl.keepitclean.main.vehicle.VehicleType;
@@ -79,6 +80,11 @@ public class InitScreen extends Application {
                     simulation.startSimulation();
                     pscene.btnTerminate.setDisable(false);
                     pscene.btnStart.setDisable(true);
+                    
+                    pscene.btnDecrease.setDisable(false);
+                    pscene.btnIncrease.setDisable(false);
+                    pscene.btnPause.setDisable(false);
+                    pscene.btnResume.setDisable(false);
                 }
                 
                 
@@ -93,11 +99,18 @@ public class InitScreen extends Application {
             public void handle(ActionEvent event){
                 //Terminate Simulation Session
             	simulation.stopSimulation();
+            	simulation = null;
                 //Show Report
                 //Enable Start button
                 pscene.btnStart.setDisable(false);
                 //Disable Terminate Button
                 pscene.btnTerminate.setDisable(true);
+                
+                pscene.btnDecrease.setDisable(true);
+                pscene.btnIncrease.setDisable(true);
+                pscene.btnPause.setDisable(true);
+                pscene.btnResume.setDisable(true);
+                
                 renderer.clear();
                 
             }
@@ -105,7 +118,47 @@ public class InitScreen extends Application {
         
         );
 
-                
+		pscene.btnIncrease.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Terminate Simulation Session
+				SessionManager.getInstance().doStepFaster();
+			}
+		}
+
+		);
+        
+		pscene.btnDecrease.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Terminate Simulation Session
+				SessionManager.getInstance().doStepSlower();
+			}
+		}
+
+		);
+        
+		pscene.btnPause.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Terminate Simulation Session
+				SessionManager.getInstance().pauseSession();
+			}
+		}
+
+		);
+		
+		pscene.btnResume.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Terminate Simulation Session
+				SessionManager.getInstance().resumeSession();
+			}
+		}
+
+		);
+		
+		
         Scene scene = new Scene(pscene,1300 ,700 );
         
         primaryStage.setTitle("KeepItClean- Traffic Simulation");
