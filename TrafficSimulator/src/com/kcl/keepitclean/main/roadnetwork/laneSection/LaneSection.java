@@ -43,4 +43,8 @@ public interface LaneSection {
 	 * 
 	 */
 	public void removeVehicleFromSection();
+	
+	public int getJunctionGridIndex();
+
+	public void setJunctionGridIndex(int junctionGridIndex);
 }
