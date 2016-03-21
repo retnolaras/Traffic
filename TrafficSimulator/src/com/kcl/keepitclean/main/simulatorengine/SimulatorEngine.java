@@ -1,13 +1,13 @@
 
 //Checklist:
 /*Check when car has reached the end of the road
- * 
+ *
  */
 
-// Load Map 
-// Update UI 
+// Load Map
+// Update UI
 // Generate Cars
-// Maintain AcvtiveCarList 
+// Maintain AcvtiveCarList
 		//create ActiveCar Class
 // Move Car
 
@@ -48,9 +48,9 @@ public class SimulatorEngine implements Observer {
 
 //	private Point startCoord = new Point(35, 0);
 //	private Point endCoord = new Point(0, 100);
-	
+
 //	private Point vehicleStartCoord = new Point();
-	
+
 //	private LaneFactory laneFactory;
 
 	private Point vehicleStartCoord = new Point(35 + Constant.VEHICLE_LEFT_MARGIN, 0);
@@ -77,7 +77,7 @@ public class SimulatorEngine implements Observer {
 		trafficLightList = new ArrayList<>();
 	//	startingPos = new Position();
 		startingPositions = new ArrayList<>();
-		
+
 		//listofspeed
 		speedList = new ArrayList<>();
 
@@ -97,15 +97,15 @@ public class SimulatorEngine implements Observer {
 		for (Road road : roadList) {
 			context.addRoad(road);
 		}
-		
+
 		entrancePoints.add(new Position(0,0,0));
         entrancePoints.add(new Position(6,0,0));
         entrancePoints.add(new Position(12,0,0));
         entrancePoints.add(new Position(18,0,0));
         entrancePoints.add(new Position(29,0,0));
         entrancePoints.add(new Position(31,0,0));
-        
-        
+
+
     	exitPoints.add(new Position(1,0,29));
     	exitPoints.add(new Position(7,0,29));
     	exitPoints.add(new Position(13,0,29));
@@ -118,6 +118,14 @@ public class SimulatorEngine implements Observer {
 		for (Junction junction : junctionList) {
 			context.addJunction(junction);
 		}
+
+		for (int i=0; i<junctionList.size(); i++){
+			Junction junction;
+			junction= junctionList.get(i);
+			junction.setIndex(i);
+			context.addJunction(junction);
+		}
+
 
 		trafficLightList = map.getTrafficLights();
 		for (TrafficLight trafficLight : trafficLightList) {
@@ -173,18 +181,18 @@ public class SimulatorEngine implements Observer {
 		// Generate Car, assign its position to be the starting Position.
 		Random generator = new Random();
 		int temp= generator.nextInt(6);
-		
+
 		Position startingPos   = new Position ();
 		startingPos.update(entrancePoints.get(temp).getRoad(),
 				entrancePoints.get(temp).getLane(),
 				entrancePoints.get(temp).getLaneSection());
-		
+
 		if (iteration == 0) {
 Vehicle car;
-			
+
 			car = vehicleFactory.getVehicle(VehicleType.CAR); // generate a car
 			vehicleStartCoord.x = roadList.get(startingPos.getRoad()).getStartCoordinates().x;
-			vehicleStartCoord.y = roadList.get(startingPos.getRoad()).getStartCoordinates().y  
+			vehicleStartCoord.y = roadList.get(startingPos.getRoad()).getStartCoordinates().y
 					+ startingPos.getLane()* Constant.LANE_SIZE* Constant.PIXELS + Constant.VEHICLE_LEFT_MARGIN;
 			car.setAxom(vehicleStartCoord);
 			addToActive(car, startingPos); // add to Active List of cars
@@ -199,13 +207,13 @@ Vehicle car;
 			 * starting point with // factor 'freq' System.out.println(
 			 * "<SimulatorEngine>Car Generated at starting point" + i+ " "); //
 			 * test line } }
-			 * 
+			 *
 			 */
-		} 
-		
-		
-		
-		
+		}
+
+
+
+
 		else if (isPositionEmpty(startingPos)) {
 			generateCar(startingPos); // generates car at starting point with
 										// factor 'freq'
@@ -220,27 +228,37 @@ Vehicle car;
 																					// //
 																					// line
 
+			
+			//if the car is on a junction
+			if(vehicleList.get(i).getOnJunction()){
+				//Check if next position is empty 
+				vehicleList.get(i).getPath();
+				
+				
+				
+			}
+			
 			// if car is in a junction, move as long as the next position is
 			// empty
 			if ((!reachedEnd(vehicleList.get(i))) && lookAhead(vehicleList.get(i).getPos(), 5) ) {
 
 				Position newPos = new Position();
-				if (vehicleList.get(i).getPos().getLaneSection() < 
+				if (vehicleList.get(i).getPos().getLaneSection() <
 					roadList.get(vehicleList.get(i).getPos().getRoad()).getLengthOfRoad() - 1)
 				{
 					System.out.println("car POS:" + vehicleList.get(i).getPos().getLaneSection() );
 					System.out.println("Road length: " + roadList.get(vehicleList.get(i).getPos().getRoad()).getLengthOfRoad() );
 					newPos.update(vehicleList.get(i).getPos().getRoad(),
 						vehicleList.get(i).getPos().getLane(),
-						vehicleList.get(i).getPos().getLaneSection()+1); 
-				
-				
+						vehicleList.get(i).getPos().getLaneSection()+1);
+
+
 					moveWrapper ( vehicleList.get(i).getPos(), newPos, i);
 					System.out.println("<SimulatorEngine>Car " + vehicleList.get(i)+" moved to "+ newPos.getLaneSection()); // test line
 
 				}
-				
-					
+
+
 			}
 			// TODO: junctionNext and getNextJunction and carOnPath
 
@@ -252,8 +270,8 @@ Vehicle car;
 			// theres a redlight. if there isnt, acquire path.
 			/*
 			 * else if ( reachedEnd(vehicleList.get(i)) && junctionNext() ){
-			 * 
-			 * 
+			 *
+			 *
 			 * Junction junc = new Junction(); junc=getNextJunction(); //TODO:
 			 * translate path into a list of pos objects list<LaneSection>
 			 * path=junc.getPath(); //returns a list of lanesections relevant to
@@ -263,12 +281,12 @@ Vehicle car;
 			 * enabled, if it is, set the car on that path.
 			 * carOnPath(vehicleList.get(i), path); //TODO: define movefunction
 			 * for path.
-			 * 
-			 * 
-			 * 
+			 *
+			 *
+			 *
 			 * }
-			 * 
-			 * 
+			 *
+			 *
 			 */
 
 
@@ -279,23 +297,43 @@ Vehicle car;
 						(vehicleList.get(i).getPos() , exitPoints.get(i))) {
 					vehicleList.remove(i); System.out.println("<SimulatorEngine>Car "
 							+vehicleList.get(i).getID()+ " removed" ); continue; } } }*/
-			
-			
-			int ri= vehicleList.get(i).getPos().getRoad();  
-			
-			
+
+
+			int roadIndex= vehicleList.get(i).getPos().getRoad();
+
+
 			//if car is at the end of the road and theres a junction upcoming
-			  if ( reachedEnd(vehicleList.get(i)) && roadList.get(ri).hasJunction() ){
+			  if ( reachedEnd(vehicleList.get(i)) && roadList.get(roadIndex).hasJunction() ){
 				  Junction junc;
-				  junc= roadList.get(ri).getEndJunction();
-				  junc.produceRoute(roadList.get(ri).getJuctionEndCoordinates(), junc.getRandomExitPoint()) ;
-				  //TODO: check if next route pos is empty
-				//  Position newPos= new Position(0, JunctionIndex(junction), nextIndexedPath object );
-				  
+				  junc= roadList.get(roadIndex).getEndJunction();
+
+				  List <LaneSection> path=new ArrayList<>() ;
+				  path= junc.produceRoute(roadList.get(roadIndex).getJuctionEndCoordinates(), junc.getRandomExitPoint()) ;
+
+				  //set car on path
+				  carOnPath(i, path);
+
+				  //check if the next position is empty.
+
+				  if (path.get(0).hasVehicleOnSeciton()){
+
+				    Position newPos= new Position(1,roadList.get(roadIndex).getEndJunction().getIndex() ,path.get(0).getJunctionGridIndex(),0);
+
+					//move car to first junction position
+				    moveWrapper(vehicleList.get(i).getPos(), newPos, i);
+
+				    //increaseCarPathIterator
+					vehicleList.get(i).IncrementPIndex();
+
+				  } else continue;
+
+
+				  //  Position newPos= new Position(0, JunctionIndex(junction), nextIndexedPath object );
+
 				  //if its not: moveWrapper(vehicleList.get(i), vehicleList.get(i).getPos(),
-				  
-				  
-				  
+
+
+
 			  }
 			else if (reachedEnd(vehicleList.get(i))){
 				//if a car reached end of the road , remove it and free its position
@@ -303,11 +341,11 @@ Vehicle car;
 				emptySection(vehicleList.get(i).getPos());
 				renderer.render();
 
-				
+
 			}
-			  
-			
-			
+
+
+
 		}
 		iteration++;
 	}
@@ -315,35 +353,35 @@ Vehicle car;
 	private void moveWrapper(Position pos, Position newPos, int vehicleIndex) {
 		//inform context about the change
 		Point debugPoint = context.moveVehicle(vehicleList.get(vehicleIndex), pos, newPos);
-		//empty the old position 
+		//empty the old position
 		emptySection(pos);
 
 		//inform the vehicle list
 		vehicleList.get(vehicleIndex).getPos().update(newPos.getRoad(), newPos.getLane(), newPos.getLaneSection());
-		
+
 		//output to terminal
 //		System.out.println("<SimulatorEngine> Car Moved [" + " ID:" + vehicleList.get(vehicleIndex).getID() + " "
 //				+ debugPoint.getX() + ", " + debugPoint.getY() + "]");
-		
+
 		//fillnew section
 		fillSection(newPos);
-		
-		 
+
+
 	}
-	
+
 	private void fillSection(Position newPos) {
 		 Road r2 = roadList.get(newPos.getRoad()) ;
-		 LaneSection ls2 =((ListOfListsRoadImpl)r2).getLaneSectionsOfRoad().get(newPos.getLane()).get(newPos.getLaneSection());	
+		 LaneSection ls2 =((ListOfListsRoadImpl)r2).getLaneSectionsOfRoad().get(newPos.getLane()).get(newPos.getLaneSection());
 		 Vehicle vehicle = vehicleList.get(0);
-		ls2.putVehicleOnSection(vehicle);		
+		ls2.putVehicleOnSection(vehicle);
 	}
-	
+
 	private void emptySection(Position pos) {
 		Road r1 = roadList.get(pos.getRoad()) ;
-		 LaneSection ls =((ListOfListsRoadImpl)r1).getLaneSectionsOfRoad().get(pos.getLane()).get(pos.getLaneSection());	
-		 ls.removeVehicleFromSection();		
+		 LaneSection ls =((ListOfListsRoadImpl)r1).getLaneSectionsOfRoad().get(pos.getLane()).get(pos.getLaneSection());
+		 ls.removeVehicleFromSection();
 	}
-	
+
 	/*
 	 * Check if a car has reached an exit point, if it did return true;
 	 */
@@ -356,8 +394,8 @@ Vehicle car;
 		if (vehicle.getPos().getLaneSection() < roadList.get(vehicle.getPos().getRoad()).getLengthOfRoad() - 1)
 
 			return false;
-		
-		
+
+
 		else return true;
 		}
 
@@ -366,10 +404,10 @@ Vehicle car;
 	 */
 
 	private boolean isPositionEmpty(Position position) {
-		
+
 		Road road = roadList.get(position.getRoad()); // returns a road
 		List<LaneSection> lanes = ((ListOfListsRoadImpl) road).getLaneSectionsOfRoad().get(position.getLane());
-		
+
 		return !lanes.get(position.getLaneSection()).hasVehicleOnSeciton();
 	}
 
@@ -421,9 +459,9 @@ Vehicle car;
 		Position carPos = new Position();
 		carPos.update(p.getRoad(), p.getLane(), p.getLaneSection());
 		vehicleStartCoord.x = roadList.get(p.getRoad()).getStartCoordinates().x;
-		vehicleStartCoord.y = roadList.get(p.getRoad()).getStartCoordinates().y  
+		vehicleStartCoord.y = roadList.get(p.getRoad()).getStartCoordinates().y
 				+ p.getLane()* Constant.LANE_SIZE* Constant.PIXELS + Constant.VEHICLE_LEFT_MARGIN;
-		
+
 		if (chance <= freq) {
 			Vehicle Car = vehicleFactory.getVehicle(VehicleType.CAR);
 			Car.setPos(p);
@@ -438,14 +476,14 @@ Vehicle car;
 	/*
 	* function that links a car to a certain junction path
 	*/
-	private void carOnPath(int vehicleIndex , List<Position> path){
-		
+	private void carOnPath(int vehicleIndex , List<LaneSection> path){
+
 	vehicleList.get(vehicleIndex).setOnJunction(true);
 	vehicleList.get(vehicleIndex).updatePath(path);
-	
-	
+
+
 	}
-	
+
 	/*
 	* function to compare if two positions are equal
 	*
@@ -456,30 +494,30 @@ Vehicle car;
 			&&(a.getLane()== b.getLane())
 			&&(a.getRoad()== b.getRoad()) )
 			return true;
-			
-		else 
+
+		else
 			return false;
-		
+
 	}
-	
+
 	//adding for SimulationData
 
 	public int getVehicleCounter() {
 		return vehicleCounter;
 	}
-	
+
 	public List<Vehicle> getVehicleList() {
 		return vehicleList;
 	}
-	
+
 	public List<Integer> getSpeedList() {
 		return speedList;
 	}
 	public void clearAll(){
-		 
+
 		vehicleList.clear();
 		iteration=0;
 		//TODO: generate report
-	 
+
 	}
 }
