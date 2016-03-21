@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -196,12 +197,13 @@ public class SimulationRender  implements IRenderer {
     public void drawJunctions(){
         //Image image = new Image("images/pattern.png");
         //ImagePattern pattern = new ImagePattern(image);
-        
+        Point center;
             
         for (Junction junction:junctions){
             
             gc.setStroke(Color.YELLOW);
-            gc.setFill(Color.BLANCHEDALMOND);
+            gc.setFill(Color.DARKGREY);
+            //gc.setFill(Color.BLANCHEDALMOND);
             
             gc.fillPolygon(new double[] {junction.getCoordinates().get(0).x, 
                                          junction.getCoordinates().get(1).x, 
@@ -212,6 +214,10 @@ public class SimulationRender  implements IRenderer {
                                          junction.getCoordinates().get(2).y,
                                          junction.getCoordinates().get(3).y},
                            4);
+            
+            gc.setFill(Color.BLANCHEDALMOND);
+            center = getCenterPoint(junction.getCoordinates());
+            gc.fillOval(center.x - 6,center.y - 6,12, 12);
             
                
         }
@@ -233,11 +239,31 @@ public class SimulationRender  implements IRenderer {
             if (trafficLight.getState() == State.AMBER)
                 gc.setFill(Color.YELLOW);
             
-            gc.fillOval(trafficLight.getTrafficLightCoordinate().x -5 , trafficLight.getTrafficLightCoordinate().y -5 , 10, 10);
+            gc.fillOval(trafficLight.getTrafficLightCoordinate().x -4 , trafficLight.getTrafficLightCoordinate().y -4 , 8, 8);
                 
         }
         
         
+    }
+    
+    public Point getCenterPoint(List<Point> points){
+        Point center = new Point();
+        int minx = points.get(0).x; int miny = points.get(0).y;
+        
+        for (int i = 0; i<4; i++){
+            if (points.get(i).x < minx)
+                minx = points.get(i).x;
+            if (points.get(i).y < miny)
+                miny = points.get(i).y;
+            
+        }
+        
+        center.x = minx + 16;
+        center.y = miny + 16;
+        
+        
+       
+        return center;
     }
         
  }
