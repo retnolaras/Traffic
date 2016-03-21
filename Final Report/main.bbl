@@ -1,0 +1,14 @@
+\begin{thebibliography}{1}
+
+\bibitem{SewWilMer10}
+"P. Merrell" "M. C.~Lin" "J.~Sewall", "D.~Wilkie".
+\newblock Continuum traffic simulation.
+\newblock {\em EUROGRAPHICS}, 29(2), 2010.
+
+\bibitem{NameUeda05}
+Y.~Hioki Y. Ueda A.~Satoh M.~Namekawa, F.~Ueda.
+\newblock General purpose road traffic simulation system with a cell automaton
+  model.
+\newblock pages 3002--3008, 2005.
+
+\end{thebibliography}
