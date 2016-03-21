@@ -124,8 +124,12 @@ public class PrePlannedRouteJunction implements Junction {
 		if (sectionsOfJunction.size() > 1) {
 			if(roadEnteringIndex == 0) {
 				if (roadLeavingIndex == 0) {
+					getLaneSectionsOfJunction().get(0).setJunctionGridIndex(0);
 					route.add(getLaneSectionsOfJunction().get(0));
+					
+					getLaneSectionsOfJunction().get(0).setJunctionGridIndex(1);
 					route.add(getLaneSectionsOfJunction().get(1));
+					
 					return route;
 				}
 				if (roadLeavingIndex == 1) {

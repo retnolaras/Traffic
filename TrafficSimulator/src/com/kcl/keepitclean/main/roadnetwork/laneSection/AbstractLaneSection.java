@@ -17,6 +17,7 @@ public abstract class AbstractLaneSection implements LaneSection {
 	// In any direction a lane can either be open or closed
 	private boolean closed = false;
 	private boolean open = true;
+	private int junctionGridIndex = 0;
 	
 	private Vehicle vehicleOnSection;
 	
@@ -49,5 +50,13 @@ public abstract class AbstractLaneSection implements LaneSection {
 
 	public Vehicle getVehicle() {
 		return vehicleOnSection;
+	}
+
+	public int getJunctionGridIndex() {
+		return junctionGridIndex;
+	}
+
+	public void setJunctionGridIndex(int junctionGridIndex) {
+		this.junctionGridIndex = junctionGridIndex;
 	}
 }
