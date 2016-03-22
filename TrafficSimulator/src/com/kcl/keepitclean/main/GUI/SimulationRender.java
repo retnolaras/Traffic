@@ -45,13 +45,15 @@ public class SimulationRender  implements IRenderer {
     private List<Junction> junctions;
     private Stage stage;
     Constant constant = new Constant();
+    
+    private SimulationData simulationData;
    
         
    public SimulationRender (GraphicsContext gc, SimulatorEngine simulation)
    {
        this.gc = gc;
        this.simulation = simulation;
-       this.stage = stage;       
+       this.stage = stage; 
        
    }
      
@@ -66,6 +68,8 @@ public class SimulationRender  implements IRenderer {
         vehicles = simulation.getContext().getVehicleList();
         junctions = simulation.getContext().getJunctionList();
         trafficLights = simulation.getContext().getTrafficLightList();
+        //
+        simulationData = new SimulationData(simulation);
                 
         System.out.println("GUI- number of vehicles:" + vehicles.size());
         drawRoads();
@@ -265,6 +269,7 @@ public class SimulationRender  implements IRenderer {
        
         return center;
     }
+    
         
  }
     
