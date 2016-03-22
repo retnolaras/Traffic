@@ -336,10 +336,20 @@ They can be broken down into two categories. Engineering improvements and Data g
 \paragraph{Engineering}
 Engineering improvements involve changes to the system Software that could better utilize engineering principals and practices.
 \begin{enumerate}
-	\item \textbf{Parallelism:} 
-	\\Parallelism has emerged as an important concept in engineering, and more specifically in traffic simulation. Liu \cite{website:phy-ntnu-traffic-simulation} makes parallelism the key purpose of their project. Taking advantage of machines with multiple cores could allow for faster and more detailed simulations to be run.
-	\item \textbf{Use of external libraries:}
+	\item \textbf{Parallelism:}
+	\\~\\
+	Parallelism has emerged as an important concept in engineering, and more specifically in traffic simulation. Liu \cite{website:phy-ntnu-traffic-simulation} makes parallelism the key purpose of their project. Taking advantage of machines with multiple cores could allow for faster and more detailed simulations to be run. Perhaps by allowing vehicles or other objects within the simulation to be built as individual threads which would allow vehicles to act independently and concurrently within a map.
+	
+	However it also requires more attention to detail when designing and writing code. As you must take care to synchronise shared data items to avoid pitfalls like deadlock and race conditions. This increased burden was one of the reasons the team decided against parallelization in their original project.
+	
+	The project's use of Java as it's primary programming language would allow future developers a convenient way into introducing parallelism. Java includes native, as well as third party, support for parallelism, such as the Fork/Join framework\cite{LeaForkJoin} as well as the new Java 8 Streams functionality\cite{website:Oracle-Java-8}, as well as native control libraries for concurrency controls.
+	
+	The modular approach the team took to designing the system architecture also facilitates the introduction of parallelism, because different modules could be parallelised independently.
+	\\While the Test Driven Development approach would allow iterative introduction of parallelisation with the capacity to test if the new developments fit in with the accepted functionality tested in the original test suites.
+	
+	\item \textbf{Use of External Libraries:}
 	\\
+	\item \textbf{Distibuted Road Network:}
 	\item \textbf{User defined maps:} 
 	\\@TODO
 	\\add user designed maps

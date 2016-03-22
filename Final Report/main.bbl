@@ -1,5 +1,14 @@
 \begin{thebibliography}{1}
 
+\bibitem{website:Oracle-Java-8}
+Oracle Corporation.
+\newblock Java 8 overview documentation, 2014.
+
+\bibitem{LeaForkJoin}
+D.~Lea.
+\newblock A java fork/join framework.
+\newblock {\em State University of New York}.
+
 \bibitem{SewWilMer10}
 J.~Sewall D. Wilkie P. Merrell M.~C. Lin.
 \newblock Continuum traffic simulation.
