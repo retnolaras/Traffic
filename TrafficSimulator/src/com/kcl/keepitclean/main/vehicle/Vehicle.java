@@ -22,6 +22,7 @@ public class Vehicle {
 	String colour;
 	Road roadinfo;
 	int pindex;
+	int nextRoad;
 
 	//MOVE ACTION --> move this method to engine
 	/*public Point move(Point posi, int speed, int acceleration, Direction direction){
@@ -87,6 +88,7 @@ public class Vehicle {
 		path.clear();
 		onJunction= false;
 		pindex=0;
+		nextRoad=-1;
 	}
 
 	public int getSpeed() {
@@ -106,6 +108,15 @@ public class Vehicle {
 
 	public List<LaneSection> getPath() {
 		return path;
+	}
+
+	public void setNextRoadIndex(int nextRoadIndex) {
+		
+		nextRoad=nextRoadIndex;
+	}
+	public int getNextRoadIndex() {
+		return nextRoad;
+
 	}
 
 }
