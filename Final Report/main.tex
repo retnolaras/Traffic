@@ -338,7 +338,7 @@ Engineering improvements involve changes to the system Software that could bette
 \begin{enumerate}
 	\item \textbf{Parallelism:}
 	\\~\\
-	Parallelism has emerged as an important concept in engineering, and more specifically in traffic simulation. Liu \cite{website:phy-ntnu-traffic-simulation} makes parallelism the key purpose of their project. Taking advantage of machines with multiple cores could allow for faster and more detailed simulations to be run. Perhaps by allowing vehicles or other objects within the simulation to be built as individual threads which would allow vehicles to act independently and concurrently within a map.
+	Parallelism has emerged as an important concept in engineering, and more specifically in traffic simulation. Liu \cite{website:phy-ntnu-traffic-simulation} makes parallelism the key purpose of their project. Taking advantage of machines with multiple cores could allow for faster and more detailed simulations to be run. Perhaps by allowing vehicles or other objects within the simulation to be built as individual threads which would allow vehicles to act independently and concurrently within a map. Also by separating out the concerns of data gathering and simulation, if different threads were responsible for either aspect they could be more specialised.
 	
 	However it also requires more attention to detail when designing and writing code. As you must take care to synchronise shared data items to avoid pitfalls like deadlock and race conditions. This increased burden was one of the reasons the team decided against parallelization in their original project.
 	
@@ -348,7 +348,7 @@ Engineering improvements involve changes to the system Software that could bette
 	\\While the Test Driven Development approach would allow iterative introduction of parallelisation with the capacity to test if the new developments fit in with the accepted functionality tested in the original test suites.
 	
 	\item \textbf{Use of External Libraries:}
-	\\
+	\\ Another future improvement would be to include libraries and code from outside sources. Most notably, visualisation and data gathering and analysis tools. Visualisation tools could improve the user experience by allowing a more immersive interaction with the simulation. The visualisation provided by the TransModeler Project project \cite{website:caliper.com-transmodeler} is a good example of how improving visualisation is key to an enjoyable, productive, and useful piece of Traffic Simulation software.
 	\item \textbf{Distibuted Road Network:}
 	\item \textbf{User defined maps:} 
 	\\@TODO
