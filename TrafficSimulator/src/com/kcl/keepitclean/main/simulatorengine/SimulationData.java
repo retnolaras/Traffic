@@ -2,6 +2,7 @@ package com.kcl.keepitclean.main.simulatorengine;
 
 import java.util.List;
 
+import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import com.kcl.keepitclean.main.vehicle.Vehicle;
 
 public class SimulationData {
@@ -10,16 +11,33 @@ public class SimulationData {
     private SimulatorEngine simulation;
     private List<Vehicle> vehicleList;
     private List<Integer> speed;
+    private List<Road> roadList;
     private double avgSpeed;
+    private double maxSpeed;
+    private int vehicleCrush;
+    private double trafficEstimation;
+    private int totalLanes = 0;
+    
 
-	public SimulationData() {
+	public SimulationData(SimulatorEngine simulation) {
 		vehicleCounter = simulation.getVehicleCounter();
 		vehicleList = simulation.getVehicleList();
 		speed = simulation.getSpeedList();
-		avgSpeed = calculateAverage(speed);
+		avgSpeed = calculateAverageSpeed(speed);
+		roadList = simulation.getContext().getRoadList();
+		for(int i=0; i< roadList.size(); i++)
+		  {
+			totalLanes += roadList.get(i).getNumberOfLanes();  
+		  }		
+		trafficEstimation = calculateTrafficEstimation(vehicleCounter, totalLanes);
 	}
 
-	private double calculateAverage(List<Integer> speedavg) {
+	private double calculateTrafficEstimation(int numberofvehicle, int totallanes) {
+		double estimation = numberofvehicle * (totallanes * 3) * 365;
+		return estimation;
+	}
+
+	public double calculateAverageSpeed(List<Integer> speedavg) {
 		Integer sum = 0;
 		  if(!speedavg.isEmpty()) {
 		    for (Integer mark : speedavg) {
@@ -28,6 +46,22 @@ public class SimulationData {
 		    return sum.doubleValue() / speedavg.size();
 		  }
 		  return sum;
+	}
+	
+	public int getVehicleCounter() {
+		return vehicleCounter;
+	}
+	public List<Vehicle> getVehicleList() {
+		return vehicleList;
+	}
+	public double getAverageSpeed() {
+		return avgSpeed;
+	}
+	public double trafficEstimation() {
+		return trafficEstimation;
+	}	
+	public int getTotalLanes() {
+		return totalLanes;
 	}
 
 }
