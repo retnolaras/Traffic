@@ -1,14 +1,18 @@
 \begin{thebibliography}{1}
 
 \bibitem{SewWilMer10}
-"P. Merrell" "M. C.~Lin" "J.~Sewall", "D.~Wilkie".
+J.~Sewall D. Wilkie P. Merrell M.~C. Lin.
 \newblock Continuum traffic simulation.
 \newblock {\em EUROGRAPHICS}, 29(2), 2010.
 
+\bibitem{website:phy-ntnu-traffic-simulation}
+Kelly Liu.
+\newblock phy-edu-traffic-simulation.
+
 \bibitem{NameUeda05}
-Y.~Hioki Y. Ueda A.~Satoh M.~Namekawa, F.~Ueda.
+M.~Namekawa F. Ueda Y. Hioki Y. Ueda~A. Satoh.
 \newblock General purpose road traffic simulation system with a cell automaton
   model.
-\newblock pages 3002--3008, 2005.
+\newblock {\em Tokyo University}, pages 3002--3008, 2005.
 
 \end{thebibliography}
