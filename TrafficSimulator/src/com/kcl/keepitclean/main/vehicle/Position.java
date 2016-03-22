@@ -57,12 +57,14 @@ public class Position {
 	 * @param lane
 	 * @param laneSection
 	 */
-	public void update(int road, int lane, int laneSection) {
+	public void update(int mode, int road, int lane, int laneSection) {
+		this.mode= mode;
 		this.road = road;
 		this.lane = lane;
 		this.laneSection = laneSection;
 	}
 
+	
 	public int getMode() {
 		return mode;
 	}
