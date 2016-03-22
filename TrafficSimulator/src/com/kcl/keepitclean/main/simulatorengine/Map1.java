@@ -373,12 +373,12 @@ public class Map1 {
        }
        
        for( int i=0; i < roads.size(); i++){
-    	   Point point;
+    	   Point point= new Point();
     	   point=roads.get(i).getStartCoordinates();
     	   startPointMap.put(point, roads.get(i));
     	   
        }
-
+    
        
     }
 
