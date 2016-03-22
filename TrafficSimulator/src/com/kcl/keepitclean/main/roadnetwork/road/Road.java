@@ -28,6 +28,8 @@ public interface Road {
 	public Junction getEndJunction() ;
 	public void setStartJunction(Junction startJunction);
 	public Junction getStartJunction();
+	public int getIndex();
+	public void setIndex(int a);
 	
         public Orientation getOrientation();
 }
