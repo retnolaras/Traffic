@@ -236,6 +236,7 @@ public class SimulatorEngine implements Observer {
 
 				//check if car has reached end of the route
 				if(nextPositionIndex==2){
+					vehicleList.get(i).setOnJunction(false);
 
 
 					int nextRoadIndex =vehicleList.get(i).getNextRoadIndex();
