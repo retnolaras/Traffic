@@ -22,6 +22,7 @@ public class ListOfListsRoadImpl implements Road {
 
 	private List<List<LaneSection>> laneSectionsOfRoad;
 	private int length;
+	private int index=0;
 	private int numberOfLanes;
 	private int speedLimit;
 	private Point startCoordinate;
@@ -171,5 +172,15 @@ public class ListOfListsRoadImpl implements Road {
 
 		private void setHasJunction(boolean hasJunction) {
 			this.hasJunction = hasJunction;
+		}
+
+		@Override
+		public int getIndex() {
+			return index;
+		}
+
+		@Override
+		public void setIndex(int a) {
+			index=a;
 		}
 }
