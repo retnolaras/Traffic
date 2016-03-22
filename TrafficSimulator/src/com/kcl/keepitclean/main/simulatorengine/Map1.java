@@ -15,9 +15,13 @@ import com.kcl.keepitclean.main.roadnetwork.road.Orientation;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import com.kcl.keepitclean.main.roadnetwork.road.RoadFactory;
 import com.kcl.keepitclean.main.utils.Constant;
+
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -32,6 +36,7 @@ public class Map1 {
     ArrayList<TrafficLight> trafficLights = new ArrayList();
     Constant constant = new Constant();
     RoadFactory roadFactory = new RoadFactory(new LaneFactory());
+    private Map<Point, Road > startPointMap = new HashMap<>() ;
 
 
     public Map1()
@@ -361,9 +366,26 @@ public class Map1 {
        ((ListOfListsRoadImpl) road).setOrientation(orientation);
 
        roads.add(road);
+       
+       //assign all roads their indexes in the list
+       for( int i=0; i < roads.size(); i++){
+    	   roads.get(i).setIndex(i);
+       }
+       
+       for( int i=0; i < roads.size(); i++){
+    	   Point point;
+    	   point=roads.get(i).getStartCoordinates();
+    	   startPointMap.put(point, roads.get(i));
+    	   
+       }
 
+       
     }
 
+
+    
+    
+    
     private void generateRoad(Point startPoint, Point endPoint, Orientation orientation)
     {
        /* this method generates a road with given startPoint and endPoint */
@@ -476,5 +498,15 @@ public class Map1 {
                                                          trafficLight.getRoad().getJuctionEndCoordinates().y));
         trafficLights.add(trafficLight);
     }
+
+	public Map<Point, Road > getStartPointMap() {
+		return startPointMap;
+	}
+
+	public void setStartPointMap(Map<Point, Road > startPointMap) {
+		this.startPointMap = startPointMap;
+	}
+    
+    
 
 }
