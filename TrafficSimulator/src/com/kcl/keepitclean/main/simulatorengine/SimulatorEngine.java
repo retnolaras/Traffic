@@ -16,6 +16,7 @@ package com.kcl.keepitclean.main.simulatorengine;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
@@ -65,7 +66,7 @@ public class SimulatorEngine implements Observer {
 	private Context context;
 	private Road masterRoad;
 	private List<Position> startingPositions;
-
+	Map1 map = new Map1();
 	private IRenderer renderer;
 
 	public SimulatorEngine(Object simulatorGUI) {
@@ -92,7 +93,6 @@ public class SimulatorEngine implements Observer {
 
 	public void init() {
 
-		Map1 map = new Map1();
 		roadList = map.getRoads();
 		for (Road road : roadList) {
 			context.addRoad(road);
@@ -235,11 +235,13 @@ public class SimulatorEngine implements Observer {
 				//check if car has reached end of the route
 				if(nextPositionIndex==2){
 
-				//	getNextRoad
-				// Check if its Empty
-				// if it is move
 
-
+					int nextRoadIndex =vehicleList.get(i).getNextRoadIndex();
+					Position newPos = new Position(0,nextRoadIndex, 0,0);
+					//if the next 5 positions on the destination road are free
+					if (lookAhead(vehicleList.get(i).getPos(), 5)){
+						moveWrapper(vehicleList.get(i).getPos(), newPos, i);
+					}
 
 				}
 				if (vehicleList.get(i).getPath().get(nextPositionIndex).hasVehicleOnSeciton())
@@ -300,7 +302,15 @@ public class SimulatorEngine implements Observer {
 				junc= roadList.get(roadIndex).getEndJunction();
 
 				List <LaneSection> path=new ArrayList<>() ;
-				path= junc.produceRoute(roadList.get(roadIndex).getJuctionEndCoordinates(), junc.getRandomExitPoint()) ;
+				Point randPoint= junc.getRandomExitPoint();
+				
+				//get the next road that the junction is going to be on. Car needs this to know 
+				//next destination after the junction
+				int nextRoadIndex;
+				nextRoadIndex= map.getStartPointMap().get(randPoint).getIndex();
+				vehicleList.get(i).setNextRoadIndex(nextRoadIndex);
+				
+				path= junc.produceRoute(roadList.get(roadIndex).getJuctionEndCoordinates(), randPoint) ;
 
 				//set car on path
 				carOnPath(i, path);
