@@ -328,12 +328,36 @@ Table~\ref{table:TestingTable} illustrates the bugs that were found within the s
 	
 \subsection{Future Work} 
 %How the project could be extended
-@TODO
-\\add parallel processing 
-\\add user designed maps
-\\add draw maps from google maps API or something similar
+One of the most challenging aspects of any project is imagining what could be done, if the project was taken up by another team of engineers after the original team moves on to pastures new.
+\\~\\
+The team has discovered several paths that could be followed. Each of which would advance the base project into more specialized areas.
+They can be broken down into two categories. Engineering improvements and Data gathering/simulation improvements.
 
-  
+\paragraph{Engineering}
+Engineering improvements involve changes to the system Software that could better utilize engineering principals and practices.
+\begin{enumerate}
+	\item \textbf{Parallelism:}
+	\\~\\
+	Parallelism has emerged as an important concept in engineering, and more specifically in traffic simulation. Liu \cite{website:phy-ntnu-traffic-simulation} makes parallelism the key purpose of their project. Taking advantage of machines with multiple cores could allow for faster and more detailed simulations to be run. Perhaps by allowing vehicles or other objects within the simulation to be built as individual threads which would allow vehicles to act independently and concurrently within a map. Also by separating out the concerns of data gathering and simulation, if different threads were responsible for either aspect they could be more specialised.
+	
+	However it also requires more attention to detail when designing and writing code. As you must take care to synchronise shared data items to avoid pitfalls like deadlock and race conditions. This increased burden was one of the reasons the team decided against parallelization in their original project.
+	
+	The project's use of Java as it's primary programming language would allow future developers a convenient way into introducing parallelism. Java includes native, as well as third party, support for parallelism, such as the Fork/Join framework\cite{LeaForkJoin} as well as the new Java 8 Streams functionality\cite{website:Oracle-Java-8}, as well as native control libraries for concurrency controls.
+	
+	The modular approach the team took to designing the system architecture also facilitates the introduction of parallelism, because different modules could be parallelised independently.
+	\\While the Test Driven Development approach would allow iterative introduction of parallelisation with the capacity to test if the new developments fit in with the accepted functionality tested in the original test suites.
+	
+	\item \textbf{Use of External Libraries:}
+	\\ Another future improvement would be to include libraries and code from outside sources. Most notably, visualisation and data gathering and analysis tools. Visualisation tools could improve the user experience by allowing a more immersive interaction with the simulation. The visualisation provided by the TransModeler Project project \cite{website:caliper.com-transmodeler} is a good example of how improving visualisation is key to an enjoyable, productive, and useful piece of Traffic Simulation software.
+	\item \textbf{Distibuted Road Network:}
+	\item \textbf{User defined maps:} 
+	\\@TODO
+	\\add user designed maps
+	\item \textbf{Integration with Third party APIs:} 
+	\\@TODO
+	\\add draw maps from google maps API or something similar
+\end{enumerate}
+
 	
 \subsection{Peer Assessment}
 @TODO

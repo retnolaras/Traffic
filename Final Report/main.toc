@@ -28,10 +28,11 @@
 \contentsline {subsection}{\numberline {6.2}Lessons Learned and Challenges}{8}
 \contentsline {subsubsection}{\numberline {6.2.1}Group Work Lessons Learned}{9}
 \contentsline {subsection}{\numberline {6.3}Future Work}{9}
-\contentsline {subsection}{\numberline {6.4}Peer Assessment}{9}
-\contentsline {section}{\numberline {7}Appendices}{11}
-\contentsline {subsection}{\numberline {7.1}Project Risk Table}{11}
-\contentsline {subsection}{\numberline {7.2}Class Diagrams}{11}
-\contentsline {subsection}{\numberline {7.3}Package Diagram}{11}
-\contentsline {subsection}{\numberline {7.4}Live Application}{11}
-\contentsline {subsection}{\numberline {7.5}Gantt Chart}{11}
+\contentsline {paragraph}{\numberline {6.3.0.1}Engineering}{9}
+\contentsline {subsection}{\numberline {6.4}Peer Assessment}{10}
+\contentsline {section}{\numberline {7}Appendices}{12}
+\contentsline {subsection}{\numberline {7.1}Project Risk Table}{12}
+\contentsline {subsection}{\numberline {7.2}Class Diagrams}{12}
+\contentsline {subsection}{\numberline {7.3}Package Diagram}{12}
+\contentsline {subsection}{\numberline {7.4}Live Application}{12}
+\contentsline {subsection}{\numberline {7.5}Gantt Chart}{12}
