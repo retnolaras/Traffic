@@ -29,13 +29,10 @@ import javafx.stage.Stage;
 
 
 /**
- *
+ * Main form for the app
  * @author rosiengo
  */
-/*
-TO DO LIST:
-VALIDATION FOR TEXTFIELDS
-*/
+
 public class InitScreen extends Application {
     private SimulationRender renderer;
     private GUIComponents pscene;

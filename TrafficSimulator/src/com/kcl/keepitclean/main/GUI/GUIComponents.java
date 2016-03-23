@@ -27,7 +27,7 @@ import javax.swing.event.HyperlinkEvent;
 
 
 /**
- *
+ * GUI Layouts 
  * @author rosiengo
  */
 public class GUIComponents extends BorderPane{
