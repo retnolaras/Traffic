@@ -1,5 +1,9 @@
 \begin{thebibliography}{1}
 
+\bibitem{website:Apache-Log4j}
+Apache.
+\newblock Apache - log4j documentation, 2016.
+
 \bibitem{website:caliper.com-transmodeler}
 Caliper.com.
 \newblock Transmodeler http://www.caliper.com/transmodeler/simulation.htm.
