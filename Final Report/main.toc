@@ -31,9 +31,9 @@
 \contentsline {paragraph}{\numberline {6.3.0.1}Engineering}{9}
 \contentsline {paragraph}{\numberline {6.3.0.2}Data}{9}
 \contentsline {subsection}{\numberline {6.4}Peer Assessment}{11}
-\contentsline {section}{\numberline {7}Appendices}{13}
-\contentsline {subsection}{\numberline {7.1}Project Risk Table}{13}
-\contentsline {subsection}{\numberline {7.2}Class Diagrams}{13}
-\contentsline {subsection}{\numberline {7.3}Package Diagram}{13}
-\contentsline {subsection}{\numberline {7.4}Live Application}{13}
-\contentsline {subsection}{\numberline {7.5}Gantt Chart}{13}
+\contentsline {section}{\numberline {7}Appendices}{14}
+\contentsline {subsection}{\numberline {7.1}Project Risk Table}{14}
+\contentsline {subsection}{\numberline {7.2}Class Diagrams}{14}
+\contentsline {subsection}{\numberline {7.3}Package Diagram}{14}
+\contentsline {subsection}{\numberline {7.4}Live Application}{14}
+\contentsline {subsection}{\numberline {7.5}Gantt Chart}{14}

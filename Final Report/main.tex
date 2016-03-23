@@ -349,7 +349,7 @@ Data based improvements involve giving the user greater control or access to the
 	The modular approach the team took to designing the system architecture also facilitates the introduction of parallelism, because different modules could be parallelised independently.
 	\\While the Test Driven Development approach would allow iterative introduction of parallelisation with the capacity to test if the new developments fit in with the accepted functionality tested in the original test suites.
 	
-	\item \textbf{Use of External Libraries:}
+	\item \textbf{External Libraries:}
 	\\~\\ 
 	Another future improvement would be to include libraries and code from outside sources. The team decided early on that because one constraint of the project was for it to be \textit{the teams own work}, and because no credit would be received from using other's work, that the team would use as few external tools as possible, thus to avoid conflict. 
 	
@@ -372,14 +372,24 @@ Data based improvements involve giving the user greater control or access to the
 	
 	The fundamental road network data structure kept the transitions between different roads and junctions as simple and lightweight as possible allowing those same transitions to be carried out over a network by introducing a transfer protocol to mimic the transition.
 	
-	\item \textbf{Use of Machine Learning for Vehicle Behaviour:}
+	\item \textbf{Agent Programming for Vehicle behaviour:}
 	
-	\item \textbf{User defined maps:} 
+	One of the key decisions made by the team was to focus on creating a Model-View-Controller architecture for the system. This, however, limited the scope for introducing independent \textit{agent based} behaviour for the vehicles being modelled.
+	
+	It was recognised that allowing for the introduction of independent agent behaviour could be crucial to future iterations of the project, if taken on by other development teams. As Traffic Simulation of greater complexity would require software agents to model the independent nature of vehicle users on a real road.
+	
+	For this reason, the team decided on an abstract design for \textit{vehicles}. Creating this abstraction would allow our implementation of vehicles to be swapped out for a more complex agent based implementation.
+	
+	\item \textbf{Machine Learning for Vehicle Behaviour and Data Analysis:}
+	
+	\item \textbf{User defined Maps:} 
 	\\@TODO
 	\\add user designed maps
-	\item \textbf{Integration with Third party APIs:} 
+	
+	\item \textbf{Integration with Third party APIs for Maps:} 
 	\\@TODO
 	\\add draw maps from google maps API or something similar
+	
 \end{enumerate}
 
 	
