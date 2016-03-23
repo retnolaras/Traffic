@@ -29,13 +29,10 @@ import javafx.stage.Stage;
 
 
 /**
- *
+ * Main form for the app
  * @author rosiengo
  */
-/*
-TO DO LIST:
-VALIDATION FOR TEXTFIELDS
-*/
+
 public class InitScreen extends Application {
     private SimulationRender renderer;
     private GUIComponents pscene;
@@ -54,7 +51,7 @@ public class InitScreen extends Application {
             @Override
             public void handle(ActionEvent event) {
                 //Disable Start button and enable Terminate button
-                
+                pscene.resetReport();
                 //get simulation settings
                 pscene.blank3.setText("");
                 if (!pscene.validateBlank())
@@ -102,6 +99,7 @@ public class InitScreen extends Application {
             public void handle(ActionEvent event){
                 //Terminate Simulation Session
             	simulation.stopSimulation();
+                simulationData = null;
             	simulation = null;
                 //Show Report
                 //Enable Start button
@@ -113,6 +111,8 @@ public class InitScreen extends Application {
                 pscene.btnIncrease.setDisable(true);
                 pscene.btnPause.setDisable(true);
                 pscene.btnResume.setDisable(true);
+                
+                pscene.updateReport(simulationData);
                 
                 renderer.clear();
                 
