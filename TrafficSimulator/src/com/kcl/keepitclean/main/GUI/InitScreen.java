@@ -51,7 +51,7 @@ public class InitScreen extends Application {
             @Override
             public void handle(ActionEvent event) {
                 //Disable Start button and enable Terminate button
-                
+                pscene.resetReport();
                 //get simulation settings
                 pscene.blank3.setText("");
                 if (!pscene.validateBlank())

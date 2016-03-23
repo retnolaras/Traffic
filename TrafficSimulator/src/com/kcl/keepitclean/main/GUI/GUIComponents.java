@@ -478,5 +478,13 @@ public class GUIComponents extends BorderPane{
   public Label lblAverageSpeedValue = new Label("N/A");*/
      
     }
+    public void resetReport(){
+        lblTotalVehiclesValue.setText("N/A");
+        lblSuccessfulVehicleValue.setText("N/A");
+        lblCrashValue.setText("N/A");
+        lblAverageSpeedValue.setText("N/A");
+        lblSessionDurationValue.setText("N/A");
+        
+    }
   
 }
