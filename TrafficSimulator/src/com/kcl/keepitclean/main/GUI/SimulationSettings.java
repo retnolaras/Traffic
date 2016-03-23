@@ -14,15 +14,29 @@ import com.kcl.keepitclean.main.policy.Policy;
 public class SimulationSettings {
     private Policy policy;
     private int sessionDuration;
+    private TrafficDensity trafficDensity;
     
     public SimulationSettings(int policyOption, int[] minSpeed, int[] maxSpeed, int[] minTrafficLight, int[] maxTrafficLight, String trafficDensity, int sessionDuration){
         policy = Policy.setPolicy(policyOption, minSpeed, maxSpeed, minTrafficLight, maxTrafficLight);
         this.sessionDuration = sessionDuration;
+        if (trafficDensity == "High") 
+            this.trafficDensity = TrafficDensity.HIGH;
+        else if (trafficDensity == "Normal")
+            this.trafficDensity = TrafficDensity.NORMAL;
+        else 
+            this.trafficDensity = TrafficDensity.LOW;
+            
+            
+        
         
     }
     
     public int getSessionDuration(){
         return sessionDuration;
+    }
+    
+    public TrafficDensity getTrafficDensity(){
+        return trafficDensity;
     }
     
 }

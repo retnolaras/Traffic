@@ -35,6 +35,7 @@ import com.kcl.keepitclean.main.vehicle.Position;
 import com.kcl.keepitclean.main.vehicle.Vehicle;
 import com.kcl.keepitclean.main.vehicle.VehicleFactory;
 import com.kcl.keepitclean.main.vehicle.VehicleType;
+import com.kcl.keepitclean.main.GUI.TrafficDensity;
 
 public class SimulatorEngine implements Observer {
 
@@ -73,14 +74,15 @@ public class SimulatorEngine implements Observer {
         private SimulationSettings userSettings;
         private Policy policy;
         private int sessionDuration;
+        private TrafficDensity trafficDensity = TrafficDensity.NORMAL;
        
         
-
 	public SimulatorEngine(Object simulatorGUI) {
 
 		userSettings = (SimulationSettings) simulatorGUI;
                 policy = Policy.getPolicyInstance();
                 sessionDuration = userSettings.getSessionDuration();
+                trafficDensity = userSettings.getTrafficDensity();
                
                 // this.simulatorGUI = simulatorGUI;
 		roadList = new ArrayList<>();

@@ -5,6 +5,8 @@
  */
 package com.kcl.keepitclean.main.GUI;
 
+import com.kcl.keepitclean.main.simulatorengine.SimulationData;
+import java.awt.Font;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -31,6 +33,7 @@ import javax.swing.event.HyperlinkEvent;
  * @author rosiengo
  */
 public class GUIComponents extends BorderPane{
+  
   protected StackPane settingsPane;
   protected StackPane simulationPane;
   public final Canvas canvas = new Canvas(800,600);
@@ -80,7 +83,19 @@ public class GUIComponents extends BorderPane{
   public Button btnResume = new Button(">");
   
   public Label blank3 = new Label("");
-      
+  
+  protected GridPane report_pane = new GridPane();
+  public Label lblReportTitle = new Label("Simulation Session Summary");
+  public Label lblSessionDuration = new Label("Session Duration:");
+  public Label lblTotalVehicles = new Label("Total Vehicles:");
+  public Label lblSuccessfulVehicle = new Label("Number of Vehicles reached destination:");
+  public Label lblAverageSpeed = new Label("Average Speed:");
+  public Label lblCrash = new Label("Number of Crashes:");
+  public Label lblSessionDurationValue = new Label("N/A");
+  public Label lblTotalVehiclesValue = new Label("N/A");
+  public Label lblSuccessfulVehicleValue = new Label("N/A");
+  public Label lblCrashValue = new Label("N/A"); 
+  public Label lblAverageSpeedValue = new Label("N/A");
   
  public GUIComponents()
  {
@@ -196,11 +211,41 @@ public class GUIComponents extends BorderPane{
       
      
       button_box.getChildren().addAll(btnStart, btnTerminate, btnReport, btnIncrease, btnPause, btnResume, btnDecrease);
-      blank3.setStyle("-fx-font-color : red");
+      blank3.setStyle("-fx-text-fill: red");
             
       policySettings.getChildren().add(blank3);
       policySettings.getChildren().add(button_box);
       
+      report_pane.setPadding(new Insets(20,20,20,20));
+      report_pane.setStyle("-fx-border-color: darkgreen");
+      lblReportTitle.setStyle("-fx-text-fill: red;-fx-font-size: 18pt");
+      
+      
+      report_pane.add(lblReportTitle, 0, 0);
+      report_pane.add(lblSessionDuration, 0, 1);
+      report_pane.add(lblTotalVehicles, 0, 2);
+      report_pane.add(lblAverageSpeed, 0, 3);
+      report_pane.add(lblSuccessfulVehicle, 0, 4);
+      report_pane.add(lblCrash, 0, 5);
+      
+      lblSessionDurationValue.setStyle("-fx-text-fill: red");
+      lblTotalVehiclesValue.setStyle("-fx-text-fill: red");
+      lblSuccessfulVehicleValue.setStyle("-fx-text-fill: red");
+      lblCrashValue.setStyle("-fx-text-fill: red");
+      lblAverageSpeedValue.setStyle("-fx-text-fill: red");
+      
+      report_pane.add(lblSessionDurationValue, 1, 1);
+      report_pane.add(lblTotalVehiclesValue, 1, 2);
+      report_pane.add(lblAverageSpeedValue, 1, 3);
+      report_pane.add(lblSuccessfulVehicleValue, 1, 4);
+      report_pane.add(lblCrashValue, 1, 5);
+     
+      policySettings.getChildren().add(new Label(""));
+      policySettings.getChildren().add(new Label(""));
+      policySettings.getChildren().add(new Label(""));
+      
+
+      policySettings.getChildren().add(report_pane);
    
       return policySettings;
              
@@ -419,6 +464,19 @@ public class GUIComponents extends BorderPane{
          else 
              return true;
                      
+    }
+    
+    public void updateReport(SimulationData report){
+        lblTotalVehiclesValue.setText("100");
+        //lblSuccessfulVehicleValue.setText(Integer.toString(report.trafficEstimation()));
+    /*    
+        
+          public Label lblSessionDurationValue = new Label("N/A");
+  public Label lblTotalVehiclesValue = new Label("N/A");
+  public Label lblSuccessfulVehicleValue = new Label("N/A");
+  public Label lblCrashValue = new Label("N/A"); 
+  public Label lblAverageSpeedValue = new Label("N/A");*/
+     
     }
   
 }

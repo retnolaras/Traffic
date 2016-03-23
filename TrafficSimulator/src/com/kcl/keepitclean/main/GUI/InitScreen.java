@@ -99,6 +99,7 @@ public class InitScreen extends Application {
             public void handle(ActionEvent event){
                 //Terminate Simulation Session
             	simulation.stopSimulation();
+                simulationData = null;
             	simulation = null;
                 //Show Report
                 //Enable Start button
@@ -110,6 +111,8 @@ public class InitScreen extends Application {
                 pscene.btnIncrease.setDisable(true);
                 pscene.btnPause.setDisable(true);
                 pscene.btnResume.setDisable(true);
+                
+                pscene.updateReport(simulationData);
                 
                 renderer.clear();
                 
