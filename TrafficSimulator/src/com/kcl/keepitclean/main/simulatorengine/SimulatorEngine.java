@@ -189,7 +189,7 @@ public class SimulatorEngine implements Observer {
 			car = vehicleFactory.getVehicle(VehicleType.CAR); // generate a car
 			vehicleStartCoord.x = roadList.get(startingPos.getRoad()).getStartCoordinates().x;
 			vehicleStartCoord.y = roadList.get(startingPos.getRoad()).getStartCoordinates().y
-					+ startingPos.getLane() * Constant.LANE_SIZE * Constant.PIXELS + Constant.VEHICLE_LEFT_MARGIN;
+					+ startingPos.getLane() * Constant.LANE_SIZE * Constant.PIXELS + Constant.VEHICLE_LEFT_MARGIN*Constant.PIXELS;
 			car.setAxom(vehicleStartCoord);
 			addToActive(car, startingPos); // add to Active List of cars
 
@@ -478,7 +478,7 @@ public class SimulatorEngine implements Observer {
 		carPos.update(p.getMode(), p.getRoad(), p.getLane(), p.getLaneSection());
 		vehicleStartCoord.x = roadList.get(p.getRoad()).getStartCoordinates().x;
 		vehicleStartCoord.y = roadList.get(p.getRoad()).getStartCoordinates().y
-				+ p.getLane() * Constant.LANE_SIZE * Constant.PIXELS + Constant.VEHICLE_LEFT_MARGIN;
+				+ p.getLane() * Constant.LANE_SIZE * Constant.PIXELS + Constant.VEHICLE_LEFT_MARGIN* Constant.PIXELS;
 
 		if (chance <= freq) {
 			Vehicle Car = vehicleFactory.getVehicle(VehicleType.CAR);
