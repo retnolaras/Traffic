@@ -33,7 +33,7 @@ import static javafx.scene.paint.Color.RED;
 import javafx.stage.Stage;
 
 /**
- *
+ * draw simulation objects on GUI
  * @author rosiengo
  */
 public class SimulationRender  implements IRenderer {
@@ -71,7 +71,6 @@ public class SimulationRender  implements IRenderer {
         //
         simulationData = new SimulationData(simulation);
                 
-        System.out.println("GUI- number of vehicles:" + vehicles.size());
         drawRoads();
         drawJunctions();
         drawTrafficLights();
@@ -179,20 +178,33 @@ public class SimulationRender  implements IRenderer {
     //DRAW VEHICLES
     public void drawVehicles()
     {
-        
+      Orientation orientation;  
       for (Vehicle vehicle:vehicles)
       {
+        
         if (Car.class.isInstance(vehicle)) 
         //    Double angle = vehicle.getDirectionVector().angleVectorDegree();
         //gc.getFill(BLUE);
           gc.setFill(Color.BLUE);
         else if (Emergency.class.isInstance(vehicle))
            gc.setFill(Color.RED);
-        
-        gc.fillRect(vehicle.getAxom().x , 
+        orientation = roads.get(vehicle.getPos().getRoad()).getOrientation();
+        if (orientation == Orientation.HORIZONTAL||
+            orientation == Orientation.LEFT_HORIZONTAL||
+            orientation == Orientation.RIGHT_HORIZONTAL)
+            gc.fillRect(vehicle.getAxom().x , 
                     vehicle.getAxom().y , 
-                    constant.VEHICLE_WIDTH * constant.PIXELS, 
-                    constant.VEHICLE_HEIGHT * constant.PIXELS);
+                    
+                    constant.VEHICLE_LENGTH * constant.PIXELS,
+                    constant.VEHICLE_WIDTH * constant.PIXELS);
+        
+        else 
+            gc.fillRect(vehicle.getAxom().x , 
+                    vehicle.getAxom().y , 
+                    
+                    constant.VEHICLE_WIDTH * constant.PIXELS,
+                    constant.VEHICLE_LENGTH * constant.PIXELS);
+            
       }
       
     }
@@ -262,8 +274,8 @@ public class SimulationRender  implements IRenderer {
             
         }
         
-        center.x = minx + 16;
-        center.y = miny + 16;
+        center.x = minx + constant.LANE_SIZE * constant.PIXELS;
+        center.y = miny + constant.LANE_SIZE * constant.PIXELS;
         
         
        

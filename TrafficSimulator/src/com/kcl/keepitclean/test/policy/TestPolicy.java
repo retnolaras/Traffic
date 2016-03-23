@@ -40,15 +40,12 @@ public class TestPolicy {
     @Test
     public void testSetDefaultPolicy()
     {
-        int speedLimitJunction;
-        int speedLimitStraight;
-        int speedLimitCurve;
+        int speedLimit;
         int greenTime;
         int redTime;
         int amberTime;
-        int expectedSpeedLimitJunction = 30;
-        int expectedSpeedLimitStraight = 60;
-        int expectedSpeedLimitCurve = 40;
+        int expectedSpeedLimit = 60;
+        
         int expectedGreenTime = 3;
         int expectedRedTime = 3;
         int expectedAmberTime = 3;
@@ -57,15 +54,13 @@ public class TestPolicy {
         Assert.assertNotNull("Failure - must be not null policy", testPolicy);
         if (testPolicy != null)
         {
-            speedLimitJunction = testPolicy.getJunctionSpeedLimit();
-            speedLimitStraight = testPolicy.getStraightRoadSpeedLimit();
-            speedLimitCurve = testPolicy.getCurvyRoadSpeedLimit();
+            speedLimit = testPolicy.getSpeedLimit();
+            
             greenTime = testPolicy.getGreenTrafficLightTime();
             redTime = testPolicy.getRedTrafficLightTime();
             amberTime = testPolicy.getAmberTrafficLightTime();
-            Assert.assertEquals("Failure- speed limit for junction not correct",  expectedSpeedLimitJunction, speedLimitJunction);
-            Assert.assertEquals("Failure- speed limit for straight road not correct", expectedSpeedLimitStraight, speedLimitStraight);
-            Assert.assertEquals("Failure- speed limit for curvy road not correct", expectedSpeedLimitCurve, speedLimitCurve);
+            Assert.assertEquals("Failure- speed limit  not correct",  expectedSpeedLimit, speedLimit);
+            
             Assert.assertEquals("Failure- timing for green light not correct", expectedGreenTime, greenTime);
             Assert.assertEquals("Failure- timing  for red light not correct", expectedRedTime, redTime);
             Assert.assertEquals("Failure- timing  for amber light not correct", expectedAmberTime, amberTime);
@@ -76,14 +71,13 @@ public class TestPolicy {
     @Test
     public void testSetRandomPolicy()
     {
-        int speedLimitJunction;
-        int speedLimitStraight;
-        int speedLimitCurve;
+        int speedLimit;
+       
         int greenTime;
         int redTime;
         int amberTime;
-        int[] minSpeedLimit = {20,30,20};
-        int[] maxSpeedLimit = {40,70,40};
+        int[] minSpeedLimit = {40};
+        int[] maxSpeedLimit = {60};
         int[] minTrafficLight = {30,5,10};
         int[] maxTrafficLight = {60,15,30};
                           
@@ -91,15 +85,11 @@ public class TestPolicy {
         Assert.assertNotNull("Failure - must be not null policy", testPolicy);
         if (testPolicy != null)
         {
-            speedLimitJunction = testPolicy.getJunctionSpeedLimit();
-            speedLimitStraight = testPolicy.getStraightRoadSpeedLimit();
-            speedLimitCurve = testPolicy.getCurvyRoadSpeedLimit();
+            speedLimit = testPolicy.getSpeedLimit();
             greenTime = testPolicy.getGreenTrafficLightTime();
             redTime = testPolicy.getRedTrafficLightTime();
             amberTime = testPolicy.getAmberTrafficLightTime();
-            Assert.assertTrue("Failure- speed limit for junction not in range: " + testPolicy.getJunctionSpeedLimit(), (speedLimitJunction >= minSpeedLimit[0]) && (speedLimitJunction <= maxSpeedLimit[0]) );
-            Assert.assertTrue("Failure- speed limit for straight road not in range: " + testPolicy.getStraightRoadSpeedLimit(), (speedLimitStraight >= minSpeedLimit[1]) && (speedLimitStraight <= maxSpeedLimit[1]) );
-            Assert.assertTrue("Failure- speed limit for curvy road not in range: " + testPolicy.getCurvyRoadSpeedLimit(), (speedLimitCurve >= minSpeedLimit[2]) && (speedLimitCurve <= maxSpeedLimit[2]) );
+            Assert.assertTrue("Failure- speed limit  not in range: " + testPolicy.getSpeedLimit(), (speedLimit >= minSpeedLimit[0]) && (speedLimit <= maxSpeedLimit[0]) );
             Assert.assertTrue(("Failure- speed limit for green light not in range: " + testPolicy.getGreenTrafficLightTime()), (greenTime >= minTrafficLight[0]) && (greenTime <= maxTrafficLight[0]) );
             Assert.assertTrue("Failure- speed limit for amber light not in range: " + testPolicy.getAmberTrafficLightTime(), (amberTime >= minTrafficLight[1]) && (amberTime <= maxTrafficLight[1]) );
             Assert.assertTrue("Failure- speed limit for red light not in range: " + testPolicy.getRedTrafficLightTime(), (redTime >= minTrafficLight[2]) && (redTime <= maxTrafficLight[2]) );
@@ -110,9 +100,7 @@ public class TestPolicy {
     @Test
     public void testSetCustomisedPolicy()
     {
-        int speedLimitJunction;
-        int speedLimitStraight;
-        int speedLimitCurve;
+        int speedLimit;
         int greenTime;
         int redTime;
         int amberTime;
@@ -124,15 +112,11 @@ public class TestPolicy {
         Assert.assertNotNull("Failure - must be not null policy", testPolicy);
         if (testPolicy != null)
         {
-            speedLimitJunction = testPolicy.getJunctionSpeedLimit();
-            speedLimitStraight = testPolicy.getStraightRoadSpeedLimit();
-            speedLimitCurve = testPolicy.getCurvyRoadSpeedLimit();
+            speedLimit = testPolicy.getSpeedLimit();
             greenTime = testPolicy.getGreenTrafficLightTime();
             redTime = testPolicy.getRedTrafficLightTime();
             amberTime = testPolicy.getAmberTrafficLightTime();
-            Assert.assertTrue("Failure- speed limit for junction not correct", (speedLimitJunction == minSpeedLimit[0]));
-            Assert.assertTrue("Failure- speed limit for straight road not correct", (speedLimitStraight== minSpeedLimit[1]) );
-            Assert.assertTrue("Failure- speed limit for curvy road not correct", (speedLimitCurve == minSpeedLimit[2]) );
+            Assert.assertTrue("Failure- speed limit not correct", (speedLimit == minSpeedLimit[0]));
             Assert.assertTrue("Failure- speed limit for green light not correct", (greenTime == minTrafficLight[0])  );
             Assert.assertTrue("Failure- speed limit for amber light not correct", (amberTime == minTrafficLight[1]) );
             Assert.assertTrue("Failure- speed limit for red light not correct", (redTime == minTrafficLight[2]));
@@ -155,7 +139,7 @@ public class TestPolicy {
     @Test
     public void testGetPolicyInstance_Initiated()
     {
-        int[] minSpeedLimit = {20,30,20};
+        int[] minSpeedLimit = {60};
         int[] minTrafficLight = {30,5,10};
                           
         Policy expectedPolicy = Policy.setPolicy(1, minSpeedLimit, null, minTrafficLight, null);

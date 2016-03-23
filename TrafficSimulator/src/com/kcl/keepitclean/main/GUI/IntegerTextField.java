@@ -9,7 +9,7 @@ package com.kcl.keepitclean.main.GUI;
 import javafx.scene.control.TextField;
 
 /**
- *
+ * Customised TextField to allow only integers
  * @author rosiengo
  */
 public class  IntegerTextField extends TextField{
