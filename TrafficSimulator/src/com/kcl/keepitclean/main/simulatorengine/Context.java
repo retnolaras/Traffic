@@ -140,12 +140,12 @@ public class Context implements IContext {
 
 					// adding VEHICLE_LEFT_MARGIN to place the car in the middle
 					// of the lane
-					p = new Point((int) move, (int) road.getStartCoordinates().getY() + Constant.VEHICLE_LEFT_MARGIN);
+					p = new Point((int) move, (int) road.getStartCoordinates().getY() + Constant.VEHICLE_LEFT_MARGIN*Constant.PIXELS);
 				} else {
 
 					// adding VEHICLE_LEFT_MARGIN to place the car in the middle
 					// of the lane
-					p = new Point((int) road.getStartCoordinates().getX() + Constant.VEHICLE_LEFT_MARGIN, (int) move);
+					p = new Point((int) road.getStartCoordinates().getX() + Constant.VEHICLE_LEFT_MARGIN*Constant.PIXELS, (int) move);
 				}
 			}
 			
@@ -165,7 +165,7 @@ public class Context implements IContext {
 		switch (index) {
 			case 0:
 				point.x = point.x + Constant.VEHICLE_LEFT_MARGIN;
-				point.y = point.y - Constant.VEHICLE_HEIGHT;
+				point.y = point.y - Constant.VEHICLE_LENGTH;
 				break;
 				
 			case 1:
@@ -180,7 +180,7 @@ public class Context implements IContext {
 			
 			case 3:
 				point.x = point.x - (Constant.VEHICLE_WIDTH + Constant.VEHICLE_LEFT_MARGIN);
-				point.y = point.y - Constant.VEHICLE_HEIGHT;
+				point.y = point.y - Constant.VEHICLE_LENGTH;
 				break;
 			
 			default:
