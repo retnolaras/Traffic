@@ -9,6 +9,8 @@ import com.kcl.keepitclean.main.policy.Policy;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneFactory;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import com.kcl.keepitclean.main.roadnetwork.road.RoadFactory;
+import com.kcl.keepitclean.main.session.SessionManager;
+import com.kcl.keepitclean.main.simulatorengine.SimulationData;
 import com.kcl.keepitclean.main.simulatorengine.SimulatorEngine;
 import com.kcl.keepitclean.main.vehicle.VehicleFactory;
 import com.kcl.keepitclean.main.vehicle.VehicleType;
@@ -39,7 +41,7 @@ public class InitScreen extends Application {
     private GUIComponents pscene;
     private SimulatorEngine simulation;
     private SimulationSettings simulationSettings;
-    private static XYChart.Series simulationEngine;
+    private SimulationData simulationData;
     
     @Override
     public void start(Stage primaryStage) {
@@ -71,7 +73,7 @@ public class InitScreen extends Application {
                                              pscene.getMaxSpeedLimitSettings(), pscene.getMinTrafficLightSettings(), pscene.getMaxTrafficLightSettings(), 
                                              pscene.getTrafficDesity(), pscene.getSessionDuration());
 
-                    //pass simulation settings to simulation engin
+                    //pass simulation settings to simulation engine
                     //Start the simulation Session
                     simulation = new SimulatorEngine(simulationSettings);   
                     renderer = new SimulationRender(pscene.gcontext, simulation);
@@ -79,6 +81,13 @@ public class InitScreen extends Application {
                     simulation.startSimulation();
                     pscene.btnTerminate.setDisable(false);
                     pscene.btnStart.setDisable(true);
+                    
+                    pscene.btnDecrease.setDisable(false);
+                    pscene.btnIncrease.setDisable(false);
+                    pscene.btnPause.setDisable(false);
+                    pscene.btnResume.setDisable(false);
+                    
+                    
                 }
                 
                 
@@ -93,11 +102,18 @@ public class InitScreen extends Application {
             public void handle(ActionEvent event){
                 //Terminate Simulation Session
             	simulation.stopSimulation();
+            	simulation = null;
                 //Show Report
                 //Enable Start button
                 pscene.btnStart.setDisable(false);
                 //Disable Terminate Button
                 pscene.btnTerminate.setDisable(true);
+                
+                pscene.btnDecrease.setDisable(true);
+                pscene.btnIncrease.setDisable(true);
+                pscene.btnPause.setDisable(true);
+                pscene.btnResume.setDisable(true);
+                
                 renderer.clear();
                 
             }
@@ -105,7 +121,47 @@ public class InitScreen extends Application {
         
         );
 
-                
+		pscene.btnIncrease.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Terminate Simulation Session
+				SessionManager.getInstance().doStepFaster();
+			}
+		}
+
+		);
+        
+		pscene.btnDecrease.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Terminate Simulation Session
+				SessionManager.getInstance().doStepSlower();
+			}
+		}
+
+		);
+        
+		pscene.btnPause.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Terminate Simulation Session
+				SessionManager.getInstance().pauseSession();
+			}
+		}
+
+		);
+		
+		pscene.btnResume.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Terminate Simulation Session
+				SessionManager.getInstance().resumeSession();
+			}
+		}
+
+		);
+		
+		
         Scene scene = new Scene(pscene,1300 ,700 );
         
         primaryStage.setTitle("KeepItClean- Traffic Simulation");
@@ -114,40 +170,7 @@ public class InitScreen extends Application {
         //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
-    
-    
-    
-    private static void createStat(Stage stage) {
-		try {
-			stage.setTitle("Report");
-			final NumberAxis xAxis = new NumberAxis();
-	        final NumberAxis yAxis = new NumberAxis();
-			final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
-			xAxis.setLabel("Time");
-			yAxis.setLabel("Number of Vehicles");
-			
-			lineChart.setTitle("Report");
-			int xvalue = 10;
-			int yvalue = 20;
-			Scene scene = new Scene(lineChart,400,400);
-			
-			 simulationEngine = new XYChart.Series();
-			 XYChart.Series seriesAvg = new XYChart.Series();
-		     simulationEngine.setName("Volume of Cars");
-		     seriesAvg.setName("Number of Cells Crossed");
-		       
-		     XYChart.Data<Integer, Integer> datathing = new Data<Integer, Integer>((Integer)xvalue,(Integer)yvalue);
-		        
-		     lineChart.getData().add(simulationEngine);
-		     lineChart.getData().add(seriesAvg);
-		       
-			stage.setScene(scene);
-			stage.show();
-		        
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+   
     
    
 

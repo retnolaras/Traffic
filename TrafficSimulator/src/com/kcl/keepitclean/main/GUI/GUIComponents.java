@@ -79,6 +79,12 @@ public class GUIComponents extends BorderPane{
   public Button btnStart = new Button("Start");
   public Button btnTerminate = new Button("Terminate");
   public Button btnReport = new Button("Report");
+  
+  public Button btnIncrease = new Button("+");
+  public Button btnDecrease = new Button("-");
+  public Button btnPause = new Button("||");
+  public Button btnResume = new Button(">");
+  
   public Label blank3 = new Label("");
       
   
@@ -190,11 +196,16 @@ public class GUIComponents extends BorderPane{
       
       btnTerminate.setDisable(true);
       
+      btnIncrease.setDisable(true);
+      btnDecrease.setDisable(true);
+      btnPause.setDisable(true);
+      btnResume.setDisable(true);
+      
       button_box.setStyle("-fx-border-color: lightgrey" );
       button_box.setPadding(new Insets(10,10,10,10));
       
      
-      button_box.getChildren().addAll(btnStart, btnTerminate, btnReport);
+      button_box.getChildren().addAll(btnStart, btnTerminate, btnReport, btnIncrease, btnPause, btnResume, btnDecrease);
       blank3.setStyle("-fx-font-color : red");
             
       policySettings.getChildren().add(blank3);

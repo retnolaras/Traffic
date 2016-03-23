@@ -12,15 +12,15 @@ import com.kcl.keepitclean.main.roadnetwork.road.Road;
 import java.util.Random;
 
 /**
- * 
+ *
  * Class for PrePlannedRouteJunction
- * 
+ *
  * Is a node for connecting different Roads together.
  * Allowing Vehicles to pass from Road to Road by providing them a PrePlannedRoute across a junction.
- * 
+ *
  * Dynamically builds junctions based on input roads and output roads
- * 
- * 
+ *
+ *
  * @author igalna
  *
  */
@@ -28,27 +28,28 @@ public class PrePlannedRouteJunction implements Junction {
 
 	private List<Road> roadsLeavingJunction;
 	private List<Road> roadsEnteringJunction;
-	
+
 	List<LaneSection> sectionsOfJunction;
-	
+
 	List<Point> junctionPoints;
-	
+	private int index=0;
+
 	private Map<String, List<LaneSection>> mapOfInputRoadsToOutputRoads;
-	
+
 	private LaneFactory lf;
-	
+
 	private final String junctionLaneType = "SINGLELANE";
-	
+
 	public PrePlannedRouteJunction(List<Road> roadsEnteringThisJunction, List<Road> roadsLeavingThisJunction) {
 		this.roadsEnteringJunction = roadsEnteringThisJunction;
 		this.roadsLeavingJunction = roadsLeavingThisJunction;
-		
+
 		generateSectionsOfJunction();
 		createMappings();
-		
+
 		this.junctionPoints = new ArrayList<>();
 	}
-	
+
 	private void createMappings() {
 		mapOfInputRoadsToOutputRoads = new HashMap<>();
 		Point inputRoadCoords;
@@ -60,9 +61,9 @@ public class PrePlannedRouteJunction implements Junction {
 				mapOfInputRoadsToOutputRoads.put("" + coordinateStringFormatter(inputRoadCoords, exitRoadCoords), produceRoute(inputRoadCoords, exitRoadCoords));
 			}
 		}
-		
+
 	}
-	
+
 	private String coordinateStringFormatter(Point inputRoadCoords, Point exitRoadCoords) {
 		return "" + inputRoadCoords.getX() + "," + inputRoadCoords.getY() + "-" + exitRoadCoords.getX() + "," + exitRoadCoords.getY();
 	}
@@ -92,11 +93,11 @@ public class PrePlannedRouteJunction implements Junction {
 			}
 		}
 	}
-	
+
 	private void buildJunctionSections(int widthOfJunction) {
 		lf = new LaneFactory();
 		this.sectionsOfJunction = new ArrayList<LaneSection>();
-		
+
 		for (int index = 0; index < widthOfJunction; index++) {
 			sectionsOfJunction.add(lf.produceLaneSection(junctionLaneType));
 		}
@@ -106,10 +107,10 @@ public class PrePlannedRouteJunction implements Junction {
 	@Override
 	public List<LaneSection> produceRoute(Point roadEnteringCoord, Point roadLeavingCoord) {
 		List<LaneSection> route = new ArrayList<LaneSection>();
-		
+
 		int roadEnteringIndex = 0;
 		int roadLeavingIndex = 0;
-		
+
 		for (int x = 0; x < roadsEnteringJunction.size(); x++) {
 			if (roadsEnteringJunction.get(x).getJuctionEndCoordinates().equals(roadEnteringCoord)) {
 				roadEnteringIndex = x;
@@ -120,16 +121,16 @@ public class PrePlannedRouteJunction implements Junction {
 				roadLeavingIndex = x;
 			}
 		}
-		
+
 		if (sectionsOfJunction.size() > 1) {
 			if(roadEnteringIndex == 0) {
 				if (roadLeavingIndex == 0) {
 					getLaneSectionsOfJunction().get(0).setJunctionGridIndex(0);
 					route.add(getLaneSectionsOfJunction().get(0));
-					
+
 					getLaneSectionsOfJunction().get(0).setJunctionGridIndex(1);
 					route.add(getLaneSectionsOfJunction().get(1));
-					
+
 					return route;
 				}
 				if (roadLeavingIndex == 1) {
@@ -215,8 +216,8 @@ public class PrePlannedRouteJunction implements Junction {
 			route.add(getLaneSectionsOfJunction().get(0));
 			return route;
 		}
-		
-		
+
+
 		return route;
 	}
         /* ROSIE---- generate random junction exit [oint >>>START */
@@ -224,16 +225,16 @@ public class PrePlannedRouteJunction implements Junction {
         public Point getRandomExitPoint(){
             Random generator = new Random();
             int exitPointIndex;
-            exitPointIndex = generator.nextInt(this.roadsLeavingJunction.size());
-            return this.roadsLeavingJunction.get(exitPointIndex).getJuctionStartCoordinates();
-            
+           exitPointIndex = generator.nextInt(this.roadsLeavingJunction.size());
+            return this.roadsLeavingJunction.get(exitPointIndex).getStartCoordinates();
+
         }
 	/* ROSIE---- generate random junction exit [oint <<<<END */
-        
+
 	public Map<String, List<LaneSection>> getMappings() {
 		return mapOfInputRoadsToOutputRoads;
 	}
-	
+
 	public List<LaneSection> getLaneSectionsOfJunction() {
 		return sectionsOfJunction;
 	}
@@ -248,5 +249,21 @@ public class PrePlannedRouteJunction implements Junction {
                         junctionPoints.add(road.getJuctionStartCoordinates());
                 }
 		return junctionPoints;
+	}
+
+	@Override
+	public void setIndex(int i) {
+		index= i;
+	}
+
+	@Override
+	public int getIndex(){
+
+		return index;
+	}
+
+	@Override
+	public List<LaneSection> getSectionsOfJunction() {
+		return sectionsOfJunction;
 	}
 }
