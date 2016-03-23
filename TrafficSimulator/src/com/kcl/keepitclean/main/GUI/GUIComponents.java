@@ -47,19 +47,13 @@ public class GUIComponents extends BorderPane{
   protected GridPane policyPane;
   protected Label lblMin = new Label("Min");
   protected Label lblMax = new Label("Max");
-  protected Label lblStraight = new Label("Straight Road Speed Limit:");
-  protected Label lblJunction = new Label("Junction Speed Limit:");
-  protected Label lblCurvy = new Label("Curvy Road Speed Limit:");
-  protected Label lblGreen = new Label("Green Light Duration:");
-  protected Label lblAmber = new Label("Amber Light Duration:");
-  protected Label lblRed = new Label("Red Light Duration:");
+  protected Label lblSpeedLimit = new Label("Speed Limit (mph):");
+  protected Label lblGreen = new Label("Green Light Duration (s):");
+  protected Label lblAmber = new Label("Amber Light Duration (s):");
+  protected Label lblRed = new Label("Red Light Duration (s):");
   
-  protected TextField txtMinStraight = new IntegerTextField();
-  protected TextField txtMaxStraight  = new IntegerTextField() ;
-  protected TextField txtMinJunction = new IntegerTextField();
-  protected TextField txtMaxJunction  = new IntegerTextField() ;  
-  protected TextField txtMinCurvy = new IntegerTextField();
-  protected TextField txtMaxCurvy  = new IntegerTextField() ;
+  protected TextField txtMinSpeedLimit = new IntegerTextField();
+  protected TextField txtMaxSpeedLimit  = new IntegerTextField() ;
   protected TextField txtMinGreen = new IntegerTextField();
   protected TextField txtMaxGreen = new IntegerTextField();
   protected TextField txtMinAmber = new IntegerTextField();
@@ -158,15 +152,11 @@ public class GUIComponents extends BorderPane{
       policyPane.setPadding(new Insets(10,10,10,10));
       policyPane.add(lblMin, 1, 0);
       policyPane.add(lblMax, 2, 0);
-      policyPane.add(lblJunction, 0, 1);
-      policyPane.add(lblStraight,0,2);
-      policyPane.add(lblCurvy, 0, 3);
-      policyPane.add(txtMinJunction,1,1);
-      policyPane.add(txtMaxJunction, 2, 1);
-      policyPane.add(txtMinStraight,1,2);
-      policyPane.add(txtMaxStraight, 2, 2);
-      policyPane.add(txtMinCurvy,1,3);
-      policyPane.add(txtMaxCurvy, 2, 3);
+          policyPane.add(lblSpeedLimit,0,2);
+      policyPane.add(txtMinSpeedLimit,1,2);
+      policyPane.add(txtMaxSpeedLimit, 2, 2);
+      //policyPane.add(txtMinCurvy,1,3);
+      //policyPane.add(txtMaxCurvy, 2, 3);
       policyPane.add(lblGreen,0,4);
       policyPane.add(lblAmber,0,5);
       policyPane.add(lblRed,0,6);
@@ -231,9 +221,9 @@ public class GUIComponents extends BorderPane{
         if (selected == 1 || selected == 2) 
            
         {
-            speedLimits[0] = Integer.parseInt(txtMinJunction.getText());
-            speedLimits[1] = Integer.parseInt(txtMinStraight.getText());
-            speedLimits[2] = Integer.parseInt(txtMinCurvy.getText());
+            //speedLimits[0] = Integer.parseInt(txtMinJunction.getText());
+            speedLimits[0] = Integer.parseInt(txtMinSpeedLimit.getText());
+            //speedLimits[2] = Integer.parseInt(txtMinCurvy.getText());
             return speedLimits;
         }
         else 
@@ -254,9 +244,9 @@ public class GUIComponents extends BorderPane{
         {
                         
             
-            speedLimits[0] = Integer.parseInt(txtMaxJunction.getText());
-            speedLimits[1] = Integer.parseInt(txtMaxStraight.getText());
-            speedLimits[2] = Integer.parseInt(txtMaxCurvy.getText());
+            //speedLimits[0] = Integer.parseInt(txtMaxJunction.getText());
+            speedLimits[0] = Integer.parseInt(txtMaxSpeedLimit.getText());
+            //speedLimits[2] = Integer.parseInt(txtMaxCurvy.getText());
             return speedLimits;
         }
         else 
@@ -317,9 +307,9 @@ public class GUIComponents extends BorderPane{
     
     //disable Mininum policy value textfields
     private void disableMin(){
-        txtMinStraight.setDisable(true);
-        txtMinJunction.setDisable(true);
-        txtMinCurvy.setDisable(true);
+        txtMinSpeedLimit.setDisable(true);
+        //txtMinJunction.setDisable(true);
+        //txtMinCurvy.setDisable(true);
         txtMinGreen.setDisable(true);
         txtMinAmber.setDisable(true);
         txtMinRed.setDisable(true);
@@ -328,18 +318,18 @@ public class GUIComponents extends BorderPane{
     
     //disable maximum policy value textfields
     private void disableMax(){
-        txtMaxStraight.setDisable(true);
-        txtMaxJunction.setDisable(true);
-        txtMaxCurvy.setDisable(true);
+        txtMaxSpeedLimit.setDisable(true);
+        //txtMaxJunction.setDisable(true);
+        //txtMaxCurvy.setDisable(true);
         txtMaxGreen.setDisable(true);
         txtMaxAmber.setDisable(true);
         txtMaxRed.setDisable(true);
     }
     
     private void enableMin(){
-        txtMinStraight.setDisable(false);
-        txtMinJunction.setDisable(false);
-        txtMinCurvy.setDisable(false);
+        txtMinSpeedLimit.setDisable(false);
+        //txtMinJunction.setDisable(false);
+        //txtMinCurvy.setDisable(false);
         txtMinGreen.setDisable(false);
         txtMinAmber.setDisable(false);
         txtMinRed.setDisable(false);
@@ -347,9 +337,9 @@ public class GUIComponents extends BorderPane{
     }
     
     private void enableMax(){
-        txtMaxStraight.setDisable(false);
-        txtMaxJunction.setDisable(false);
-        txtMaxCurvy.setDisable(false);
+        txtMaxSpeedLimit.setDisable(false);
+        //txtMaxJunction.setDisable(false);
+        //txtMaxCurvy.setDisable(false);
         txtMaxGreen.setDisable(false);
         txtMaxAmber.setDisable(false);
         txtMaxRed.setDisable(false);
@@ -374,9 +364,8 @@ public class GUIComponents extends BorderPane{
         int selected = getSelectedPolicy();
         boolean valid = true;
         if ((selected == 1) &&
-            (Integer.parseInt(txtMinJunction.getText()) > Integer.parseInt(txtMaxJunction.getText()) ||
-             Integer.parseInt(txtMinStraight.getText()) > Integer.parseInt(txtMaxStraight.getText()) ||
-             Integer.parseInt(txtMinCurvy.getText()) > Integer.parseInt(txtMaxCurvy.getText()) ||
+            (Integer.parseInt(txtMinSpeedLimit.getText()) > Integer.parseInt(txtMaxSpeedLimit.getText()) ||
+             //Integer.parseInt(txtMinCurvy.getText()) > Integer.parseInt(txtMaxCurvy.getText()) ||
              Integer.parseInt(txtMinGreen.getText()) > Integer.parseInt(txtMaxGreen.getText()) ||
              Integer.parseInt(txtMinAmber.getText()) > Integer.parseInt(txtMaxAmber.getText()) ||
              Integer.parseInt(txtMinRed.getText()) > Integer.parseInt(txtMaxRed.getText())       
@@ -391,9 +380,9 @@ public class GUIComponents extends BorderPane{
     }
     
     private void clearMax(){
-        txtMaxStraight.setText("");
-        txtMaxJunction.setText("");
-        txtMaxCurvy.setText("");
+        txtMaxSpeedLimit.setText("");
+        //txtMaxJunction.setText("");
+        //txtMaxCurvy.setText("");
         txtMaxGreen.setText("");
         txtMaxAmber.setText("");
         txtMaxRed.setText("");
@@ -402,9 +391,9 @@ public class GUIComponents extends BorderPane{
     
     private boolean validateMinValues()
     {
-         if (txtMinStraight.getText().isEmpty()||
-             txtMinJunction.getText().isEmpty() ||
-             txtMinCurvy.getText().isEmpty() ||
+         if (txtMinSpeedLimit.getText().isEmpty()||
+             //txtMinJunction.getText().isEmpty() ||
+             //txtMinCurvy.getText().isEmpty() ||
              txtMinGreen.getText().isEmpty() ||
              txtMinAmber.getText().isEmpty() ||
              txtMinRed.getText().isEmpty()
@@ -418,9 +407,9 @@ public class GUIComponents extends BorderPane{
     
     private boolean validateMaxValues()
     {
-         if (txtMaxStraight.getText().isEmpty()||
-             txtMaxJunction.getText().isEmpty() ||
-             txtMaxCurvy.getText().isEmpty() ||
+         if (txtMaxSpeedLimit.getText().isEmpty()||
+             //txtMaxJunction.getText().isEmpty() ||
+             //txtMaxCurvy.getText().isEmpty() ||
              txtMaxGreen.getText().isEmpty() ||
              txtMaxAmber.getText().isEmpty() ||
              txtMaxRed.getText().isEmpty()
