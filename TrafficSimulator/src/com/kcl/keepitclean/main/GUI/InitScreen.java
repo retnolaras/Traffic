@@ -16,12 +16,9 @@ import com.kcl.keepitclean.main.vehicle.VehicleFactory;
 import com.kcl.keepitclean.main.vehicle.VehicleType;
 import java.util.List;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -48,6 +45,8 @@ public class InitScreen extends Application {
         
         pscene = new GUIComponents();
         
+        
+        
         pscene.btnStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -57,7 +56,7 @@ public class InitScreen extends Application {
                 pscene.blank3.setText("");
                 if (!pscene.validateBlank())
                 {
-                    pscene.blank3.setText("please enter all required values");
+                    pscene.blank3.setText("Please enter all required values");
                     pscene.blank3.setStyle("-fx-text-fill: red");
                 }
                 else if ( !pscene.validateRange())
@@ -69,7 +68,7 @@ public class InitScreen extends Application {
                 {
                     simulationSettings = new SimulationSettings(pscene.getSelectedPolicy(), pscene.getMinSpeedLimitSettings(),
                                              pscene.getMaxSpeedLimitSettings(), pscene.getMinTrafficLightSettings(), pscene.getMaxTrafficLightSettings(), 
-                                             pscene.getTrafficDesity(), pscene.getSessionDuration());
+                                             pscene.getTrafficDesity(), pscene.getSessionDuration(), pscene.getMap());
 
                     //pass simulation settings to simulation engine
                     //Start the simulation Session
@@ -84,7 +83,9 @@ public class InitScreen extends Application {
                     pscene.btnIncrease.setDisable(false);
                     pscene.btnPause.setDisable(false);
                     pscene.btnResume.setDisable(false);
-                    
+                    //simulationData = simulation.getContext().getSimulationData();
+                    pscene.updateReport(simulationData);
+                   
                     
                 }
                 
@@ -162,15 +163,6 @@ public class InitScreen extends Application {
 
 		);
 		
-		pscene.btnReport.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				pscene.updateReport(simulationData);
-			}
-		}
-
-		);
-		
 		
         Scene scene = new Scene(pscene,1300 ,700 );
         
@@ -180,8 +172,8 @@ public class InitScreen extends Application {
         //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
+   
     
-
    
 
     /**
