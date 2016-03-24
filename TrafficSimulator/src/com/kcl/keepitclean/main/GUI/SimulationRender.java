@@ -46,7 +46,6 @@ public class SimulationRender  implements IRenderer {
     private Stage stage;
     Constant constant = new Constant();
     
-    private SimulationData simulationData;
    
         
    public SimulationRender (GraphicsContext gc, SimulatorEngine simulation)
@@ -69,7 +68,6 @@ public class SimulationRender  implements IRenderer {
         junctions = simulation.getContext().getJunctionList();
         trafficLights = simulation.getContext().getTrafficLightList();
         //
-        simulationData = new SimulationData(simulation);
                 
         drawRoads();
         drawJunctions();

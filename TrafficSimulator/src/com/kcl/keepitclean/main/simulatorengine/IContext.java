@@ -19,4 +19,6 @@ public interface IContext {
 	public List<Junction> getJunctionList();
 
     public List<TrafficLight> getTrafficLightList();
+    
+    public SimulationData getSimulationData();
 }

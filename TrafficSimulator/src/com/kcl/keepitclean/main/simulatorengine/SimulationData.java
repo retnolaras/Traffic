@@ -17,6 +17,8 @@ public class SimulationData {
     private int vehicleCrush;
     private double trafficEstimation;
     private int totalLanes = 0;
+	private int successVehicle;
+	private double sessionDuration;
     
 
 	public SimulationData(SimulatorEngine simulation) {
@@ -62,6 +64,12 @@ public class SimulationData {
 	}	
 	public int getTotalLanes() {
 		return totalLanes;
+	}	
+	public int getSuccessVehicles(){
+		return successVehicle;
+	}	
+	public double getSessionDuration(){
+		return sessionDuration;
 	}
 
 }
