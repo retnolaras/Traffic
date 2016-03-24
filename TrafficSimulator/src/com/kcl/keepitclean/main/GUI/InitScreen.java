@@ -16,9 +16,12 @@ import com.kcl.keepitclean.main.vehicle.VehicleFactory;
 import com.kcl.keepitclean.main.vehicle.VehicleType;
 import java.util.List;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -44,8 +47,6 @@ public class InitScreen extends Application {
     public void start(Stage primaryStage) {
         
         pscene = new GUIComponents();
-        
-        
         
         pscene.btnStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -161,6 +162,15 @@ public class InitScreen extends Application {
 
 		);
 		
+		pscene.btnReport.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				pscene.updateReport(simulationData);
+			}
+		}
+
+		);
+		
 		
         Scene scene = new Scene(pscene,1300 ,700 );
         
@@ -170,8 +180,8 @@ public class InitScreen extends Application {
         //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
-   
     
+
    
 
     /**
