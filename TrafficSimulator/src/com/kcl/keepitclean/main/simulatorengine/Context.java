@@ -23,8 +23,7 @@ public class Context implements IContext {
 	private List<Road> roadList;
 	private List<TrafficLight> trafficLightList = new ArrayList<>();
 
-	public Context(List<Road> roadList,
-			List<Vehicle> vehicleList /* , List<Junction> junctionList */) {
+	public Context(List<Road> roadList, List<Vehicle> vehicleList) {
 		this.roadList = roadList;
 		this.vehicleList = vehicleList;
 
@@ -75,122 +74,96 @@ public class Context implements IContext {
 		return vehicleList;
 	}
 
-//	public Point moveVehicle(int moveType, Vehicle vehicle, Position oldPos, Position newPos) {
-//		Point p;
-//
-//		switch (moveType) {
-//			case 0:
-//				p = moveVehicle(vehicle, oldPos, newPos);
-//				break;
-//			case 1:
-//				p = moveVehicleInJunction(vehicle, oldPos, newPos);
-//				break;
-//			default:
-//				p = null;
-//				break;
-//		}
-//
-//		return p;
-//	}
-//
-//	private Point moveVehicleInJunction(Vehicle vehicle, Position oldPos, Position newPos) {
-//		return null;
-//	}
-
-	public Point moveVehicle(Vehicle vehicle, Position oldPos, Position newPos){
+	public Point moveVehicle(Vehicle vehicle, Position oldPos, Position newPos) {
 		Point p = null;
 		double move = 0;
-		
+
 		Road road = roadList.get(newPos.getRoad());
-		
+
 		if (newPos.getMode() == Constant.MOVE_IN_ROAD) {
+			if (road.getOrientation() == Orientation.RIGHT_HORIZONTAL
+					|| road.getOrientation() == Orientation.DOWN_VERTICAL) {
 
-			if (oldPos.getRoad() == newPos.getRoad()) {
-				// In this case we are in the same road after moving
-
-				if (road.getOrientation() == Orientation.RIGHT_HORIZONTAL
-						|| road.getOrientation() == Orientation.DOWN_VERTICAL) {
-					
-					if (road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
-						// need to find the start point first
-						move = road.getStartCoordinates().getX();
-					} else if (road.getOrientation() == Orientation.DOWN_VERTICAL) {
-						// need to find the start point first
-						move = road.getStartCoordinates().getY();
-					}
-					move += newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT * Constant.PIXELS;
-				
-				} else if (road.getOrientation() == Orientation.LEFT_HORIZONTAL
-						|| road.getOrientation() == Orientation.UP_VERTICAL) {
-					
-					if (road.getOrientation() == Orientation.LEFT_HORIZONTAL) {
-						// need to find the start point first
-						move = road.getEndCoordinates().getX();
-					} else if (road.getOrientation() == Orientation.UP_VERTICAL) {
-						// need to find the start point first
-						//move = road.getStartCoordinates().getY();
-						move = road.getEndCoordinates().getY();
-					}
-					move -= newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT * Constant.PIXELS;
+				if (road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
+					// need to find the start point first
+					move = road.getStartCoordinates().getX();
+				} else if (road.getOrientation() == Orientation.DOWN_VERTICAL) {
+					// need to find the start point first
+					move = road.getStartCoordinates().getY();
 				}
 				
-				if (road.getOrientation() == Orientation.HORIZONTAL
-						|| road.getOrientation() == Orientation.LEFT_HORIZONTAL
-						|| road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
+				move += newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT * Constant.PIXELS;
 
-					// adding VEHICLE_LEFT_MARGIN to place the car in the middle
-					// of the lane
-					p = new Point((int) move, (int) road.getStartCoordinates().getY() + Constant.VEHICLE_LEFT_MARGIN);
-				} else {
+			} else if (road.getOrientation() == Orientation.LEFT_HORIZONTAL
+					|| road.getOrientation() == Orientation.UP_VERTICAL) {
 
-					// adding VEHICLE_LEFT_MARGIN to place the car in the middle
-					// of the lane
-					p = new Point((int) road.getStartCoordinates().getX() + Constant.VEHICLE_LEFT_MARGIN, (int) move);
+				if (road.getOrientation() == Orientation.LEFT_HORIZONTAL) {
+					// need to find the start point first
+					move = road.getEndCoordinates().getX();
+				} else if (road.getOrientation() == Orientation.UP_VERTICAL) {
+					// need to find the start point first
+					move = road.getEndCoordinates().getY();
 				}
+				
+				move -= newPos.getLaneSection() * Constant.LANE_SECTION_HEIGHT * Constant.PIXELS;
 			}
-			
+
+			if (road.getOrientation() == Orientation.HORIZONTAL || road.getOrientation() == Orientation.LEFT_HORIZONTAL
+					|| road.getOrientation() == Orientation.RIGHT_HORIZONTAL) {
+
+				// adding VEHICLE_LEFT_MARGIN to place the car in the middle
+				// of the lane
+				p = new Point((int) move,
+						(int) road.getStartCoordinates().getY() + Constant.VEHICLE_LEFT_MARGIN * Constant.PIXELS);
+			} else {
+
+				// adding VEHICLE_LEFT_MARGIN to place the car in the middle
+				// of the lane
+				p = new Point((int) road.getStartCoordinates().getX() + Constant.VEHICLE_LEFT_MARGIN * Constant.PIXELS,
+						(int) move);
+			}
 		} else { // Moving through a Junction
 			p = getPointInJunction(newPos.getLane(), junctionList.get(newPos.getRoad()));
 		}
-		
+
 		vehicle.setAxom(p);
 		return p;
 	}
 
-	public Point getPointInJunction(int index, Junction junction){
+	public Point getPointInJunction(int index, Junction junction) {
 		List<Point> jncPointList;
 		jncPointList = junction.getCoordinates();
 		Point point = (Point) jncPointList.get(index).clone();
-		
+
 		switch (index) {
-			case 0:
-				point.x = point.x + Constant.VEHICLE_LEFT_MARGIN;
-				point.y = point.y - Constant.VEHICLE_HEIGHT;
-				break;
-				
-			case 1:
-				point.x = point.x + Constant.VEHICLE_LEFT_MARGIN;
-				point.y = point.y + Constant.VEHICLE_LEFT_MARGIN;
-				break;
-				
-			case 2:
-				point.x = point.x - (Constant.VEHICLE_WIDTH + Constant.VEHICLE_LEFT_MARGIN);
-				point.y = point.y + Constant.VEHICLE_LEFT_MARGIN;
-				break;
-			
-			case 3:
-				point.x = point.x - (Constant.VEHICLE_WIDTH + Constant.VEHICLE_LEFT_MARGIN);
-				point.y = point.y - Constant.VEHICLE_HEIGHT;
-				break;
-			
-			default:
-				point = null;
-				break;
+		case 0:
+			point.x = point.x + Constant.VEHICLE_LEFT_MARGIN;
+			point.y = point.y - Constant.VEHICLE_LENGTH;
+			break;
+
+		case 1:
+			point.x = point.x + Constant.VEHICLE_LEFT_MARGIN;
+			point.y = point.y + Constant.VEHICLE_LEFT_MARGIN;
+			break;
+
+		case 2:
+			point.x = point.x - (Constant.VEHICLE_WIDTH + Constant.VEHICLE_LEFT_MARGIN);
+			point.y = point.y + Constant.VEHICLE_LEFT_MARGIN;
+			break;
+
+		case 3:
+			point.x = point.x - (Constant.VEHICLE_WIDTH + Constant.VEHICLE_LEFT_MARGIN);
+			point.y = point.y - Constant.VEHICLE_LENGTH;
+			break;
+
+		default:
+			point = null;
+			break;
 		}
-		
+
 		return point;
 	}
-	
+
 	public TrafficLight getTrafficLight(Road road, Junction junction) {
 
 		/*

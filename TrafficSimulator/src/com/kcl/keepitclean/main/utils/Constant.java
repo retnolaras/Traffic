@@ -12,7 +12,7 @@ package com.kcl.keepitclean.main.utils;
 public class Constant {
     public static int LANE_SIZE = 4;   //LANE WIDTH SIZE
     public static int VEHICLE_WIDTH = 2;
-    public static int VEHICLE_HEIGHT = 2;
+    public static int VEHICLE_LENGTH = 2;
     public static int PIXELS = 4;   //number of pixels per coordinate increment
     public static int LANE_SECTION_HEIGHT = 1;  //HEIGHT OF LANE SECTION
     public static int VEHICLE_LEFT_MARGIN = 1;
