@@ -27,6 +27,11 @@ Kelly Liu.
 \newblock phy-edu-traffic-simulation
   http://www.phy.ntnu.edu.tw/oldjava/others/trafficsimulation/applet.html.
 
+\bibitem{MartinRC08}
+R~C. Martin.
+\newblock {\em Clean Code: A handbook of agile software craftmanship}.
+\newblock Prentice Hall, 2008.
+
 \bibitem{NameUeda05}
 M.~Namekawa F. Ueda Y. Hioki Y. Ueda~A. Satoh.
 \newblock General purpose road traffic simulation system with a cell automaton
