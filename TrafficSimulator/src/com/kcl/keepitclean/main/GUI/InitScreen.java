@@ -56,7 +56,7 @@ public class InitScreen extends Application {
                 pscene.blank3.setText("");
                 if (!pscene.validateBlank())
                 {
-                    pscene.blank3.setText("please enter all required values");
+                    pscene.blank3.setText("Please enter all required values");
                     pscene.blank3.setStyle("-fx-text-fill: red");
                 }
                 else if ( !pscene.validateRange())
@@ -68,7 +68,7 @@ public class InitScreen extends Application {
                 {
                     simulationSettings = new SimulationSettings(pscene.getSelectedPolicy(), pscene.getMinSpeedLimitSettings(),
                                              pscene.getMaxSpeedLimitSettings(), pscene.getMinTrafficLightSettings(), pscene.getMaxTrafficLightSettings(), 
-                                             pscene.getTrafficDesity(), pscene.getSessionDuration());
+                                             pscene.getTrafficDesity(), pscene.getSessionDuration(), pscene.getMap());
 
                     //pass simulation settings to simulation engine
                     //Start the simulation Session
@@ -83,7 +83,9 @@ public class InitScreen extends Application {
                     pscene.btnIncrease.setDisable(false);
                     pscene.btnPause.setDisable(false);
                     pscene.btnResume.setDisable(false);
-                    
+                    //simulationData = simulation.getContext().getSimulationData();
+                    pscene.updateReport(simulationData);
+                   
                     
                 }
                 

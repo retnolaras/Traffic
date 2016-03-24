@@ -28,7 +28,7 @@ import javafx.scene.paint.Color;
  *
  * @author rosiengo
  */
-public class Map2 {
+public class SimulationMap {
 
     Road road;
     ArrayList<Road> roads = new ArrayList();
@@ -38,14 +38,6 @@ public class Map2 {
     RoadFactory roadFactory = new RoadFactory(new LaneFactory());
     private Map<Point, Road > startPointMap = new HashMap<>() ;
 
-
-    public Map2()
-    {
-        generateRoads();
-        generateJunctions();
-       
-        generateTrafficLights();
-    }
 
     public ArrayList<Junction> getJunctions()
     {
@@ -59,83 +51,8 @@ public class Map2 {
     {
         return trafficLights;
     }
-    private void generateRoads() {
-
-        RoadFactory roadFactory = new RoadFactory(new LaneFactory());
-        Point startPoint = new Point(0,0);
-        Point endPoint = new Point();
-        int length = 0;
-        int lanes = 0;
-
-        //road[0]: top road - 01- horizontal
-        generateRoad(new Point(30,270), 80, 1, Orientation.RIGHT_HORIZONTAL);
-        ((ListOfListsRoadImpl) roads.get(0)).setJuctionEndCoordinates(new Point(roads.get(0).getEndCoordinates().x, roads.get(0).getStartCoordinates().y));
-        //road[1]: top road  02- horizontal
-        generateRoad(new Point(30,270+ constant.LANE_SIZE*constant.PIXELS), 80, 1, Orientation.LEFT_HORIZONTAL);
-        ((ListOfListsRoadImpl) roads.get(1)).setJuctionStartCoordinates(new Point(roads.get(1).getEndCoordinates().x, roads.get(1).getEndCoordinates().y));
-
-        //road 2 - first vertical road - 01
-
-        generateRoad(new Point(roads.get(1).getEndCoordinates().x, roads.get(1).getEndCoordinates().y), 60, 1, Orientation.UP_VERTICAL);
-        ((ListOfListsRoadImpl) roads.get(2)).setJuctionEndCoordinates(new Point(roads.get(2).getStartCoordinates().x,
-                                                roads.get(2).getStartCoordinates().y));
-
-        ((ListOfListsRoadImpl) roads.get(2)).setJuctionStartCoordinates(new Point(roads.get(2).getStartCoordinates().x,
-                                                roads.get(2).getEndCoordinates().y));
-
-        //road 3- first vertical road 02
-        generateRoad(new Point(roads.get(2).getStartCoordinates().x + 16, roads.get(2).getStartCoordinates().y), 60, 1, Orientation.DOWN_VERTICAL);
-        ((ListOfListsRoadImpl) roads.get(3)).setJuctionEndCoordinates(new Point(roads.get(3).getEndCoordinates().x,
-                                                roads.get(3).getEndCoordinates().y));
-        ((ListOfListsRoadImpl) roads.get(3)).setJuctionStartCoordinates(new Point(roads.get(3).getEndCoordinates().x,
-                                                roads.get(3).getStartCoordinates().y));
-
-        //road[4]: top road 03
-        startPoint.x = roads.get(3).getEndCoordinates().x ;
-        startPoint.y = 270 ;
-
-        generateRoad(new Point(startPoint.x, startPoint.y), 80, 1, Orientation.RIGHT_HORIZONTAL) ;
-
-        ((ListOfListsRoadImpl) roads.get(4)).setJuctionStartCoordinates(new Point(roads.get(4).getStartCoordinates().x,
-                                                roads.get(4).getStartCoordinates().y));
-        ((ListOfListsRoadImpl) roads.get(4)).setJuctionEndCoordinates(new Point(roads.get(4).getEndCoordinates().x,
-                                                roads.get(4).getStartCoordinates().y));
-
-        //road[5] - top road 04
-        startPoint.x = roads.get(4).getStartCoordinates().x ;
-        startPoint.y = roads.get(4).getEndCoordinates().y ;
-        //startPoint.x = roads.get(3).getEndCoordinates().x ;
-        //startPoint.y = roads.get(3).getStartCoordinates().y - constant.LANE_SECTION_HEIGHT * constant.PIXELS;
-
-        generateRoad(new Point(startPoint.x, startPoint.y), 80, 1, Orientation.LEFT_HORIZONTAL) ;
-        ((ListOfListsRoadImpl) roads.get(5)).setJuctionEndCoordinates(new Point(roads.get(5).getStartCoordinates().x,
-                                                roads.get(5).getEndCoordinates().y));
-        ((ListOfListsRoadImpl) roads.get(5)).setJuctionStartCoordinates(new Point(roads.get(5).getEndCoordinates().x,
-                                                roads.get(5).getEndCoordinates().y));
-        
-        //road 6 - first vertical road - 03
-        startPoint.x = roads.get(0).getEndCoordinates().x;
-        startPoint.y = roads.get(0).getStartCoordinates().y - 60* constant.LANE_SECTION_HEIGHT*constant.PIXELS;
-
-        generateRoad(new Point(startPoint.x, startPoint.y), 60, 1, Orientation.UP_VERTICAL);
-        ((ListOfListsRoadImpl) roads.get(6)).setJuctionStartCoordinates(new Point(roads.get(6).getStartCoordinates().x,
-                                                roads.get(6).getEndCoordinates().y));
-
-        
-
-        //road 7- first vertical road 04
-        startPoint.x = roads.get(6).getEndCoordinates().x;
-        startPoint.y = roads.get(6).getStartCoordinates().y;
-        
-        generateRoad(new Point(startPoint.x, startPoint.y), 60, 1, Orientation.DOWN_VERTICAL);
-        ((ListOfListsRoadImpl) roads.get(7)).setJuctionEndCoordinates(new Point(roads.get(7).getEndCoordinates().x,
-                                                roads.get(7).getEndCoordinates().y));
-        
-
-
-
-    }
-    private void generateRoad(Point startPoint, int length, int lanes, Orientation orientation)
+  
+    public void generateRoad(Point startPoint, int length, int lanes, Orientation orientation)
     {
        /* this method generates a road with given start point and road size */
        Point endPoint = new Point();
@@ -183,7 +100,7 @@ public class Map2 {
     
     
     
-    private void generateRoad(Point startPoint, Point endPoint, Orientation orientation)
+    public void generateRoad(Point startPoint, Point endPoint, Orientation orientation)
     {
        /* this method generates a road with given startPoint and endPoint */
        int length = 0;
@@ -214,15 +131,9 @@ public class Map2 {
 
     }
 
-    private void generateJunctions()
-    {
+    
 
-       generateJunction(new int[] {0,7,5,2}, new int[]{6,4,3,1});  //J0
-
-       
-    }
-
-    private void generateJunction(int[] in, int[] out){
+    public void generateJunction(int[] in, int[] out){
        ArrayList<Road> roadsGoingIntoJunction = new ArrayList();
        ArrayList<Road> roadsLeavingJunction = new ArrayList();
        Junction junction;
@@ -252,19 +163,9 @@ public class Map2 {
        }
 
     }
-    private void generateTrafficLights()
-    {
-        generateTrafficLight(0,0,State.GREEN);
-        generateTrafficLight(7,0,State.RED);
-        generateTrafficLight(2,0, State.RED);
-        generateTrafficLight(5,0,State.GREEN);
+    
 
-        
-
-
-    }
-
-    private void generateTrafficLight(int roadIndex, int junctionIndex, State state){
+    public void generateTrafficLight(int roadIndex, int junctionIndex, State state){
         TrafficLight trafficLight;
         trafficLight = new TrafficLight(roads.get(roadIndex), junctions.get(junctionIndex));
         trafficLight.setState(state);
@@ -273,7 +174,7 @@ public class Map2 {
         trafficLights.add(trafficLight);
     }
 
-	public Map<Point, Road > getStartPointMap() {
+   public Map<Point, Road > getStartPointMap() {
 		return startPointMap;
 	}
 

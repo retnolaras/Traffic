@@ -15,8 +15,9 @@ public class SimulationSettings {
     private Policy policy;
     private int sessionDuration;
     private TrafficDensity trafficDensity;
+    private MapType mapType;
     
-    public SimulationSettings(int policyOption, int[] minSpeed, int[] maxSpeed, int[] minTrafficLight, int[] maxTrafficLight, String trafficDensity, int sessionDuration){
+    public SimulationSettings(int policyOption, int[] minSpeed, int[] maxSpeed, int[] minTrafficLight, int[] maxTrafficLight, String trafficDensity, int sessionDuration, String mapType){
         policy = Policy.setPolicy(policyOption, minSpeed, maxSpeed, minTrafficLight, maxTrafficLight);
         this.sessionDuration = sessionDuration;
         if (trafficDensity == "High") 
@@ -25,6 +26,11 @@ public class SimulationSettings {
             this.trafficDensity = TrafficDensity.NORMAL;
         else 
             this.trafficDensity = TrafficDensity.LOW;
+        
+        if (mapType == "Junction")
+            this.mapType = MapType.JUNCTION;
+        else 
+            this.mapType = MapType.TOWN;
             
             
         
@@ -37,6 +43,10 @@ public class SimulationSettings {
     
     public TrafficDensity getTrafficDensity(){
         return trafficDensity;
+    }
+    
+    public MapType getMapType(){
+        return mapType;
     }
     
 }
