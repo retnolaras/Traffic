@@ -15,6 +15,7 @@ package com.kcl.keepitclean.main.simulatorengine;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -93,7 +94,7 @@ public class SimulatorEngine implements Observer {
                 
                 // this.simulatorGUI = simulatorGUI;
 		roadList = new ArrayList<>();
-		vehicleList = new ArrayList<>();
+		vehicleList = Collections.synchronizedList(new ArrayList<>());
 		junctionList = new ArrayList<>();
 		trafficLightList = new ArrayList<>();
 		// startingPos = new Position();
@@ -192,10 +193,10 @@ public class SimulatorEngine implements Observer {
 	// }
 
 	public void startSimulation() {
-
-		SessionManager.getInstance().startSession();
+		
 		init();
 		SessionManager.getInstance().addObserver(this);
+		SessionManager.getInstance().startSession();
 		renderer.render();
 		System.out.println("<SimulatorEngine>Session Started"); // test line
 
