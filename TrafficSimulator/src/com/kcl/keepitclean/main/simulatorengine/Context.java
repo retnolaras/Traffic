@@ -2,6 +2,7 @@ package com.kcl.keepitclean.main.simulatorengine;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.kcl.keepitclean.main.roadnetwork.junction.Junction;
@@ -24,8 +25,7 @@ public class Context implements IContext {
 	private List<TrafficLight> trafficLightList = new ArrayList<>();
 	private SimulationData simulationData;
 
-	public Context(List<Road> roadList,
-			List<Vehicle> vehicleList /* , List<Junction> junctionList */) {
+	public Context(List<Road> roadList, List<Vehicle> vehicleList ) {
 		this.roadList = roadList;
 		this.vehicleList = vehicleList;
 
@@ -106,7 +106,7 @@ public class Context implements IContext {
 		
 		if (newPos.getMode() == Constant.MOVE_IN_ROAD) {
 
-			if (oldPos.getRoad() == newPos.getRoad()) {
+//			if (oldPos.getRoad() == newPos.getRoad()) {
 				// In this case we are in the same road after moving
 
 				if (road.getOrientation() == Orientation.RIGHT_HORIZONTAL
@@ -148,7 +148,7 @@ public class Context implements IContext {
 					// of the lane
 					p = new Point((int) road.getStartCoordinates().getX() + Constant.VEHICLE_LEFT_MARGIN*Constant.PIXELS, (int) move);
 				}
-			}
+//			}
 			
 		} else { // Moving through a Junction
 			p = getPointInJunction(newPos.getLane(), junctionList.get(newPos.getRoad()));
