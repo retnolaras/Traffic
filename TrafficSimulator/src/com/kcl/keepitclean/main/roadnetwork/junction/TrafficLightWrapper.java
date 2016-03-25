@@ -55,4 +55,28 @@ public class TrafficLightWrapper extends TimerTask implements Junction {
 		
 	}
 
+	@Override
+	public Point getRandomExitPoint() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setIndex(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getIndex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<LaneSection> getSectionsOfJunction() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

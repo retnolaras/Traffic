@@ -184,8 +184,4 @@ public class SimulationMap {
     
     
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master

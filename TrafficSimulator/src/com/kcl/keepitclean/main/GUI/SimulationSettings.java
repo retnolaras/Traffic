@@ -49,8 +49,4 @@ public class SimulationSettings {
         return mapType;
     }
     
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master
