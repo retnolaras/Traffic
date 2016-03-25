@@ -67,6 +67,7 @@ public class GUIComponents extends BorderPane{
   
   protected Label lblDensity = new Label("Traffic Density:");
   protected ComboBox txtDensity = new ComboBox();
+  protected ComboBox txtMap = new ComboBox();
   protected Label lblDuration = new Label("Session Duration (s):");
   protected TextField txtDuration =  new IntegerTextField();
   
@@ -195,6 +196,14 @@ public class GUIComponents extends BorderPane{
       policyPane.add(blank2, 0, 9);
       policyPane.add(lblDuration, 0, 10);
       policyPane.add(txtDuration,1,10);
+      
+      Label blankt = new Label("");
+      txtMap.getItems().addAll("Junction", "Town");
+      txtMap.setValue("Junction");
+      policyPane.add(blankt, 0, 11);
+      Label lblMap = new Label("Map");
+      policyPane.add(lblMap,0,12);
+      policyPane.add(txtMap, 1, 12);
       
           
       policySettings.getChildren().add(policyPane);
@@ -348,6 +357,11 @@ public class GUIComponents extends BorderPane{
     public String getTrafficDesity()
     {
         return txtDensity.getValue().toString();
+    }
+    
+    public String getMap()
+    {
+        return txtMap.getValue().toString();
     }
     
     //disable Mininum policy value textfields
