@@ -215,7 +215,6 @@ public class SimulatorEngine implements Observer {
 	public void stopSimulation() {
 		SessionManager.getInstance().stopSession();
 		clearAll();
-		init();
 	}
 
 	int iteration = 0;
@@ -599,7 +598,12 @@ public class SimulatorEngine implements Observer {
 	public void clearAll() {
 
 		vehicleList.clear();
+		
+		entrancePoints.clear();
+		exitPoints.clear();
+		
 		iteration = 0;
+		
 		// TODO: generate report
 
 	}
