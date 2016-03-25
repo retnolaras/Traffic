@@ -36,6 +36,7 @@ import com.kcl.keepitclean.main.vehicle.Vehicle;
 import com.kcl.keepitclean.main.vehicle.VehicleFactory;
 import com.kcl.keepitclean.main.vehicle.VehicleType;
 import com.kcl.keepitclean.main.GUI.TrafficDensity;
+import com.kcl.keepitclean.main.GUI.MapType;
 
 public class SimulatorEngine implements Observer {
 
@@ -69,7 +70,7 @@ public class SimulatorEngine implements Observer {
 	private Context context;
 	private Road masterRoad;
 	private List<Position> startingPositions;
-	Map1 map = new Map1();
+	private SimulationMap map;
 	private IRenderer renderer;
         private SimulationSettings userSettings;
         private Policy policy;
@@ -78,12 +79,18 @@ public class SimulatorEngine implements Observer {
        
         
 	public SimulatorEngine(Object simulatorGUI) {
+            
 
 		userSettings = (SimulationSettings) simulatorGUI;
                 policy = Policy.getPolicyInstance();
                 sessionDuration = userSettings.getSessionDuration();
                 trafficDensity = userSettings.getTrafficDensity();
-               
+                
+                if (userSettings.getMapType() == MapType.JUNCTION)
+                    map = (SimulationMap) new SimpleMap();
+                else
+                    map = (SimulationMap) new TownMap();
+                
                 // this.simulatorGUI = simulatorGUI;
 		roadList = new ArrayList<>();
 		vehicleList = new ArrayList<>();
@@ -110,20 +117,7 @@ public class SimulatorEngine implements Observer {
 		for (Road road : roadList) {
 			context.addRoad(road);
 		}
-
-		entrancePoints.add(new Position(0, 0, 0));
-		entrancePoints.add(new Position(6, 0, 0));
-		entrancePoints.add(new Position(12, 0, 0));
-		entrancePoints.add(new Position(18, 0, 0));
-		entrancePoints.add(new Position(29, 0, 0));
-		entrancePoints.add(new Position(31, 0, 0));
-
-		exitPoints.add(new Position(1, 0, 29));
-		exitPoints.add(new Position(7, 0, 29));
-		exitPoints.add(new Position(13, 0, 29));
-		exitPoints.add(new Position(19, 0, 29));
-		exitPoints.add(new Position(28, 0, 29));
-		exitPoints.add(new Position(30, 0, 29));
+                
 
 		junctionList = map.getJunctions();
 		for (Junction junction : junctionList) {
@@ -142,6 +136,36 @@ public class SimulatorEngine implements Observer {
 			trafficLight.activate();
 			context.addTrafficLight(trafficLight);
 		}
+                
+                if (userSettings.getMapType() == MapType.TOWN)
+                {
+                    entrancePoints.add(new Position(0, 0, 0));
+                    entrancePoints.add(new Position(6, 0, 0));
+                    entrancePoints.add(new Position(12, 0, 0));
+                    entrancePoints.add(new Position(18, 0, 0));
+                    entrancePoints.add(new Position(29, 0, 0));
+                    entrancePoints.add(new Position(31, 0, 0));
+
+                    exitPoints.add(new Position(1, 0, 29));
+                    exitPoints.add(new Position(7, 0, 29));
+                    exitPoints.add(new Position(13, 0, 29));
+                    exitPoints.add(new Position(19, 0, 29));
+                    exitPoints.add(new Position(28, 0, 29));
+                    exitPoints.add(new Position(30, 0, 29));
+                }
+                else 
+                {
+                    entrancePoints.add(new Position(0,0,0));
+                    //entrancePoints.add(new Position(7,0,0));
+                   // entrancePoints.add(new Position(5,0,79));
+                    //entrancePoints.add(new Position(2,0,59));
+                    
+                    exitPoints.add(new Position(1, 0, 79));
+                    exitPoints.add(new Position(3, 0, 59));
+                    exitPoints.add(new Position(6, 0, 79));
+                    exitPoints.add(new Position(4, 0, 59));
+            
+                }
 
 		System.out.println("<SimulatorEngine> Got Road List"); // test line
 	}
@@ -190,7 +214,7 @@ public class SimulatorEngine implements Observer {
 
 		// Generate Car, assign its position to be the starting Position.
 		Random generator = new Random();
-		int temp = generator.nextInt(6);
+		int temp = generator.nextInt(entrancePoints.size());
 
 		Position startingPos = new Position();
 		startingPos.update(entrancePoints.get(temp).getMode(), entrancePoints.get(temp).getRoad(),
@@ -200,7 +224,7 @@ public class SimulatorEngine implements Observer {
 			Vehicle car;
 
 			car = vehicleFactory.getVehicle(VehicleType.CAR); // generate a car
-			vehicleStartCoord.x = roadList.get(startingPos.getRoad()).getStartCoordinates().x;
+			vehicleStartCoord.x = roadList.get(startingPos.getRoad()).getStartCoordinates().x + startingPos.getLaneSection()* Constant.PIXELS;
 			vehicleStartCoord.y = roadList.get(startingPos.getRoad()).getStartCoordinates().y
 					+ startingPos.getLane() * Constant.LANE_SIZE * Constant.PIXELS + Constant.VEHICLE_LEFT_MARGIN*Constant.PIXELS;
 			car.setAxom(vehicleStartCoord);
@@ -489,7 +513,7 @@ public class SimulatorEngine implements Observer {
 		float chance = r.nextFloat();
 		Position carPos = new Position();
 		carPos.update(p.getMode(), p.getRoad(), p.getLane(), p.getLaneSection());
-		vehicleStartCoord.x = roadList.get(p.getRoad()).getStartCoordinates().x;
+		vehicleStartCoord.x = roadList.get(p.getRoad()).getStartCoordinates().x + p.getLaneSection()*Constant.PIXELS;
 		vehicleStartCoord.y = roadList.get(p.getRoad()).getStartCoordinates().y
 				+ p.getLane() * Constant.LANE_SIZE * Constant.PIXELS + Constant.VEHICLE_LEFT_MARGIN* Constant.PIXELS;
 

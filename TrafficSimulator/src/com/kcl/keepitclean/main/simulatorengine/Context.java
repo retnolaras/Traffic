@@ -22,6 +22,7 @@ public class Context implements IContext {
 	// and it is a list of ListOfListsRoadImpl objects.
 	private List<Road> roadList;
 	private List<TrafficLight> trafficLightList = new ArrayList<>();
+	private SimulationData simulationData;
 
 	public Context(List<Road> roadList, List<Vehicle> vehicleList) {
 		this.roadList = roadList;
@@ -187,5 +188,11 @@ public class Context implements IContext {
 		return myTrafficLight;
 
 	}
+
+	@Override
+	public SimulationData getSimulationData() {
+		return simulationData;
+	}
+
 
 }

@@ -422,10 +422,10 @@ public class Map1 {
 
        generateJunction(new int[] {5,2,0}, new int[]{4,3,1});  //J0
 
-       generateJunction(new int[] {9,10,6}, new int[]{8,11,7}); //J1
+       generateJunction(new int[] {9,10,6,3}, new int[]{8,11,7,2}); //J1
 
 
-       generateJunction(new int[] {15,16,12}, new int[]{14,17,13});//J2
+       generateJunction(new int[] {15,16,12,11}, new int[]{14,17,13,10});//J2
 
        generateJunction(new int[] {18,17,21}, new int[]{19,16,20});  //J3
 
