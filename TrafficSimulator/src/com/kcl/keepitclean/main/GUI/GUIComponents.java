@@ -92,11 +92,13 @@ public class GUIComponents extends BorderPane{
   public Label lblSuccessfulVehicle = new Label("Number of Vehicles reached destination:");
   public Label lblAverageSpeed = new Label("Average Speed:");
   public Label lblCrash = new Label("Number of Crashes:");
+  public Label lblTrafficEstimation = new Label("Vehicle Estimation per year:");
   public Label lblSessionDurationValue = new Label("N/A");
   public Label lblTotalVehiclesValue = new Label("N/A");
   public Label lblSuccessfulVehicleValue = new Label("N/A");
   public Label lblCrashValue = new Label("N/A"); 
   public Label lblAverageSpeedValue = new Label("N/A");
+  public Label lblTrafficEstimationValue = new Label("N/A");
   
  public GUIComponents()
  {
@@ -236,18 +238,22 @@ public class GUIComponents extends BorderPane{
       report_pane.add(lblAverageSpeed, 0, 3);
       report_pane.add(lblSuccessfulVehicle, 0, 4);
       report_pane.add(lblCrash, 0, 5);
+      report_pane.add(lblTrafficEstimation, 0, 6);
       
       lblSessionDurationValue.setStyle("-fx-text-fill: red");
       lblTotalVehiclesValue.setStyle("-fx-text-fill: red");
       lblSuccessfulVehicleValue.setStyle("-fx-text-fill: red");
       lblCrashValue.setStyle("-fx-text-fill: red");
       lblAverageSpeedValue.setStyle("-fx-text-fill: red");
+      lblTrafficEstimationValue.setStyle("-fx-text-fill: red");
       
       report_pane.add(lblSessionDurationValue, 1, 1);
       report_pane.add(lblTotalVehiclesValue, 1, 2);
       report_pane.add(lblAverageSpeedValue, 1, 3);
       report_pane.add(lblSuccessfulVehicleValue, 1, 4);
       report_pane.add(lblCrashValue, 1, 5);
+      report_pane.add(lblTrafficEstimationValue, 1, 6);
+      
      
       policySettings.getChildren().add(new Label(""));
       policySettings.getChildren().add(new Label(""));
@@ -481,8 +487,15 @@ public class GUIComponents extends BorderPane{
     }
     
     public void updateReport(SimulationData report){
-        lblTotalVehiclesValue.setText("100");
+        //lblTotalVehiclesValue.setText("100");
         //lblSuccessfulVehicleValue.setText(Integer.toString(report.trafficEstimation()));
+    	lblTotalVehiclesValue.setText(Integer.toString(report.getVehicleCounter()));
+    	lblSuccessfulVehicleValue.setText(Integer.toString(report.getSuccessVehicles()));
+    	lblCrashValue.setText("0");
+    	lblAverageSpeedValue.setText(Double.toString(report.getAverageSpeed()));
+    	lblSessionDurationValue.setText(Integer.toString(report.getSessionDuration()));
+    	lblTrafficEstimationValue.setText(Double.toString(report.getTrafficEstimation()));
+    	
     /*    
         
           public Label lblSessionDurationValue = new Label("N/A");
@@ -498,6 +511,7 @@ public class GUIComponents extends BorderPane{
         lblCrashValue.setText("N/A");
         lblAverageSpeedValue.setText("N/A");
         lblSessionDurationValue.setText("N/A");
+        lblTrafficEstimationValue.setText("N/A");
         
     }
   
