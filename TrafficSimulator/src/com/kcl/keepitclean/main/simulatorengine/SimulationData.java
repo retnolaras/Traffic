@@ -22,7 +22,7 @@ public class SimulationData {
 	}
 
 	private double calculateTrafficEstimation(int numberofvehicle, int totallanes) {
-		double estimation = numberofvehicle * (totallanes * 3) * 365;
+		double estimation = numberofvehicle * (totallanes * 0.003) * 365;
 		return estimation;
 	}
 
