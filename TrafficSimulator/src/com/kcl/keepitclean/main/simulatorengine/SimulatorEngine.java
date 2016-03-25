@@ -51,6 +51,7 @@ public class SimulatorEngine implements Observer {
 	private int vehicleCounter = 0;
 	private List<Integer> speedList;
 	private static final ArrayList<Position> exitPoints = new ArrayList<>();
+	int iteration = 0;
 
 	// private Point startCoord = new Point(35, 0);
 	// private Point endCoord = new Point(0, 100);
@@ -77,6 +78,7 @@ public class SimulatorEngine implements Observer {
         private Policy policy;
         private int sessionDuration;
         private TrafficDensity trafficDensity = TrafficDensity.NORMAL;
+		private int successVehicleCounter;
        
         
 	public SimulatorEngine(Object simulatorGUI) {
@@ -207,8 +209,6 @@ public class SimulatorEngine implements Observer {
 		clearAll();
 		init();
 	}
-
-	int iteration = 0;
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -369,6 +369,7 @@ public class SimulatorEngine implements Observer {
 			} else if (reachedEnd(vehicleList.get(i))) {
 				// if a car reached end of the road , remove it and free its
 				// position
+				successVehicleCounter++;
 				vehicleList.remove(i);
 				emptySection(vehicleList.get(i).getPos());
 				renderer.render();
@@ -559,6 +560,10 @@ public class SimulatorEngine implements Observer {
 		return vehicleCounter;
 	}
 
+	public int getSuccessVehicleCounter() {
+		return successVehicleCounter;
+	}
+	
 	public List<Vehicle> getVehicleList() {
 		return vehicleList;
 	}
@@ -567,6 +572,10 @@ public class SimulatorEngine implements Observer {
 		return speedList;
 	}
 
+	public int getIteration(){
+		return iteration;
+	}
+	
 	public void clearAll() {
 
 		vehicleList.clear();

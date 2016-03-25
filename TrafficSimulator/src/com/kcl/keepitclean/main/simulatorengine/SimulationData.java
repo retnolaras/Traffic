@@ -8,34 +8,21 @@ import com.kcl.keepitclean.main.vehicle.Vehicle;
 public class SimulationData {
 
 	private int vehicleCounter;
-    private SimulatorEngine simulation;
     private List<Vehicle> vehicleList;
     private List<Integer> speed;
     private List<Road> roadList;
     private double avgSpeed;
-    private double maxSpeed;
-    private int vehicleCrush;
     private double trafficEstimation;
     private int totalLanes = 0;
 	private int successVehicle;
-	private double sessionDuration;
-    
-
-	public SimulationData(SimulatorEngine simulation) {
-		vehicleCounter = simulation.getVehicleCounter();
-		vehicleList = simulation.getVehicleList();
-		speed = simulation.getSpeedList();
-		avgSpeed = calculateAverageSpeed(speed);
-		roadList = simulation.getContext().getRoadList();
-		for(int i=0; i< roadList.size(); i++)
-		  {
-			totalLanes += roadList.get(i).getNumberOfLanes();  
-		  }		
-		trafficEstimation = calculateTrafficEstimation(vehicleCounter, totalLanes);
+	private int sessionDuration;
+	
+	public SimulationData() {
+		
 	}
 
 	private double calculateTrafficEstimation(int numberofvehicle, int totallanes) {
-		double estimation = numberofvehicle * (totallanes * 3) * 365;
+		double estimation = numberofvehicle * (totallanes * 0.003) * 365;
 		return estimation;
 	}
 
@@ -59,7 +46,7 @@ public class SimulationData {
 	public double getAverageSpeed() {
 		return avgSpeed;
 	}
-	public double trafficEstimation() {
+	public double getTrafficEstimation() {
 		return trafficEstimation;
 	}	
 	public int getTotalLanes() {
@@ -68,8 +55,23 @@ public class SimulationData {
 	public int getSuccessVehicles(){
 		return successVehicle;
 	}	
-	public double getSessionDuration(){
+	public int getSessionDuration(){
 		return sessionDuration;
+	}
+	
+	public void setSimulationData(SimulatorEngine simulation){
+		vehicleCounter = simulation.getVehicleCounter();
+		vehicleList = simulation.getVehicleList();
+		speed = simulation.getSpeedList();
+		avgSpeed = calculateAverageSpeed(speed);
+		roadList = simulation.getContext().getRoadList();
+		for(int i=0; i< roadList.size(); i++)
+		  {
+			totalLanes += roadList.get(i).getNumberOfLanes();  
+		  }		
+		trafficEstimation = calculateTrafficEstimation(vehicleCounter, totalLanes);
+		sessionDuration = simulation.getIteration();
+		
 	}
 
 }

@@ -38,7 +38,7 @@ public class InitScreen extends Application {
     private GUIComponents pscene;
     private SimulatorEngine simulation;
     private SimulationSettings simulationSettings;
-    private SimulationData simulationData;
+    private SimulationData simulationData = new SimulationData();
     
     @Override
     public void start(Stage primaryStage) {
@@ -100,8 +100,9 @@ public class InitScreen extends Application {
             @Override
             public void handle(ActionEvent event){
                 //Terminate Simulation Session
+            	simulationData.setSimulationData(simulation);
             	simulation.stopSimulation();
-                simulationData = null;
+                
             	simulation = null;
                 //Show Report
                 //Enable Start button
