@@ -83,6 +83,9 @@ public class Vehicle {
 		pindex++;
 	}
 	
+	public void resetPIndex() {
+		pindex=0;
+	}
 	public int getPIndex() {
 		return pindex;
 	}
