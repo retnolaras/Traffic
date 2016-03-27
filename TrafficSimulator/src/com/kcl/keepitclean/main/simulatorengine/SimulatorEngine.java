@@ -567,7 +567,23 @@ public class SimulatorEngine implements Observer {
 				+ p.getLane() * Constant.LANE_SIZE * Constant.PIXELS + Constant.VEHICLE_LEFT_MARGIN * Constant.PIXELS;
 
 		if (chance <= freq) {
-			Vehicle car = vehicleFactory.getVehicle(VehicleType.CAR);
+			
+			Vehicle car = null;
+			
+			
+			int vehicleTypeChance = r.nextInt(10);
+			switch (vehicleTypeChance) {
+			case 0:
+				car = vehicleFactory.getVehicle(VehicleType.EMERGENCY);
+				break;
+			case 1 | 2:
+				car = vehicleFactory.getVehicle(VehicleType.BUS);
+				break;
+			default:
+				car = vehicleFactory.getVehicle(VehicleType.CAR);
+				break;
+			}
+
 			car.setPos(p);
 			System.out.println(vehicleStartCoord);
 			car.setAxom(vehicleStartCoord);
