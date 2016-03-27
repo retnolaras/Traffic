@@ -83,6 +83,9 @@ public class Vehicle {
 		pindex++;
 	}
 	
+	public void resetPIndex() {
+		pindex=0;
+	}
 	public int getPIndex() {
 		return pindex;
 	}
@@ -140,6 +143,19 @@ public class Vehicle {
 	
 }
 
+//END MOVE ACTION
+
+//ACCELERATION
+
+//END ACCELERATION
+
+//DRIVER BEHAVIOUR
+
+//END DRIVER BEHAVIOUR
+
+//METRIC
+
+//END METRIC
 
 
 
