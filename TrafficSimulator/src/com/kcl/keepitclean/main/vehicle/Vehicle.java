@@ -6,6 +6,8 @@ import java.util.List;
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
 
+import javafx.scene.paint.Color;
+
 
 public class Vehicle {
 	static int CarID = 0;
@@ -21,7 +23,7 @@ public class Vehicle {
 	int UCarID;
 	boolean onJunction = false;
 	List<LaneSection> path;
-	String colour;
+	private Color color;
 	Road roadinfo;
 	int pindex;
 	int nextRoad;
@@ -119,6 +121,20 @@ public class Vehicle {
 				setSpeed(1);
 				break;
 		}
+	}
+
+	/**
+	 * @return the color
+	 */
+	public Color getColor() {
+		return color;
+	}
+
+	/**
+	 * @param color the color to set
+	 */
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 	

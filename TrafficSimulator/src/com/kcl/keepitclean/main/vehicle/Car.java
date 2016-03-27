@@ -2,14 +2,16 @@ package com.kcl.keepitclean.main.vehicle;
 
 import java.util.Random;
 
+import javafx.scene.paint.Color;
+
 public class Car extends Vehicle{
 
-	String colour = "Green";
-	
 	int size[] = {1,3};
 	
 	public Car() {
 		UCarID = CarID++;
+		
+		setColor(Color.BLUE);
 		
 		int randNum = new Random().nextInt(3);
 		switch (randNum) {
