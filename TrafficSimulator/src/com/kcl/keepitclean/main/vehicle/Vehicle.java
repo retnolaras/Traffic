@@ -1,15 +1,17 @@
 package com.kcl.keepitclean.main.vehicle;
 
+import java.awt.Point;
+import java.util.List;
+
 import com.kcl.keepitclean.main.roadnetwork.laneSection.LaneSection;
 import com.kcl.keepitclean.main.roadnetwork.road.Road;
-import java.awt.Point;
-import java.util.Collections;
-import java.util.List;
 
 
 public class Vehicle {
 	static int CarID = 0;
 	private int speed;
+	private Behaviour behaviour;
+	
 	Point axom;
 	Point distance;
 	Point destination;
@@ -24,35 +26,6 @@ public class Vehicle {
 	int pindex;
 	int nextRoad;
 
-	//MOVE ACTION --> move this method to engine
-	/*public Point move(Point posi, int speed, int acceleration, Direction direction){
-		Point newposi;
-		newposi = addPoint(posi,speed,acceleration,direction);
-		return newposi;
-
-	}
-
-	private Point addPoint(Point posi, float speed2, float acceleration2, Direction direction) {
-		Point added = new Point (posi.getAxisX(), posi.getAxisY()); ;
-		if(direction == Direction.FORWARD){
-			float addedX = posi.getAxisX();
-				addedX = addedX + (speed2/10) + (acceleration2/10);
-			    added = new Point (addedX, posi.getAxisY());
-		 }
-		else if (direction == Direction.RIGHT){
-			 float addedY = posi.getAxisY();
-				addedY = addedY + (speed2/10) + (acceleration2/10);
-			    added = new Point (posi.getAxisX(), addedY);
-		 }
-		else if (direction == Direction.LEFT){
-			float addedY = posi.getAxisY();
-				addedY = addedY - (speed2/10) - (acceleration2/10);
-			    added = new Point (posi.getAxisX(), addedY);
-		 }
-
-		return added;
-	}*/
-
 	//car absolute position
 	public Point getAxom() {
 		return axom;
@@ -66,20 +39,25 @@ public class Vehicle {
 	public void setPos(Position p){
 		 pos = p;
 	}
+	
 	public Position getPos(){
 		return pos;
 	}
+	
 	public int getID() {
 		return UCarID;
 	}
+	
 	public void setOnJunction(boolean b){
 		if (b) onJunction=true;
 		else onJunction=false;
 	}
+	
 	public boolean getOnJunction(){
 		if (onJunction) return true;
 		else return false;
 	}
+	
 	public void updatePath(List<LaneSection> p){
 		path=p;
 	}
@@ -95,13 +73,14 @@ public class Vehicle {
 		return speed;
 	}
 
-	void setSpeed(int speed) {
+	private void setSpeed(int speed) {
 		this.speed = speed;
 	}
 
 	public void IncrementPIndex() {
 		pindex++;
 	}
+	
 	public int getPIndex() {
 		return pindex;
 	}
@@ -114,11 +93,35 @@ public class Vehicle {
 		
 		nextRoad=nextRoadIndex;
 	}
+	
 	public int getNextRoadIndex() {
 		return nextRoad;
 
 	}
 
+	public Behaviour getBehaviour() {
+		return behaviour;
+	}
+
+	public void setBehaviour(Behaviour behaviour) {
+		this.behaviour = behaviour;
+		switch (this.behaviour) {
+			case CAUTIOUS:
+				setSpeed(1);
+				break;
+			case NORMAL:
+				setSpeed(2);
+				break;
+			case RECKLESS:
+				setSpeed(3);
+				break;
+			default:
+				setSpeed(1);
+				break;
+		}
+	}
+	
+	
 }
 
 //END MOVE ACTION

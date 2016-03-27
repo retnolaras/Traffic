@@ -28,12 +28,12 @@ public class SimulationData {
 
 	public double calculateAverageSpeed(List<Integer> speedavg) {
 		Integer sum = 0;
-		  if(!speedavg.isEmpty()) {
-		    for (Integer mark : speedavg) {
-		        sum += mark;
-		    }
-		    return sum.doubleValue() / speedavg.size();
-		  }
+//		  if(!speedavg.isEmpty()) {
+//		    for (Integer mark : speedavg) {
+//		        sum += mark;
+//		    }
+//		    return sum.doubleValue() / speedavg.size();
+//		  }
 		  return sum;
 	}
 	
@@ -62,7 +62,7 @@ public class SimulationData {
 	public void setSimulationData(SimulatorEngine simulation){
 		vehicleCounter = simulation.getVehicleCounter();
 		vehicleList = simulation.getVehicleList();
-		speed = simulation.getSpeedList();
+//		speed = simulation.getSpeedList();
 		avgSpeed = calculateAverageSpeed(speed);
 		roadList = simulation.getContext().getRoadList();
 		for(int i=0; i< roadList.size(); i++)
