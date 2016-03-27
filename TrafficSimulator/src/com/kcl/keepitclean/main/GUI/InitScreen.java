@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Main form for the app
@@ -154,9 +155,22 @@ public class InitScreen extends Application {
 
 		Scene scene = new Scene(pscene, 1300, 700);
 
-		primaryStage.setTitle("KeepItClean- Traffic Simulation");
+		primaryStage.setTitle("KeepItClean - Traffic Simulation");
 		primaryStage.setScene(scene);
-
+		
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		    @Override
+		    public void handle(WindowEvent event) {
+		    	String eventstring = event.getEventType().toString();
+		    	if ("WINDOW_CLOSE_REQUEST".equals(eventstring)) {
+		    		if(simulation != null){
+		    			simulation.stopSimulation();
+		    		}
+		    		primaryStage.close();            
+		        }
+		    }
+		});
+		
 		// primaryStage.setFullScreen(true);
 		primaryStage.show();
 	}
