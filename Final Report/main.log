@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.4)  24 MAR 2016 13:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.4)  28 MAR 2016 19:04
 entering extended mode
 **./main.tex
 (main.tex
@@ -410,88 +410,88 @@ Overfull \hbox (5.28487pt too wide) in paragraph at lines 306--314
 [][] 
  []
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 357--361
+[8] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 382--386
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 366--367
-
- []
-
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 370--372
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 379--381
+Underfull \hbox (badness 10000) in paragraph at lines 395--397
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 382--384
+Underfull \hbox (badness 10000) in paragraph at lines 404--406
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 394--395
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 396--398
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 405--406
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 407--409
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 419--420
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 421--423
+
+ []
+
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 414--415
+Underfull \hbox (badness 10000) in paragraph at lines 430--431
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 416--418
+Underfull \hbox (badness 10000) in paragraph at lines 432--434
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--426
+Underfull \hbox (badness 10000) in paragraph at lines 439--440
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 427--429
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 434--435
+Underfull \hbox (badness 10000) in paragraph at lines 441--443
 
  []
 
 [12]
-Underfull \hbox (badness 10000) in paragraph at lines 437--439
+Underfull \hbox (badness 10000) in paragraph at lines 450--451
 
  []
 
-[13] (main.bbl
+
+Underfull \hbox (badness 10000) in paragraph at lines 452--454
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 459--460
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 462--464
+
+ []
+
+[13] [14] (main.bbl
 Overfull \hbox (132.5441pt too wide) in paragraph at lines 26--29
 []\OT1/cmr/m/n/10.95 Kelly Liu.  phy-edu-traffic-simulation http://www.phy.ntnu
 .edu.tw/oldjava/others/trafficsimulation/applet.html. 
  []
 
-) [14] [15] (main.aux) ) 
+) [15] [16] (main.aux) ) 
 Here is how much of TeX's memory you used:
  4404 strings out of 493634
  64618 string characters out of 3141315
@@ -507,9 +507,9 @@ nts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
 mti10.pfb>
-Output written on main.pdf (16 pages, 127446 bytes).
+Output written on main.pdf (17 pages, 128738 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
+ 81 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
