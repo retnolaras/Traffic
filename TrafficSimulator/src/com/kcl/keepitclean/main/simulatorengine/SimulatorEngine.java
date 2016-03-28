@@ -431,6 +431,14 @@ public class SimulatorEngine implements Observer {
 
 		}
 		iteration++;
+		
+		//If the iteration reaches the session duration limit 
+		//the session is paused automatically.
+		if(sessionDuration > 0 &&
+				iteration == sessionDuration){
+			
+			SessionManager.getInstance().pauseSession();
+		}
 	}
 
 	private void moveWrapper(Position pos, Position newPos, int vehicleIndex) {
