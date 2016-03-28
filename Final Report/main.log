@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.4)  24 MAR 2016 12:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.4)  24 MAR 2016 13:18
 entering extended mode
 **./main.tex
 (main.tex
@@ -411,32 +411,87 @@ Overfull \hbox (5.28487pt too wide) in paragraph at lines 306--314
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 331--335
+Underfull \hbox (badness 10000) in paragraph at lines 357--361
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 341--344
+Underfull \hbox (badness 10000) in paragraph at lines 366--367
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 352--355
+Underfull \hbox (badness 10000) in paragraph at lines 370--372
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 365--368
+Underfull \hbox (badness 10000) in paragraph at lines 379--381
 
  []
 
-[10] [11] [12] (main.bbl
+
+Underfull \hbox (badness 10000) in paragraph at lines 382--384
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 394--395
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 396--398
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 405--406
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 407--409
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 414--415
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 416--418
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 425--426
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 427--429
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 434--435
+
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 437--439
+
+ []
+
+[13] (main.bbl
 Overfull \hbox (132.5441pt too wide) in paragraph at lines 26--29
 []\OT1/cmr/m/n/10.95 Kelly Liu.  phy-edu-traffic-simulation http://www.phy.ntnu
 .edu.tw/oldjava/others/trafficsimulation/applet.html. 
  []
 
-) [13] [14] (main.aux) ) 
+) [14] [15] (main.aux) ) 
 Here is how much of TeX's memory you used:
  4404 strings out of 493634
  64618 string characters out of 3141315
@@ -452,9 +507,9 @@ nts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
 mti10.pfb>
-Output written on main.pdf (15 pages, 126134 bytes).
+Output written on main.pdf (16 pages, 127446 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
+ 78 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
