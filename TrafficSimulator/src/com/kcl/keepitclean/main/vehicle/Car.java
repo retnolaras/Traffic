@@ -1,20 +1,33 @@
 package com.kcl.keepitclean.main.vehicle;
 
+import java.util.Random;
+
+import javafx.scene.paint.Color;
+
 public class Car extends Vehicle{
-//	static int CarID = 0;
-	String colour = "Green";
+
 	int size[] = {1,3};
 	
-	public Car(){
-		UCarID= CarID++;
+	public Car() {
+		UCarID = CarID++;
+		
+		setColor(Color.BLUE);
+		
+		int randNum = new Random().nextInt(3);
+		switch (randNum) {
+		case 0:
+			setBehaviour(Behaviour.CAUTIOUS);
+			break;
+		case 1:
+			setBehaviour(Behaviour.NORMAL);
+			break;
+		case 2:
+			setBehaviour(Behaviour.RECKLESS);
+			break;
+		default:
+			setBehaviour(Behaviour.NORMAL);
+			break;
+		}
 	}
-	void countDistance(float frontX, float frontY, float backX, float backY) {
-	}
-
-	//public int getID() {
-	//	return UCarID;
-	//}
-	public void move() {
-		/*super.move();*/
-	}
+	
 }

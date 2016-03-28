@@ -72,6 +72,7 @@ public class SessionManager extends Observable implements Observer{
 	}
 	
 	public long stopSession(){
+		deleteObservers();
 		synchronized (this) {
 			if(session != null){
 				session.pauseSession();
