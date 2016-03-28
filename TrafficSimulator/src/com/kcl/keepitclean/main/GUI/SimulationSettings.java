@@ -5,6 +5,8 @@
  */
 package com.kcl.keepitclean.main.GUI;
 
+import java.util.ArrayList;
+
 import com.kcl.keepitclean.main.policy.Policy;
 
 /**
@@ -16,9 +18,11 @@ public class SimulationSettings {
     private int sessionDuration;
     private TrafficDensity trafficDensity;
     private MapType mapType;
-    
-    public SimulationSettings(int policyOption, int[] minSpeed, int[] maxSpeed, int[] minTrafficLight, int[] maxTrafficLight, String trafficDensity, int sessionDuration, String mapType){
-        policy = Policy.setPolicy(policyOption, minSpeed, maxSpeed, minTrafficLight, maxTrafficLight);
+    ArrayList<Boolean> entrancePoints;    
+    public SimulationSettings(int policyOption, int[] minSpeed, int[] maxSpeed, int[] minTrafficLight, int[] maxTrafficLight, String trafficDensity, int sessionDuration, String mapType, ArrayList<Boolean> entryPoints){
+       
+    	
+    	policy = Policy.setPolicy(policyOption, minSpeed, maxSpeed, minTrafficLight, maxTrafficLight);
         this.sessionDuration = sessionDuration;
         if (trafficDensity == "High") 
             this.trafficDensity = TrafficDensity.HIGH;
@@ -30,13 +34,15 @@ public class SimulationSettings {
         if (mapType == "Junction")
             this.mapType = MapType.JUNCTION;
         else 
-            this.mapType = MapType.TOWN;
-            
-            
+            this.mapType = MapType.TOWN;     
         
+        entrancePoints= new ArrayList<Boolean>();
+        entrancePoints= entryPoints;
         
     }
     
+    
+     
     public int getSessionDuration(){
         return sessionDuration;
     }
@@ -47,6 +53,12 @@ public class SimulationSettings {
     
     public MapType getMapType(){
         return mapType;
+    }
+    
+    //gets Selected Entry Points
+    public ArrayList<Boolean> getEntryPoints(){
+		return entrancePoints;
+    	
     }
     
 }

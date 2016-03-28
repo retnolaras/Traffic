@@ -13,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -99,6 +100,12 @@ public class GUIComponents extends BorderPane{
   public Label lblCrashValue = new Label("N/A"); 
   public Label lblAverageSpeedValue = new Label("N/A");
   public Label lblTrafficEstimationValue = new Label("N/A");
+  public CheckBox cb1 = new CheckBox();
+  public CheckBox cb2 = new CheckBox();
+  public CheckBox cb3 = new CheckBox();
+  public CheckBox cb4 = new CheckBox();
+  public CheckBox cb5 = new CheckBox();
+  public CheckBox cb6 = new CheckBox();
   
  public GUIComponents()
  {
@@ -199,6 +206,30 @@ public class GUIComponents extends BorderPane{
       policyPane.add(lblDuration, 0, 10);
       policyPane.add(txtDuration,1,10);
       
+      cb1.setText("EntryPoint 1");
+      cb1.setSelected(true);
+      policyPane.add(cb1, 0, 13);
+      
+      cb2.setText("EntryPoint 2");
+      cb2.setSelected(true);
+      policyPane.add(cb2, 1, 13);
+      
+      cb3.setText("EntryPoint 3");
+      cb3.setSelected(true);
+      policyPane.add(cb3, 2, 13);
+      
+      
+      cb4.setText("EntryPoint 4");
+      cb4.setSelected(true);
+      policyPane.add(cb4, 0, 14);
+      cb5.setText("EntryPoint 5");
+      cb5.setSelected(true);
+      policyPane.add(cb5, 1, 14);
+      
+      cb6.setText("EntryPoint 6");
+      cb6.setSelected(true);
+      policyPane.add(cb6, 2, 14);
+
       Label blankt = new Label("");
       txtMap.getItems().addAll("Junction", "Town");
       txtMap.setValue("Junction");
@@ -350,13 +381,13 @@ public class GUIComponents extends BorderPane{
     
     public int getSessionDuration()
     {
-        int sessionDuration = 0;
-    	if (!txtDuration.getText().isEmpty())
-        {
-            sessionDuration = Integer.parseInt(txtDuration.getText());
-        }
-            
-        return sessionDuration;
+    	 int sessionDuration = 0;
+     	if (!txtDuration.getText().isEmpty())
+         {
+             sessionDuration = Integer.parseInt(txtDuration.getText());
+         }
+             
+         return sessionDuration;
         
     }
  
