@@ -62,8 +62,8 @@ public class SimulationData {
 	public void setSimulationData(SimulatorEngine simulation){
 		vehicleCounter = simulation.getVehicleCounter();
 		vehicleList = simulation.getVehicleList();
-		speed = simulation.getSpeedList();
-		avgSpeed = calculateAverageSpeed(speed);
+//		speed = simulation.getSpeedList();
+//		avgSpeed = calculateAverageSpeed(speed);
 		roadList = simulation.getContext().getRoadList();
 		for(int i=0; i< roadList.size(); i++)
 		  {
@@ -71,7 +71,7 @@ public class SimulationData {
 		  }		
 		trafficEstimation = calculateTrafficEstimation(vehicleCounter, totalLanes);
 		sessionDuration = simulation.getIteration();
-		successVehicle = simulation.getSuccessVehicle();
+//		successVehicle = simulation.getSuccessVehicle();
 		
 	}
 
