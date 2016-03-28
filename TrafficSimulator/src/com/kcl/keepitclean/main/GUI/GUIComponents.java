@@ -350,12 +350,13 @@ public class GUIComponents extends BorderPane{
     
     public int getSessionDuration()
     {
-        if (txtDuration.getText().isEmpty())
+        int sessionDuration = 0;
+    	if (!txtDuration.getText().isEmpty())
         {
-            txtDuration.setText("60");
+            sessionDuration = Integer.parseInt(txtDuration.getText());
         }
             
-        return Integer.parseInt(txtDuration.getText());
+        return sessionDuration;
         
     }
  
