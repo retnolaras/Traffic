@@ -270,8 +270,7 @@ public class GUIComponents extends BorderPane{
       report_pane.add(lblTotalVehicles, 0, 2);
       report_pane.add(lblAverageSpeed, 0, 3);
       report_pane.add(lblSuccessfulVehicle, 0, 4);
-      report_pane.add(lblCrash, 0, 5);
-      report_pane.add(lblTrafficEstimation, 0, 6);
+      report_pane.add(lblTrafficEstimation, 0, 5);
       
       lblSessionDurationValue.setStyle("-fx-text-fill: red");
       lblTotalVehiclesValue.setStyle("-fx-text-fill: red");
@@ -284,8 +283,7 @@ public class GUIComponents extends BorderPane{
       report_pane.add(lblTotalVehiclesValue, 1, 2);
       report_pane.add(lblAverageSpeedValue, 1, 3);
       report_pane.add(lblSuccessfulVehicleValue, 1, 4);
-      report_pane.add(lblCrashValue, 1, 5);
-      report_pane.add(lblTrafficEstimationValue, 1, 6);
+      report_pane.add(lblTrafficEstimationValue, 1, 5);
       
      
       policySettings.getChildren().add(new Label(""));
@@ -528,10 +526,9 @@ public class GUIComponents extends BorderPane{
     	
     	lblTotalVehiclesValue.setText(Integer.toString(report.getVehicleCounter()));
     	lblSuccessfulVehicleValue.setText(Integer.toString(report.getSuccessVehicles()));
-    	lblCrashValue.setText("0");
-    	lblAverageSpeedValue.setText(df.format(report.getAverageSpeed())+"km/h");
+    	lblAverageSpeedValue.setText(df.format(report.getAverageSpeed())+" km/h");
     	lblSessionDurationValue.setText(Integer.toString(report.getSessionDuration()));
-    	lblTrafficEstimationValue.setText(df.format(report.getTrafficEstimation()));
+    	lblTrafficEstimationValue.setText(df.format(report.getTrafficEstimation())+" vehicles/year");
     	
     /*    
         
@@ -545,7 +542,6 @@ public class GUIComponents extends BorderPane{
     public void resetReport(){
         lblTotalVehiclesValue.setText("N/A");
         lblSuccessfulVehicleValue.setText("N/A");
-        lblCrashValue.setText("N/A");
         lblAverageSpeedValue.setText("N/A");
         lblSessionDurationValue.setText("N/A");
         lblTrafficEstimationValue.setText("N/A");
