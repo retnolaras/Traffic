@@ -1,5 +1,29 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: main.aux
 The style file: plain.bst
 Database file #1: main.bib
+Repeated entry---line 116 of file main.bib
+ : @article{NameUeda05
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 126 of file main.bib
+ : @article{SewWilMer10
+ :                     ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 153 of file main.bib
+ : @misc{website:phy-ntnu-traffic-simulation
+ :                                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 161 of file main.bib
+ : @misc{website:caliper.com-transmodeler
+ :                                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 169 of file main.bib
+ : @article{LeaForkJoin
+ :                     ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 179 of file main.bib
+ : @misc{website:Oracle-Java-8
+ :                            ,
+I'm skipping whatever remains of this entry
 Warning--empty year in LeaForkJoin
-(There was 1 warning)
+(There were 6 error messages)

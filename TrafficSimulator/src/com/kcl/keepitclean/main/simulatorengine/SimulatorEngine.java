@@ -83,7 +83,7 @@ public class SimulatorEngine implements Observer {
 
 		userSettings = (SimulationSettings) simulatorGUI;
 		policy = Policy.getPolicyInstance();
-		sessionDuration = userSettings.getSessionDuration();
+		sessionDuration = userSettings.getSessionDuration() * Constant.SESSION_FACTOR;
 		trafficDensity = userSettings.getTrafficDensity();
 
 		if (userSettings.getMapType() == MapType.JUNCTION)
@@ -341,9 +341,9 @@ public class SimulatorEngine implements Observer {
 				Position newPos = new Position();
 				if (vehicleList.get(i).getPos()
 						.getLaneSection() < roadList.get(vehicleList.get(i).getPos().getRoad()).getLengthOfRoad() - 1) {
-					System.out.println("car POS:" + vehicleList.get(i).getPos().getLaneSection());
-					System.out.println(
-							"Road length: " + roadList.get(vehicleList.get(i).getPos().getRoad()).getLengthOfRoad());
+//					System.out.println("car POS:" + vehicleList.get(i).getPos().getLaneSection());
+//					System.out.println(
+//							"Road length: " + roadList.get(vehicleList.get(i).getPos().getRoad()).getLengthOfRoad());
 
 					//					newPos.update(vehicleList.get(i).getPos().getMode(), vehicleList.get(i).getPos().getRoad(),
 					//							vehicleList.get(i).getPos().getLane(), vehicleList.get(i).getPos().getLaneSection() + 1);

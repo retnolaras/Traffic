@@ -19,4 +19,5 @@ public class Constant {
     public static int TIMER_RATIO = 1/100;
     public static int MOVE_IN_ROAD = 0;
     public static int MOVE_IN_JUNCTION = 1;
+    public static int SESSION_FACTOR = 3;
 }
