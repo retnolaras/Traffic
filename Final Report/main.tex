@@ -48,26 +48,37 @@ The analysis will be based on the average speed: average speed of vehicles in a 
 
 In this report, we will explain how our traffic simulator works and how the simulator implements (what we implement? what our purposes)
 	
-\subsection{Descriptions}
-%description of the project
-This system will try to simulate the traffic with.
+
 
 \subsection{Objectives}
-Our initial objectives for this project where as follows:
-\begin{itemize}[noitemsep]
-\item Develop traffic simulator program with functional road system with vehicles, roads, junctions, intersections and traffic lights.
-\item Analyse how the simulator working in emergency situation by creating emergency vehicle in the simulation session. (?)
-\end{itemize}
+The project aims to develop a windows standalone application to simulate traffic in different traffic policies and traffic density following UK Highway Code which is left-lane oriented. The application should allow users to simulate traffic in a single busy intersection or a larger area in town which includes multiple roads, lanes, junctions and traffic lights. Multiple types of vehicles and drivers' behaviours would be simulated. The report for each simulation session will be displayed at the end of each session to calculate metrics to evaluate traffic safety and efficiency for provided traffic scenario and policy.
+
+The application will be developed in Java technology and managed using Agile methodology. 
+
 
 \subsection{Scope}
-The software is to simulate the traffic management policy following UK highway code which is left-lane oriented and using the speed limit within the range of speed limit defined in the UK highway code.
+
 Within the constraints of time and resources, the project's scope includes:
 \begin{itemize}[noitemsep]
-\item Controlled Map: Minimum multiple-lane roads and a junction. It should support the scalability to a complex traffic network (ie. Multiple roundabouts, multiple junctions, multiple traffic lights, bus lane).
+\item Controlled Map: User can choose multiple map options to simulate
+    \begin{itemize}[noitemsep]
+	\item Junction: Simulate within a crossroad with 2 multi-lane and multi-direction roads. There is traffic light control at the crossroad.
+	\item Town: Simulate within a larger town area which is a more complicated road network, including multiple roads, junctions, traffic lights. 
+	\item Scalability: the program should allow adding more map options easily as required. 
+	
+	\end{itemize}
+
 \item Vehicles: Simulate multiple types of vehicles, which include at least cars and ambulances (emergency vehicle) and at least three classes of driver’s behaviours (reckless, cautious, normal).
-\item Policy: the project must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy.
-\item Simulation engine: must test the policies with different levels of traffic density.
-\item Report: Must provide the statistics and calculates metrics as above.
+
+\item Policy: the application must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy. The application provides users options to define the policy to be simulated:
+    \begin{itemize}
+    \item Default: default policy, which has speed limit 60mph and traffic light timing of 10s for Green Light/Red Light/Amber Light
+    \item Random: User can simulate the policy which is randomly regenated within the user-defined range
+    \item Customised: User can manually enter value for the policy.
+    \end{itemize}
+
+\item Simulation engine: must test the policies with different types of vehicles and drivers' behaviours in different levels of traffic density.
+\item Report: Must provide the statistics and calculates metrics  for each simulation session as above.
 \end{itemize}
 
 	
