@@ -48,78 +48,167 @@ The analysis will be based on the average speed: average speed of vehicles in a 
 
 In this report, we will explain how our traffic simulator works and how the simulator implements (what we implement? what our purposes)
 	
-\subsection{Descriptions}
-%description of the project
-This system will try to simulate the traffic with.
+
 
 \subsection{Objectives}
-Our initial objectives for this project where as follows:
-\begin{itemize}[noitemsep]
-\item Develop traffic simulator program with functional road system with vehicles, roads, junctions, intersections and traffic lights.
-\item Analyse how the simulator working in emergency situation by creating emergency vehicle in the simulation session. (?)
-\end{itemize}
+The project aims to develop a windows standalone application to simulate traffic in different traffic policies and traffic density following UK Highway Code which is left-lane oriented. The application should allow users to simulate traffic in a single busy intersection or a larger area in town which includes multiple roads, lanes, junctions and traffic lights. Multiple types of vehicles and drivers' behaviours would be simulated. The report for each simulation session will be displayed at the end of each session to calculate metrics to evaluate traffic safety and efficiency for provided traffic scenario and policy.
+
+The application will be developed in Java technology and managed using Agile methodology. 
+
 
 \subsection{Scope}
-The software is to simulate the traffic management policy following UK highway code which is left-lane oriented and using the speed limit within the range of speed limit defined in the UK highway code.
+
 Within the constraints of time and resources, the project's scope includes:
 \begin{itemize}[noitemsep]
-\item Controlled Map: Minimum multiple-lane roads and a junction. It should support the scalability to a complex traffic network (ie. Multiple roundabouts, multiple junctions, multiple traffic lights, bus lane).
+\item Controlled Map & Road network: User can choose multiple map options to simulate
+    \begin{itemize}[noitemsep]
+	\item Junction: Simulate within a crossroad with 2 multi-lane and multi-direction roads. There is traffic light control at the crossroad.
+	\item Town: Simulate within a larger town area which is a more complicated road network, including multiple roads, junctions, traffic lights. 
+	\item Scalability: the program should allow adding more map options easily as required. 
+	
+	\end{itemize}
+
 \item Vehicles: Simulate multiple types of vehicles, which include at least cars and ambulances (emergency vehicle) and at least three classes of driver’s behaviours (reckless, cautious, normal).
-\item Policy: the project must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy.
-\item Simulation engine: must test the policies with different levels of traffic density.
-\item Report: Must provide the statistics and calculates metrics as above.
+
+\item Policy: the application must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy. The application provides users options to define the policy to be simulated:
+    \begin{itemize}
+    \item Default: default policy, which has speed limit 60mph and traffic light timing of 10s for Green Light/Red Light/Amber Light
+    \item Random: User can simulate the policy which is randomly regenated within the user-defined range
+    \item Customised: User can manually enter value for the policy.
+    \end{itemize}
+
+\item Simulation engine: must test the policies with different types of vehicles and drivers' behaviours in different levels of traffic density.
+\item Report: Must provide the statistics and calculates metrics  for each simulation session as above.
 \end{itemize}
 
 	
-\subsection{Methodology}
-\begin{enumerate}
-\item Analysing: 
-\item Planing and Organising:
-    \begin{itemize}[noitemsep]
-	\item Class Diagram
-	\item Schedule: Gantt Chart
-	\item Tasks management: Trello
-	\end{itemize}
-\item Developing:
+\subsection{Tools and Techniques}
+\begin{itemize}
+
+
+\item Development:
 	\begin{itemize}[noitemsep]
-	\item Software: Java
-	\item Source code: GitHub
+	\item Technology: Java SE, JavaFX
+	\item Unit Test: JUnit
+	\item Source control: GitHub
 	\end{itemize}
-\item 	Evaluating:
+\item 	Collaboration:
 	\begin{itemize}[noitemsep]
-	\item Program
-	\item Peer Assessment
+	\item Task Management: Trello
+	\item Communication: Whatsapp
 	\end{itemize}
-\item  	Reporting:
+\item  	Documentation:
 	\begin{itemize}[noitemsep]
-	\item Documentation: LaTeX
-	\item Presentation
+	\item Report: LaTeX
+	\item Presentation: Powerpoint
 	\end{itemize}
-\end{enumerate}
+\end{itemize}
+\subsection{Project Approach} 
+    \subsubsection{Project Management: } The project is managed using Scrum methodology. 
+    The project was managed in 4 iterations with 2-week duration. 
+    The Scrum methodology gives us the following benefits:
+    \begin{itemize}
+    
+    \item Enhanced team communication and engagement
+    \item Quick learning cycle: realise the issues in requirements, designs and implementations early in the project. 
+    \item Incremental project planning, delivery: effectively planning, monitor and control the project. It helps the team to evaluate project progress and address appropriate plan and actions to take the project back on track.
+    \end{itemize}
+    
+	\subsubsection{Quality Management: } 
+	\begin{itemize}
+    \item Unit Test: Developers are responsible on developing JUnit test for their classes. Criteria: 80\% code coverage and 100\% test cases passed. 
+    \item Integration Test and Regression Test: carried out at the end of each iteration. This is to ensure the integration code works as requirements and the new code does not break the existing features. 
+    \item System Test: System Test is carried out in the last iteration. This is to ensure the software satisfy the system functional and non-functional requirements. Criteria: 80\% system requirement coverage
+	\end{itemize}
+	
+	
+
+
+
+\subsection{Project Outcome}
+\begin{itemize}
+\item Deliverables:
+\begin{itemize}
+    \item Requirement and Designs: User Case diagram, Class diagrams, Component diagrams 
+    
+    \item Software: The implemented software has achieved the following compared to the defined scope:
+    \begin{itemize}
+    \item Map: multiple map options as defined
+    \item Road network: the road network design and implementation allows the scalability of the system.  
+    \item Policy: allow users to multiple options to define the traffic policy as in the scope. 
+    \item Vehicles: supports multiple types of vehicles and drivers's behaviours 
+    \item Simulation engine: simulation different types of vehicles and drivers' behaviours in different map options and traffic policies, traffic scenarios. Though the simulation engine is not currently not yet implemented the speed limit policy.
+    \item Report: the software provided report the each simulation session with metrics calculation as defined in the scope
+
+    
+    \end{itemize}
+    \item Reports: Completed Initial Report and Fina Report as required. 
+\end{itemize}
+
+
+\end{itemize}
 
 \section{Review}
 
-Several papers reviewed, such as \cite{SewWilMer10} and \cite{NameUeda05}.  One of the application reviewed is   .From this system, the group got an insight to how sophisticated a car simulation program can get .  
+Due to the layers of complexity inherent in real-life traffic systems; where a large number of agents and random variables interact within a dynamic environment has generated a lot of research interest in the area of traffic simulation. In \cite{Pursula}, Matti Pursula sets the theoretical framework for creating traffic simulators, defining them as programs that move objects overtime, taking into account a defined set of real life conditions. Pursula surveys different types of traffic simulators and identifies three types of simulated environments: microscopic, mesoscopic and macroscopic.
+
+
+One of the traffic simulators reviewed was by Namekawa et al \cite{NameUeda05}. Even though there was a lot of road traffic simulation developed before, almost all them were developed with specific areas so they cannot be reused for simulation in the other area. Namekawa et al tried to create a general simulation system to analyse road traffic congestion of arbitrary areas. The general traffic simulation also wished to be not too complicated, with shorter simulation process time. They modeled the road network with such variable width portions that divided into three kinds of sub-roads as two side lines and a center line and also used a model of a cell automaton as one technique to realize microscopic model road traffic simulation in a city. [PARAPHRASING NEED]. [need to add more?]
+
+From this system, the group got an insight to how to build the road network for a traffic simulation.  We also created different types of lanes to accommodate the traffic lane change. MiddleLane as the center line, LeftLane and RightLane as the side line. 
+
+The other paper that reviewed was by Sewall et al \cite{SewWilMer10j}. They modeled detailed 3D animations and visualization of traffic flows, fast method for efficient simulations of large-scale, real-world networks of traffic using continuum dynamics that maintains discrete vehicle information to display each vehicle.
+Sewall approached this by adapting a single-lane continuum flow model to handle multi-lane traffic by introducing a novel model of lane changes and using a discrete visual representation for each vehicle and then compared the result with agent-based methods. [I don't know what we got from here?]
+
 
 \newpage
 \section{Requirements and Design}
-\subsection{Requirement}
+\subsection{Requirements}
+\subsubsection{Configuration Requirements}
 The following initial requirements come from the \textcolor{black}{\emph{Introductory Lecture Slides:}}\\
-	{\bf{Technology:}}
-	\begin{itemize}[noitemsep]
-		\item Use whatever language / tools you see fit with 2 exceptions.
+\begin{itemize}[noitemsep]
 		\item All development of source code and documentation must be
-		done through a public GitHub repository. Failure to do so will
-		lead to a deduction of 25 marks from the final team grade.
+		done through a public GitHub repository. 
 		\item All documentation must be created with LATEX and handed in
-		PDF format. Failure to do so will lead to a deduction of 25
-		marks from the final team grade.
+		PDF format. 
 		\item Use the standard article class with the default margins and
 		11pt font and produce the PDF with pdflatex.
 	\end{itemize}
+
+\subsubsection{System Requirements}
+
+    {\bf{Functional Requirements:}} \newline
+    \begin{itemize}
+        \item Use Case
+        \begin{figure}[h]
+        \includegraphics[width=16cm]{usecase} \caption{Use Case} \label{uc}
+        \end{figure}
+        \item Detailed Requirements 
+        \begin{itemize}
+            \item Controlled Map & Road network: User can choose multiple map options to simulate
+                 \begin{itemize}[noitemsep]
+	                    \item Junction: Simulate within a crossroad with 2 multi-lane and multi-direction roads. There is traffic light control at the crossroad.
+	                    \item Town: Simulate within a larger town area which is a more complicated road network, including multiple roads, junctions, traffic lights. 
+                    	\item Scalability: the program should allow adding more map options easily as required. 
 	
-	{\bf{System Requirements:}} \newline
-	\indent Develop a simulation engine for testing traffic management
+    	\end{itemize}
+
+        \item Vehicles: Simulate multiple types of vehicles, which include at least cars and ambulances (emergency vehicle) and at least three classes of driver’s behaviours (reckless, cautious, normal).
+
+        \item Policy: the application must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy. The application provides users options to define the policy to be simulated:
+            \begin{itemize}
+                \item Default: default policy, which has speed limit 60mph and traffic light timing of 10s for Green Light/Red Light/Amber Light
+                \item Random: User can simulate the policy which is randomly regenated within the user-defined range
+                \item Customised: User can manually enter value for the policy.
+    \end{itemize}
+
+\item Simulation engine: must test the policies with different types of vehicles and drivers' behaviours in different levels of traffic density.
+\item Report: Must provide the statistics and calculates metrics  for each simulation session as above.
+\end{itemize}
+
+        
+    \end{itemize}
+     Develop a simulation engine for testing traffic management
 	policies
 	\begin{itemize}[noitemsep]
 	\item Should simulate individual vehicles (cars, coaches, buses etc.)
@@ -142,8 +231,58 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
 	moving to the next tick.
 	\end{itemize}
 	
+    
+    {\bf{Non-Functional Requirements:}} \newline
+    
+	
 \subsection{Design}
-In this section we will discuss the design process for this project.
+In this section we will discuss the design process for this project. On the first week after the group was formed, we 
+
+    \subsubsection{Planning}
+    We set out the following feature for this application:
+    
+    \begin{itemize}[noitemsep]
+    	\item FT-1: Map-Lane
+    	\item FT-2: Map-Junction
+    	\item FT-3: Map-Traffic Light
+    	\item FT-4: Map-Road
+    	\item FT-5: Map-Roundabout
+    	\item FT-6: Map-Network Manager
+    	\item FT-7: Map-Complex
+    		\begin{itemize}
+        	\item FT-7-1: Multiple roundabouts
+        	\item FT-7-2: Multiple roundabouts, junctions, roads and lanes
+        	\end{itemize}
+    	\item FT-8: Vehicle-Generic Vehicle
+    	\item FT-9: Vehicle-Cars
+    	\item FT-10: Vehicle-Buses
+    	\item FT-11: Vehicle-Traffic Light
+    	\item FT-12: Vehicle-Accelerate/Decelerate
+    	\item FT-13: Vehicle-Change Lane/Direction
+    	\item FT-14: Vehicle-Driver's Behaviour
+    	\item FT-15: Vehicle-Emergency
+    	\item FT-16: Policy-Fixed Speed Limit and Fixed Traffic Light Time
+    	\item FT-17: Policy-Variable Control Policy
+    	\item FT-18: GUI-Lane
+    	\item FT-19: GUI-Junction and traffic light
+    	\item FT-20: GUI-Roundabout
+    	\item FT-21: GUI-Multiple vehicles
+    	\item FT-22: GUI-Animation
+    	\item FT-23: Simulation Engine
+    	    \begin{itemize}
+        	\item FT-23-1: Simulation Engine Essential(?)
+        	\item FT-23-2: Simulation Engine Optimal(?)
+        	\end{itemize}
+    	\item FT-24: Data Log and Analysis
+   \end{itemize}
+
+\noindent We divide the feature priority to Must Have and Could Have, 
+\\
+\textbf{Must Have:} FT-1, FT-2, FT-3, FT-4, FT-6, FT-8, FT-9, FT-11, FT-12, FT-13, FT-14, FT-15, FT-16, FT-18, FT-19, FT-21, FT-22, FT-23, FT-24
+\\
+\textbf{Could Have:} FT-5, FT-10, FT-17, FT-20
+\\ \\
+The milestone for each iteration and the functional requirement that we want to deliver can be seen in Table \ref{table:iteration} below. The class diagram from planning phase can be seen in Appendices figure \ref{fig:Planning}.
 
 \begin{center}
 % \begin{table}[!htb]
@@ -174,33 +313,33 @@ In this section we will discuss the design process for this project.
 		
 		\centering
 		%\begin{tabular}{p{2.5cm}|p{4cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
-		\begin{tabular}{|m{2.5cm}|m{3.5cm}|m{2.5cm}|m{2.5cm}|m{2.2cm}|}
+		\begin{tabular}{|m{3cm}|m{2cm}|m{2cm}|m{2cm}|m{3cm}|}
 		\hline
 		\multicolumn{5}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{Iterations}} \\
 		\hline
 		\textbf{Iteration 0} & \textbf{Iteration 1} & \textbf{Iteration 2} & \textbf{Iteration 3}& \textbf{Iteration 4} \\ \hline
 		
-		Requirements & Map-Lane & Map-Roundabout & Map-Complex & Final Report\\ \hline
+		Requirements & FT-1 & FT-5 & FT-7-2 & Final Report\\ \hline
 		
-		System Architecture Design & Map-Junction & Map-Multiple Roundabout & Vehicle-Buses & Final Bug Fixing\\ \hline
+		System Architecture Design & FT-2 & FT-7-1 & FT-10 & Final Bug Fixing\\ \hline
 		
-		Component Detailed Design & Map-Traffic Light & Vehicle-Driver's Behaviour & Policy-VariableControl & Final Testing\\ \hline
+		Component Detailed Design & FT-3 & FT-14 & FT-17 & Final Testing\\ \hline
 		
-		Initial Report & Map-Road & Vehicle-Emergency & GUI-consolidated added vehicles/maps and animation & \\ \hline
+		Initial Report & FT-4 & FT-15 & FT-22 & \\ \hline
 		
-		& Map-Network Boundary & GUI-Roundabout & Optimal Simulation Engine & \\ \hline
+		& FT-6 & FT-20 & FT-23-2 & \\ \hline
 		
-		& GUI-Lane & GUI-Consolidated and Animation && \\ \hline
+		& FT-18 & FT-21 && \\ \hline
 		
-		& GUI-Junctions Traffic Light & Data log and analysis & &\\ \hline
-		& GUI-Multiple Vehicles &&&\\ \hline
-		& Vehicle-Generic &&& \\ \hline
-		& Vehicle-Car &&& \\ \hline
-		& Vehicle-Acceleration De-acceleration &&& \\ \hline
-		& Vehicle-Traffic Light &&& \\ \hline
-		& Vehicle-Change Lane Direction &&& \\ \hline
-		& Simulation Engine &&& \\ \hline
-		& Policy-Fixed Control Policy &&&\\ \hline
+		& FT-19 & FT-24 & &\\ \hline
+		& FT-21 &&&\\ \hline
+		& FT-8 &&& \\ \hline
+		& FT-9 &&& \\ \hline
+		& FT-11 &&& \\ \hline
+		& FT-12 &&& \\ \hline
+		& FT-13 &&& \\ \hline
+		& FT-23-1 &&& \\ \hline
+		& FT-16 &&&\\ \hline
 		\end{tabular}
 		\caption{Project Iteration (Planning phase)}
 		\label{table:iteration} 
@@ -210,12 +349,33 @@ In this section we will discuss the design process for this project.
  %insert class diagram
 	
 \section{Implementation} 
-% st significant implementation details, focussing on those where unusual or detailed solutions were required. Quote code fragments where necessary, but remember that the full source code will be included as an appendix. Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
+% st significant implementation details, focusing on those where unusual or detailed solutions were required. Quote code fragments where necessary, but remember that the full source code will be included as an appendix. Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
 % This section of the report shall discusses the actual implementation of the traffic simulator system. The section will begin by discussing the initial prototypes that were developed and follow up with the technical discussion of the final implemented system.
 
 This section of the report discusses about some of the implementation details that are deemed important to the project. The section is divided into different subsections.
 \subsection{Overall Architecture}
-This project was developed in Java, in (?) architecture. This decision was made. 
+This project was developed in Java. We decided to use Model-View-Controller(MVC) as the architectural pattern, and Singleton as the creational pattern. It is common to think of an application as having three main
+layers such as presentation or user interface, application logic, and resource management. In MVC, the presentation
+layer is split into controller and view. The most important separation is between presentation and
+application logic. MVC encompasses more of the architecture of an application than is typical for a design pattern. Hence the term architectural pattern may be useful, or perhaps an aggregate design pattern.
+    \begin{itemize}
+    \item Model: The domain-specific representation of the information on which the application operates.
+    The model is another name for the application logic layer (sometimes also called the
+    domain layer). Application (or domain) logic adds meaning to raw data (e.g., calculating if today
+    is the user’s birthday, or the totals, taxes and shipping charges for shopping cart items).
+    Many applications use a persistent storage mechanism (such as a database) to store data.
+    MVC does not specifically mention the resource management layer because it is understood
+    to be underneath or encapsulated by the Model.
+    \item View: Renders the model into a form suitable for interaction, typically a user interface
+    element.
+    \item Controller : Processes and responds to events, typically user actions, and may invoke changes
+    on the model and view.
+    \end{itemize}
+
+The control flow in MVC generally works with the user interacts with the user interface in some way, a controller handles the input event from the user interface, and the controller accesses the model. In our application, (?)
+Simulation Engine as the Controller, Vehicle, Policy and Road Network as the Model and the GUI as the View (?). 
+
+
 \subsection{Development}
 \subsubsection{GUI}
 
@@ -250,13 +410,26 @@ What is vehicle
 \item \textbf{TrafficLightPolicy}
 \end{itemize}
 
+\subsubsection{Session Manager}
+The Session Manager is the software component in charge of the session steps notifications. 
+It was designed to be a monolithic component who launches notifications to any other when an arbitrary time period has passed, we will refer to this time as step. In order to accomplish the most appropriate design patterns to use are the Singleton and the Observer pattern.
+The Session Manager component is divided into two parts. One is the Session.java and the SessionManager.java. 
+The first file has the class who represents the actual object who keeps track of when a step has passed. It contains the thread safe mechanisms to increase and decrease the step size, so an external component may modify the size when convenient, allowing to speed up or slow down the beating of steps. It also contains a condition who allows an external component to pause the beating. The Session class inherits from the Java API class Observer. This means it has the pattern within ready to be used, therefore anyone could subscribe and start listening the Session notifications (the steps). For all the previous reasons, a Session object is meant to be run in its own thread, therefore it implements the Runnable interface.
+The second file is the actual Session Manager. It works as the only entry point to any component who wants to know about the session steps. In order to ensure this, it follows the Singleton pattern. The Session Manager is the only object who knows about the Session, this means it is the only one able to create an instance of a Session thread. The Session Manager exposes the Session API in a thread safe manner when needed. Whenever a components ask the Session Manager to start a Session, it launches a new Session thread if there is none already running. When a session is stopped, the Session Manager
+
+
 \subsubsection{Simulator Engine}
         
 \begin{itemize}[noitemsep]
 \item \textbf{Context} 
 \item \textbf{SimulationEngine} is the engine that control the entire system and simulation.
 \item \textbf{Context} is the list for all needed information.
-\item \textbf{SimulationData} is the class for collecting all the data during the simulation iteration. Data including the number of vehicles, average speed from all the vehicles, and . This data will presented as a report.
+\item \textbf{SimulationData} is the class for collecting all the data during the simulation iteration. Data including the number of vehicles, the number of vehicle that succeeded to arrived at the their destination, average speed from all the vehicles, the number of crashed between vehicle, and the traffic estimation. The detail calculation method for the traffic estimation will be discuss in \ref{rte}.
+\end{itemize}.
+
+\subsubsection{Road Traffic Estimation} \label{rte}
+The methodology to calculate the road traffic estimation we derived from annual series of road traffic estimation that published by the Department for Transport. We simplified and did several adjustment to our simulation data to get the estimation number. Department of Transport uses manual traffic counts. this data then combined with information from a network of automatic traffic counter (ATCs) to calculate a series of annual average daily flows (AADF) for each count point. These daily flows then combined with road lengths to calculate the number of vehicle miles travelled each year by vehicle types, road category and region. In the document AADF major and minor road are separated as traffic volume is calculated differently for major and minor roads, however, for our calculation we use the simulation data. For every tick represent as 25,000,000 nanosecond, so we need 144 minutes to simulate 24 hours traffic. 
+to convert the AADFs into traffic volume we multiply AADF with the link length, we then multiply it by the number of days in the year (365) to get an annual total. Link length is the total length of the network road link in km. For each lane section that we have, we decided that it will represent 3 meter in real life. Therefore, the link length calculate that from the number of lane section in the map and we multiply it by 0.003 km. 
 \end{itemize}.
 	
 \subsection{Development Adjustment}
