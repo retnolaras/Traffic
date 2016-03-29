@@ -16,6 +16,7 @@ public class SimulationData {
     private int totalLanes = 0;
 	private int successVehicle;
 	private int sessionDuration;
+
 	
 	public SimulationData() {
 		
@@ -28,6 +29,7 @@ public class SimulationData {
 
 	public double calculateAverageSpeed(List<Integer> speedavg) {
 		Integer sum = 0;
+		
 		  if(!speedavg.isEmpty()) {
 		    for (Integer mark : speedavg) {
 		        sum += mark;
@@ -37,6 +39,11 @@ public class SimulationData {
 		  return sum;
 	}
 	
+	public double convertSpeed(double avg){
+		avg = ((avg*3/(0.33))*3.6);
+		return avg;		
+	}
+	
 	public int getVehicleCounter() {
 		return vehicleCounter;
 	}
@@ -44,7 +51,7 @@ public class SimulationData {
 		return vehicleList;
 	}
 	public double getAverageSpeed() {
-		return avgSpeed;
+		return convertSpeed(avgSpeed);
 	}
 	public double getTrafficEstimation() {
 		return trafficEstimation;

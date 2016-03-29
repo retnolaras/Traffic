@@ -529,7 +529,7 @@ public class GUIComponents extends BorderPane{
     	lblTotalVehiclesValue.setText(Integer.toString(report.getVehicleCounter()));
     	lblSuccessfulVehicleValue.setText(Integer.toString(report.getSuccessVehicles()));
     	lblCrashValue.setText("0");
-    	lblAverageSpeedValue.setText(df.format(report.getAverageSpeed()));
+    	lblAverageSpeedValue.setText(df.format(report.getAverageSpeed())+"km/h");
     	lblSessionDurationValue.setText(Integer.toString(report.getSessionDuration()));
     	lblTrafficEstimationValue.setText(df.format(report.getTrafficEstimation()));
     	
