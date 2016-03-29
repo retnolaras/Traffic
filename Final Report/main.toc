@@ -27,7 +27,7 @@
 \contentsline {subsection}{\numberline {6.1}Testing}{8}
 \contentsline {subsection}{\numberline {6.2}Lessons Learned and Challenges}{9}
 \contentsline {paragraph}{\numberline {6.2.0.1}Engineering}{9}
-\contentsline {paragraph}{\numberline {6.2.0.2}Teamwork}{10}
+\contentsline {paragraph}{\numberline {6.2.0.2}Teamwork}{11}
 \contentsline {subsubsection}{\numberline {6.2.1}Group Work Lessons Learned}{11}
 \contentsline {subsection}{\numberline {6.3}Future Work}{12}
 \contentsline {paragraph}{\numberline {6.3.0.1}Engineering}{12}

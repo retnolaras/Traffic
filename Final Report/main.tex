@@ -352,7 +352,20 @@ Engineering lessons involve things the team learned from the design, architectur
 	
 	One of the things that helped the group overcome uncertainty in the project was to be faithful to a number of Software Engineering Principles that have become established within the Object Orientated software community. Following practices such as SOLID \cite{website:Principles-of-OOD} would allow the team to create a reusable, flexible, and robust code base, meaning that as the iterations went on the project would not need to be re-written with each slight change in desired outcome.
 	
-	Many of the early abstractions decided on by the team were clean, robust, and reusable. Such as the abstraction that a \textit{'Road'} is just an environment that a \textit{'Vehicle'} can be on, or that a traffic management \textit{'Policy'} is a rule or set of rules to be plugged into a simulation. These early abstractions allowed the team to be adaptive, early on the team wanted an agent based Vehicle 
+	Many of the early abstractions decided on by the team were clean and reusable. Such as the abstraction that a \textit{'Road'} is just an environment that a \textit{'Vehicle'} can be on, or that a traffic management \textit{'Policy'} is a rule or set of rules to be plugged into a simulation. These early abstractions allowed the team to be adaptive, in the beginning the team wanted an agent based Vehicle, however as the project developed they switched to a MVC based Vehicle. Because the Vehicle had a sound abstraction as simply an entity in an environment that moves from place to place, it was easily to substitute the \textit{'smart'} agent to a \textit{'dumb'} controlled object based vehicle, whilst allowing for future developers to extend the Vehicle abstraction into a more intelligent agent.
+	
+	Unfortunately, there were times in which the team was unable to avoid falling into bad habits and poor practices. A number of \textit{code smells} became apparent, for example the hard coding of algorithms for Junction behaviour which require large cyclomatic complexity. An excess of duplicated code. As well as the problem of \textit{contrived complexity}, by forcing design patterns into the code where perhaps there could be a simplified design. Some of the \textit{code smells} are recoverable through refactoring, code review, and extra documentation. The team is aware that these were practices they did not follow as well as they should.
+	
+	Another Agile principle followed by the team was that of Test Driven Development (TDD) \cite{website:Intro-TDD}. The team extensively used functional testing to verify the implementation of their work. By following a cycle of 
+	
+	Write Tests - Run Tests - \textbf {\textit{FAIL}} - Write code - Run Tests - \textbf {\textit{PASS}}. 
+	
+	The team was able to continually verify that their implemented algorithm logic, and object design decisions were as intended by the coders.
+	
+	The team was able to use it's extensive test suites in regression testing, by making sure that historical tests still passed after integrating components from more recent iterations.
+	
+	It could be noted that TDD was not utilized as extensively as could have been. However, many Agile practitioners would suggest that these methodologies are simply guidelines to be followed to the extent that they contribute to the project, and that you shouldn't attempt to \textit{force} them into projects that they don't fit into. The team felt that this was the most suitable approach to take. To use testing to fulfil the needs of the project rather than to force testing into areas that the team didn't think suited it. Despite not following TDD explicitly for some areas of the simulator, the team still used testing to verify and check those areas for example Visual testing was used for verification of the visual elements.
+	
 	
 	Following more closely the principles of software engineering
 	
