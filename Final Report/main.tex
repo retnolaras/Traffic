@@ -453,10 +453,11 @@ Engineering lessons involve things the team learned from the design, architectur
 	
 	It could be noted that TDD was not utilized as extensively as could have been. However, many Agile practitioners would suggest that these methodologies are simply guidelines to be followed to the extent that they contribute to the project, and that you shouldn't attempt to \textit{force} them into projects that they don't fit into. The team felt that this was the most suitable approach to take. To use testing to fulfil the needs of the project rather than to force testing into areas that the team didn't think suited it. Despite not following TDD explicitly for some areas of the simulator, the team still used testing to verify and check those areas for example Visual testing was used for verification of the visual elements.
 	
+	The team did not make full use of functional testing frameworks which could have assisted with difficult to test components. Using a Mock Object framework such as Mockito could have assisted with creating tests to verify visual elements that were difficult to test using just JUnit.
 	
-	Following more closely the principles of software engineering
+	The team also didn't fully utilize the static analysis domain of testing. Using whitebox testing as well as blackbox testing could have allowed the team to find bugs unfindable through blackbox testing alone.
 	
-	TDD, BDD, SOLID 
+	The main lesson learned in terms of TDD was not to use as many different types of testing as are available, but to use testing to the extent to which it supports development of the program.
 	
 	
 \end{enumerate}
@@ -598,7 +599,6 @@ Data based improvements involve giving the user greater control or access to the
 
 
 \bibliography{main}
-@TODO
 \bibliographystyle{plain}
 
 
@@ -608,49 +608,49 @@ Data based improvements involve giving the user greater control or access to the
 
 \subsection{Project Risk Table}
 @TODO
-\subsection{Class Diagrams}
-\begin{figure}[!htb]
-\begin{tabular}{cc}
-		\subfloat[User Diagram]{
-		    \setlength{\fboxsep}{0pt}%
-			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=0.45\linewidth]{Picture1}}
-			\label{subfig:cd1}
-		}&
-		\subfloat[]{
-		    \setlength{\fboxsep}{0pt}%
-			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=0.45\linewidth]{Picture2}}
-			\label{subfig:cd2}
-		}\\
-		\subfloat[]{
-			\setlength{\fboxsep}{0pt}%
-			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=0.45\linewidth]{Picture3}}
-			\label{subfig:cd3}
-		}&
-		\subfloat[]{
-			\setlength{\fboxsep}{0pt}%
-			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=8cm, height=6cm]{Picture4}}
-			\label{subfig:cd4}
-		}\\
-		\subfloat[]{
-			\setlength{\fboxsep}{0pt}%
-			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=0.45\linewidth]{Picture5}}
-			\label{subfig:cd5}
-		}
-		\subfloat[]{
-			\setlength{\fboxsep}{0pt}%
-			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=0.45\linewidth]{Picture6}}
-			\label{subfig:cd6}
-		}
-		\end{tabular}
-		\caption[]{Planning Class Diagrams}
-		\label{fig:Planning}
-\end{figure}
+%\subsection{Class Diagrams}
+%\begin{figure}[!htb]
+%\begin{tabular}{cc}
+%		\subfloat[User Diagram]{
+%		    \setlength{\fboxsep}{0pt}%
+%			\setlength{\fboxrule}{1pt}%
+%			\fbox{\includegraphics[width=0.45\linewidth]{Picture1}}
+%			\label{subfig:cd1}
+%		}&
+%		\subfloat[]{
+%		    \setlength{\fboxsep}{0pt}%
+%			\setlength{\fboxrule}{1pt}%
+%			\fbox{\includegraphics[width=0.45\linewidth]{Picture2}}
+%			\label{subfig:cd2}
+%		}\\
+%		\subfloat[]{
+%			\setlength{\fboxsep}{0pt}%
+%			\setlength{\fboxrule}{1pt}%
+%			\fbox{\includegraphics[width=0.45\linewidth]{Picture3}}
+%			\label{subfig:cd3}
+%		}&
+%		\subfloat[]{
+%			\setlength{\fboxsep}{0pt}%
+%			\setlength{\fboxrule}{1pt}%
+%			\fbox{\includegraphics[width=8cm, height=6cm]{Picture4}}
+%			\label{subfig:cd4}
+%		}\\
+%		\subfloat[]{
+%			\setlength{\fboxsep}{0pt}%
+%			\setlength{\fboxrule}{1pt}%
+%			\fbox{\includegraphics[width=0.45\linewidth]{Picture5}}
+%			\label{subfig:cd5}
+%		}
+%		\subfloat[]{
+%			\setlength{\fboxsep}{0pt}%
+%			\setlength{\fboxrule}{1pt}%
+%			\fbox{\includegraphics[width=0.45\linewidth]{Picture6}}
+%			\label{subfig:cd6}
+%		}
+%		\end{tabular}
+%		\caption[]{Planning Class Diagrams}
+%		\label{fig:Planning}
+%\end{figure}
 \subsection{Package Diagram}
 @TODO
 \subsection{Live Application}

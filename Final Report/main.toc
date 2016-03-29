@@ -38,7 +38,6 @@
 \contentsline {subsection}{\numberline {6.4}Peer Assessment}{18}
 \contentsline {section}{\numberline {7}Appendices}{20}
 \contentsline {subsection}{\numberline {7.1}Project Risk Table}{20}
-\contentsline {subsection}{\numberline {7.2}Class Diagrams}{20}
-\contentsline {subsection}{\numberline {7.3}Package Diagram}{20}
-\contentsline {subsection}{\numberline {7.4}Live Application}{20}
-\contentsline {subsection}{\numberline {7.5}Gantt Chart}{20}
+\contentsline {subsection}{\numberline {7.2}Package Diagram}{20}
+\contentsline {subsection}{\numberline {7.3}Live Application}{20}
+\contentsline {subsection}{\numberline {7.4}Gantt Chart}{20}

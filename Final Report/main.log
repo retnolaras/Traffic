@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.4)  29 MAR 2016 16:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.4)  29 MAR 2016 16:27
 entering extended mode
 **./main.tex
 (main.tex
@@ -394,87 +394,83 @@ Underfull \hbox (badness 10000) in paragraph at lines 305--306
 
  []
 
-[8]
-
-LaTeX Warning: Reference `rte' on page 9 undefined on input line 343.
-
-[9] [10]
+[8] [9] [10]
 Overfull \hbox (5.28487pt too wide) in paragraph at lines 393--401
 [][] 
  []
 
 [11] [12] [13] [14]
-Underfull \hbox (badness 10000) in paragraph at lines 490--494
+Underfull \hbox (badness 10000) in paragraph at lines 491--495
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 499--500
+Underfull \hbox (badness 10000) in paragraph at lines 500--501
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 503--505
+Underfull \hbox (badness 10000) in paragraph at lines 504--506
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 512--514
+Underfull \hbox (badness 10000) in paragraph at lines 513--515
 
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 515--517
+Underfull \hbox (badness 10000) in paragraph at lines 516--518
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 527--528
+Underfull \hbox (badness 10000) in paragraph at lines 528--529
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 529--531
+Underfull \hbox (badness 10000) in paragraph at lines 530--532
 
  []
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 538--539
+Underfull \hbox (badness 10000) in paragraph at lines 539--540
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 540--542
+Underfull \hbox (badness 10000) in paragraph at lines 541--543
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 547--548
+Underfull \hbox (badness 10000) in paragraph at lines 548--549
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 549--551
+Underfull \hbox (badness 10000) in paragraph at lines 550--552
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 558--559
+Underfull \hbox (badness 10000) in paragraph at lines 559--560
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 560--562
+Underfull \hbox (badness 10000) in paragraph at lines 561--563
 
  []
 
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 567--568
+Underfull \hbox (badness 10000) in paragraph at lines 568--569
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 570--572
+Underfull \hbox (badness 10000) in paragraph at lines 571--573
 
  []
 
@@ -484,168 +480,29 @@ Overfull \hbox (138.0191pt too wide) in paragraph at lines 30--33
 .edu.tw/oldjava/others/trafficsimulation/applet.html. 
  []
 
-) [19]
-
-! LaTeX Error: File `Picture1' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.619 		}
-         &
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (2.51938pt too wide) in paragraph at lines 619--619
-[]\OT1/cmr/m/n/9 (a)
- []
-
-
-Overfull \hbox (9.01723pt too wide) in paragraph at lines 619--619
-|\OT1/cmr/m/n/9 User
- []
-
-
-Overfull \hbox (3.41797pt too wide) in paragraph at lines 619--619
-\OT1/cmr/m/n/9 Di-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 619--619
-\OT1/cmr/m/n/9 a-
- []
-
-
-Overfull \hbox (11.27626pt too wide) in paragraph at lines 619--619
-\OT1/cmr/m/n/9 gram| 
- []
-
-
-! LaTeX Error: File `Picture2' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.625 		}
-         \\
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (3.03326pt too wide) in paragraph at lines 625--625
-[]\OT1/cmr/m/n/9 (b)|| 
- []
-
-
-! LaTeX Error: File `Picture3' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.631 		}
-         &
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (2.0055pt too wide) in paragraph at lines 631--631
-[]\OT1/cmr/m/n/9 (c)|| 
- []
-
-
-! LaTeX Error: File `Picture4' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.637 		}
-         \\
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (3.03326pt too wide) in paragraph at lines 637--637
-[]\OT1/cmr/m/n/9 (d)|| 
- []
-
-
-! LaTeX Error: File `Picture5' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.643 		}
-         
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (2.00896pt too wide) in paragraph at lines 643--643
-[]\OT1/cmr/m/n/9 (e)|| 
- []
-
-
-! LaTeX Error: File `Picture6' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.649 		}
-         
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (1.42563pt too wide) in paragraph at lines 649--649
-[]\OT1/cmr/m/n/9 (f)|| 
- []
-
-[20] (main.aux)
+) [19] [20] (main.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 5257 strings out of 493634
- 76782 string characters out of 3141315
- 173156 words of memory out of 3000000
- 8581 multiletter control sequences out of 15000+200000
- 9507 words of font info for 33 fonts, out of 3000000 for 9000
+ 5222 strings out of 493634
+ 76422 string characters out of 3141315
+ 173169 words of memory out of 3000000
+ 8565 multiletter control sequences out of 15000+200000
+ 9208 words of font info for 32 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 44i,17n,49p,938b,436s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,12n,42p,938b,327s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/P
 rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Prog
-ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Fi
-les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on main.pdf (21 pages, 164549 bytes).
+ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progra
+m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on main.pdf (21 pages, 152759 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
+ 98 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
