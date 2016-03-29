@@ -3,537 +3,6 @@
 \usepackage[english]{babel}
 \usepackage{xcolor,enumitem} 
 \usepackage{graphicx}
-\usepackage{array} % for m[{x cm} in tables
-\usepackage[lofdepth,lotdepth]{subfig}
-\usepackage{colortbl}
-
-%--- for subsubsubsection
-\usepackage{titlesec}
-\setcounter{secnumdepth}{4}
-\titleformat{\paragraph}
-{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}
-{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-%---
-
-\begin{document}
-	\begin{titlepage}
-	\center
-	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
-
-        {\huge \bfseries Final Report}\\[0.4cm]
-        	\ Team Keep It Clean
-        
-        {\large \today}\\[10cm] 
-        
-        \begin{minipage}{0.4\textwidth}
-        		\emph{Authors:}\\
-        			1474524/1	Retno Larasati\\
-                    1581767/1	Ian Galna Johnson\\	
-                    1579212/1	Thi Thanh Huong Ngo\\
-                    1557762/1	Daniel Arturo Mendoza Hernandez\\
-                    1530247/1	Abdelrahman Hamdy Hassan\\
-        \end{minipage}
-
-\end{titlepage}
-\tableofcontents
-\newpage
-	
-\section{Introduction}
-\subsection{Background}
-Traffic simulation software plays an important role in defining the effective traffic management policies. A traffic policy must be simulated and verified before it is actually implemented in real life. Otherwise, it might harm road users’ safety and traffic efficiency. There are a lot of factors contributing to road accidents and traffic efficiency. The major factors include speed, traffic light timing and driver’s behaviours. For instance, in 2013, in the UK, 3,064 people were killed or seriously injured in crashes where speed was a factor.
-Therefore, this project will simulate traffic management policies focusing on those 3 main factors ie. Speed limit; Traffic light timing; Driver's behaviours. The software will test different policies relating to these factors and analyse the traffic efficiency and safety in relation to traffic density, enforcement policy and driver's behaviours.
-
-The analysis will be based on the average speed: average speed of vehicles in a session. This metric is to measure traffic efficiency and reliability.
-
-In this report, we will explain how our traffic simulator works and how the simulator implements (what we implement? what our purposes)
-	
-\subsection{Descriptions}
-%description of the project
-This system will try to simulate the traffic with.
-
-\subsection{Objectives}
-Our initial objectives for this project where as follows:
-\begin{itemize}[noitemsep]
-\item Develop traffic simulator program with functional road system with vehicles, roads, junctions, intersections and traffic lights.
-\item Analyse how the simulator working in emergency situation by creating emergency vehicle in the simulation session. (?)
-\end{itemize}
-
-\subsection{Scope}
-The software is to simulate the traffic management policy following UK highway code which is left-lane oriented and using the speed limit within the range of speed limit defined in the UK highway code.
-Within the constraints of time and resources, the project's scope includes:
-\begin{itemize}[noitemsep]
-\item Controlled Map: Minimum multiple-lane roads and a junction. It should support the scalability to a complex traffic network (ie. Multiple roundabouts, multiple junctions, multiple traffic lights, bus lane).
-\item Vehicles: Simulate multiple types of vehicles, which include at least cars and ambulances (emergency vehicle) and at least three classes of driver’s behaviours (reckless, cautious, normal).
-\item Policy: the project must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy.
-\item Simulation engine: must test the policies with different levels of traffic density.
-\item Report: Must provide the statistics and calculates metrics as above.
-\end{itemize}
-
-	
-\subsection{Methodology}
-\begin{enumerate}
-\item Analysing: 
-\item Planing and Organising:
-    \begin{itemize}[noitemsep]
-	\item Class Diagram
-	\item Schedule: Gantt Chart
-	\item Tasks management: Trello
-	\end{itemize}
-\item Developing:
-	\begin{itemize}[noitemsep]
-	\item Software: Java
-	\item Source code: GitHub
-	\end{itemize}
-\item 	Evaluating:
-	\begin{itemize}[noitemsep]
-	\item Program
-	\item Peer Assessment
-	\end{itemize}
-\item  	Reporting:
-	\begin{itemize}[noitemsep]
-	\item Documentation: LaTeX
-	\item Presentation
-	\end{itemize}
-\end{enumerate}
-
-\section{Review}
-
-Several papers reviewed, such as \cite{SewWilMer10} and \cite{NameUeda05}.  One of the application reviewed is   .From this system, the group got an insight to how sophisticated a car simulation program can get .  
-
-\newpage
-\section{Requirements and Design}
-\subsection{Requirement}
-The following initial requirements come from the \textcolor{black}{\emph{Introductory Lecture Slides:}}\\
-	{\bf{Technology:}}
-	\begin{itemize}[noitemsep]
-		\item Use whatever language / tools you see fit with 2 exceptions.
-		\item All development of source code and documentation must be
-		done through a public GitHub repository. Failure to do so will
-		lead to a deduction of 25 marks from the final team grade.
-		\item All documentation must be created with LATEX and handed in
-		PDF format. Failure to do so will lead to a deduction of 25
-		marks from the final team grade.
-		\item Use the standard article class with the default margins and
-		11pt font and produce the PDF with pdflatex.
-	\end{itemize}
-	
-	{\bf{System Requirements:}} \newline
-	\indent Develop a simulation engine for testing traffic management
-	policies
-	\begin{itemize}[noitemsep]
-	\item Should simulate individual vehicles (cars, coaches, buses etc.)
-	operating in different parts of a road network (e.g. roundabouts,
-	multi-lane junctions).
-	\item Consider where vehicles enter road network and where they
-	leave it.
-	\item Consider individual behaviours (e.g. reckless, cautious, normal).
-	\item Consider timing of journeys (based on purpose and patterns of
-	use).
-	\item Consider support for emergency services (e.g. prioritise
-	ambulances at traffic lights).
-	\item Allow different traffic management policies to be plugged in and
-	compared.
-	\item Decide on a time granularity for the simulation (e.g. 10 seconds).
-	\item Each tick of the simulation clock will require all parts of the
-	simulation to update.
-	\item The simulation engine will record vehicle positions, new entries
-	and exits and any other data and then update the state before
-	moving to the next tick.
-	\end{itemize}
-	
-\subsection{Design}
-In this section we will discuss the design process for this project.
-
-\begin{center}
-% \begin{table}[!htb]
-
-		
-% 		\centering % used for cantering table
-% 		\begin{tabular}{|p{1.8cm}|p{5cm}|p{1.2cm}|p{5cm}|} % centered columns
-% 		\hline\hline %inserts double horizontal lines
-% 		Milestone & Deliverable & Date & Dependant Upon \\ [0.5ex] % heading
-% 		\hline
-		
-% 		1st Report & Intermediate Report complete (Iteration 0) & Feb 9 & Intermediate Planning and Initial Progress\\[1ex]
-		
-% 		Initial & Application Ready (Iteration 1) & Feb 18 & First iteration of bugs fixed. Iteration 1 features implemented. Program ready for unit test.  \\ [1ex]
-		
-% 		Mid & Application Ready (Iteration 2) & Mar 3 &  Second iteration of bugs fixed. Iteration 2 features implemented. Program ready for unit test.\\ [1ex]
-		
-% 		Pre-Final & Application ready (Iteration 3) & Mar 17 & All features and bugs fixed. Program finalised. \\[1ex]
-		
-% 		Final & Report complete and application ready (Iteration 4)  & Mar 31 & Completion of packaging and program. Final report ready. All testing done. \\[1ex] % [1ex] adds vertical space
-% 		\hline
-% 		\end{tabular}
-% 		\caption{Planning: Project Milestones} % title of Table
-% 		\label{table:milestones} % used to refer this table in the text
-% 	\end{table}
-
-\begin{table}[!htb]
-		
-		\centering
-		%\begin{tabular}{p{2.5cm}|p{4cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
-		\begin{tabular}{|m{2.5cm}|m{3.5cm}|m{2.5cm}|m{2.5cm}|m{2.2cm}|}
-		\hline
-		\multicolumn{5}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{Iterations}} \\
-		\hline
-		\textbf{Iteration 0} & \textbf{Iteration 1} & \textbf{Iteration 2} & \textbf{Iteration 3}& \textbf{Iteration 4} \\ \hline
-		
-		Requirements & Map-Lane & Map-Roundabout & Map-Complex & Final Report\\ \hline
-		
-		System Architecture Design & Map-Junction & Map-Multiple Roundabout & Vehicle-Buses & Final Bug Fixing\\ \hline
-		
-		Component Detailed Design & Map-Traffic Light & Vehicle-Driver's Behaviour & Policy-VariableControl & Final Testing\\ \hline
-		
-		Initial Report & Map-Road & Vehicle-Emergency & GUI-consolidated added vehicles/maps and animation & \\ \hline
-		
-		& Map-Network Boundary & GUI-Roundabout & Optimal Simulation Engine & \\ \hline
-		
-		& GUI-Lane & GUI-Consolidated and Animation && \\ \hline
-		
-		& GUI-Junctions Traffic Light & Data log and analysis & &\\ \hline
-		& GUI-Multiple Vehicles &&&\\ \hline
-		& Vehicle-Generic &&& \\ \hline
-		& Vehicle-Car &&& \\ \hline
-		& Vehicle-Acceleration De-acceleration &&& \\ \hline
-		& Vehicle-Traffic Light &&& \\ \hline
-		& Vehicle-Change Lane Direction &&& \\ \hline
-		& Simulation Engine &&& \\ \hline
-		& Policy-Fixed Control Policy &&&\\ \hline
-		\end{tabular}
-		\caption{Project Iteration (Planning phase)}
-		\label{table:iteration} 
-		\end{table}
-\end{center}
- 
- %insert class diagram
-	
-\section{Implementation} 
-% st significant implementation details, focussing on those where unusual or detailed solutions were required. Quote code fragments where necessary, but remember that the full source code will be included as an appendix. Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
-% This section of the report shall discusses the actual implementation of the traffic simulator system. The section will begin by discussing the initial prototypes that were developed and follow up with the technical discussion of the final implemented system.
-
-This section of the report discusses about some of the implementation details that are deemed important to the project. The section is divided into different subsections.
-\subsection{Overall Architecture}
-This project was developed in Java, in (?) architecture. This decision was made. 
-\subsection{Development}
-\subsubsection{GUI}
-
-\subsubsection{Road Network}
-What is road network
-    \paragraph{Road}
-    \textbf{Road Factory}\\
-    \paragraph{Lane}
-    \begin{itemize}[noitemsep]
-    \item \textbf{LeftLane:} this  
-    \item \textbf{RightLane:} this
-    \item \textbf{SingleLane:} this
-    \item \textbf{MiddleLane:} this  
-    \item \textbf{LaneFactory:} this
-    \end{itemize}
-    \paragraph{Junction}
-    \begin{itemize}[noitemsep]
-    \item \textbf{PrePlannedRouteJuntion:} this  
-    \item \textbf{TrafficLight:} this
-    \item \textbf{TrafficLightWrapper:} this
-    \end{itemize}
-    
-\subsubsection{Vehicle}
-What is vehicle
-\textbf{Vehicle Factory}\\
-
-
-\subsubsection{Policy}        
-\begin{itemize}[noitemsep]
-\item \textbf{Policy} 
-\item \textbf{SpeedLimit} 
-\item \textbf{TrafficLightPolicy}
-\end{itemize}
-
-\subsubsection{Simulator Engine}
-        
-\begin{itemize}[noitemsep]
-\item \textbf{Context} 
-\item \textbf{SimulationEngine} is the engine that control the entire system and simulation.
-\item \textbf{Context} is the list for all needed information.
-\item \textbf{SimulationData} is the class for collecting all the data during the simulation iteration. Data including the number of vehicles, average speed from all the vehicles, and . This data will presented as a report.
-\end{itemize}.
-	
-\subsection{Development Adjustment}
-Several functions that we planned in our iteration before that changed
-\begin{enumerate}[noitemsep]
-	\item No Vehicle Bus 
-	\item No Vehicle Emergency
-	\item No Roundabout  
-\end{enumerate}
-
-\section{Team Work}
-%Describe how you worked together, including the tools and processes you used to facilitate group work.
-On the first sprint, or iteration 1, we managed to do almost all the tasks that we listed before. Since it's still initiation state, we mostly created different classes and objects that we thought we will need later. Files from policy (Policy, Speedlimit, Trafficlight), GUI (UIComponent, drawUI), road network (AbstractLaneSection, LaneFactory, LaneSection, LeftLane, MiddleLane, RightLane, SingleLane, ListOfListRoadImpl, Road, RoadFactory), main (SessionManager, SimulatorEngine, TrafficSimulatorApplication), and vehicle (Behaviour, Bus, Car, Direction, Emergency, Point, Vehicle, VehicleFactory, VehicleType). We also created JUnit test files for unit testing such as testpolicy, testlanesection, sessionmanagersprtest, sessionmanagertest and testvehicle. 
-
-In the end of iteration 1 we decided to change our designed by moving all the control from the engine to the vehicle. Therefore the vehicle itself would have the method to accelerate and decelerate, and the behaviour towards traffic light. The decision making will still be on simulation engine but the behaviour will be declared on the vehicle itself. 
-For the iteration 2, we added new classes. Files from: policy (TrafficLightColour), and roadnetwork (Junction, PrePlannedRouteJunction, TrafficLight). We also developed the GUI class again from scratch, because in iteration 1 we still unsure about the detail design and how the data flow will work from the simulation engine to the UI component. We deleted UIComponent and drawUI, and added GUIComponent, InitScreen, integertextfield, irenderer, simulationrender, simulationsetting). However, some of the tasks that we designated for this iteration could not be done and moved to the next sprint/iteration.  
-
-We used Trello for the project management. Tasks in each iterations breaks down and assigned it to member. In the end of each iteration we have a meeting to discuss what are the tasks that we need to do for the next iteration. We created a list for each iteration, and wrote cards to put the task in. After the task is done, we can move it to the DONE list, so we know which task that have not finished yet. The unfinished task then moved to the next iteration, and added as the new workload.
-
-In initial planning, we intend to have biweekly meeting, on Monday and Thursday. However, during development phase, we had a meeting almost three or four times a week, and increased to meet five to six times a week starting in iteration 3. We used the whatsapp group to arranged the meeting time and place. 
-
-We used sharelatex to edit our final report together. This collaboration application work better than what we did for our initial report. We divided our part for the initial report into two groups, project description and project organisation. We then worked it separately and combined it in Github. This method appeared to created a lot of problem. We had a lot of document conflicts, from five people doing the edit the same file. Sharelatex is a good solution for this problem, since the group can collaborate in parallel and stimultaniously. 
-
-\subsection{Work Load Division:}
-Since the project will be relatively of small to medium size, in our initial planning, we decided that the group will facilitate job rotation at every iteration of development. This will be done to increase depth and breadth of understanding of the project by all members, as well as allow for a more flexible work distribution. In our first iteration we divided the tasks to 5 important components, such as Session Manager, Vehicle, Policy, Road, and GUI.
-
-This strategy works perfectly fine until the end of iteration 2, but in the beginning of iteration 3, we change strategy to stop rotating the roles, and stick to the area because the deadline was approaching. The problem about this strategy is that we spend a lot of time to discuss specific logic together, rather than use the time to develop the code. We also need time to explaining the logic that the previous programmer to the next programmer. 
-
-	
-\section{Evaluation} %Critically evaluate your project: what worked well, and what didn’t? how did you do relative to your plan? what changes were the result of improved thinking and what changes were forced upon you? how did your team work together? etc. Note that you need to show that you understand the weaknesses in your work as well as its strengths. You may wish to identify relevant future work that could be done on your project.
-\begin{enumerate}
-	\item \textbf{Road development:} 
-	\\@TODO
-	\item \textbf{Simulation Engine development:} 
-	\\@TODO
-	\item \textbf{GUI:} 
-	\\@TODO
-\end{enumerate}
-
-\subsection{Testing} 
-%Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
-@TODO
-\\Test unit with JUnit. Test app with Black Box. 
-Table~\ref{table:TestingTable} illustrates the bugs that were found within the system during black box testing tested by a random user and the team:
-\begin{center}
-	\begin{table}[!htb]
-	\begin{tabular}{|m{7cm}|m{7cm}|}
-		 \hline
-		\multicolumn{2}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{Black Box Testing}} \\ 
-		\hline 
-		 \centering \textbf{Bug} & \textbf{Status}\\\hline
-		 &  \\  \hline
-		
-	\end{tabular}
-	\caption{Testing Table}
-		\label{table:TestingTable}
-	\end{table}
-\end{center}
-
-\pagebreak
-\subsection{Lessons Learned and Challenges}
-
-The team feels that participating in the project was a very productive experience. It allowed team members to gain a first hand understanding of the techniques, concepts, and practices that are common in professional Software Development. It also allowed team members to put into practice the engineering and computing skills they have been learning about, to complete a meaningful project. 
-
-However there were several aspects which the team feels lessons could be learned from.
-These can be broken down into two categories, Engineering lessons and Teamwork lessons.
-
-\paragraph{Engineering}
-
-Engineering lessons involve things the team learned from the design, architecture, implementation, and testing of the code.
-
-\begin{enumerate}
-	
-	\item \textbf{Overreach:}
-	
-	One of the most common lessons learned on computing projects is trying to do too much within a constrained period of time. It is understandable that, given a green field project, imaginative developers would be tempted to create expansive and open ended pieces of software. Unfortunately these projects tend to be bogged down with unnecessary components and a general sense of trying to do too much. This is a pitfall that the team is partially guilty of falling into. 
-	
-	At the beginning of the project, there was an optimistic feeling that the team could build a piece of traffic software comparable to commercially or academically available software. After a while of working on the project, it was decided that some of the \textit{would like to have} aspects should be dropped in favour of a more workable approach.
-	
-	The iterative Scrum style methodology \cite{website:Scrum-Alliance} the team adopted for development worked well in allowing us to respond to our changing goal. As after our first iteration we were able to see our overreach and realign our development goals. As our iterations progressed we were able to better understand our own abilities and limitations yet still create working piece of usable software at the end of each iteration.
-	
-	The main learning point of overreach is to set realistic constraints, but to allow for change. So that as your team creates software they are able to take advantage of new developments and progress not only the project but also their own abilities.
-		
-	\item \textbf{Vagueness of specification:}
-	
-	Similar to the problem of overreach is that of Vague Specification. Because the project had an open specification, it was the team's responsibility to whittle it down to a specific system. Initially the team was too vague about what they wanted their traffic simulator to be, too vague about the functional and non-functional requirements, too vague about what the team wanted to achieve with their product.
-	
-	The team believes that their Agile approach \cite{website:Agile-Manifesto} to development helped alleviate this issue. Because of the initial uncertainty over the purpose of the simulator, Agile helped them to refine their goals by emphasizing responsiveness over planning. Through successive iterations, the team was able to \textit{test the water} and get a feel for what purpose the project should achieve. To avoid \textit{scope creep} it was necessary for the team to be disciplined in remembering the agile principle of working software, and not introduce excess scope if \textit{'you ain't gonna need it'}.
-	
-	This wasn't a case of hacking a project together \textit{ad-hoc}. But a case of the team recognizing being in the situation of attempting a project with uncertain or undefined specification, and researching an established methodology for tackling these kinds of project. Then being pragmatic about adapting the methods to suit our needs.
-	
-	\item \textbf{Principles of Software Engineering}
-	
-	One of the things that helped the group overcome uncertainty in the project was to be faithful to a number of Software Engineering Principles that have become established within the Object Orientated software community. Following practices such as SOLID \cite{website:Principles-of-OOD} would allow the team to create a reusable, flexible, and robust code base, meaning that as the iterations went on the project would not need to be re-written with each slight change in desired outcome.
-	
-	Many of the early abstractions decided on by the team were clean and reusable. Such as the abstraction that a \textit{'Road'} is just an environment that a \textit{'Vehicle'} can be on, or that a traffic management \textit{'Policy'} is a rule or set of rules to be plugged into a simulation. These early abstractions allowed the team to be adaptive, in the beginning the team wanted an agent based Vehicle, however as the project developed they switched to a MVC based Vehicle. Because the Vehicle had a sound abstraction as simply an entity in an environment that moves from place to place, it was easily to substitute the \textit{'smart'} agent to a \textit{'dumb'} controlled object based vehicle, whilst allowing for future developers to extend the Vehicle abstraction into a more intelligent agent.
-	
-	Unfortunately, there were times in which the team was unable to avoid falling into bad habits and poor practices. A number of \textit{code smells} became apparent, for example the hard coding of algorithms for Junction behaviour which require large cyclomatic complexity. An excess of duplicated code. As well as the problem of \textit{contrived complexity}, by forcing design patterns into the code where perhaps there could be a simplified design. Some of the \textit{code smells} are recoverable through refactoring, code review, and extra documentation. The team is aware that these were practices they did not follow as well as they should.
-	
-	Another Agile principle followed by the team was that of Test Driven Development (TDD) \cite{website:Intro-TDD}. The team extensively used functional testing to verify the implementation of their work. By following a cycle of 
-	
-	Write Tests - Run Tests - \textbf {\textit{FAIL}} - Write code - Run Tests - \textbf {\textit{PASS}}. 
-	
-	The team was able to continually verify that their implemented algorithm logic, and object design decisions were as intended by the coders.
-	
-	The team was able to use it's extensive test suites in regression testing, by making sure that historical tests still passed after integrating components from more recent iterations.
-	
-	It could be noted that TDD was not utilized as extensively as could have been. However, many Agile practitioners would suggest that these methodologies are simply guidelines to be followed to the extent that they contribute to the project, and that you shouldn't attempt to \textit{force} them into projects that they don't fit into. The team felt that this was the most suitable approach to take. To use testing to fulfil the needs of the project rather than to force testing into areas that the team didn't think suited it. Despite not following TDD explicitly for some areas of the simulator, the team still used testing to verify and check those areas for example Visual testing was used for verification of the visual elements.
-	
-	
-	Following more closely the principles of software engineering
-	
-	TDD, BDD, SOLID 
-	
-	
-\end{enumerate}
-
-\paragraph{Teamwork}
-
-Teamwork lessons are those learned from the trial and error of working with others to complete a project that would be too big for each of us as individuals.
-
-\begin{enumerate}
-	
-	\item \textbf{Communication}
-	
-	Importance of communication
-	
-	Team communicated very well from the start, overcame constraints like time difference of classes and location by using tech and having a good sense of proirity.
-	
-	\item \textbf{Division of Work}
-	
-	
-	
-	
-\end{enumerate}
-
-\subsubsection{Group Work Lessons Learned}
-%What we learnt about group work and working together
-@TODO
-
-\pagebreak
-\subsection{Future Work} 
-%How the project could be extended
-One of the most challenging aspects of any project is imagining what could be done, if the project was taken up by another team of engineers after the original team moves on to pastures new.
-\\~\\
-The team has discovered several paths that could be followed. Each of which would advance the base project into more specialized areas.
-They can be broken down into two categories. Engineering improvements and Data gathering/simulation improvements.
-
-\paragraph{Engineering}
-Engineering improvements involve changes to the system Software that could better utilize engineering principals and practices.
-
-\paragraph{Data}
-Data based improvements involve giving the user greater control or access to the data generated by the simulation.\\
-
-\begin{enumerate}
-	
-	\item \textbf{Parallelism:}
-	\\
-	
-	Parallelism has emerged as an important concept in engineering, and more specifically in traffic simulation. Liu \cite{website:phy-ntnu-traffic-simulation} makes parallelism the key purpose of their project. Taking advantage of machines with multiple cores could allow for faster and more detailed simulations to be run. Perhaps by allowing vehicles or other objects within the simulation to be built as individual threads which would allow vehicles to act independently and concurrently within a map. Also by separating out the concerns of data gathering and simulation, if different threads were responsible for either aspect they could be more specialised.
-	
-	However it also requires more attention to detail when designing and writing code. As you must take care to synchronise shared data items to avoid pitfalls like deadlock and race conditions. This increased burden was one of the reasons the team decided against parallelization in their original project.
-	
-	The project's use of Java as it's primary programming language would allow future developers a convenient way into introducing parallelism. Java includes native, as well as third party, support for parallelism, such as the Fork/Join framework\cite{LeaForkJoin} as well as the new Java 8 Streams functionality\cite{website:Oracle-Java-8}, as well as native control libraries for concurrency controls.
-	
-	The modular approach the team took to designing the system architecture also facilitates the introduction of parallelism, because different modules could be parallelised independently.
-	\\While the Test Driven Development approach would allow iterative introduction of parallelisation with the capacity to test if the new developments fit in with the accepted functionality tested in the original test suites.\\
-	
-	\item \textbf{External Libraries:}
-	\\
-	
-	Another future improvement would be to include libraries and code from outside sources. The team decided early on that because one constraint of the project was for it to be \textit{the teams own work}, and because no credit would be received from using other's work, that the team would use as few external tools as possible, thus to avoid conflict. 
-	
-	Most notably, visualisation and data gathering and analysis tools could be used. Visualisation tools could improve the user experience by allowing a more immersive interaction with the simulation. Because of the team's Model-View-Controller approach to the architecture, and because the team followed software principles of separation of responsibilities, it would be easy for future developers to introduce other visualisation modules to the project.
-	
-	The visualisation provided by the TransModeler Project project \cite{website:caliper.com-transmodeler} is a good example of how improving visualisation is key to an enjoyable, productive, and useful piece of Traffic Simulation software.
-	\\ Data gathering could be improved by using something like Log4j \cite{website:Apache-Log4j} to log and collect data from simulations. Data analysis could be improved by utilizing external libraries such as Apache Spark.
-	
-	The teams decision to use Java is key to the extensibility of the project. Java has a rich history of third party libraries being designed and built with 'free' software licenses, so that others can use them in their own work and avoid reinventing the wheel.
-	
-	The team's architectural design, which focuses on reusabilty, substitutability, and scalability would give future developers the opportunity to come in and introduce a wide variety of tools with very little code re-writing.\\
-	
-	\item \textbf{Distributed Road Network:}
-	\\
-	
-	One of the original \textit{would like to have} aims of the project was to counter some of the scalability problems of other Traffic Simulation software \cite{SewWilMer10} by providing for a distributed road network. By allowing the simulation to scale to multiple machines would mean larger and more detailed simulations could be run. But at the same time keeping the ability for simulations to be run on a single machine, so that smaller simulations would not need to worry about consistency and distribution issues.
-	
-	Although the team decided that it would be detrimental to provided such functionality within the original project, due to time constraints and a limited number of iterations, and that it would be more productive to focus on the more fundamental aspects of Traffic Simulation software so that our imagined customers would have access to usable software as early as possible.
-	
-	However, because the team recognized the importance of overcoming the scalability problem they made it a goal to allow for future developers to introduce distributed deployment with as little complication as possible.
-	
-	The fundamental road network data structure kept the transitions between different roads and junctions as simple and lightweight as possible allowing those same transitions to be carried out over a network by introducing a transfer protocol to mimic the transition.\\
-	
-	\item \textbf{Agent Programming for Vehicle behaviour:}
-	\\
-	
-	One of the key decisions made by the team was to focus on creating a Model-View-Controller architecture for the system. This, however, limited the scope for introducing independent \textit{agent based} behaviour for the vehicles being modelled.
-	
-	It was recognised that allowing for the introduction of independent agent behaviour could be crucial to future iterations of the project, if taken on by other development teams. As Traffic Simulation of greater complexity would require software agents to model the independent nature of vehicle users on a real road.
-	
-	For this reason, the team decided on an abstract design for \textit{vehicles}. Creating this abstraction would allow our implementation of vehicles to be swapped out for a more complex agent based implementation.\\
-	
-	\item \textbf{Machine Learning for Vehicle Behaviour and Data Analysis:}
-	\\
-	
-	A further improvement to Vehicle behaviour could be found by utilizing machine learning.
-	
-	Again, because of the flexible approach the team took, it would be convenient for a future development team to take over and add machine learning to the vehicle behaviour. Also because of the well documented nature of the source code and the \textit{Clean Code} \cite{MartinRC08} approach the team took, a new team could understand the current state of the project and make improvements without first having to slog through and decipher the current state.
-	
-	As well as Vehicle behaviour, the Analytical side of the Traffic Simulator could be improved with machine learning tools.
-	
-	@TODO - Perhaps add some more stuff here?\\
-	
-	\item \textbf{User defined Maps:} 
-	\\
-	
-	Due to iteration constraints, it was decided that the working product at the end of the final development cycle should only contain maps predefined by the team. This allowed the team to present a demonstration of a useful and working product.
-	
-	The team did however realise that the Traffic Simulators potential would be greatly diminished if users could not add and create their own maps. On further iterations, it would be possible and productive to create a feature for generating a users own map.
-	
-	Because of the evident usefulness of this feature, the team made efforts to allow integration to be a simple as possible. The intuitive way that maps are created as a data structure, and the convenient way that maps are translated and drawn by the visualisation component, mean that future development teams have an easier time of implementing user maps.\\
-	
-	
-	\item \textbf{Integration with Third party APIs for Maps:} 
-	\\
-	
-	Following on from user generated maps, a component that allows the Traffic Simulator to be integrated with pre existing map software could be very useful. If a user could select a section of Google Maps and have the features of that map parsed into a data structure usable by the Simulator. Users would have the ability to create and run simulations on existing road networks with greater simplicity than if they had to construct maps themselves.
-	
-	Combining a component for users to create and edit their own maps with a feature for extracting maps from pre existing map software would allow users to re engineer road networks, to simulate potential improvements to real life road systems.
-	
-\end{enumerate}
-
-	
-\subsection{Peer Assessment}
-@TODO
-	%In a simple table, allocate the 100 ‘points’ you are given to each team member. Valid values range from 0 to 100 inclusive. You may assign decimal values, but the entire points must add up to precisely 100. As stated at the beginning of the project, when awarding points to each member it would based on contribution, ...below is the grade table for each member totalling up to 100. 
-\\As stated in the initial report peer assessment would be based on how much each team member was able to contribute based on their individual skills.	
-\begin{center}
-	\begin{tabular}[!htb]{|m{4cm}||m{0.9cm}|}
-		\hline
-		\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{ \textbf{Peer Assessment}} \\  \hline
-		 & 20\\  \hline
-		 & 20 \\  \hline
-		 & 20 \\  \hline
-		 & 20 \\  \hline
-		& 20\\  \hline
-		& 100\\  \hline
-	\end{tabular}
-\end{center}	
-\newpage
-
-
-\bibliography{main}
-\bibliographystyle{plain}
-
-
-\newpage
-
-\section{Appendices} % ALL THE EXTRA STUFF.
-
-\subsection{Project Risk Table}
-@TODO
-\subsection{Class Diagrams}
-@TODO
-\subsection{Package Diagram}
-@TODO
-\subsection{Live Application}
-@TODO
-\subsection{Gantt Chart}
-@TODO
-\end{document} %END OF REPORT
-=======
-\documentclass[11pt]{article}
-\usepackage[a4paper,pdftex]{geometry}
-\usepackage[english]{babel}
-\usepackage{xcolor,enumitem} 
-\usepackage{graphicx}
 \usepackage{tabu}
 \usepackage{longtable}
 \usepackage{array} % for m[{x cm} in tables
@@ -934,16 +403,88 @@ Table~\ref{table:TestingTable} illustrates the bugs that were found within the s
 	\end{table}
 \end{center}
 
-\subsection{Lessons Learned and Challenges} 
-%How did you do relative to your plan?
-@TODO
+\pagebreak
+\subsection{Lessons Learned and Challenges}
 
+The team feels that participating in the project was a very productive experience. It allowed team members to gain a first hand understanding of the techniques, concepts, and practices that are common in professional Software Development. It also allowed team members to put into practice the engineering and computing skills they have been learning about, to complete a meaningful project. 
+
+However there were several aspects which the team feels lessons could be learned from.
+These can be broken down into two categories, Engineering lessons and Teamwork lessons.
+
+\paragraph{Engineering}
+
+Engineering lessons involve things the team learned from the design, architecture, implementation, and testing of the code.
+
+\begin{enumerate}
+	
+	\item \textbf{Overreach:}
+	
+	One of the most common lessons learned on computing projects is trying to do too much within a constrained period of time. It is understandable that, given a green field project, imaginative developers would be tempted to create expansive and open ended pieces of software. Unfortunately these projects tend to be bogged down with unnecessary components and a general sense of trying to do too much. This is a pitfall that the team is partially guilty of falling into. 
+	
+	At the beginning of the project, there was an optimistic feeling that the team could build a piece of traffic software comparable to commercially or academically available software. After a while of working on the project, it was decided that some of the \textit{would like to have} aspects should be dropped in favour of a more workable approach.
+	
+	The iterative Scrum style methodology \cite{website:Scrum-Alliance} the team adopted for development worked well in allowing us to respond to our changing goal. As after our first iteration we were able to see our overreach and realign our development goals. As our iterations progressed we were able to better understand our own abilities and limitations yet still create working piece of usable software at the end of each iteration.
+	
+	The main learning point of overreach is to set realistic constraints, but to allow for change. So that as your team creates software they are able to take advantage of new developments and progress not only the project but also their own abilities.
+	
+	\item \textbf{Vagueness of specification:}
+	
+	Similar to the problem of overreach is that of Vague Specification. Because the project had an open specification, it was the team's responsibility to whittle it down to a specific system. Initially the team was too vague about what they wanted their traffic simulator to be, too vague about the functional and non-functional requirements, too vague about what the team wanted to achieve with their product.
+	
+	The team believes that their Agile approach \cite{website:Agile-Manifesto} to development helped alleviate this issue. Because of the initial uncertainty over the purpose of the simulator, Agile helped them to refine their goals by emphasizing responsiveness over planning. Through successive iterations, the team was able to \textit{test the water} and get a feel for what purpose the project should achieve. To avoid \textit{scope creep} it was necessary for the team to be disciplined in remembering the agile principle of working software, and not introduce excess scope if \textit{'you ain't gonna need it'}.
+	
+	This wasn't a case of hacking a project together \textit{ad-hoc}. But a case of the team recognizing being in the situation of attempting a project with uncertain or undefined specification, and researching an established methodology for tackling these kinds of project. Then being pragmatic about adapting the methods to suit our needs.
+	
+	\item \textbf{Principles of Software Engineering}
+	
+	One of the things that helped the group overcome uncertainty in the project was to be faithful to a number of Software Engineering Principles that have become established within the Object Orientated software community. Following practices such as SOLID \cite{website:Principles-of-OOD} would allow the team to create a reusable, flexible, and robust code base, meaning that as the iterations went on the project would not need to be re-written with each slight change in desired outcome.
+	
+	Many of the early abstractions decided on by the team were clean and reusable. Such as the abstraction that a \textit{'Road'} is just an environment that a \textit{'Vehicle'} can be on, or that a traffic management \textit{'Policy'} is a rule or set of rules to be plugged into a simulation. These early abstractions allowed the team to be adaptive, in the beginning the team wanted an agent based Vehicle, however as the project developed they switched to a MVC based Vehicle. Because the Vehicle had a sound abstraction as simply an entity in an environment that moves from place to place, it was easily to substitute the \textit{'smart'} agent to a \textit{'dumb'} controlled object based vehicle, whilst allowing for future developers to extend the Vehicle abstraction into a more intelligent agent.
+	
+	Unfortunately, there were times in which the team was unable to avoid falling into bad habits and poor practices. A number of \textit{code smells} became apparent, for example the hard coding of algorithms for Junction behaviour which require large cyclomatic complexity. An excess of duplicated code. As well as the problem of \textit{contrived complexity}, by forcing design patterns into the code where perhaps there could be a simplified design. Some of the \textit{code smells} are recoverable through refactoring, code review, and extra documentation. The team is aware that these were practices they did not follow as well as they should.
+	
+	Another Agile principle followed by the team was that of Test Driven Development (TDD) \cite{website:Intro-TDD}. The team extensively used functional testing to verify the implementation of their work. By following a cycle of 
+	
+	Write Tests - Run Tests - \textbf {\textit{FAIL}} - Write code - Run Tests - \textbf {\textit{PASS}}. 
+	
+	The team was able to continually verify that their implemented algorithm logic, and object design decisions were as intended by the coders.
+	
+	The team was able to use it's extensive test suites in regression testing, by making sure that historical tests still passed after integrating components from more recent iterations.
+	
+	It could be noted that TDD was not utilized as extensively as could have been. However, many Agile practitioners would suggest that these methodologies are simply guidelines to be followed to the extent that they contribute to the project, and that you shouldn't attempt to \textit{force} them into projects that they don't fit into. The team felt that this was the most suitable approach to take. To use testing to fulfil the needs of the project rather than to force testing into areas that the team didn't think suited it. Despite not following TDD explicitly for some areas of the simulator, the team still used testing to verify and check those areas for example Visual testing was used for verification of the visual elements.
+	
+	
+	Following more closely the principles of software engineering
+	
+	TDD, BDD, SOLID 
+	
+	
+\end{enumerate}
+
+\paragraph{Teamwork}
+
+Teamwork lessons are those learned from the trial and error of working with others to complete a project that would be too big for each of us as individuals.
+
+\begin{enumerate}
+	
+	\item \textbf{Communication}
+	
+	Importance of communication
+	
+	Team communicated very well from the start, overcame constraints like time difference of classes and location by using tech and having a good sense of proirity.
+	
+	\item \textbf{Division of Work}
+	
+	
+	
+	
+\end{enumerate}
 
 \subsubsection{Group Work Lessons Learned}
 %What we learnt about group work and working together
 @TODO
 
-	
+\pagebreak
 \subsection{Future Work} 
 %How the project could be extended
 One of the most challenging aspects of any project is imagining what could be done, if the project was taken up by another team of engineers after the original team moves on to pastures new.
@@ -953,9 +494,15 @@ They can be broken down into two categories. Engineering improvements and Data g
 
 \paragraph{Engineering}
 Engineering improvements involve changes to the system Software that could better utilize engineering principals and practices.
+
+\paragraph{Data}
+Data based improvements involve giving the user greater control or access to the data generated by the simulation.\\
+
 \begin{enumerate}
+	
 	\item \textbf{Parallelism:}
-	\\~\\
+	\\
+	
 	Parallelism has emerged as an important concept in engineering, and more specifically in traffic simulation. Liu \cite{website:phy-ntnu-traffic-simulation} makes parallelism the key purpose of their project. Taking advantage of machines with multiple cores could allow for faster and more detailed simulations to be run. Perhaps by allowing vehicles or other objects within the simulation to be built as individual threads which would allow vehicles to act independently and concurrently within a map. Also by separating out the concerns of data gathering and simulation, if different threads were responsible for either aspect they could be more specialised.
 	
 	However it also requires more attention to detail when designing and writing code. As you must take care to synchronise shared data items to avoid pitfalls like deadlock and race conditions. This increased burden was one of the reasons the team decided against parallelization in their original project.
@@ -963,18 +510,72 @@ Engineering improvements involve changes to the system Software that could bette
 	The project's use of Java as it's primary programming language would allow future developers a convenient way into introducing parallelism. Java includes native, as well as third party, support for parallelism, such as the Fork/Join framework\cite{LeaForkJoin} as well as the new Java 8 Streams functionality\cite{website:Oracle-Java-8}, as well as native control libraries for concurrency controls.
 	
 	The modular approach the team took to designing the system architecture also facilitates the introduction of parallelism, because different modules could be parallelised independently.
-	\\While the Test Driven Development approach would allow iterative introduction of parallelisation with the capacity to test if the new developments fit in with the accepted functionality tested in the original test suites.
+	\\While the Test Driven Development approach would allow iterative introduction of parallelisation with the capacity to test if the new developments fit in with the accepted functionality tested in the original test suites.\\
 	
-	\item \textbf{Use of External Libraries:}
-	\\ Another future improvement would be to include libraries and code from outside sources. Most notably, visualisation and data gathering and analysis tools. Visualisation tools could improve the user experience by allowing a more immersive interaction with the simulation. The visualisation provided by the TransModeler Project project \cite{website:caliper.com-transmodeler} is a good example of how improving visualisation is key to an enjoyable, productive, and useful piece of Traffic Simulation software.
-	\item \textbf{Distibuted Road Network:}
-	\item \textbf{User defined maps:} 
-	\\@TODO
-	\\add user designed maps
-	\item \textbf{Integration with Third party APIs:} 
-	\\@TODO
-	\\add draw maps from google maps API or something similar
+	\item \textbf{External Libraries:}
+	\\
+	
+	Another future improvement would be to include libraries and code from outside sources. The team decided early on that because one constraint of the project was for it to be \textit{the teams own work}, and because no credit would be received from using other's work, that the team would use as few external tools as possible, thus to avoid conflict. 
+	
+	Most notably, visualisation and data gathering and analysis tools could be used. Visualisation tools could improve the user experience by allowing a more immersive interaction with the simulation. Because of the team's Model-View-Controller approach to the architecture, and because the team followed software principles of separation of responsibilities, it would be easy for future developers to introduce other visualisation modules to the project.
+	
+	The visualisation provided by the TransModeler Project project \cite{website:caliper.com-transmodeler} is a good example of how improving visualisation is key to an enjoyable, productive, and useful piece of Traffic Simulation software.
+	\\ Data gathering could be improved by using something like Log4j \cite{website:Apache-Log4j} to log and collect data from simulations. Data analysis could be improved by utilizing external libraries such as Apache Spark.
+	
+	The teams decision to use Java is key to the extensibility of the project. Java has a rich history of third party libraries being designed and built with 'free' software licenses, so that others can use them in their own work and avoid reinventing the wheel.
+	
+	The team's architectural design, which focuses on reusabilty, substitutability, and scalability would give future developers the opportunity to come in and introduce a wide variety of tools with very little code re-writing.\\
+	
+	\item \textbf{Distributed Road Network:}
+	\\
+	
+	One of the original \textit{would like to have} aims of the project was to counter some of the scalability problems of other Traffic Simulation software \cite{SewWilMer10} by providing for a distributed road network. By allowing the simulation to scale to multiple machines would mean larger and more detailed simulations could be run. But at the same time keeping the ability for simulations to be run on a single machine, so that smaller simulations would not need to worry about consistency and distribution issues.
+	
+	Although the team decided that it would be detrimental to provided such functionality within the original project, due to time constraints and a limited number of iterations, and that it would be more productive to focus on the more fundamental aspects of Traffic Simulation software so that our imagined customers would have access to usable software as early as possible.
+	
+	However, because the team recognized the importance of overcoming the scalability problem they made it a goal to allow for future developers to introduce distributed deployment with as little complication as possible.
+	
+	The fundamental road network data structure kept the transitions between different roads and junctions as simple and lightweight as possible allowing those same transitions to be carried out over a network by introducing a transfer protocol to mimic the transition.\\
+	
+	\item \textbf{Agent Programming for Vehicle behaviour:}
+	\\
+	
+	One of the key decisions made by the team was to focus on creating a Model-View-Controller architecture for the system. This, however, limited the scope for introducing independent \textit{agent based} behaviour for the vehicles being modelled.
+	
+	It was recognised that allowing for the introduction of independent agent behaviour could be crucial to future iterations of the project, if taken on by other development teams. As Traffic Simulation of greater complexity would require software agents to model the independent nature of vehicle users on a real road.
+	
+	For this reason, the team decided on an abstract design for \textit{vehicles}. Creating this abstraction would allow our implementation of vehicles to be swapped out for a more complex agent based implementation.\\
+	
+	\item \textbf{Machine Learning for Vehicle Behaviour and Data Analysis:}
+	\\
+	
+	A further improvement to Vehicle behaviour could be found by utilizing machine learning.
+	
+	Again, because of the flexible approach the team took, it would be convenient for a future development team to take over and add machine learning to the vehicle behaviour. Also because of the well documented nature of the source code and the \textit{Clean Code} \cite{MartinRC08} approach the team took, a new team could understand the current state of the project and make improvements without first having to slog through and decipher the current state.
+	
+	As well as Vehicle behaviour, the Analytical side of the Traffic Simulator could be improved with machine learning tools.
+	
+	@TODO - Perhaps add some more stuff here?\\
+	
+	\item \textbf{User defined Maps:} 
+	\\
+	
+	Due to iteration constraints, it was decided that the working product at the end of the final development cycle should only contain maps predefined by the team. This allowed the team to present a demonstration of a useful and working product.
+	
+	The team did however realise that the Traffic Simulators potential would be greatly diminished if users could not add and create their own maps. On further iterations, it would be possible and productive to create a feature for generating a users own map.
+	
+	Because of the evident usefulness of this feature, the team made efforts to allow integration to be a simple as possible. The intuitive way that maps are created as a data structure, and the convenient way that maps are translated and drawn by the visualisation component, mean that future development teams have an easier time of implementing user maps.\\
+	
+	
+	\item \textbf{Integration with Third party APIs for Maps:} 
+	\\
+	
+	Following on from user generated maps, a component that allows the Traffic Simulator to be integrated with pre existing map software could be very useful. If a user could select a section of Google Maps and have the features of that map parsed into a data structure usable by the Simulator. Users would have the ability to create and run simulations on existing road networks with greater simplicity than if they had to construct maps themselves.
+	
+	Combining a component for users to create and edit their own maps with a feature for extracting maps from pre existing map software would allow users to re engineer road networks, to simulate potential improvements to real life road systems.
+	
 \end{enumerate}
+
 
 	
 \subsection{Peer Assessment}
