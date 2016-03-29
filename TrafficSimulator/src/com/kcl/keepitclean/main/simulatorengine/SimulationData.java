@@ -44,6 +44,12 @@ public class SimulationData {
 		return avg;		
 	}
 	
+	public int convertSessionDuration(int iteration){
+		iteration = iteration/3;
+		return iteration;
+	}
+	
+	
 	public int getVehicleCounter() {
 		return vehicleCounter;
 	}
@@ -63,7 +69,7 @@ public class SimulationData {
 		return successVehicle;
 	}	
 	public int getSessionDuration(){
-		return sessionDuration;
+		return convertSessionDuration(sessionDuration);
 	}
 	
 	public void setSimulationData(SimulatorEngine simulation){
