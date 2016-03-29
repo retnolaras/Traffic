@@ -60,7 +60,7 @@ The application will be developed in Java technology and managed using Agile met
 
 Within the constraints of time and resources, the project's scope includes:
 \begin{itemize}[noitemsep]
-\item Controlled Map & Road network: User can choose multiple map options to simulate
+\item Controlled Map \& Road network: User can choose multiple map options to simulate
     \begin{itemize}[noitemsep]
 	\item Junction: Simulate within a crossroad with 2 multi-lane and multi-direction roads. There is traffic light control at the crossroad.
 	\item Town: Simulate within a larger town area which is a more complicated road network, including multiple roads, junctions, traffic lights. 
@@ -157,7 +157,7 @@ One of the traffic simulators reviewed was by Namekawa et al \cite{NameUeda05}. 
 
 From this system, the group got an insight to how to build the road network for a traffic simulation.  We also created different types of lanes to accommodate the traffic lane change. MiddleLane as the center line, LeftLane and RightLane as the side line. 
 
-The other paper that reviewed was by Sewall et al \cite{SewWilMer10j}. They modeled detailed 3D animations and visualization of traffic flows, fast method for efficient simulations of large-scale, real-world networks of traffic using continuum dynamics that maintains discrete vehicle information to display each vehicle.
+The other paper that reviewed was by Sewall et al \cite{SewWilMer10}. They modeled detailed 3D animations and visualization of traffic flows, fast method for efficient simulations of large-scale, real-world networks of traffic using continuum dynamics that maintains discrete vehicle information to display each vehicle.
 Sewall approached this by adapting a single-lane continuum flow model to handle multi-lane traffic by introducing a novel model of lane changes and using a discrete visual representation for each vehicle and then compared the result with agent-based methods. [I don't know what we got from here?]
 
 
@@ -183,54 +183,79 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
         \begin{figure}[h]
         \includegraphics[width=16cm]{usecase} \caption{Use Case} \label{uc}
         \end{figure}
-        \item Detailed Requirements 
+        \item Functional Requirements 
         \begin{itemize}
-            \item Controlled Map & Road network: User can choose multiple map options to simulate
+            \item Road Network:
+                \begin{itemize}
+                    \item Road: Must support multiple lanes and different traffic directions 
+                    \item Junctions: Must support different types of intersections such as Crossroad, T junctions 
+                    \item Traffic Light: traffic lights operate following  defined traffic policy for traffic light timing and state flow.
+                    
+                    
+                    
+                \end{itemize}
+            \item Controlled Map: Allow users to choose map options to simulate:
                  \begin{itemize}[noitemsep]
 	                    \item Junction: Simulate within a crossroad with 2 multi-lane and multi-direction roads. There is traffic light control at the crossroad.
 	                    \item Town: Simulate within a larger town area which is a more complicated road network, including multiple roads, junctions, traffic lights. 
-                    	\item Scalability: the program should allow adding more map options easily as required. 
+	                    \item Scalability: the program should allow adding more map options easily as required. 
+                    	
 	
     	\end{itemize}
 
-        \item Vehicles: Simulate multiple types of vehicles, which include at least cars and ambulances (emergency vehicle) and at least three classes of driver’s behaviours (reckless, cautious, normal).
-
+        \item Vehicles: Multiple types of vehicles (Car, Bus, Emergency). 
+            \begin{itemize}
+                \item Car: drawn in BLUE on GUI
+                \item Bus: drawn in RED on GUI
+                \item Emergency: drawn in WHITE on GUI
+            \end{itemize}
+       
+        
+        \item Drivers' Behaviours: Reckless, Cautious, Normal:
+        Reckless: drive faster than speed limit 20\%
+        ;Cautious: drive slower than speed limit 20\%
+        ;Normal: drive within +-10\% speed limit
+        
         \item Policy: the application must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy. The application provides users options to define the policy to be simulated:
             \begin{itemize}
                 \item Default: default policy, which has speed limit 60mph and traffic light timing of 10s for Green Light/Red Light/Amber Light
                 \item Random: User can simulate the policy which is randomly regenated within the user-defined range
                 \item Customised: User can manually enter value for the policy.
-    \end{itemize}
+            \end{itemize}
 
-\item Simulation engine: must test the policies with different types of vehicles and drivers' behaviours in different levels of traffic density.
-\item Report: Must provide the statistics and calculates metrics  for each simulation session as above.
-\end{itemize}
-
+        \item Simulation engine: 
+        \begin{itemize}
         
-    \end{itemize}
-     Develop a simulation engine for testing traffic management
-	policies
-	\begin{itemize}[noitemsep]
-	\item Should simulate individual vehicles (cars, coaches, buses etc.)
-	operating in different parts of a road network (e.g. roundabouts,
-	multi-lane junctions).
-	\item Consider where vehicles enter road network and where they
-	leave it.
-	\item Consider individual behaviours (e.g. reckless, cautious, normal).
-	\item Consider timing of journeys (based on purpose and patterns of
-	use).
-	\item Consider support for emergency services (e.g. prioritise
-	ambulances at traffic lights).
-	\item Allow different traffic management policies to be plugged in and
-	compared.
-	\item Decide on a time granularity for the simulation (e.g. 10 seconds).
-	\item Each tick of the simulation clock will require all parts of the
-	simulation to update.
-	\item The simulation engine will record vehicle positions, new entries
-	and exits and any other data and then update the state before
-	moving to the next tick.
-	\end{itemize}
-	
+        \item Simulate different types of vehicles in user-defined simulation configurations:
+            \begin{itemize}
+            \item Defined Policy: Speed Limit and Traffic Lights Timing
+            \item Traffic Density:
+                \begin{itemize}
+                \item HIGH: 50\% possibility there is a new vehicle generated in each simulation step
+                 \item NORMAL: 30\% possibility there is a new vehicle generated in each simulation step
+                
+                \item LOW: 10\% possibility there is a new vehicle generated in each simulation step
+                \end{itemize}
+            \item Selected Map
+            
+            
+            \end{itemize}
+        
+        \item Check the traffic context to make decision whether vehicles go straight, turn right, turn left, 3-point turn, increase speed, reduce speed or stop
+        \end{itemize}
+        
+        
+       
+        \item Report: Must provide the statistics and calculates     metrics  for each simulation session. The metrics includes:
+        \begin{itemize}
+        \item Number of vehicles exited: 
+        \
+        \end{itemize}
+        
+        
+        \end{itemize}
+
+
     
     {\bf{Non-Functional Requirements:}} \newline
     
@@ -413,10 +438,18 @@ What is vehicle
 \subsubsection{Session Manager}
 The Session Manager is the software component in charge of the session steps notifications. 
 It was designed to be a monolithic component who launches notifications to any other when an arbitrary time period has passed, we will refer to this time as step. In order to accomplish the most appropriate design patterns to use are the Singleton and the Observer pattern.
-The Session Manager component is divided into two parts. One is the Session.java and the SessionManager.java. 
-The first file has the class who represents the actual object who keeps track of when a step has passed. It contains the thread safe mechanisms to increase and decrease the step size, so an external component may modify the size when convenient, allowing to speed up or slow down the beating of steps. It also contains a condition who allows an external component to pause the beating. The Session class inherits from the Java API class Observer. This means it has the pattern within ready to be used, therefore anyone could subscribe and start listening the Session notifications (the steps). For all the previous reasons, a Session object is meant to be run in its own thread, therefore it implements the Runnable interface.
-The second file is the actual Session Manager. It works as the only entry point to any component who wants to know about the session steps. In order to ensure this, it follows the Singleton pattern. The Session Manager is the only object who knows about the Session, this means it is the only one able to create an instance of a Session thread. The Session Manager exposes the Session API in a thread safe manner when needed. Whenever a components ask the Session Manager to start a Session, it launches a new Session thread if there is none already running. When a session is stopped, the Session Manager
+The Session Manager component is divided into two parts. One is the Session.java and the SessionManager.java.
 
+\begin{figure}[h]
+        \includegraphics[width=14cm]{Picture3} 
+        \centering
+        \caption{Class Diagram: Session Manager}
+        \label{cdsm}
+\end{figure}
+
+The first file has the class who represents the actual object who keeps track when a step has passed. It contains the thread safe mechanisms to increase and decrease the step size, so an external component may modify the size when convenient, allowing to speed up or slow down the beating of steps. It also contains a condition who allows an external component to pause the beating. The Session class inherits from the Java API class Observer. This means it has the pattern within ready to be used, therefore anyone could subscribe and start listening the Session notifications (the steps). For all the previous reasons, a Session object is meant to be run in its own thread, therefore it implements the Runnable interface.
+
+The second file is the actual Session Manager. It works as the only entry point to any component who wants to know about the session steps. In order to ensure this, it follows the Singleton pattern. The Session Manager is the only object who knows about the Session, this means it is the only one able to create an instance of a Session thread and subscribes to it. The Session Manager exposes the Session API in a thread safe manner when needed. Whenever a components ask the Session Manager to start a Session, it launches a new Session thread if there is none already running. When a session is stopped, the Session Manager interrupts the Session thread safely. The Session Manager class inherits from the Java API class Observer, therefore allows to the components to listen notifications from the Session thread through it.
 
 \subsubsection{Simulator Engine}
         
@@ -451,7 +484,7 @@ We used Trello for the project management. Tasks in each iterations breaks down 
 
 In initial planning, we intend to have biweekly meeting, on Monday and Thursday. However, during development phase, we had a meeting almost three or four times a week, and increased to meet five to six times a week starting in iteration 3. We used the whatsapp group to arranged the meeting time and place. 
 
-We used sharelatex to edit our final report together. This collaboration application work better than what we did for our initial report. We divided our part for the initial report into two groups, project description and project organisation. We then worked it separately and combined it in Github. This method appeared to created a lot of problem. We had a lot of document conflicts, from five people doing the edit the same file. Sharelatex is a good solution for this problem, since the group can collaborate in parallel and stimultaniously. 
+We used sharelatex to edit our final report together. This collaboration application work better than what we did for our initial report. We divided our part for the initial report into two groups, project description and project organisation. We then worked it separately and combined it in Github. This method appeared to created a lot of problem. We had a lot of document conflicts, from five people doing the edit the same file. Sharelatex is a good solution for this problem, since the group can collaborate in parallel and simultaneously. 
 
 \subsection{Work Load Division:}
 Since the project will be relatively of small to medium size, in our initial planning, we decided that the group will facilitate job rotation at every iteration of development. This will be done to increase depth and breadth of understanding of the project by all members, as well as allow for a more flexible work distribution. In our first iteration we divided the tasks to 5 important components, such as Session Manager, Vehicle, Policy, Road, and GUI.
