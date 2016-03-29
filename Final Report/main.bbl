@@ -1,4 +1,8 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{website:Scrum-Alliance}
+Scrum Alliance.
+\newblock Why scrum?, 2016.
 
 \bibitem{website:Apache-Log4j}
 Apache.
@@ -26,6 +30,10 @@ J.~Sewall D. Wilkie P. Merrell M.~C. Lin.
 Kelly Liu.
 \newblock phy-edu-traffic-simulation
   http://www.phy.ntnu.edu.tw/oldjava/others/trafficsimulation/applet.html.
+
+\bibitem{website:Agile-Manifesto}
+Cunningham M Beck K Martin R~Fowler M.
+\newblock The agile manifesto, 2001.
 
 \bibitem{MartinRC08}
 R~C. Martin.
