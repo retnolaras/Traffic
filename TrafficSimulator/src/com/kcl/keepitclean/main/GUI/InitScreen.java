@@ -92,7 +92,8 @@ public class InitScreen extends Application {
 					pscene.cb5.setDisable(true);
 					pscene.cb6.setDisable(true);
 
-					pscene.updateReport(simulationData);
+					//pscene.updateReport(simulationData);
+					pscene.resetReport();
 
 				}
 

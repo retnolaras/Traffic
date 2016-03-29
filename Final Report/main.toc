@@ -25,14 +25,17 @@
 \contentsline {subsection}{\numberline {5.1}Work Load Division:}{8}
 \contentsline {section}{\numberline {6}Evaluation}{8}
 \contentsline {subsection}{\numberline {6.1}Testing}{8}
-\contentsline {subsection}{\numberline {6.2}Lessons Learned and Challenges}{8}
-\contentsline {subsubsection}{\numberline {6.2.1}Group Work Lessons Learned}{9}
-\contentsline {subsection}{\numberline {6.3}Future Work}{9}
-\contentsline {paragraph}{\numberline {6.3.0.1}Engineering}{9}
-\contentsline {subsection}{\numberline {6.4}Peer Assessment}{10}
-\contentsline {section}{\numberline {7}Appendices}{12}
-\contentsline {subsection}{\numberline {7.1}Project Risk Table}{12}
-\contentsline {subsection}{\numberline {7.2}Class Diagrams}{12}
-\contentsline {subsection}{\numberline {7.3}Package Diagram}{12}
-\contentsline {subsection}{\numberline {7.4}Live Application}{12}
-\contentsline {subsection}{\numberline {7.5}Gantt Chart}{12}
+\contentsline {subsection}{\numberline {6.2}Lessons Learned and Challenges}{9}
+\contentsline {paragraph}{\numberline {6.2.0.1}Engineering}{9}
+\contentsline {paragraph}{\numberline {6.2.0.2}Teamwork}{11}
+\contentsline {subsubsection}{\numberline {6.2.1}Group Work Lessons Learned}{11}
+\contentsline {subsection}{\numberline {6.3}Future Work}{12}
+\contentsline {paragraph}{\numberline {6.3.0.1}Engineering}{12}
+\contentsline {paragraph}{\numberline {6.3.0.2}Data}{12}
+\contentsline {subsection}{\numberline {6.4}Peer Assessment}{15}
+\contentsline {section}{\numberline {7}Appendices}{17}
+\contentsline {subsection}{\numberline {7.1}Project Risk Table}{17}
+\contentsline {subsection}{\numberline {7.2}Class Diagrams}{17}
+\contentsline {subsection}{\numberline {7.3}Package Diagram}{17}
+\contentsline {subsection}{\numberline {7.4}Live Application}{17}
+\contentsline {subsection}{\numberline {7.5}Gantt Chart}{17}
