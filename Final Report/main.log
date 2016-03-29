@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.4)  29 MAR 2016 16:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.4)  29 MAR 2016 17:10
 entering extended mode
 **./main.tex
 (main.tex
@@ -355,10 +355,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 235--236
  []
 
 [8]
-
-LaTeX Warning: Reference `fig:Planning' on page 9 undefined on input line 285.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 279--286
 
  []
@@ -686,29 +682,74 @@ Overfull \hbox (138.0191pt too wide) in paragraph at lines 30--33
 .edu.tw/oldjava/others/trafficsimulation/applet.html. 
  []
 
-) [23] [24] (main.aux)
+) [23] <Picture1.png, id=85, 480.8364pt x 489.9906pt>
+File: Picture1.png Graphic file (type png)
+ <use Picture1.png>
+Package pdftex.def Info: Picture1.png used on input line 705.
+(pdftex.def)             Requested size: 188.21288pt x 191.79836pt.
+
+<Picture2.png, id=87, 715.9548pt x 336.7782pt>
+File: Picture2.png Graphic file (type png)
+ <use Picture2.png>
+Package pdftex.def Info: Picture2.png used on input line 711.
+(pdftex.def)             Requested size: 188.21288pt x 88.5315pt.
+
+<Picture3.png, id=88, 596.9502pt x 225.4824pt>
+File: Picture3.png Graphic file (type png)
+ <use Picture3.png>
+Package pdftex.def Info: Picture3.png used on input line 717.
+(pdftex.def)             Requested size: 188.21288pt x 71.0927pt.
+
+<Picture4.png, id=89, 356.532pt x 542.025pt>
+File: Picture4.png Graphic file (type png)
+ <use Picture4.png>
+Package pdftex.def Info: Picture4.png used on input line 723.
+(pdftex.def)             Requested size: 227.63022pt x 170.71396pt.
+
+<Picture5.png, id=90, 882.1758pt x 463.9734pt>
+File: Picture5.png Graphic file (type png)
+ <use Picture5.png>
+Package pdftex.def Info: Picture5.png used on input line 729.
+(pdftex.def)             Requested size: 188.21288pt x 98.98773pt.
+
+<Picture6.png, id=91, 370.986pt x 348.3414pt>
+File: Picture6.png Graphic file (type png)
+ <use Picture6.png>
+Package pdftex.def Info: Picture6.png used on input line 735.
+(pdftex.def)             Requested size: 188.21288pt x 176.72159pt.
+
+Overfull \hbox (237.70226pt too wide) in paragraph at lines 699--737
+[][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 52.3037pt on input line 739.
+
+[24] [25 <./Picture1.png> <./Picture2.png> <./Picture3.png> <./Picture4.png> <.
+/Picture5.png> <./Picture6.png>] (main.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4431 strings out of 493634
- 65013 string characters out of 3141315
- 152059 words of memory out of 3000000
- 7784 multiletter control sequences out of 15000+200000
- 9208 words of font info for 32 fonts, out of 3000000 for 9000
+ 4477 strings out of 493634
+ 65727 string characters out of 3141315
+ 152188 words of memory out of 3000000
+ 7823 multiletter control sequences out of 15000+200000
+ 9507 words of font info for 33 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 44i,12n,42p,938b,370s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,17n,49p,938b,436s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/P
 rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Prog
-ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on main.pdf (25 pages, 221187 bytes).
+ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program 
+Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on main.pdf (26 pages, 721052 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
+ 132 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
