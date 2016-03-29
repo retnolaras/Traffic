@@ -7,6 +7,8 @@ package com.kcl.keepitclean.main.GUI;
 
 import com.kcl.keepitclean.main.simulatorengine.SimulationData;
 import java.awt.Font;
+import java.text.DecimalFormat;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -521,12 +523,15 @@ public class GUIComponents extends BorderPane{
     public void updateReport(SimulationData report){
         //lblTotalVehiclesValue.setText("100");
         //lblSuccessfulVehicleValue.setText(Integer.toString(report.trafficEstimation()));
+    	
+    	DecimalFormat df = new DecimalFormat("####0.00");
+    	
     	lblTotalVehiclesValue.setText(Integer.toString(report.getVehicleCounter()));
     	lblSuccessfulVehicleValue.setText(Integer.toString(report.getSuccessVehicles()));
     	lblCrashValue.setText("0");
-    	lblAverageSpeedValue.setText(Double.toString(report.getAverageSpeed()));
+    	lblAverageSpeedValue.setText(df.format(report.getAverageSpeed()));
     	lblSessionDurationValue.setText(Integer.toString(report.getSessionDuration()));
-    	lblTrafficEstimationValue.setText(Double.toString(report.getTrafficEstimation()));
+    	lblTrafficEstimationValue.setText(df.format(report.getTrafficEstimation()));
     	
     /*    
         
