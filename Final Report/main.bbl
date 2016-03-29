@@ -40,6 +40,10 @@ R~C. Martin.
 \newblock {\em Clean Code: A handbook of agile software craftmanship}.
 \newblock Prentice Hall, 2008.
 
+\bibitem{website:Principles-of-OOD}
+Martin R.
+\newblock Principles of object orientated design, 2005.
+
 \bibitem{NameUeda05}
 M.~Namekawa F. Ueda Y. Hioki Y. Ueda~A. Satoh.
 \newblock General purpose road traffic simulation system with a cell automaton
