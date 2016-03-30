@@ -22,8 +22,9 @@ public class SimulationData {
 		
 	}
 
-	private double calculateTrafficEstimation(int numberofvehicle, int totallanes) {
-		double estimation = numberofvehicle * (totallanes * 0.003) * 365;
+	private double calculateTrafficEstimation(int numberofvehicle, int totallanes, int sessionDuration) {
+		int numberOfVehiclePerDay = numberofvehicle * 86400 / sessionDuration;
+		double estimation = numberOfVehiclePerDay * (totallanes * 0.003) * 365;
 		return estimation;
 	}
 
@@ -49,7 +50,6 @@ public class SimulationData {
 		return iteration;
 	}
 	
-	
 	public int getVehicleCounter() {
 		return vehicleCounter;
 	}
@@ -69,7 +69,7 @@ public class SimulationData {
 		return successVehicle;
 	}	
 	public int getSessionDuration(){
-		return convertSessionDuration(sessionDuration);
+		return sessionDuration ;
 	}
 	
 	public void setSimulationData(SimulatorEngine simulation){
@@ -82,8 +82,9 @@ public class SimulationData {
 		  {
 			totalLanes += roadList.get(i).getNumberOfLanes();  
 		  }		
-		trafficEstimation = calculateTrafficEstimation(vehicleCounter, totalLanes);
-		sessionDuration = simulation.getIteration();
+		
+		sessionDuration = convertSessionDuration(simulation.getIteration());
+		trafficEstimation = calculateTrafficEstimation(vehicleCounter, totalLanes, sessionDuration);
 		successVehicle = simulation.getSuccessVehicle();
 		
 	}
