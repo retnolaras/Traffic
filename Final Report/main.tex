@@ -180,7 +180,7 @@ One of the main motives for building microscopic traffic flow models is that to 
 
 The concept of building smaller microscopic road unit and then building up to a network was something that was widely implemented in out project; we first implemented separate components such as a road, and an intersection and end up constructing a network map.
 
-Other works focused on finding methods to improve the efficiency and effectiveness of the simulation, such as the research constructed by Sewall et al \cite{SewWilMer10}. Thier paper modeled detailed 3D animations and visualization of traffic flows, fast method for efficient simulations of large-scale, real-world networks of traffic using continuum dynamics that maintains discrete vehicle information to display each vehicle.
+Other works focused on finding methods to improve the efficiency and effectiveness of the simulation, such as the research constructed by Sewall et al \cite{SewWilMer10}. Their paper modeled detailed 3D animations and visualization of traffic flows, fast method for efficient simulations of large-scale, real-world networks of traffic using continuum dynamics that maintains discrete vehicle information to display each vehicle.
 Sewall approached this by adapting a single-lane continuum flow model to handle multi-lane traffic by introducing a novel model of lane changes and using a discrete visual representation for each vehicle and then compared the result with agent-based methods. 
 
 Although this was not directly relevant to our project since we neither planned to implement lane changes and 3D modelling, but it made us more conscious about our decisions about flow and speed of the simulation.
@@ -283,15 +283,18 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
     
     {\bf{Non-Functional Requirements:}} 
     \begin{itemize}
-    \item Scalability: The design and implementation of the software must support the system scalability to a more complicated map and traffic scenarios. 
+    \item Scalability: The design and implementation of the software must support the system scalability
+    
     \item Performance: The simulation session must not halt due to low performance
+    
     \item Reliability: Must achieve at least 90\% reliability. The system must not crash in all cases.
+    
     \item Maintainability: Must follow Java best practices and coding standards. 
     
     \end{itemize}
    
       \subsubsection{Product Roadmap}
-  From the system requirements, the product roadmap is as table below. The features are prioritised as MUST HAVE or SHOULD HAVE. MUST HAVE features must be delivered within the project scope whereas SHOULD HAVE features can be skipped if they do not fit within project time and resources  constraints.
+  From the system requirements, the product roadmap is as table below. The features are prioritised as MUST HAVE or SHOULD HAVE. MUST HAVE features must be delivered in the project whereas SHOULD HAVE features can be skipped if they do not fit within project time and resources  constraints.
   
       \begin{table}[H]
        
@@ -337,7 +340,7 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
     \end{table}
     
     
-        The milestone for each iteration and the functional requirement that we want to deliver can be seen in Table \ref{table:iteration} below. The class diagram from planning phase can be seen in Appendices figure \ref{fig:Planning}.
+    The iteration plan to deliver these features is as below:
     
     \begin{table}[H]
 		
@@ -369,7 +372,7 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
 		& FT-29 & FT-30 && \\ \hline
 	
 		\end{tabular}
-		\caption{Project Iteration (Planning phase)}
+		\caption{Iteration Plan}
 		\label{table:iteration} 
 		\end{table}
 		
@@ -384,38 +387,6 @@ In this section we will discuss the design process for this project. after the f
 We also strictly followed a modular approach; 'Car', 'bus'  and 'Emergency vehicles' are all subclasses of vehicle. left, right, center lanes are all subclasses of the Abstract Lane class.Road networks are made up of roads and junctions, Roads are made up of lanes, lanes of lane sections.
 
 Our design and architecture also allows for extendability and scalability. Multiple lane mechanisms can easily be implemented. More driver behaviours can also be defined by editing the driver behaviour class and implementing the appropriate logic for each new behaviour in the Engine Although maps cannot be dynamically generated, but they are read by the engine dynamically.
-
-
-
-
-
-\begin{center}
-% \begin{table}[!htb]
-
-		
-% 		\centering % used for cantering table
-% 		\begin{tabular}{|p{1.8cm}|p{5cm}|p{1.2cm}|p{5cm}|} % centered columns
-% 		\hline\hline %inserts double horizontal lines
-% 		Milestone & Deliverable & Date & Dependant Upon \\ [0.5ex] % heading
-% 		\hline
-		
-% 		1st Report & Intermediate Report complete (Iteration 0) & Feb 9 & Intermediate Planning and Initial Progress\\[1ex]
-		
-% 		Initial & Application Ready (Iteration 1) & Feb 18 & First iteration of bugs fixed. Iteration 1 features implemented. Program ready for unit test.  \\ [1ex]
-		
-% 		Mid & Application Ready (Iteration 2) & Mar 3 &  Second iteration of bugs fixed. Iteration 2 features implemented. Program ready for unit test.\\ [1ex]
-		
-% 		Pre-Final & Application ready (Iteration 3) & Mar 17 & All features and bugs fixed. Program finalised. \\[1ex]
-		
-% 		Final & Report complete and application ready (Iteration 4)  & Mar 31 & Completion of packaging and program. Final report ready. All testing done. \\[1ex] % [1ex] adds vertical space
-% 		\hline
-% 		\end{tabular}
-% 		\caption{Planning: Project Milestones} % title of Table
-% 		\label{table:milestones} % used to refer this table in the text
-% 	\end{table}
-
-
-\end{center}
  
  %insert class diagram
 	
@@ -449,12 +420,7 @@ Simulation Engine as the Controller, Vehicle, Policy and Road Network as the Mod
 
 \subsection{Development}
 \subsubsection{GUI}
-GUI component provides interface for user interactions (user settings, actions); visualises simulation on screen. GUI is implemented using JavaFX. The class diagram of GUI is as below:
-    \begin{figure}[H]
-        \includegraphics[width=16cm]{GUI} 
-        \caption{GUI Class Diagram } 
-        \label{gui}
-    \end{figure}
+GUI component provides interface for user interactions (user settings, actions); visualises simulation on screen. GUI is implemented using JavaFX. The class diagram of GUI can be seen in Appendices Figure \ref{cdgui}.
     
 The GUI consists of 3 main panes: Simulation Pane to visualise the simulation; User Settings Pane for user settings and interactions; Report Pane to display the simulation report. 
 
@@ -532,13 +498,22 @@ The Road Network for the Traffic Simulator had to be both more complex, but to m
     
     Constructor based Dependency Injection is used to introduce a LaneFactory that the RoadFactory uses to populate the Road implementations with LaneSections.
     
-    The RoadFactory is responsible for producing Road implementations, it does this by providing a produceRoad method
+    The RoadFactory is responsible for producing Road implementations, it does this by providing a produceRoad method. The method is kept as simple as possible, to create a road the user must only provide the type of road they want, the length they want their road to be, and the width they want their road to be. The complexity of creation is kept hidden from users by using private methods which deal with initialising and populating internal data structures with individual LaneSections.
 
     \paragraph{Junction}
+    
+    Junctions represent the nodes of the RoadNetwork graph. This is where there is the most difference between a Traffic simulator network and a communication network occurs. Because in a communication network node, the node can be a black box where packets can just appear at their entrance connection and reappear at their destination connection. However for a RoadNetwork the internals of a junction are a complicated and interesting feature, because different routes across a junction share internal positions within a junction and vehicles must have some recognition of how to behave with this potential for crossover.
+    
+    A Junction is modelled on the real world behaviour of vehicles at a junction and the information provided by road signs at junctions to drivers. The Junction is abstracted to a Junction interface, the interface provides a single public \textit{produceRoute} method. The method is intended to work in the same way as a driver approaching a real world Junction and planning their route across the Junction by reading road signs. The driver knows where they are when they enter the Junction, and where they want to be when they leave the Junction.
+    
+    To simulate this interesting behaviour, Junctions are represented as collections of LaneSections. Different routes through the Junction may share LaneSections. For example a vehicle going from left to right, would cross over with a vehicle going from top to bottom, if they were going over a cross road style junction.
+    
     \begin{itemize}[noitemsep]
-    \item \textbf{PrePlannedRouteJuntion:} this  
-    \item \textbf{TrafficLight:} this
-    \item \textbf{TrafficLightWrapper:} this
+    \item PrePlannedRouteJuntion: The team provided a Junction implementation that has routes through it prePlanned on creation of each instance of the Junction. The Junction is created by providing the input and output roads that a Junction node must connect by passing them to a constructor. The Junction then creates an ordered collection of LaneSections that vehicles must follow to go from a certain entry point to a certain exit point. The Junction keeps track of these using a map structure. Where the key is a string concatenation of the coordinates of a vehicles entry and exit roads and the value is the list of LaneSections to be followed.
+    
+    One of the most difficult parts of the project was deciding how to model and create Junctions. In the end the team could not find a solution for dynamically creating linking nodes for roads of varying number and varying size. The decision was taken to hard code an algorithm implementation that solved the problem for a particular case, Roads with only a single lane. However it did allow the team to prove the concept that a node c
+    
+    \item \textbf{TrafficLight:} @TODO
     \end{itemize}
     
 \subsubsection{Vehicle}
@@ -609,6 +584,32 @@ The Context is meant to be updated by the Simulation Engine at every step when a
 The methodology to calculate the road traffic estimation we derived from annual series of road traffic estimation that published by the Department for Transport. We simplified and did several adjustment to our simulation data to get the estimation number. Department of Transport uses manual traffic counts. this data then combined with information from a network of automatic traffic counter (ATCs) to calculate a series of annual average daily flows (AADF) for each count point. These daily flows then combined with road lengths to calculate the number of vehicle miles travelled each year by vehicle types, road category and region. In the document AADF major and minor road are separated as traffic volume is calculated differently for major and minor roads, however, for our calculation we use the simulation data. For every tick represent as 1/3 second, so then we multiply each session duration with 86400 (number of second per day) to simulate 24 hours traffic. 
 To convert the AADFs into traffic volume we multiply AADF with the link length, we then multiply it by the number of days in the year (365) to get an annual total. Link length is the total length of the network road link in km. For each lane section that we have, we decided that it will represent 3 meter in real life. Therefore, the link length calculate that from the number of lane section in the map and we multiply it by 0.003 km. 
 \end{itemize}.
+
+\subsection{Testing} 
+%Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
+Test unit with JUnit. Test app with Black Box. 
+Table~\ref{table:TestingTable} illustrates the bugs that were found within the system during black box testing tested by a random user and the team:
+\begin{center}
+	\begin{table}[!htb]
+	\begin{tabular}{|m{7cm}|m{7cm}|}
+		 \hline
+		\multicolumn{2}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{JUnit Testing}} \\ \hline 
+		 \centering \textbf{Class} & \textbf{Status}\\\hline
+		 LaneSection & 
+		 \includegraphics[width=\textwidth]{TestLaneSection}
+		 
+		 \\ \hline
+		 Policy & \\ \hline
+		 Road & \\ \hline
+		 SimulationData & \\ \hline
+		 Vehicle & \\ \hline
+		 
+		
+	\end{tabular}
+	\caption{Testing Table}
+		\label{table:TestingTable}
+	\end{table}
+\end{center}
 	
 \subsection{Development Adjustment}
 Several functions that we planned to initially the didnt make due to time constraint, and since they were marked as law priority
@@ -642,10 +643,6 @@ One issue discovered by the team was the difficulty with adequately breaking dow
 	
 For a number of sub sections this worked well, with team members being able to work on sub tasks that had originally been created by another team member. However for others there was a \textit{developer lock in} effect, whereby the team member who had originally created the task was the only one able to understand or continue developing it. For a project of this size with intuitively separable sub projects, this was not immediately a problem. As the siloing meant that each team member was effectively the \textit{Scrum Manager} for their own sub project. However the team can foresee this issue becoming more apparent as the project scales or expands. If more developers were brought in, or the project was passed on to another team, or if at some point it was taken up by future developers. The new developers could risk falling into the same silos, which for a larger project would be more problematic. The team made efforts to alleviate this issue through things like adding documentation and providing a good readme file, to give newcomers a better understanding of the code and how the project is structured.
 
-
-	
-\end{enumerate}
-
 	
 \section{Evaluation} %Critically evaluate your project: what worked well, and what didn’t? how did you do relative to your plan? what changes were the result of improved thinking and what changes were forced upon you? how did your team work together? etc. Note that you need to show that you understand the weaknesses in your work as well as its strengths. You may wish to identify relevant future work that could be done on your project.
 \begin{enumerate}
@@ -657,25 +654,7 @@ For a number of sub sections this worked well, with team members being able to w
 	\\@TODO
 \end{enumerate}
 
-\subsection{Testing} 
-%Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
-@TODO
-\\Test unit with JUnit. Test app with Black Box. 
-Table~\ref{table:TestingTable} illustrates the bugs that were found within the system during black box testing tested by a random user and the team:
-\begin{center}
-	\begin{table}[!htb]
-	\begin{tabular}{|m{7cm}|m{7cm}|}
-		 \hline
-		\multicolumn{2}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{Black Box Testing}} \\ 
-		\hline 
-		 \centering \textbf{Bug} & \textbf{Status}\\\hline
-		 &  \\  \hline
-		
-	\end{tabular}
-	\caption{Testing Table}
-		\label{table:TestingTable}
-	\end{table}
-\end{center}
+
 
 \pagebreak
 \subsection{Lessons Learned and Challenges}
@@ -857,10 +836,7 @@ For the purpose of peer assessment, the team has devised four criteria by which 
  
 
 \begin{itemize}
-
-
-
-	\item  \textbf{Punctuality/ Availability}
+\item  \textbf{Punctuality/ Availability}
 	\subitem Showing up for meetings and joint coding sessions on time, as well as submitting required work on time.
 	Making oneself available for pair/group design, coding, and testing sessions.
 	
@@ -873,30 +849,30 @@ For the purpose of peer assessment, the team has devised four criteria by which 
 	
 	\item \textbf{Quality}
 	
-	\subitem Deliver products with good quality. Quality is defined as: meeting functional and non-functional requirements; following best practices and coding standards. 
+	\subitem Delivering products with good quality. Quality is defined as: meeting functional and non-functional requirements; following best practices and coding standards. 
 	Quality-oriented mindset is expected, where team members always attempt the best effort to deliver the best product. 
 	
 
 \end{itemize}
-This eThe peer assessment result is as below:
+The peer assessment process provides the team members  peer feedback about their strength and areas of improvement regarding working in a project. This is a valuable source for our personal development. The peer assessment result is as below:
 
 \begin{table}[H]
     \centering
     \begin{tabular}{p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}}
          \textbf{Name} & \textbf{Punctuality 
-                                Availability} &  \textbf{Teamwork} & \textbf{Innovation  Pro-activity} & \textbf{Quality} &\textbf{Total}  \\ \hline
-         Retno Larasati &&&&             \\ \hline
-         Ian Galna Johnson &&&&            \\ \hline
-         Thi Thanh Huong Ngo &&&&&       \\ \hline   
-         Daniel Arturo Mendoza Hernandez &&&&&  \\ \hline
-         Abdelrahman Hamdy Hassan  &&&&  \\ \hline
+                                Availability} &  \textbf{Teamwork} & \textbf{Innovation  Pro-activity} & \textbf{Quality} &\textbf{Average}  \\ \hline
+         Retno Larasati & 5 & 5 & 5 & 5   & 5           \\ \hline
+         Ian Galna Johnson &5 & 5 & 5 & 5 & 5           \\ \hline
+         Thi Thanh Huong Ngo & 5 & 5 & 5 & 5 & 5       \\ \hline   
+         Daniel Arturo Mendoza Hernandez & 5 & 5 & 5 & 5 & 5  \\ \hline
+         Abdelrahman Hamdy Hassan  & 5 & 5 & 5 & 5  & 5 \\ \hline
     \end{tabular}
     \caption{Per Assessment}
     \label{tab:assessment}
 \end{table}
 
 \textbf{Final Score Distribution} \newline
-Though each team member has their own strength and weaknesses. But all team members have worked their best in the project and brought valuable contribution to the project. Therefore, we decided to award each team member the same score distribution which is 20\% each. 
+All team members have worked their best in the project and brought valuable contribution to the project. Therefore, we decided to award each team member the same score distribution which is 20\% each. 
 
 \begin{table}[H]
     \centering
@@ -909,8 +885,8 @@ Though each team member has their own strength and weaknesses. But all team memb
          Abdelrahman Hamdy Hassan  & 20\%  \\ \hline
          Total & 100\% \\
     \end{tabular}
-    \caption{Per Assessment}
-    \label{tab:assessment}
+    \caption{Final Score Distribution}
+    \label{tab:finalscore}
 \end{table}
 
 	
@@ -928,7 +904,7 @@ Though each team member has their own strength and weaknesses. But all team memb
 \subsection{Project Risk Table}
 @TODO
 \subsection{Class Diagrams}
-\begin{figure}[!h]
+\begin{figure}[H]
 \begin{tabular}{cc}
 		\subfloat[User Diagram]{
 		    \setlength{\fboxsep}{0pt}%
@@ -971,12 +947,66 @@ Though each team member has their own strength and weaknesses. But all team memb
 		\label{fig:Planning}
 \end{figure}
 
-\subsection{Package Diagram}
-@TODO
+\begin{figure}[H]
+        \includegraphics[width=10cm]{GUI} 
+        \centering
+        \caption{Class Diagram GUI } 
+        \label{cdgui}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=12cm]{junction} 
+        \centering
+        \caption{Class Diagram Road Network: Junction} 
+        \label{cdjunction}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=12cm]{road} 
+        \centering
+        \caption{Class Diagram Road Network: Road} 
+        \label{cdroad}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=12cm]{laneSection} 
+        \centering
+        \caption{Class Diagram Road Network: Lane Section} 
+        \label{cdlane}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=12cm]{policy} 
+        \centering
+        \caption{Class Diagram Road Network: Policy} 
+        \label{cdpolicy}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=14cm]{vehicle} 
+        \centering
+        \caption{Class Diagram Vehicle} 
+        \label{cdvehicle}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=12cm]{session} 
+        \centering
+        \caption{Class Diagram Session Manager} 
+        \label{cdsessionmanager}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=14cm]{simulatorengine} 
+        \centering
+        \caption{Class Diagram Simulator Engine} 
+        \label{cdsimulatorengine}
+\end{figure}
+
+
 \subsection{Live Application}
-@TODO
-\subsection{Gantt Chart}
-@TODO
+
+
 \end{document} %END OF REPORT
 
 % rosiengo & 2016-03-15 & updated Map \\ \hline
