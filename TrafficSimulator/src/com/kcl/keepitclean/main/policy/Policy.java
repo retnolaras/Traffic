@@ -129,9 +129,5 @@ public int getAmberTrafficLightTime(){
 public int getRedTrafficLightTime(){
     return this.trafficLight.red;
 }
-private static void resetPolicy()
-{
-    instance = null;
-}
 
 }

@@ -51,8 +51,6 @@ public class SimulatorEngine implements Observer {
 	private List<Integer> speedList;
 	private static final ArrayList<Position> exitPoints = new ArrayList<>();
 
-
-
 	private Point vehicleStartCoord = new Point(35 + Constant.VEHICLE_LEFT_MARGIN, 0);
 
 	// private LaneFactory laneFactory;
@@ -69,7 +67,7 @@ public class SimulatorEngine implements Observer {
 	private Policy policy;
 	private int sessionDuration;
 	private TrafficDensity trafficDensity = TrafficDensity.NORMAL;
-	private ArrayList<Boolean> userSelectionEntryPoints ;
+	private ArrayList<Boolean> userSelectionEntryPoints;
 
 	public SimulatorEngine(Object simulatorGUI) {
 
@@ -87,7 +85,7 @@ public class SimulatorEngine implements Observer {
 		vehicleList = Collections.synchronizedList(new ArrayList<>());
 		junctionList = new ArrayList<>();
 		trafficLightList = new ArrayList<>();
-		userSelectionEntryPoints= new ArrayList<>();
+		userSelectionEntryPoints = new ArrayList<>();
 
 		// listofspeed
 		speedList = new ArrayList<>();
@@ -97,62 +95,60 @@ public class SimulatorEngine implements Observer {
 
 		vehicleFactory = new VehicleFactory();
 
-
 	}
 
-	
-	//entry point at the start of a session.
+	// entry point at the start of a session.
 	public void init() {
-		
-		//load roads
+
+		// load roads
 		roadList = map.getRoads();
 		for (Road road : roadList) {
 			context.addRoad(road);
 		}
-		//load junctions
+		// load junctions
 		junctionList = map.getJunctions();
 		for (Junction junction : junctionList) {
 			context.addJunction(junction);
 		}
 
-		//add Junctions to junctionList, store their index
+		// add Junctions to junctionList, store their index
 		for (int i = 0; i < junctionList.size(); i++) {
 			Junction junction;
 			junction = junctionList.get(i);
 			junction.setIndex(i);
 			context.addJunction(junction);
 		}
-		
-		//load traffic lights
+
+		// load traffic lights
 		trafficLightList = map.getTrafficLights();
 		for (TrafficLight trafficLight : trafficLightList) {
 			trafficLight.activate();
 			context.addTrafficLight(trafficLight);
 		}
-		
-		//load user-defined user entry points
-		userSelectionEntryPoints= userSettings.getEntryPoints();
+
+		// load user-defined user entry points
+		userSelectionEntryPoints = userSettings.getEntryPoints();
 		if (userSettings.getMapType() == MapType.TOWN) {
 
-			if(userSelectionEntryPoints.get(0))
+			if (userSelectionEntryPoints.get(0))
 				entrancePoints.add(new Position(0, 0, 0));
 
-			if(userSelectionEntryPoints.get(1))
+			if (userSelectionEntryPoints.get(1))
 				entrancePoints.add(new Position(6, 0, 0));
 
-			if(userSelectionEntryPoints.get(2))
+			if (userSelectionEntryPoints.get(2))
 				entrancePoints.add(new Position(12, 0, 0));
 
-			if(userSelectionEntryPoints.get(3))
+			if (userSelectionEntryPoints.get(3))
 				entrancePoints.add(new Position(18, 0, 0));
 
-			if(userSelectionEntryPoints.get(4))
+			if (userSelectionEntryPoints.get(4))
 				entrancePoints.add(new Position(29, 0, 0));
 
-			if(userSelectionEntryPoints.get(5))
+			if (userSelectionEntryPoints.get(5))
 				entrancePoints.add(new Position(31, 0, 0));
 
-			//load exit points
+			// load exit points
 			exitPoints.add(new Position(1, 0, 29));
 			exitPoints.add(new Position(7, 0, 29));
 			exitPoints.add(new Position(13, 0, 29));
@@ -160,17 +156,17 @@ public class SimulatorEngine implements Observer {
 			exitPoints.add(new Position(28, 0, 29));
 			exitPoints.add(new Position(30, 0, 29));
 		} else {
-			if(userSelectionEntryPoints.get(0))
+			if (userSelectionEntryPoints.get(0))
 				entrancePoints.add(new Position(0, 0, 0));
 
-			if(userSelectionEntryPoints.get(1))
-				entrancePoints.add(new Position(7,0,0));
+			if (userSelectionEntryPoints.get(1))
+				entrancePoints.add(new Position(7, 0, 0));
 
-			if(userSelectionEntryPoints.get(2))
-				entrancePoints.add(new Position(5,0,0));
+			if (userSelectionEntryPoints.get(2))
+				entrancePoints.add(new Position(5, 0, 0));
 
-			if(userSelectionEntryPoints.get(3))
-				entrancePoints.add(new Position(2,0,0));
+			if (userSelectionEntryPoints.get(3))
+				entrancePoints.add(new Position(2, 0, 0));
 
 			exitPoints.add(new Position(1, 0, 79));
 			exitPoints.add(new Position(3, 0, 59));
@@ -181,8 +177,7 @@ public class SimulatorEngine implements Observer {
 
 		System.out.println("<SimulatorEngine> Got Road List"); // test line
 
-		
-		//set freq variable according to user-defined traffic density
+		// set freq variable according to user-defined traffic density
 		if (userSettings.getTrafficDensity() == TrafficDensity.HIGH) {
 			freq = 0.3f;
 		}
@@ -206,8 +201,6 @@ public class SimulatorEngine implements Observer {
 		return this.renderer;
 	}
 
-
-
 	public void startSimulation() {
 
 		init();
@@ -227,17 +220,18 @@ public class SimulatorEngine implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//access a random entrance point
-		
+		// access a random entrance point
+
 		Random generator = new Random();
 		int temp = generator.nextInt(entrancePoints.size());
 		Position startingPos = new Position();
 		startingPos.update(entrancePoints.get(temp).getMode(), entrancePoints.get(temp).getRoad(),
 				entrancePoints.get(temp).getLane(), entrancePoints.get(temp).getLaneSection());
 
-		// (first iteration) Generate Car, assign its position to be the starting Position.
+		// (first iteration) Generate Car, assign its position to be the
+		// starting Position.
 		if (iteration == 0) {
-			
+
 			Vehicle car;
 			car = vehicleFactory.getVehicle(VehicleType.CAR); // generate a car
 
@@ -251,22 +245,22 @@ public class SimulatorEngine implements Observer {
 
 			System.out.println("<SimulatorEngine>First Car Generated"); // test
 
-		}
-		else if (isPositionEmpty(startingPos)) {
+		} else if (isPositionEmpty(startingPos)) {
 			generateCar(startingPos); // generates car at starting point with
 			// factor 'freq'
 			System.out.println("<SimulatorEngine>Car Generated"); // test line
 		}
-		
+
 		renderer.render();
 
-		// (for all other iterations)iterate on all cars, move car only if LookAhead is true
+		// (for all other iterations)iterate on all cars, move car only if
+		// LookAhead is true
 		for (int i = 0; i < vehicleList.size(); i++) {
 
 			System.out.println("<SimulatorEngine>iterating on car number " + i); // test
 
 			// if the car is on a junction
-			if (vehicleList.get(i).getOnJunction() &&  vehicleList.get(i).getPos().getMode()==1) {
+			if (vehicleList.get(i).getOnJunction() && vehicleList.get(i).getPos().getMode() == 1) {
 
 				List<LaneSection> path = new ArrayList<>();
 				// Check if next position is empty
@@ -279,7 +273,7 @@ public class SimulatorEngine implements Observer {
 				nextPositionIndex++;
 				// check if car has reached end of the route
 
-				if (nextPositionIndex == 2 ) {
+				if (nextPositionIndex == 2) {
 					vehicleList.get(i).setOnJunction(false);
 
 					int nextRoadIndex = vehicleList.get(i).getNextRoadIndex();
@@ -289,15 +283,14 @@ public class SimulatorEngine implements Observer {
 					vehicleList.get(i).resetPIndex();
 					continue;
 
-
 				}
 
-				if(vehicleList.get(i).getPath().get(nextPositionIndex).hasVehicleOnSeciton()){
+				if (vehicleList.get(i).getPath().get(nextPositionIndex).hasVehicleOnSeciton()) {
 					continue;
 				}
 
 				// if vehicle still on path
-				if (i< vehicleList.size()  && nextPositionIndex< vehicleList.get(i).getPath().size()
+				if (i < vehicleList.size() && nextPositionIndex < vehicleList.get(i).getPath().size()
 						&& !vehicleList.get(i).getPath().get(nextPositionIndex).hasVehicleOnSeciton()) {
 					Position newPos = new Position(1, roadList.get(roadIndex).getEndJunction().getIndex(),
 							path.get(0).getJunctionGridIndex(), 0);
@@ -315,7 +308,6 @@ public class SimulatorEngine implements Observer {
 
 			}
 
-
 			if ((!reachedEnd(vehicleList.get(i))) && lookAhead(vehicleList.get(i).getPos(), 5)) {
 
 				// first check if there is a traffic light
@@ -326,36 +318,33 @@ public class SimulatorEngine implements Observer {
 
 					int vehicleSpeed = vehicleList.get(i).getSpeed();
 					int speedModifier = 0;
-					
-					//based on the speed, move the car
-					
-					if(vehicleSpeed > 1){
+
+					// based on the speed, move the car
+
+					if (vehicleSpeed > 1) {
 						Road r = roadList.get(vehicleList.get(i).getPos().getRoad());
 						List<LaneSection> lsList = ((ListOfListsRoadImpl) r).getLaneSectionsOfRoad().get(0);
 
-						if(vehicleSpeed == 2 && 
-								(vehicleList.get(i).getPos().getLaneSection() == lsList.size() - 2 )){
+						if (vehicleSpeed == 2 && (vehicleList.get(i).getPos().getLaneSection() == lsList.size() - 2)) {
 
 							speedModifier = 1;
 
-						} else if(vehicleSpeed == 3 &&
-								(vehicleList.get(i).getPos().getLaneSection() == lsList.size() - 3 )) {
+						} else if (vehicleSpeed == 3
+								&& (vehicleList.get(i).getPos().getLaneSection() == lsList.size() - 3)) {
 
 							speedModifier = 1;
 
-						} else if(vehicleSpeed == 3 &&
-								(vehicleList.get(i).getPos().getLaneSection() == lsList.size() - 2 )){
+						} else if (vehicleSpeed == 3
+								&& (vehicleList.get(i).getPos().getLaneSection() == lsList.size() - 2)) {
 
 							speedModifier = 2;
 
 						}
 					}
 
-					newPos.update(vehicleList.get(i).getPos().getMode(), 
-							vehicleList.get(i).getPos().getRoad(),
-							vehicleList.get(i).getPos().getLane(), 
-							vehicleList.get(i).getPos().getLaneSection() + vehicleList.get(i).getSpeed() - speedModifier);
-
+					newPos.update(vehicleList.get(i).getPos().getMode(), vehicleList.get(i).getPos().getRoad(),
+							vehicleList.get(i).getPos().getLane(), vehicleList.get(i).getPos().getLaneSection()
+									+ vehicleList.get(i).getSpeed() - speedModifier);
 
 					moveWrapper(vehicleList.get(i).getPos(), newPos, i);
 					System.out.println(
@@ -365,7 +354,6 @@ public class SimulatorEngine implements Observer {
 				}
 
 			}
-
 
 			int roadIndex = vehicleList.get(i).getPos().getRoad();
 
@@ -415,8 +403,6 @@ public class SimulatorEngine implements Observer {
 				} else
 					continue;
 
-
-
 			} else if (reachedEnd(vehicleList.get(i))) {
 				// if a car reached end of the road , remove it and free its
 				// position
@@ -429,21 +415,22 @@ public class SimulatorEngine implements Observer {
 
 		}
 		iteration++;
-		if(sessionDuration > 0 &&
-				iteration == sessionDuration){
+		if (sessionDuration > 0 && iteration == sessionDuration) {
 
 			SessionManager.getInstance().pauseSession();
 		}
 	}
 
-	
 	/*
-	 *moveWrapper function, moves the car and marks the old position as empty.
-	 *@param pos Position is the old Position of the car
-	 *@param newPos Position is the new Position of the car
-	 *@param vehicleIndex int the index of the car in the vehicleList
+	 * moveWrapper function, moves the car and marks the old position as empty.
+	 * 
+	 * @param pos Position is the old Position of the car
+	 * 
+	 * @param newPos Position is the new Position of the car
+	 * 
+	 * @param vehicleIndex int the index of the car in the vehicleList
 	 */
-	
+
 	private void moveWrapper(Position pos, Position newPos, int vehicleIndex) {
 		// inform context about the change
 		Point debugPoint = context.moveVehicle(vehicleList.get(vehicleIndex), newPos);
@@ -455,16 +442,15 @@ public class SimulatorEngine implements Observer {
 		vehicleList.get(vehicleIndex).getPos().update(newPos.getMode(), newPos.getRoad(), newPos.getLane(),
 				newPos.getLaneSection());
 
-
 		fillSection(newPos);
 
 	}
 
-	
-/*
- *fillSection: Marks a lane section as occupied by a vehicle. 
- *@param newPos Position is the position to be marked
- */
+	/*
+	 * fillSection: Marks a lane section as occupied by a vehicle.
+	 * 
+	 * @param newPos Position is the position to be marked
+	 */
 	private void fillSection(Position newPos) {
 
 		if (newPos.getMode() != 1) {
@@ -479,16 +465,15 @@ public class SimulatorEngine implements Observer {
 			// Road is the junction
 			Vehicle vehicle = vehicleList.get(0);
 			junctionList.get(newPos.getRoad()).getSectionsOfJunction().get(newPos.getLane())
-			.putVehicleOnSection(vehicle);
+					.putVehicleOnSection(vehicle);
 
 		}
 	}
-	
-	
-	
+
 	/*
-	 *emptySection: Marks a lane section as not containing any vehicles. 
-	 *@param Pos Position is the position to be marked
+	 * emptySection: Marks a lane section as not containing any vehicles.
+	 * 
+	 * @param Pos Position is the position to be marked
 	 */
 	private void emptySection(Position pos) {
 
@@ -508,13 +493,16 @@ public class SimulatorEngine implements Observer {
 	}
 
 	/*
-	 *, if it did return true;
+	 * , if it did return true;
 	 */
-	
+
 	/*
-	 *reachedEnd: Check if a car has reached an exit point 
-	 *@param vehicle Vehicle is the vehicle to be checked
-	 *@return returns true if the car has reached the end of the road, false if it didnt
+	 * reachedEnd: Check if a car has reached an exit point
+	 * 
+	 * @param vehicle Vehicle is the vehicle to be checked
+	 * 
+	 * @return returns true if the car has reached the end of the road, false if
+	 * it didnt
 	 */
 	private boolean reachedEnd(Vehicle vehicle) {
 		Road r = roadList.get(vehicle.getPos().getRoad());
@@ -530,10 +518,11 @@ public class SimulatorEngine implements Observer {
 			return true;
 	}
 
-	
 	/*
 	 * isPositionEmpty: Check if a position is empty
+	 * 
 	 * @param position Position is the position to be Checked
+	 * 
 	 * @return true if empty, false if occupied
 	 */
 
@@ -545,15 +534,17 @@ public class SimulatorEngine implements Observer {
 		return !lanes.get(position.getLaneSection()).hasVehicleOnSeciton();
 	}
 
-
-	
 	/*
 	 * lookAhead: checks if x positions ahead of the car are empty
+	 * 
 	 * @param position Position is the position to be Checked
-	 * @param posToLookAhead int , the number of steps/lanesections to be looked ahead
-	 * @return true if all x positions are empty, false if any of them are occupied
+	 * 
+	 * @param posToLookAhead int , the number of steps/lanesections to be looked
+	 * ahead
+	 * 
+	 * @return true if all x positions are empty, false if any of them are
+	 * occupied
 	 */
-
 
 	private boolean lookAhead(Position position, int posToLookAhead) {
 
@@ -567,8 +558,8 @@ public class SimulatorEngine implements Observer {
 		pos.update(position.getMode(), position.getRoad(), position.getLane(), position.getLaneSection());
 
 		Road road = roadList.get(roadIndex);
-		if(laneIndex>=1){
-			laneIndex=0;
+		if (laneIndex >= 1) {
+			laneIndex = 0;
 
 		}
 		List<LaneSection> Lane = ((ListOfListsRoadImpl) road).getLaneSectionsOfRoad().get(laneIndex);
@@ -584,10 +575,12 @@ public class SimulatorEngine implements Observer {
 		return true;
 	}
 
-
 	/*
-	 * addToActive : add a certain vehicle to activelist of vehicle, mapped to a position
+	 * addToActive : add a certain vehicle to activelist of vehicle, mapped to a
+	 * position
+	 * 
 	 * @param car Vehicle, car to be added
+	 * 
 	 * @param Pos Position, position to be mapped to vehicle
 	 */
 
@@ -597,10 +590,12 @@ public class SimulatorEngine implements Observer {
 		vehicleCounter++;
 		speedList.add(car.getSpeed());
 	}
-	
+
 	/*
-	 *GenerateCar generates a car at a certain lane given certain probability 'freq'
-	 *@param  p Position, position for car to be generated at
+	 * GenerateCar generates a car at a certain lane given certain probability
+	 * 'freq'
+	 * 
+	 * @param p Position, position for car to be generated at
 	 */
 
 	private void generateCar(Position p) {
@@ -614,7 +609,6 @@ public class SimulatorEngine implements Observer {
 		if (chance <= freq) {
 
 			Vehicle car = null;
-
 
 			int vehicleTypeChance = r.nextInt(10);
 			switch (vehicleTypeChance) {
@@ -640,8 +634,10 @@ public class SimulatorEngine implements Observer {
 	}
 
 	/*
-	 * CarOnPath  : function that links a car to a certain junction path
-	 * @param: vehicleIndex int   index of the vehicle in the vehicleList
+	 * CarOnPath : function that links a car to a certain junction path
+	 * 
+	 * @param: vehicleIndex int index of the vehicle in the vehicleList
+	 * 
 	 * @param path List<LaneSection> is the path that the car is going to go on
 	 */
 	private void carOnPath(int vehicleIndex, List<LaneSection> path) {
@@ -651,13 +647,12 @@ public class SimulatorEngine implements Observer {
 
 	}
 
-
 	// adding for SimulationData
 
 	public int getVehicleCounter() {
 		return vehicleCounter;
 	}
-	
+
 	public int getSuccessVehicle() {
 		return successVehicleCounter;
 	}
@@ -667,7 +662,7 @@ public class SimulatorEngine implements Observer {
 	}
 
 	public List<Integer> getSpeedList() {
-	return speedList;
+		return speedList;
 	}
 
 	public int getIteration() {

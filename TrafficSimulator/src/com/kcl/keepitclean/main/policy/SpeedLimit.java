@@ -13,18 +13,10 @@ public class SpeedLimit
 {
 
     public  int speedLimit;
-    //public  int straightRoad;
-    //public  int curvyRoad;
-
-   
 
     public  SpeedLimit(int speedLimit)
     {
-
-        this.speedLimit = speedLimit;
-        //this.straightRoad = straightRoadLimit;
-        //this.curvyRoad = curvyRoadLimit;
-        
+        this.speedLimit = speedLimit;   
     }
 }
 

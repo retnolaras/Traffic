@@ -15,10 +15,6 @@ public class TrafficSimulatorApplication {
 		//sEngine = new SimulatorEngine(sGUI);
 	}
 	
-	private void startSimulation(){
-		//sEngine.startSimulation();
-	}
-	
 	public static void main(String[] args) {
 		//TrafficSimulatorApplication trafficApp = new TrafficSimulatorApplication();
 		//trafficApp.startSimulation();

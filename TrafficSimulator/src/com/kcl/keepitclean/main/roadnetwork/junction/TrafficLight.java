@@ -1,14 +1,13 @@
 package com.kcl.keepitclean.main.roadnetwork.junction;
 
-import com.kcl.keepitclean.main.policy.Policy;
 import java.awt.Point;
-
-import com.kcl.keepitclean.main.roadnetwork.road.Road;
-import com.kcl.keepitclean.main.utils.Constant;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
+
+import com.kcl.keepitclean.main.policy.Policy;
+import com.kcl.keepitclean.main.roadnetwork.road.Road;
 
 
 public class TrafficLight {
@@ -56,7 +55,6 @@ public class TrafficLight {
     
     private long getDelay(){
         long delay = 0;
-        Constant constant = new Constant();
         switch(state){
             case GREEN:
                 delay = policy.getGreenTrafficLightTime() * 1_000L; // * 1000* constant.TIMER_RATIO;
@@ -102,7 +100,7 @@ public class TrafficLight {
                 setState(State.GREEN);
                 break;
             default:
-                setState(state.RED);
+                setState(State.RED);
                 break;
                 
         }
