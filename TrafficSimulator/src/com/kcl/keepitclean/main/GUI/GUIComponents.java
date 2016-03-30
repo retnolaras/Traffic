@@ -254,7 +254,7 @@ public class GUIComponents extends BorderPane{
       button_box.setPadding(new Insets(10,10,10,10));
       
      
-      button_box.getChildren().addAll(btnStart, btnTerminate, btnReport, btnIncrease, btnPause, btnResume, btnDecrease);
+      button_box.getChildren().addAll(btnStart, btnTerminate, btnIncrease, btnPause, btnResume, btnDecrease);
       blank3.setStyle("-fx-text-fill: red");
             
       policySettings.getChildren().add(blank3);
