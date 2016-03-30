@@ -10,7 +10,7 @@ import com.kcl.keepitclean.main.vehicle.Position;
 import com.kcl.keepitclean.main.vehicle.Vehicle;
 
 public interface IContext {
-	public Point moveVehicle(Vehicle vehicle, Position oldPos, Position newPos);
+	public Point moveVehicle(Vehicle vehicle, Position newPos);
 
 	public List<Road> getRoadList();
 	
