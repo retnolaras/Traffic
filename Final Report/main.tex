@@ -6,6 +6,8 @@
 \usepackage{array} % for m[{x cm} in tables
 \usepackage[lofdepth,lotdepth]{subfig}
 \usepackage{colortbl}
+\usepackage{float}
+
 
 %--- for subsubsubsection
 \usepackage{titlesec}
@@ -178,7 +180,7 @@ The concept of building smaller microscopic road unit and then building up to a 
 Other works focused on finding methods to improve the efficiency and effectivenes of the simulation, such as the research constructed by Sewall et al \cite{SewWilMer10}. Thier paper modeled detailed 3D animations and visualization of traffic flows, fast method for efficient simulations of large-scale, real-world networks of traffic using continuum dynamics that maintains discrete vehicle information to display each vehicle.
 Sewall approached this by adapting a single-lane continuum flow model to handle multi-lane traffic by introducing a novel model of lane changes and using a discrete visual representation for each vehicle and then compared the result with agent-based methods. 
 
-Although this was not directlu relevant to our project since we neither planned to implement lane changes and 3D modelling, but it made us more concious about our decisions about flow and speed of the simulation.
+Although this was not directly relevant to our project since we neither planned to implement lane changes and 3D modelling, but it made us more concious about our decisions about flow and speed of the simulation.
 
 \newpage
 \section{Requirements and Design}
@@ -284,9 +286,9 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
     \end{itemize}
    
       \subsubsection{Product Roadmap}
-  From the system requirements, the product roadmap is as below:
+  From the system requirements, the product roadmap is as table below. The features are prioritised as MUST HAVE or SHOULD HAVE. MUST HAVE features must be delivered within the project scope whereas SHOULD HAVE features can be skipped if they do not fit within project time and resources  constraints.
   
-      \begin{table}[h]
+      \begin{table}[H]
        
         \begin{tabular}{l|l}
              FEATURE & PRIORITY \\ \hline
@@ -306,20 +308,20 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
              FT14- Policy- Variable policy control& SHOULD HAVE \\ \hline
              FT15- Session Manager  & MUST HAVE \\ \hline
              FT16- Simulation Engine- get traffic context & MUST HAVE \\ \hline
-             FT16- Simulate- simulate vehicle moving straight & MUST HAVE \\ \hline
-             FT17- Simulation Engine- simulate vehicle moving at junctions& MUST HAVE \\ \hline
-             FT18- Simulation Engine- simulate vehicles at traffic lights & MUST HAVE \\ \hline
-             FT19- Simulation Engine- simulate vehicles accelerate/decelerate & SHOULD HAVE \\ \hline
-             FT20- Simulation Engine- simulate different traffic density & MUST HAVE \\ \hline
-             FT20- Simulation Engine- simulate vehicles following traffic policy & MUST HAVE \\ \hline
-             FT20- Simulation Engine- simulate different drivers' classes of behaviours & MUST HAVE \\ \hline
-             FT21- GUI- GUI Layout & MUST HAVE \\ \hline
-             FT22- GUI- User simulation settings & MUST HAVE \\ \hline
-             FT23- GUI- Draw roads & MUST HAVE \\ \hline
-             FT24- GUI - Draw junctions & MUST HAVE \\ \hline
-             FT25- GUI- Draw traffic lights & MUST HAVE \\ \hline
-             FT25- GUI- Draw vehicles & MUST HAVE \\ \hline
-             FT26- GUI- Rendering & MUST HAVE \\ \hline
+             FT17- Simulate- simulate vehicle moving straight & MUST HAVE \\ \hline
+             FT18- Simulation Engine- simulate vehicle moving at junctions& MUST HAVE \\ \hline
+             FT19- Simulation Engine- simulate vehicles at traffic lights & MUST HAVE \\ \hline
+             FT20- Simulation Engine- simulate vehicles accelerate/decelerate & SHOULD HAVE \\ \hline
+             FT21- Simulation Engine- simulate different traffic density & MUST HAVE \\ \hline
+             FT22- Simulation Engine- simulate vehicles following traffic policy & MUST HAVE \\ \hline
+             FT23- Simulation Engine- simulate different drivers' classes of behaviours & MUST HAVE \\ \hline
+             FT24- GUI- GUI Layout & MUST HAVE \\ \hline
+             FT25- GUI- User simulation settings & MUST HAVE \\ \hline
+             FT26- GUI- Draw roads & MUST HAVE \\ \hline
+             FT27- GUI - Draw junctions & MUST HAVE \\ \hline
+             FT28- GUI- Draw traffic lights & MUST HAVE \\ \hline
+             FT29- GUI- Draw vehicles & MUST HAVE \\ \hline
+             FT30- GUI- Rendering & MUST HAVE \\ \hline
              
              
              
@@ -331,6 +333,41 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
     
     
         The milestone for each iteration and the functional requirement that we want to deliver can be seen in Table \ref{table:iteration} below. The class diagram from planning phase can be seen in Appendices figure \ref{fig:Planning}.
+    
+    \begin{table}[H]
+		
+		\centering
+		%\begin{tabular}{p{2.5cm}|p{4cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
+		\begin{tabular}{|m{3cm}|m{2cm}|m{2cm}|m{2cm}|m{3cm}|}
+		\hline
+		\multicolumn{5}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{Iterations}} \\
+		\hline
+		\textbf{Iteration 0} & \textbf{Iteration 1} & \textbf{Iteration 2} & \textbf{Iteration 3}& \textbf{Iteration 4} \\ \hline
+		
+		Requirements & FT-1 & FT-3& FT-7 & System Testing\\ \hline
+		
+		System Architecture Design & FT-2 & FT-4 & FT-14 & System Bug Fixing\\ \hline
+		
+		Component Detailed Design & FT-8 & FT-5 & FT-18 & Final Report\\ \hline
+		
+		Initial Report & FT-9 & FT-6 & FT-19 & \\ \hline
+		
+		& FT-10 & FT-12 & FT-20 & \\ \hline
+		
+		& FT-11 & FT-26 & FT-23 \\ \hline
+		
+		& FT-13 & FT-17 & FT-27 &\\ \hline
+		& FT-15 & FT-21 & FT-28 &\\ \hline
+		& FT-24 & FT-22 && \\ \hline
+		& FT-25 & FT-27&& \\ \hline
+		&FT-26  & FT-28 && \\ \hline
+		& FT-29 & FT-30 && \\ \hline
+	
+		\end{tabular}
+		\caption{Project Iteration (Planning phase)}
+		\label{table:iteration} 
+		\end{table}
+		
     
     \end{itemize}
 
@@ -368,41 +405,7 @@ In this section we will discuss the design process for this project. On the firs
 % 		\label{table:milestones} % used to refer this table in the text
 % 	\end{table}
 
-\begin{table}[!htb]
-		
-		\centering
-		%\begin{tabular}{p{2.5cm}|p{4cm}|p{2.5cm}|p{2.5cm}|p{2cm}}
-		\begin{tabular}{|m{3cm}|m{2cm}|m{2cm}|m{2cm}|m{3cm}|}
-		\hline
-		\multicolumn{5}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{Iterations}} \\
-		\hline
-		\textbf{Iteration 0} & \textbf{Iteration 1} & \textbf{Iteration 2} & \textbf{Iteration 3}& \textbf{Iteration 4} \\ \hline
-		
-		Requirements & FT-1 & FT-5 & FT-7-2 & Final Report\\ \hline
-		
-		System Architecture Design & FT-2 & FT-7-1 & FT-10 & Final Bug Fixing\\ \hline
-		
-		Component Detailed Design & FT-3 & FT-14 & FT-17 & Final Testing\\ \hline
-		
-		Initial Report & FT-4 & FT-15 & FT-22 & \\ \hline
-		
-		& FT-6 & FT-20 & FT-23-2 & \\ \hline
-		
-		& FT-18 & FT-21 && \\ \hline
-		
-		& FT-19 & FT-24 & &\\ \hline
-		& FT-21 &&&\\ \hline
-		& FT-8 &&& \\ \hline
-		& FT-9 &&& \\ \hline
-		& FT-11 &&& \\ \hline
-		& FT-12 &&& \\ \hline
-		& FT-13 &&& \\ \hline
-		& FT-23-1 &&& \\ \hline
-		& FT-16 &&&\\ \hline
-		\end{tabular}
-		\caption{Project Iteration (Planning phase)}
-		\label{table:iteration} 
-		\end{table}
+
 \end{center}
  
  %insert class diagram
@@ -437,7 +440,31 @@ Simulation Engine as the Controller, Vehicle, Policy and Road Network as the Mod
 
 \subsection{Development}
 \subsubsection{GUI}
-
+GUI is implemented using JavaFX. The class diagram of GUI is as below:
+    \begin{figure}[H]
+        \includegraphics[width=16cm]{GUI} 
+        \caption{GUI Class Diagram } 
+        \label{gui}
+    \end{figure}
+    
+    \paragraph{GUIComponent}
+    This class is to layout UI components. GUIComponents extends BorderPane to set Left Pane for Simulation and Right Pane for User Settings and Report. 
+    HBox, VBox and GridPane are used to layout UI controls horizontally, vertically or in a grid. 
+    
+    As all policy settings are in integer, IntegerTextField  class which extends TextField was implemented to only allow integer number inputs.
+    
+    User inputs validation and get user inputs methods are also implemented in this class. They would be executed in InitScreen to response to user actions. 
+    
+    \paragraph{Renderer}
+    IRenderer interface is used in SimuationEngine to render simulation objects onto the GUI. render method is called on initalising the simulation and every simulation step to draw map and vehicles
+    
+    
+    
+    \paragraph{Renderer}
+    
+    
+    
+        
 \subsubsection{Road Network}
 What is road network
     \paragraph{Road}
@@ -460,6 +487,8 @@ What is road network
 \subsubsection{Vehicle}
 What is vehicle
 \textbf{Vehicle Factory}\\
+
+
 
 
 \subsubsection{Policy}        
@@ -528,8 +557,6 @@ To convert the AADFs into traffic volume we multiply AADF with the link length, 
 \subsection{Development Adjustment}
 Several functions that we planned in our iteration before that changed
 \begin{enumerate}[noitemsep]
-	\item No Vehicle Bus 
-	\item No Vehicle Emergency
 	\item No Roundabout  
 \end{enumerate}
 
@@ -624,7 +651,7 @@ Engineering lessons involve things the team learned from the design, architectur
 	
 	Another Agile principle followed by the team was that of Test Driven Development (TDD) \cite{website:Intro-TDD}. The team extensively used functional testing to verify the implementation of their work. By following a cycle of 
 	
-	Write Tests - Run Tests - \textbf {\textit{FAIL}} - Write code - Run Tests - \textbf {\textit{PASS}}. 
+	Write Tests - Run Tests - \textbf {\textit{FAIL}} \rightarrow Write code - Run Tests - \textbf {\textit{PASS}}. 
 	
 	The team was able to continually verify that their implemented algorithm logic, and object design decisions were as intended by the coders.
 	
@@ -641,6 +668,8 @@ Engineering lessons involve things the team learned from the design, architectur
 	
 \end{enumerate}
 
+
+\pagebreak
 \paragraph{Teamwork}
 
 Teamwork lessons are those learned from the trial and error of working with others to complete a project that would be too big for each of us as individuals.
@@ -659,7 +688,9 @@ Teamwork lessons are those learned from the trial and error of working with othe
 	
 	\item \textbf{Division of Work}
 	
+	One issue discovered by the team was the difficulty with adequately breaking down larger components and design choices into submodules which could be tackled as Agile tasks by any member of the team. After dividing the project into larger sub projects, the goal was to then be flexible with who completed each sub module, class, or function. The team wanted to do this, firstly to mimic the way modules are broken down into tasks in professional software development, and secondly to prevent the \textit{Silo Effect} occurring in any of the sub projects. 
 	
+	For a number of sub sections this worked well, with team members being able to work on sub tasks that had originally been created by another team member. However for others there was a \textit{developer lock in} effect, whereby the team member who had originally created the task was the only one able to understand or continue developing it. For a project of this size with intuitively separable sub projects, this was not immediately a problem. As the siloing meant that each team member was effectively the \textit{Scrum Manager} for their own sub project. However the team can foresee this issue becoming more apparent as the project scales or expands. If more developers were brought in, or the project was passed on to another team, or if at some point it was taken up by future developers. The new developers could risk falling into the same silos, which for a larger project would be more problematic. The team made efforts to alleviate this issue through things like adding documentation and providing a good readme file, to give newcomers a better understanding of the code and how the project is structured.
 	
 	
 \end{enumerate}
