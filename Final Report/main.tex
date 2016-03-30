@@ -512,16 +512,27 @@ The Road Network for the Traffic Simulator had to be both more complex, but to m
     
     LaneSection names are UK centric. In the UK drivers drive on the left hand side, meaning that a LeftLane section would be closed on the left hand side, because the left hand side would be a sidewalk, verge, or some other non-drivable piece of land.
     
-    There are several implementations for LaneSection, each representing some combination of directions
+    There are several implementations for LaneSection, each representing some combination of directions that it is possible for a vehicle to move to.
     
     \begin{itemize}[noitemsep]
-    \item \textbf{LeftLane:} this  
-    \item \textbf{RightLane:} this
-    \item \textbf{SingleLane:} this
-    \item \textbf{MiddleLane:} this  
+    \item LeftLane: Represents a Section that a vehicle can move forward or right.
+    \item RightLane: Represents a Section that a vehicle can more forward or left.
+    \item SingleLane: Represents a Section that a vehicle can move forward, backwards, left, or right.
+    \item MiddleLane: Represents a Section that a vehicle can move forward, left, or right.
     \end{itemize}
     \paragraph{Road}
-    \textbf{Road Factory}\\
+    
+    The Road's themselves are some ordered structure that a vehicle can move along. They have the responsibility of providing an ordering for LaneSections, so that vehicles are able to know what Sections are in front of them and around them.
+    
+    The ListOfLists implementation provided for Road utilizes nested, parallel Lists as a way of representing multiple Lanes on a road. With each sub List representing a continuous lane within a road. This takes advantage of indexing provided by List data structures to allow Vehicles to know their own position by getting the index of the LaneSection they occupy, then looking ahead and around them by searching the parallel Lists with their own index as a starting point.
+    
+    Building upon the standard data structures provided by the Java Collections Library allowed the team to take advantage of many years of reliable development and save time from having to develop entire data structures from scratch.
+    
+    Creating and building Roads is a complex task that was removed from the Roads themselves to improve the adherence to SOLID principles. A RoadFactory class proves the logic for creating the Road implementations.
+    
+    Constructor based Dependency Injection is used to introduce a LaneFactory that the RoadFactory uses to populate the Road implementations with LaneSections.
+    
+    The RoadFactory is responsible for producing Road implementations, it does this by providing a produceRoad method
 
     \paragraph{Junction}
     \begin{itemize}[noitemsep]
@@ -627,6 +638,14 @@ Since the project will be relatively of small to medium size, in our initial pla
 
 This strategy works perfectly fine until the end of iteration 2, but in the beginning of iteration 3, we change strategy to stop rotating the roles, and stick to the area because the deadline was approaching. The problem about this strategy is that we spend a lot of time to discuss specific logic together, rather than use the time to develop the code. We also need time to explaining the logic that the previous programmer to the next programmer. 
 
+One issue discovered by the team was the difficulty with adequately breaking down larger components and design choices into submodules which could be tackled as Agile tasks by any member of the team. After dividing the project into larger sub projects, the goal was to then be flexible with who completed each sub module, class, or function. The team wanted to do this, firstly to mimic the way modules are broken down into tasks in professional software development, and secondly to prevent the \textit{Silo Effect} occurring in any of the sub projects. 
+	
+For a number of sub sections this worked well, with team members being able to work on sub tasks that had originally been created by another team member. However for others there was a \textit{developer lock in} effect, whereby the team member who had originally created the task was the only one able to understand or continue developing it. For a project of this size with intuitively separable sub projects, this was not immediately a problem. As the siloing meant that each team member was effectively the \textit{Scrum Manager} for their own sub project. However the team can foresee this issue becoming more apparent as the project scales or expands. If more developers were brought in, or the project was passed on to another team, or if at some point it was taken up by future developers. The new developers could risk falling into the same silos, which for a larger project would be more problematic. The team made efforts to alleviate this issue through things like adding documentation and providing a good readme file, to give newcomers a better understanding of the code and how the project is structured.
+
+
+	
+\end{enumerate}
+
 	
 \section{Evaluation} %Critically evaluate your project: what worked well, and what didn’t? how did you do relative to your plan? what changes were the result of improved thinking and what changes were forced upon you? how did your team work together? etc. Note that you need to show that you understand the weaknesses in your work as well as its strengths. You may wish to identify relevant future work that could be done on your project.
 \begin{enumerate}
@@ -716,9 +735,6 @@ Engineering lessons involve things the team learned from the design, architectur
 	
 	
 \end{enumerate}
-
-
-\pagebreak
 \paragraph{Teamwork}
 
 Teamwork lessons are those learned from the trial and error of working with others to complete a project that would be too big for each of us as individuals.
@@ -727,22 +743,17 @@ Teamwork lessons are those learned from the trial and error of working with othe
 	
 	\item \textbf{Communication}
 	
-	Establishing and maintaining communication was one of the biggest lessons learned over the course of the project. The team recognized it's importance from the start, however there is a feeling that they underestimated the required amount of, and consistency of communication.
+	Establishing and maintaining communication was one of the biggest lessons learned over the course of the project. The team recognized it's importance from the start, however there is a feeling that we underestimated the required frequency and consistency of communication.
 	
-	One feature of Scrum is having a daily \textit{stand up} to discuss, what each team member has achieved, what they are looking to achieve on the forthcoming day, and what obstacles stand in their way. Due to commitments elsewhere, such as having to attend lectures and tutorials, jobs, and other university work, the team was unable to fully implement this aspect of Scrum. Many practitioners of Scrum feel that the daily stand up makes a strong contribution to the success of a project. Being able to keep up to date with the work of others and keep people aware of your own successes and struggles allows the team to gel together and work through more difficult parts of a project. Although the team held stand up progress meetings, they were perhaps not frequent enough to get the most out of them. They required team members to keep track of and to go over more than one days work so they took longer than desired, and ended up being more like traditional committee meetings often hindering rather than advancing the project.
+	One feature of scrum development is having a daily \textit{stand up} to discuss, what each team member has achieved, what they are looking to achieve on the forthcoming day, and what obstacles stand in their way. Due to commitments elsewhere, such as having to attend lectures and tutorials, jobs, and other university work, the team was unable to fully implement this aspect of Scrum. Many practitioners of Scrum feel that the daily stand up makes a strong contribution to the success of a project. Being able to keep up to date with the work of others and keep people aware of your own successes and struggles allows the team to gel together and work through more difficult parts of a project. Although the team held stand up progress meetings, they were perhaps not frequent enough to get the most out of them. They required team members to keep track of and to go over more than one days work so they took longer than desired, and ended up being more like traditional committee meetings often hindering rather than advancing the project.
 	
-	An important lesson the team learned from the problem with integrating established Scrum practices was the need to adapt traditional methods to suit the dynamics of each individual project. If the team could not communicate in person, they had to find ways of getting the same benefits by communicating remotely. The team made use of WhatsApp group messaging to answer the same \textit{'what i've done' - 'what i'm going to do - 'what stands in my way'} questions that would pop up at a stand up. It may be the case that communicating remotely is not as effective as in person, however when you are dealing with a group project in which team members may not be able to be together, but still have work to do, the team feels it found a good compromise by using technology to get similar benefits out of remote communication.
+	An important lesson the team learned from the problem with integrating established Scrum practices was the need to adapt traditional methods to suit the dynamics of each individual project. If the team could not communicate in person, they had to find ways of getting the same benefits by communicating remotely. The team made use of Whats App group messaging to answer the same \textit{'what I've done' - 'what I'm going to do - 'what stands in my way'} questions that would pop up at a stand up. Although remote communication might not be the most effective, but given the circumstantial limitation, the team believes that remote communications provide an adequate and sufficient compromise. 
 	
-	A unique lesson was learned by the team through participating in this project, that of the need to find a unambiguous, concise way of saying things when communicating across cultural and language barriers. Seemingly intuitive terminology to one person, may be confusing and imprecise to another. For example, the English term \textit{'bi-weekly'} caused an issue early on because to one member of the group it meant 'every other week', but to another member of the group it meant 'twice a week'. This may seem like a trivial example, however it occurred on other occasions in more important matters, such as when creating documentation for code or when naming classes and functions. It can be difficult to recognise this as an issue until it's too late as it is perhaps embarrassing to ask someone for clarification of word that seems simple to the person using it. However the team was fortunate to learn this lesson early on, and decide to adopt a \textit{'no question is a silly question'} approach. Giving team members the confidence to ask questions helped greatly with overcoming language barriers and ambiguous language. The team feels this is an important lesson to learn, computing and technology is a global industry in which your colleagues will be from around the world. To get a first hand understanding of communicating with fellow professionals from a variety of backgrounds will allow team members to become more well rounded Software Engineers.
-	
-	\item \textbf{Division of Work}
-	
-	One issue discovered by the team was the difficulty with adequately breaking down larger components and design choices into submodules which could be tackled as Agile tasks by any member of the team. After dividing the project into larger sub projects, the goal was to then be flexible with who completed each sub module, class, or function. The team wanted to do this, firstly to mimic the way modules are broken down into tasks in professional software development, and secondly to prevent the \textit{Silo Effect} occurring in any of the sub projects. 
-	
-	For a number of sub sections this worked well, with team members being able to work on sub tasks that had originally been created by another team member. However for others there was a \textit{developer lock in} effect, whereby the team member who had originally created the task was the only one able to understand or continue developing it. For a project of this size with intuitively separable sub projects, this was not immediately a problem. As the siloing meant that each team member was effectively the \textit{Scrum Manager} for their own sub project. However the team can foresee this issue becoming more apparent as the project scales or expands. If more developers were brought in, or the project was passed on to another team, or if at some point it was taken up by future developers. The new developers could risk falling into the same silos, which for a larger project would be more problematic. The team made efforts to alleviate this issue through things like adding documentation and providing a good readme file, to give newcomers a better understanding of the code and how the project is structured.
-	
-	
-\end{enumerate}
+
+	Another unique lesson that was learned by the team through participating in this project, was being able to find an unambiguous, concise way of saying things when communicating across cultural and language barriers. Seemingly intuitive terminology to one person, may be confusing and imprecise to another. For example, the English term \textit{'bi-weekly'} caused an issue early on because to one member of the group it meant 'every other week', but to another member of the group it meant 'twice a week'. This may seem like a trivial example, however it occurred on other occasions in more important matters, such as when creating documentation for code or when naming classes and functions. It can be difficult to recognise this as an issue until it's too late as it is perhaps embarrassing to ask someone for clarification of word that seems simple to the person using it. However the team was fortunate to learn this lesson early on, and decide to adopt a \textit{'no question is a silly question'} approach. Giving team members the confidence to ask questions helped greatly with overcoming language barriers and ambiguous language. The team feels this is an important lesson to learn, computing and technology is a global industry in which your colleagues will be from around the world. To get a first hand understanding of communicating with fellow professionals from a variety of backgrounds will allow team members to become more well rounded software engineers.
+
+\pagebreak
+
 
 
 \pagebreak
@@ -839,21 +850,70 @@ Data based improvements involve giving the user greater control or access to the
 
 	
 \subsection{Peer Assessment}
-@TODO
+
 	%In a simple table, allocate the 100 ‘points’ you are given to each team member. Valid values range from 0 to 100 inclusive. You may assign decimal values, but the entire points must add up to precisely 100. As stated at the beginning of the project, when awarding points to each member it would based on contribution, ...below is the grade table for each member totalling up to 100. 
-\\As stated in the initial report peer assessment would be based on how much each team member was able to contribute based on their individual skills.	
-\begin{center}
-	\begin{tabular}[!htb]{|m{4cm}||m{0.9cm}|}
-		\hline
-		\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{ \textbf{Peer Assessment}} \\  \hline
-		 & 20\\  \hline
-		 & 20 \\  \hline
-		 & 20 \\  \hline
-		 & 20 \\  \hline
-		& 20\\  \hline
-		& 100\\  \hline
-	\end{tabular}
-\end{center}	
+
+For the purpose of peer assessment, the team has devised four criteria by which the team use to evaluate each individual's performance. The scale is from 0-5 for each criteria, in which 5 is the score for the highest performance.
+ 
+
+\begin{itemize}
+
+
+
+	\item  \textbf{Punctuality/ Availability}
+	\subitem Showing up for meetings and joint coding sessions on time, as well as submitting required work on time.
+	Making oneself available for pair/group design, coding, and testing sessions.
+	
+	\item \textbf{Teamwork}
+	
+	\subitem Maintaining communication with the team throughout the process. Being open to questions about your design or implementation decisions.  Being a team player.
+	
+	\item \textbf{Innovation/ Pro-activity}
+	\subitem Suggesting imaginative ideas, finding innovative solutions to the software decisions.
+	
+	\item \textbf{Quality}
+	
+	\subitem Deliver products with good quality. Quality is defined as: meeting functional and non-functional requirements; following best practices and coding standards. 
+	Quality-oriented mindset is expected, where team members always attempt the best effort to deliver the best product. 
+	
+
+\end{itemize}
+This eThe peer assessment result is as below:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}}
+         \textbf{Name} & \textbf{Punctuality 
+                                Availability} &  \textbf{Teamwork} & \textbf{Innovation  Pro-activity} & \textbf{Quality} &\textbf{Total}  \\ \hline
+         Retno Larasati &&&&             \\ \hline
+         Ian Galna Johnson &&&&            \\ \hline
+         Thi Thanh Huong Ngo &&&&&       \\ \hline   
+         Daniel Arturo Mendoza Hernandez &&&&&  \\ \hline
+         Abdelrahman Hamdy Hassan  &&&&  \\ \hline
+    \end{tabular}
+    \caption{Per Assessment}
+    \label{tab:assessment}
+\end{table}
+
+\textbf{Final Score Distribution} \newline
+Though each team member has their own strength and weaknesses. But all team members have worked their best in the project and brought valuable contribution to the project. Therefore, we decided to award each team member the same score distribution which is 20\% each. 
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l|r}
+         \textbf{Name} & \textbf{Score Distribution}  \\ \hline
+         Retno Larasati & 20\%           \\ \hline
+         Ian Galna Johnson & 20\%           \\ \hline
+         Thi Thanh Huong Ngo & 20\%        \\ \hline   
+         Daniel Arturo Mendoza Hernandez & 20\%  \\ \hline
+         Abdelrahman Hamdy Hassan  & 20\%  \\ \hline
+         Total & 100\% \\
+    \end{tabular}
+    \caption{Per Assessment}
+    \label{tab:assessment}
+\end{table}
+
+	
 \newpage
 
 
