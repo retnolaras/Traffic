@@ -7,6 +7,7 @@
 \usepackage[lofdepth,lotdepth]{subfig}
 \usepackage{colortbl}
 \usepackage{float}
+\usepackage[listings]{listings}
 
 
 %--- for subsubsubsection
@@ -17,6 +18,8 @@
 \titlespacing*{\paragraph}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 %---
+
+\graphicspath{{Images/}} 
 
 \begin{document}
 	\begin{titlepage}
@@ -172,15 +175,15 @@ Within the constraints of time and resources, the project's scope includes:
 Due to the layers of complexity inherent in real-life traffic systems; where a large number of agents and random variables interact within a dynamic environment has generated a lot of research interest in the area of traffic simulation. In \cite{Pursula}, Matti Pursula sets the theoretical framework for creating traffic simulators, defining them as programs that move objects overtime, taking into account a defined set of real life conditions. Pursula surveys different types of traffic simulators and identifies three types of simulated environments: microscopic, mesoscopic and macroscopic. The paper describes two main shifts in traffic simulators; the first is that they are more network focused 
 
 
-One of the main motives for building microscopic traffic flow models is that to later integrate them to build macroscopic models. An example of a comprehensive microscopic traffic flow simulator is defined by Namekawa et al in \cite{NameUeda05Due to the prominence of purpose-specific simulators ,Namekawa's project aimed at building a general purpose database of road units, with infomation about width, road signs and general measurements. They code was designed so  that it would be resused and integrated to build a macroscopic traffic model.The model the road network with variable width proportions and different road divisions; such as sidelines and center lanes.
+One of the main motives for building microscopic traffic flow models is that to later integrate them to build macroscopic models. An example of a comprehensive microscopic traffic flow simulator is defined by Namekawa et al in \cite{NameUeda05Due to the prominence of purpose-specific simulators ,Namekawa's project aimed at building a general purpose database of road units, with information about width, road signs and general measurements. They code was designed so  that it would be reused and integrated to build a macroscopic traffic model.The model the road network with variable width proportions and different road divisions; such as sidelines and center lanes.
 
 
 The concept of building smaller microscopic road unit and then building up to a network was something that was widely implemented in out project; we first implemented separate components such as a road, and an intersection and end up constructing a network map.
 
-Other works focused on finding methods to improve the efficiency and effectivenes of the simulation, such as the research constructed by Sewall et al \cite{SewWilMer10}. Thier paper modeled detailed 3D animations and visualization of traffic flows, fast method for efficient simulations of large-scale, real-world networks of traffic using continuum dynamics that maintains discrete vehicle information to display each vehicle.
+Other works focused on finding methods to improve the efficiency and effectiveness of the simulation, such as the research constructed by Sewall et al \cite{SewWilMer10}. Thier paper modeled detailed 3D animations and visualization of traffic flows, fast method for efficient simulations of large-scale, real-world networks of traffic using continuum dynamics that maintains discrete vehicle information to display each vehicle.
 Sewall approached this by adapting a single-lane continuum flow model to handle multi-lane traffic by introducing a novel model of lane changes and using a discrete visual representation for each vehicle and then compared the result with agent-based methods. 
 
-Although this was not directly relevant to our project since we neither planned to implement lane changes and 3D modelling, but it made us more concious about our decisions about flow and speed of the simulation.
+Although this was not directly relevant to our project since we neither planned to implement lane changes and 3D modelling, but it made us more conscious about our decisions about flow and speed of the simulation.
 
 \newpage
 \section{Requirements and Design}
@@ -202,7 +205,9 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
     \begin{itemize}
         \item Use Case
         \begin{figure}[h]
-        \includegraphics[width=16cm]{usecase} \caption{Use Case} \label{uc}
+        \includegraphics[width=16cm]{usecase} 
+        \caption{Use Case} 
+        \label{uc}
         \end{figure}
         \item Functional Requirements 
         \begin{itemize}
@@ -374,7 +379,11 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
   
 	
 \subsection{Design}
-In this section we will discuss the design process for this project. On the first week after the group was formed, we 
+In this section we will discuss the design process for this project. after the first iteration, the group has settled for a design model with centralized computing unit. We decided to follow the Model-View-Controller design pattern ,discussed in detail in the next section. This was motivated by two reasons. The first was that we had made a design choice that cars wouldn't hold the ability to compute their path. The design principle we agreed on, is 'dumb cars and smart controllers'. Although we were aware that this would make the system a single agent system, we identified our program as one of mesocopic scope. That is balancing the focus on how the cars interact with map componenets and on how the traffic flows in the full map. 
+
+We also strictly followed a modular approach; 'Car', 'bus'  and 'Emergency vehicles' are all subclasses of vehicle. left, right, center lanes are all subclasses of the Abstract Lane class.Road networks are made up of roads and junctions, Roads are made up of lanes, lanes of lane sections.
+
+Our design and architecture also allows for extendability and scalability. Multiple lane mechanisms can easily be implemented. More driver behaviours can also be defined by editing the driver behaviour class and implementing the appropriate logic for each new behaviour in the Engine Although maps cannot be dynamically generated, but they are read by the engine dynamically.
 
 
 
@@ -440,36 +449,69 @@ Simulation Engine as the Controller, Vehicle, Policy and Road Network as the Mod
 
 \subsection{Development}
 \subsubsection{GUI}
-GUI is implemented using JavaFX. The class diagram of GUI is as below:
+GUI component provides interface for user interactions (user settings, actions); visualises simulation on screen. GUI is implemented using JavaFX. The class diagram of GUI is as below:
     \begin{figure}[H]
         \includegraphics[width=16cm]{GUI} 
         \caption{GUI Class Diagram } 
         \label{gui}
     \end{figure}
     
+The GUI consists of 3 main panes: Simulation Pane to visualise the simulation; User Settings Pane for user settings and interactions; Report Pane to display the simulation report. 
+
+ \begin{figure}[H]
+        \includegraphics[width=16cm]{GUIComponent} 
+        \caption{GUI Components } 
+        \label{gui}
+    \end{figure}
+    
+    
     \paragraph{GUIComponent}
-    This class is to layout UI components. GUIComponents extends BorderPane to set Left Pane for Simulation and Right Pane for User Settings and Report. 
+    This class is to layout UI components. GUIComponents extends BorderPane to set Left Pane for Simulation and Right Pane for User Settings Pane and Report Pane. 
     HBox, VBox and GridPane are used to layout UI controls horizontally, vertically or in a grid. 
+    
+    Simulation Pane has a Canvas object. Canvas is an image  on which can be drawn using its GraphicsContext graphics commands. This is a high level tool for doing drawing objects on screen. 
+        
+    The Canvas is set size (800x600) to ensure proper display on current screen resolutions. 
+    
+    
     
     As all policy settings are in integer, IntegerTextField  class which extends TextField was implemented to only allow integer number inputs.
     
-    User inputs validation and get user inputs methods are also implemented in this class. They would be executed in InitScreen to response to user actions. 
-    
-    \paragraph{Renderer}
-    IRenderer interface is used in SimuationEngine to render simulation objects onto the GUI. render method is called on initalising the simulation and every simulation step to draw map and vehicles
     
     
+    \paragraph{SimulationRenderer}
     
-    \paragraph{Renderer}
+    This class implements IRenderer interface which is used in SimuationEngine to render simulation objects onto the GUI. render method is called on initialising the simulation and every simulation step to draw simulated map and vehicles
+    
+    A GraphicsContext object obtained from  Canvas.getGraphicsContext2D(). The simulation objects are drawn onto the canvas by using relevant operation commands of GraphicsContext.
+    Simulation objects (roads, vehicles, junctions, traffic lights) be be drawn are obtained from Context of SimuationEngine. 
+    
+    \paragraph{InitScreen}
+    This is the main form of the application, which displays GUIComponents; implements execution on user interactions and  interface with simulation engine to visualise the simulation. 
     
     
-    
-        
+\pagebreak
 \subsubsection{Road Network}
-What is road network
-    \paragraph{Road}
-    \textbf{Road Factory}\\
-    \paragraph{Lane}
+
+The Road Network is the package containing the source code necessary for building the environment that vehicles operate on. For a Traffic Simulation there must be a strictness to the environment, it must be constrained. Vehicles must be bound by the limitations of the roads they drive on, otherwise you are not simulating traffic but a free for all.
+
+The inspiration for a road network comes from communications network infrastructure such as the Internet. In which Vehicles (packets) travel down Roads (edges/links), and switch between different roads by traversing through Junctions (nodes). As a data structure the Road network most closely represents a graph.
+
+The Road Network for the Traffic Simulator had to be both more complex, but to maintain the lightweight nature of communications networks. It had to include complexity to maintain the required strictness, for example by only allowing a single vehicle to occupy a particular section of the road at a given time. But Lightweight in an attempt at avoiding the scalability problem suffered by other simulator projects \cite{website:SUMO-SimOfUrbMob}.
+
+
+    \paragraph{LaneSection}
+    
+    The base unit of a Road Network is a LaneSection. As \cite{SewWilMer10} found, the most useful abstraction for a road is as a collection of 'area' units that a single Vehicle can occupy. In this case a LaneSection represents a two dimensional rectangle of area equal to an average car, or about two by three meters.
+    
+    To maintain simplicity and the Single Responsibility Principle \cite{website:Principles-of-OOD}, the LaneSection was abstracted as an Interface with the responsibility for indicating whether or not there is a Vehicle currently occupying the section and which direction a vehicle can move in from the Section. The AbstractLaneSeciton Java class is a step towards implementation, it includes default implementation for returning the occupant status of a section and for returning a true or false value for if a Vehicle can move off the Section in a particular direction. It is important to add implementation here, because these are features that are shared by all LaneSection implementations.
+    
+    It was intended to make the Road Network an Immutable data structure \cite{website:Oracle-Imm-Obj}, to maintain uniformity and reliability, and to prevent malicious users from interfering with simulations by altering data structures. This began with the LaneSection and continued to higher level parts of the data structure. The class fields for whether a vehicle can move out or a section are final private, setter methods are not provided for altering them and object creating is moved to a Factory class.
+    
+    LaneSection names are UK centric. In the UK drivers drive on the left hand side, meaning that a LeftLane section would be closed on the left hand side, because the left hand side would be a sidewalk, verge, or some other non-drivable piece of land.
+    
+    There are several implementations for LaneSection, each representing some combination of directions
+    
     \begin{itemize}[noitemsep]
     \item \textbf{LeftLane:} this  
     \item \textbf{RightLane:} this
@@ -477,6 +519,9 @@ What is road network
     \item \textbf{MiddleLane:} this  
     \item \textbf{LaneFactory:} this
     \end{itemize}
+    \paragraph{Road}
+    \textbf{Road Factory}\\
+
     \paragraph{Junction}
     \begin{itemize}[noitemsep]
     \item \textbf{PrePlannedRouteJuntion:} this  
@@ -485,11 +530,15 @@ What is road network
     \end{itemize}
     
 \subsubsection{Vehicle}
-What is vehicle
-\textbf{Vehicle Factory}\\
+The Vehicle class is the component who represents all kinds of possible items that can move on a road. It was designed to be a class with generic functionality and common properties for all the vehicles types. Therefore the Vehicle class is the parent of the Car, Bus and Emergency classes.
+There are some properties stored in a vehicle object. The ones that affect the simmulation are the ones related to updating the vehicle position (such as setAxom), the ones who sets and provides information of the vehicle on relation with the road (such as getNextRoadIndex), and the ones related to the driver behaviour (such as getBehaviour).
+The Car, Bus and Emergency classes only differ with eachother in the way its constructor is implemented. The Emergency vehicle object has a default RECKLESS behaviour, but the Car and Bus objects behaviour is defined by probability rates.
+Since we previously made mention of the drivers behavior, it is appropiate to review how the vehicle and behaviours are related.  The Enumerator Behaviour was created in order to represent different driver behaviours (RECKLESS, NORMAL and CAUTIOUS). The behaviours are assigned at the moment a new vehicle is generated, and only affect the vehicle speed assignation.
+The car generation is handled by the \textbf{Vehicle Factory}.
 
-
-
+\subsubsection{Vehicle Factory}
+Having a way to represent vehicles in the simulation, it was needed an architectural solution to generarate many types of vehicles. The solution was to implement the Factory pattern to produce vehicles. The Vehicle Factory needs the vehicle type as input and produces a vehicle of that type.
+This component is meant to be called by anyone how needs to produce an specific type of car. The generation logic does not contain any probability rate generation, thus this has to be implemented by the caller.
 
 \subsubsection{Policy}        
 \begin{itemize}[noitemsep]
@@ -503,16 +552,9 @@ The Session Manager is the software component in charge of the session steps not
 It was designed to be a monolithic component who launches notifications to any other when an arbitrary time period has passed, we will refer to this time as step. In order to accomplish the most appropriate design patterns to use are the Singleton and the Observer pattern.
 The Session Manager component is divided into two parts. One is the Session.java and the SessionManager.java.
 
-\begin{figure}[h]
-        \includegraphics[width=14cm]{Picture3} 
-        \centering
-        \caption{Class Diagram: Session Manager}
-        \label{cdsm}
-\end{figure}
-
 The first file has the class who represents the actual object who keeps track when a step has passed. It contains the thread safe mechanisms to increase and decrease the step size, so an external component may modify the size when convenient, allowing to speed up or slow down the beating of steps. It also contains a condition who allows an external component to pause the beating. The Session class inherits from the Java API class Observer. This means it has the pattern within ready to be used, therefore anyone could subscribe and start listening the Session notifications (the steps). For all the previous reasons, a Session object is meant to be run in its own thread, therefore it implements the Runnable interface.
 
-The second file is the actual Session Manager. It works as the only entry point to any component who wants to know about the session steps. In order to ensure this, it follows the Singleton pattern. The Session Manager is the only object who knows about the Session, this means it is the only one able to create an instance of a Session thread and subscribes to it. The Session Manager exposes the Session API in a thread safe manner when needed. Whenever a components ask the Session Manager to start a Session, it launches a new Session thread if there is none already running. When a session is stopped, the Session Manager interrupts the Session thread safely. The Session Manager class inherits from the Java API class Observer, therefore allows to the components to listen notifications from the Session thread through it.
+The second file is the actual Session Manager. It works as the only entry point to any component who wants to know about the session steps. In order to ensure this, it follows the Singleton pattern. The Session Manager is the only object who knows about the Session, this means it is the only one able to create an instance of a Session thread and subscribe to it. The Session Manager exposes the Session API in a thread safe manner when needed. Whenever a components ask the Session Manager to start a Session, it launches a new Session thread if there is none already running. When a session is stopped, the Session Manager interrupts the Session thread safely. The Session Manager class inherits from the Java API class Observer, therefore allows to the components to listen notifications from the Session thread through it. The class diagram for Session Manager can be seen in Appendices \ref{subfig:cd3}.
 
 \subsubsection{Simulator Engine}
 
@@ -532,7 +574,7 @@ The simulator engine is also responsible for implementing the policy controls se
 
 As shown in the flow chart in figure \ref{flow chart}, the simulation engine makes decisions for every car by carrying on a series of checks. First, the car checks if is the first iteration, automatically generating cars at the appropriate points of if it is. Then iterating on every car, it performs calculations, and informs  the context which in turn informs the GUI, so it can redraw the cars with the new coordinates. 
 
-Then by asking the car and inferring from its position, it checks if its on a junction and applies the appropriate junction logic. The junction produces a path and a path is stored inside the car for the duration of its trip on the junction. If not on a junction, and the car is not nearing the end of the road it's on, it can move according to its speed as long as there are no cars ahead of it. The Engine defines a lookAhead function by which it can query a road and know whether or not the next x lane sections are occupied or free. The lookAhead of every car is defined by the driver behaviour inherent in every car object. If a car reaches the end of the road, it can go into one of three states. The first is  if there's a traffic light that is red, the car stops. The second is if the traffic light is green or theres no traffic light, car checks the existence of a junction, asks for a path on the junction and makes sure that the next position on the junction is empty before moving. While the third case happens when a car reaches an exit point, at which it is dequed from the list of active cars and logged by the SimulationData class 
+Then by asking the car and inferring from its position, it checks if its on a junction and applies the appropriate junction logic. The junction produces a path and a path is stored inside the car for the duration of its trip on the junction. If not on a junction, and the car is not nearing the end of the road it's on, it can move according to its speed as long as there are no cars ahead of it. The Engine defines a lookAhead function by which it can query a road and know whether or not the next x lane sections are occupied or free. The lookAhead of every car is defined by the driver behaviour inherent in every car object. If a car reaches the end of the road, it can go into one of three states. The first is  if there's a traffic light that is red, the car stops. The second is if the traffic light is green or there's no traffic light, car checks the existence of a junction, asks for a path on the junction and makes sure that the next position on the junction is empty before moving. While the third case happens when a car reaches an exit point, at which it is dequed from the list of active cars and logged by the SimulationData class 
 
 
 The \textbf{Context} is a class that is part of the simulation engine logic. It represents a layer in charge of the translation of relative coordinates of the vehicles to absolute coordinates in pixels. Additionally, it provides information such as the traffic light positions. Therefore, this class serves as an information provider related to items positioning on the screen map.
@@ -555,9 +597,12 @@ To convert the AADFs into traffic volume we multiply AADF with the link length, 
 \end{itemize}.
 	
 \subsection{Development Adjustment}
-Several functions that we planned in our iteration before that changed
+Several functions that we planned to initially the didnt make due to time constraint, and since they were marked as law priority
 \begin{enumerate}[noitemsep]
-	\item No Roundabout  
+	\item Maps do not include roundabouts
+	\item Lane switching mechnisms have not been implemented
+	\item dynamic definition of maps. for simplicity, maps were predefined, but are built dynamically.
+	\item Cars have constant speeds, no model for accelerations and decel
 \end{enumerate}
 
 \section{Team Work}
@@ -819,42 +864,42 @@ Data based improvements involve giving the user greater control or access to the
 \subsection{Project Risk Table}
 @TODO
 \subsection{Class Diagrams}
-\begin{figure}[!htb]
+\begin{figure}[!h]
 \begin{tabular}{cc}
 		\subfloat[User Diagram]{
 		    \setlength{\fboxsep}{0pt}%
 			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=0.45\linewidth]{Picture1}}
+			\fbox{\includegraphics[width=6cm\linewidth]{Picture1}}
 			\label{subfig:cd1}
 		}&
-		\subfloat[]{
+		\subfloat[Class Diagram: Vehicle]{
 		    \setlength{\fboxsep}{0pt}%
 			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=0.45\linewidth]{Picture2}}
+			\fbox{\includegraphics[width=6cm\linewidth]{Picture4}}
 			\label{subfig:cd2}
 		}\\
-		\subfloat[]{
+		\subfloat[Class Diagram:Session Manager]{
 			\setlength{\fboxsep}{0pt}%
 			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=0.45\linewidth]{Picture3}}
+			\fbox{\includegraphics[width=6cm\linewidth]{Picture3}}
 			\label{subfig:cd3}
 		}&
-		\subfloat[]{
+		\subfloat[Class Diagram:GUI]{
 			\setlength{\fboxsep}{0pt}%
 			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=8cm, height=6cm]{Picture4}}
+			\fbox{\includegraphics[width=6cm]{Picture2}}
 			\label{subfig:cd4}
 		}\\
-		\subfloat[]{
+		\subfloat[Class Diagram:Road Network]{
 			\setlength{\fboxsep}{0pt}%
 			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=0.45\linewidth]{Picture5}}
+			\fbox{\includegraphics[width=6cm\linewidth]{Picture5}}
 			\label{subfig:cd5}
-		}
-		\subfloat[]{
+		}&
+		\subfloat[Class Diagram:Policy]{
 			\setlength{\fboxsep}{0pt}%
 			\setlength{\fboxrule}{1pt}%
-			\fbox{\includegraphics[width=0.45\linewidth]{Picture6}}
+			\fbox{\includegraphics[width=6cm\linewidth]{Picture6}}
 			\label{subfig:cd6}
 		}
 		\end{tabular}
