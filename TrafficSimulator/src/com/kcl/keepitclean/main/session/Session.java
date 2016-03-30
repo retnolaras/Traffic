@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 class Session extends Observable implements Runnable {
 
-	private final long STEP_SIZE = 125_000_000L;
+	private final long STEP_SIZE = 15_000_000L;
 
 	private final long DEFAULT_STEP_SIZE = STEP_SIZE * 8;
 	private final long MAX_STEP_SIZE = STEP_SIZE * 24;
