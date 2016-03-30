@@ -6,6 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.kcl.keepitclean.main.vehicle.Bus;
+import com.kcl.keepitclean.main.vehicle.Car;
+import com.kcl.keepitclean.main.vehicle.Emergency;
 import com.kcl.keepitclean.main.vehicle.Vehicle;
 import com.kcl.keepitclean.main.vehicle.VehicleFactory;
 import com.kcl.keepitclean.main.vehicle.VehicleType;
@@ -37,20 +40,17 @@ public class TestVehicle {
 	
 	@Test
 	public void testCreateCar() {
-		vehicletype = car.getClass().getName();
-		assertEquals(vehicletype, VehicleType.CAR.toString());
+		assertTrue(car instanceof Car);
 		}
 	
 	@Test
 	public void testCreateBus() {
-		vehicletype = bus.getClass().getName();
-		assertEquals(vehicletype, VehicleType.BUS.toString());
+		assertTrue(bus instanceof Bus);
 		}
 	
 	@Test
 	public void testCreateEmergency() {
-		vehicletype = emergency.getClass().getName();
-		assertEquals(vehicletype, VehicleType.EMERGENCY.toString());
+		assertTrue(emergency instanceof Emergency);
 		}
 
 
