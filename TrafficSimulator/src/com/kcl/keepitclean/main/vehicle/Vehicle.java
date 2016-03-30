@@ -8,12 +8,11 @@ import com.kcl.keepitclean.main.roadnetwork.road.Road;
 
 import javafx.scene.paint.Color;
 
-
 public class Vehicle {
 	static int CarID = 0;
 	private int speed;
 	private Behaviour behaviour;
-	
+
 	Point axom;
 	Point distance;
 	Point destination;
@@ -28,7 +27,7 @@ public class Vehicle {
 	int pindex;
 	int nextRoad;
 
-	//car absolute position
+	// car absolute position
 	public Point getAxom() {
 		return axom;
 	}
@@ -37,38 +36,42 @@ public class Vehicle {
 		this.axom = axom;
 	}
 
-	//car relative position
-	public void setPos(Position p){
-		 pos = p;
+	// car relative position
+	public void setPos(Position p) {
+		pos = p;
 	}
-	
-	public Position getPos(){
+
+	public Position getPos() {
 		return pos;
 	}
-	
+
 	public int getID() {
 		return UCarID;
 	}
-	
-	public void setOnJunction(boolean b){
-		if (b) onJunction=true;
-		else onJunction=false;
-	}
-	
-	public boolean getOnJunction(){
-		if (onJunction) return true;
-		else return false;
-	}
-	
-	public void updatePath(List<LaneSection> p){
-		path=p;
+
+	public void setOnJunction(boolean b) {
+		if (b)
+			onJunction = true;
+		else
+			onJunction = false;
 	}
 
-	public void removePath(){
+	public boolean getOnJunction() {
+		if (onJunction)
+			return true;
+		else
+			return false;
+	}
+
+	public void updatePath(List<LaneSection> p) {
+		path = p;
+	}
+
+	public void removePath() {
 		path.clear();
-		onJunction= false;
-		pindex=0;
-		nextRoad=-1;
+		onJunction = false;
+		pindex = 0;
+		nextRoad = -1;
 	}
 
 	public int getSpeed() {
@@ -82,10 +85,11 @@ public class Vehicle {
 	public void IncrementPIndex() {
 		pindex++;
 	}
-	
+
 	public void resetPIndex() {
-		pindex=0;
+		pindex = 0;
 	}
+
 	public int getPIndex() {
 		return pindex;
 	}
@@ -95,10 +99,10 @@ public class Vehicle {
 	}
 
 	public void setNextRoadIndex(int nextRoadIndex) {
-		
-		nextRoad=nextRoadIndex;
+
+		nextRoad = nextRoadIndex;
 	}
-	
+
 	public int getNextRoadIndex() {
 		return nextRoad;
 
@@ -111,18 +115,18 @@ public class Vehicle {
 	public void setBehaviour(Behaviour behaviour) {
 		this.behaviour = behaviour;
 		switch (this.behaviour) {
-			case CAUTIOUS:
-				setSpeed(1);
-				break;
-			case NORMAL:
-				setSpeed(2);
-				break;
-			case RECKLESS:
-				setSpeed(3);
-				break;
-			default:
-				setSpeed(1);
-				break;
+		case CAUTIOUS:
+			setSpeed(1);
+			break;
+		case NORMAL:
+			setSpeed(2);
+			break;
+		case RECKLESS:
+			setSpeed(3);
+			break;
+		default:
+			setSpeed(1);
+			break;
 		}
 	}
 
@@ -134,28 +138,11 @@ public class Vehicle {
 	}
 
 	/**
-	 * @param color the color to set
+	 * @param color
+	 *            the color to set
 	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
-	
+
 }
-
-//END MOVE ACTION
-
-//ACCELERATION
-
-//END ACCELERATION
-
-//DRIVER BEHAVIOUR
-
-//END DRIVER BEHAVIOUR
-
-//METRIC
-
-//END METRIC
-
-
-
