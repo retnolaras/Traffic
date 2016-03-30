@@ -91,6 +91,7 @@ public class InitScreen extends Application {
 					pscene.cb4.setDisable(true);
 					pscene.cb5.setDisable(true);
 					pscene.cb6.setDisable(true);
+				
 
 					//pscene.updateReport(simulationData);
 					pscene.resetReport();
@@ -170,9 +171,14 @@ public class InitScreen extends Application {
 				pscene.cb2.setDisable(false);
 				pscene.cb3.setDisable(false);
 				pscene.cb4.setDisable(false);
+			
+				if(pscene.getMap() == "Town"){
+
 				pscene.cb5.setDisable(false);
 				pscene.cb6.setDisable(false);
 				pscene.updateReport(simulationData);
+				}
+				
 
 				renderer.clear();
 
