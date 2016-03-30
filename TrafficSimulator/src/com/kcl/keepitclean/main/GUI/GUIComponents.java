@@ -5,9 +5,9 @@
  */
 package com.kcl.keepitclean.main.GUI;
 
-import com.kcl.keepitclean.main.simulatorengine.SimulationData;
-import java.awt.Font;
 import java.text.DecimalFormat;
+
+import com.kcl.keepitclean.main.simulatorengine.SimulationData;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,8 +27,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javax.swing.event.HyperlinkEvent;
 
 
 /**

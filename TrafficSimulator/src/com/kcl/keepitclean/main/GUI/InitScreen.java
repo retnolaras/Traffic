@@ -5,7 +5,6 @@
  */
 package com.kcl.keepitclean.main.GUI;
 
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import com.kcl.keepitclean.main.session.SessionManager;
@@ -13,14 +12,13 @@ import com.kcl.keepitclean.main.simulatorengine.SimulationData;
 import com.kcl.keepitclean.main.simulatorengine.SimulatorEngine;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 /**
  * Main form for the app
@@ -266,10 +264,10 @@ public class InitScreen extends Application {
 		
 	}
 	    
-		 pscene.txtMap.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+		 pscene.txtMap.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
 		   
 				@Override
-				public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+				public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
 					if (newValue.toString() == "Town"){
 						pscene.cb5.setDisable(false);
 					     pscene.cb6.setDisable(false);
@@ -283,37 +281,6 @@ public class InitScreen extends Application {
 				}
 		    });
 		 
-//		ActionListener cbActionListener = new ActionListener() {//add actionlistner to listen for change
-//	    
-//
-//			@Override
-//			public void actionPerformed(java.awt.event.ActionEvent e) {
-//
-//
-//                String s = (String) pscene.txtMap.getValue().toString();//get the selected item
-//
-//                switch (s) {//check for a match
-//                    case "Town":
-//                    	pscene.cb5.setDisable(false);
-//            			pscene.cb6.setDisable(false);
-//                        break;
-//                    case "Junction":
-//                    	pscene.cb5.setDisable(true);
-//            			pscene.cb6.setDisable(true);
-//
-//                        break;
-//                  
-//                    default:
-//                    	pscene.cb5.setDisable(false);
-//            			pscene.cb6.setDisable(false);
-//                        break;
-//               				
-//			}
-//			}
-//	        };
-	     
-	     
-		// primaryStage.setFullScreen(true);
 		primaryStage.show();
 	}
 

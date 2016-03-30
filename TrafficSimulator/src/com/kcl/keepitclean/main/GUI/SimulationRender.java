@@ -23,7 +23,6 @@ import com.kcl.keepitclean.main.vehicle.Vehicle;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 /**
  * draw simulation objects on GUI
@@ -37,13 +36,10 @@ public class SimulationRender implements IRenderer {
 	private List<Vehicle> vehicles;
 	private List<TrafficLight> trafficLights;
 	private List<Junction> junctions;
-	private Stage stage;
 	
 	public SimulationRender(GraphicsContext gc, SimulatorEngine simulation) {
 		this.gc = gc;
 		this.simulation = simulation;
-		this.stage = stage;
-
 	}
 
 	public void render() {
@@ -81,14 +77,14 @@ public class SimulationRender implements IRenderer {
 		 * draw list of roads generated from simulation engine parameters: List
 		 * of Roads, that is provided by simulation engine
 		 */
-
-		int j = 0;
+		//		Commented code. Debug code.
+		//		int j = 0;
 		for (Road road : roads) {
-			j++;
-			System.out.println("Road " + j + " start: (" + road.getStartCoordinates().x + ","
-					+ road.getStartCoordinates().y + ")");
-			System.out.println(
-					"Road " + j + " end: (" + road.getEndCoordinates().x + "," + road.getEndCoordinates().y + ")");
+			//			j++;
+			//			System.out.println("Road " + j + " start: (" + road.getStartCoordinates().x + ","
+			//					+ road.getStartCoordinates().y + ")");
+			//			System.out.println(
+			//					"Road " + j + " end: (" + road.getEndCoordinates().x + "," + road.getEndCoordinates().y + ")");
 
 			// draw road
 			gc.setFill(Color.DARKGRAY);
@@ -192,16 +188,13 @@ public class SimulationRender implements IRenderer {
 
 	// DRAW JUNCTION
 	public void drawJunctions() {
-		// Image image = new Image("images/pattern.png");
-		// ImagePattern pattern = new ImagePattern(image);
 		Point center;
 
 		for (Junction junction : junctions) {
 
 			gc.setStroke(Color.YELLOW);
 			gc.setFill(Color.DARKGREY);
-			// gc.setFill(Color.BLANCHEDALMOND);
-
+			
 			gc.fillPolygon(
 					new double[] { junction.getCoordinates().get(0).x, junction.getCoordinates().get(1).x,
 							junction.getCoordinates().get(2).x, junction.getCoordinates().get(3).x },
@@ -218,8 +211,6 @@ public class SimulationRender implements IRenderer {
 
 	// DRAW TRAFFIC LIGHT
 	public void drawTrafficLights() {
-
-		TrafficLight trafficLight1 = new TrafficLight(roads.get(0), junctions.get(0));
 
 		for (TrafficLight trafficLight : trafficLights) {
 			if (trafficLight.getState() == State.RED)
