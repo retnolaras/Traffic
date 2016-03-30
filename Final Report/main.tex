@@ -508,6 +508,8 @@ The Road Network for the Traffic Simulator had to be both more complex, but to m
     
     It was intended to make the Road Network an Immutable data structure \cite{website:Oracle-Imm-Obj}, to maintain uniformity and reliability, and to prevent malicious users from interfering with simulations by altering data structures. This began with the LaneSection and continued to higher level parts of the data structure. The class fields for whether a vehicle can move out or a section are final private, setter methods are not provided for altering them and object creating is moved to a Factory class.
     
+    The LaneFactory has the single responsibility of producing objects of the LaneSection implementations. A user passes a String value of the class name of the type of section they want to be produced. The Factory Pattern works well for this type of object creation. Not only to maintain immutability, but also to emphasize the principle of code hiding, and allow the implementations to be extended \cite{HeadFirstFreeman}.
+    
     LaneSection names are UK centric. In the UK drivers drive on the left hand side, meaning that a LeftLane section would be closed on the left hand side, because the left hand side would be a sidewalk, verge, or some other non-drivable piece of land.
     
     There are several implementations for LaneSection, each representing some combination of directions
@@ -517,7 +519,6 @@ The Road Network for the Traffic Simulator had to be both more complex, but to m
     \item \textbf{RightLane:} this
     \item \textbf{SingleLane:} this
     \item \textbf{MiddleLane:} this  
-    \item \textbf{LaneFactory:} this
     \end{itemize}
     \paragraph{Road}
     \textbf{Road Factory}\\
@@ -541,11 +542,13 @@ Having a way to represent vehicles in the simulation, it was needed an architect
 This component is meant to be called by anyone how needs to produce an specific type of car. The generation logic does not contain any probability rate generation, thus this has to be implemented by the caller.
 
 \subsubsection{Policy}        
-\begin{itemize}[noitemsep]
-\item \textbf{Policy} 
-\item \textbf{SpeedLimit} 
-\item \textbf{TrafficLightPolicy}
-\end{itemize}
+
+
+This component is to define policy which consists of speed limit and traffic light timings policy settings.
+
+As a single policy is applied to the whole simulation session, Policy is implemented as Singleton to ensure only one policy object is initiated and referenced among all other classes. 
+ 
+Policy is constructed as a composite object of SpeedLimit and TrafficLightPolicy which allows to plug or unplug policy components easily (by adding or removing related policy component class). This is to enhance the maintainability and scalability
 
 \subsubsection{Session Manager}
 The Session Manager is the software component in charge of the session steps notifications. 
@@ -602,7 +605,8 @@ Several functions that we planned to initially the didnt make due to time constr
 	\item Maps do not include roundabouts
 	\item Lane switching mechnisms have not been implemented
 	\item dynamic definition of maps. for simplicity, maps were predefined, but are built dynamically.
-	\item Cars have constant speeds, no model for accelerations and decel
+	\item Cars have constant speeds, no model for accelerations and deceleration were implemented.
+	\item user given more control than initially planned; users can adjust speed of the simulation, pause it, choose a map, density of traffic, speed limits as well as toggle entry points.
 \end{enumerate}
 
 \section{Team Work}
