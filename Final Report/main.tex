@@ -180,7 +180,7 @@ The concept of building smaller microscopic road unit and then building up to a 
 Other works focused on finding methods to improve the efficiency and effectivenes of the simulation, such as the research constructed by Sewall et al \cite{SewWilMer10}. Thier paper modeled detailed 3D animations and visualization of traffic flows, fast method for efficient simulations of large-scale, real-world networks of traffic using continuum dynamics that maintains discrete vehicle information to display each vehicle.
 Sewall approached this by adapting a single-lane continuum flow model to handle multi-lane traffic by introducing a novel model of lane changes and using a discrete visual representation for each vehicle and then compared the result with agent-based methods. 
 
-Although this was not directlu relevant to our project since we neither planned to implement lane changes and 3D modelling, but it made us more concious about our decisions about flow and speed of the simulation.
+Although this was not directly relevant to our project since we neither planned to implement lane changes and 3D modelling, but it made us more concious about our decisions about flow and speed of the simulation.
 
 \newpage
 \section{Requirements and Design}
@@ -440,7 +440,31 @@ Simulation Engine as the Controller, Vehicle, Policy and Road Network as the Mod
 
 \subsection{Development}
 \subsubsection{GUI}
-
+GUI is implemented using JavaFX. The class diagram of GUI is as below:
+    \begin{figure}[H]
+        \includegraphics[width=16cm]{GUI} 
+        \caption{GUI Class Diagram } 
+        \label{gui}
+    \end{figure}
+    
+    \paragraph{GUIComponent}
+    This class is to layout UI components. GUIComponents extends BorderPane to set Left Pane for Simulation and Right Pane for User Settings and Report. 
+    HBox, VBox and GridPane are used to layout UI controls horizontally, vertically or in a grid. 
+    
+    As all policy settings are in integer, IntegerTextField  class which extends TextField was implemented to only allow integer number inputs.
+    
+    User inputs validation and get user inputs methods are also implemented in this class. They would be executed in InitScreen to response to user actions. 
+    
+    \paragraph{Renderer}
+    IRenderer interface is used in SimuationEngine to render simulation objects onto the GUI. render method is called on initalising the simulation and every simulation step to draw map and vehicles
+    
+    
+    
+    \paragraph{Renderer}
+    
+    
+    
+        
 \subsubsection{Road Network}
 What is road network
     \paragraph{Road}
@@ -463,6 +487,8 @@ What is road network
 \subsubsection{Vehicle}
 What is vehicle
 \textbf{Vehicle Factory}\\
+
+
 
 
 \subsubsection{Policy}        
