@@ -51,7 +51,7 @@ public class SimulatorEngine implements Observer {
 	private List<Integer> speedList;
 	private static final ArrayList<Position> exitPoints = new ArrayList<>();
 
-	private Point vehicleStartCoord = new Point(35 + Constant.VEHICLE_LEFT_MARGIN, 0);
+	private Point vehicleStartCoord;// = new Point(35 + Constant.VEHICLE_LEFT_MARGIN, 0);
 
 	// private LaneFactory laneFactory;
 
@@ -234,12 +234,9 @@ public class SimulatorEngine implements Observer {
 
 			Vehicle car;
 			car = vehicleFactory.getVehicle(VehicleType.CAR); // generate a car
-
-			vehicleStartCoord.x = roadList.get(startingPos.getRoad()).getStartCoordinates().x
-					+ startingPos.getLaneSection() * Constant.PIXELS;
-			vehicleStartCoord.y = roadList.get(startingPos.getRoad()).getStartCoordinates().y
-					+ startingPos.getLane() * Constant.LANE_SIZE * Constant.PIXELS
-					+ Constant.VEHICLE_LEFT_MARGIN * Constant.PIXELS;
+			
+			vehicleStartCoord = context.moveVehicle(null, startingPos);
+			
 			car.setAxom(vehicleStartCoord);
 			addToActive(car, startingPos); // add to Active List of cars
 
@@ -602,10 +599,9 @@ public class SimulatorEngine implements Observer {
 		float chance = r.nextFloat();
 		Position carPos = new Position();
 		carPos.update(p.getMode(), p.getRoad(), p.getLane(), p.getLaneSection());
-		vehicleStartCoord.x = roadList.get(p.getRoad()).getStartCoordinates().x + p.getLaneSection() * Constant.PIXELS;
-		vehicleStartCoord.y = roadList.get(p.getRoad()).getStartCoordinates().y
-				+ p.getLane() * Constant.LANE_SIZE * Constant.PIXELS + Constant.VEHICLE_LEFT_MARGIN * Constant.PIXELS;
-
+		
+		vehicleStartCoord = context.moveVehicle(null, p);
+		
 		if (chance <= freq) {
 
 			Vehicle car = null;

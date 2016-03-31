@@ -166,8 +166,10 @@ public class Context implements IContext {
 		} else { // Moving through a Junction
 			p = getPointInJunction(newPos.getLane(), junctionList.get(newPos.getRoad()));
 		}
-
-		vehicle.setAxom(p);
+		
+		if(vehicle != null){
+			vehicle.setAxom(p);
+		}
 		return p;
 	}
 	

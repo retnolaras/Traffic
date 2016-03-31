@@ -84,10 +84,10 @@ public static Policy setPolicy(int mode,int[] speedLimitFrom, int[] speedLimitTo
         case 0:  //DEEFAULT POLICY
             instance = new Policy();
             break;
-        case 1:    //CUSTOMISED POLICY
+        case 2:    //CUSTOMISED POLICY
             instance = new Policy(speedLimitFrom,trafficLightFrom);
             break;
-        case 2:   //RANDOM POLICY
+        case 1:   //RANDOM POLICY
             instance = new Policy(speedLimitFrom, speedLimitTo,trafficLightFrom,trafficLightTo);
             break;
         default:  //DEFAULT POLICY
