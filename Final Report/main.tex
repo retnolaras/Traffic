@@ -43,6 +43,8 @@
 
 \end{titlepage}
 \tableofcontents
+\listoffigures
+\listoftables
 \newpage
 	
 \section{Introduction}
@@ -55,7 +57,7 @@ The project provided a great experience for the team to work in a real software 
 This report will explain the project and it's delivery. There are seven sections. The first section is an introduction to the project, including background, objectives, and methodology. The second section will review literature and applications researched by the team in preparation. The third section explains the requirements and design of the software. The fourth section gives detail and reasoning for overall architecture and system components, including adjustments made throughout the development process, and testing done to verify and validate the software quality. The fifth section will provide readers with an understanding of how the group functioned as a team, the struggles and success, and the way work has been divided. The sixth section will give a critical evaluation, lesson learned, and possible future works. The appendix contains design artifacts (component design, class diagrams) and complete source code.
 
 \subsection{Background}
-Traffic simulation software plays an important role in defining the effective traffic management policies. A traffic policy must be simulated and verified before it is actually implemented in real life. Otherwise, it might harm road users’ safety and traffic efficiency. There are a lot of factors contributing to road accidents and traffic efficiency. The major factors include speed, traffic light timing and driver’s behaviours. For instance, in 2013, in the UK, 3,064 people were killed or seriously injured in crashes where speed was a factor.
+Traffic simulation software plays an important role in defining effective traffic management policies. A traffic policy must be simulated and verified before it can be safely implemented in real life. Otherwise, it might harm road users’ safety and traffic efficiency. There are a lot of factors contributing to road accidents and traffic efficiency. The major factors include speed, traffic light timing and driver’s behaviours. For instance, in 2013, in the UK, 3,064 people were killed or seriously injured in crashes where speed was a factor.
 Therefore, this project will simulate traffic management policies focusing on those 3 main factors ie. Speed limit; Traffic light timing; Driver's behaviours. The software will test different policies relating to these factors and analyse the traffic efficiency and safety in relation to traffic density, enforcement policy and driver's behaviours.
 
 The analysis will be based on the average speed: average speed of vehicles in a session. This metric is to measure traffic efficiency and reliability.
@@ -65,7 +67,7 @@ In this report, we will explain how our traffic simulator program works and how 
 
 
 \subsection{Objectives}
-The project aims to develop a windows standalone application to simulate traffic in different traffic policies and traffic density following UK Highway Code which is left-lane oriented. The application should allow users to simulate traffic in a single busy intersection or a larger area in town which includes multiple roads, lanes, junctions and traffic lights. Multiple types of vehicles and drivers' behaviours would be simulated. The report for each simulation session will be displayed at the end of each session to calculate metrics to evaluate traffic safety and efficiency for provided traffic scenario and policy.
+The project aims to develop a standalone Windows application to simulate traffic with different traffic policies and traffic density following UK Highway Code which is left-lane oriented. The application should allow users to simulate traffic in a single busy intersection or a larger area in town which includes multiple roads, lanes, junctions and traffic lights. Multiple types of vehicles and drivers' behaviours would be simulated. The report for each simulation session will be displayed at the end of each session to calculate metrics to evaluate traffic safety and efficiency for provided traffic scenario and policy.
 
 
 
@@ -173,6 +175,8 @@ Within the constraints of time and resources, the project's scope includes:
 
 \end{itemize}
 
+
+\pagebreak
 \section{Review}
 
 Due to the layers of complexity inherent in real-life traffic systems; where a large number of agents and random variables interact within a dynamic environment has generated a lot of research interest in the area of traffic simulation. In \cite{Pursula}, Matti Pursula sets the theoretical framework for creating traffic simulators, defining them as programs that move objects overtime, taking into account a defined set of real life conditions. Pursula surveys different types of traffic simulators and identifies three types of simulated environments: microscopic, mesoscopic and macroscopic. The paper describes two main shifts in traffic simulators; the first is that they are more network focused 
@@ -247,7 +251,7 @@ The following initial requirements come from the \textcolor{black}{\emph{Introdu
         
         \item Policy: the application must support at least fixed control policy (traffic light timing, speed limit). It should be scalable to variable control policy. The application provides users options to define the policy to be simulated:
             \begin{itemize}
-                \item Default: default policy, which has speed limit 60mph and traffic light timing of 10s for Green Light/Red Light/Amber Light
+                \item Default: default policy, which has speed limit 60mph and traffic light timing of 5s for Green Light/Red Light/Amber Light
                 \item Random: User can simulate the policy which is randomly regenerated within the user-defined range
                 \item Customised: User can manually enter value for the policy.
             \end{itemize}
@@ -614,16 +618,21 @@ The Context is meant to be updated by the Simulation Engine at every step when a
 The methodology to calculate the road traffic estimation we derived from annual series of road traffic estimation that published by the Department for Transport. We simplified and did several adjustment to our simulation data to get the estimation number. Department of Transport uses manual traffic counts. this data then combined with information from a network of automatic traffic counter (ATCs) to calculate a series of annual average daily flows (AADF) for each count point. These daily flows then combined with road lengths to calculate the number of vehicle miles travelled each year by vehicle types, road category and region. In the document AADF major and minor road are separated as traffic volume is calculated differently for major and minor roads, however, for our calculation we use the simulation data. For every tick represent as 1/3 second, so then we multiply each session duration with 86400 (number of second per day) to simulate 24 hours traffic. 
 To convert the AADFs into traffic volume we multiply AADF with the link length, we then multiply it by the number of days in the year (365) to get an annual total. Link length is the total length of the network road link in km. For each lane section that we have, we decided that it will represent 3 meter in real life. Therefore, the link length calculate that from the number of lane section in the map and we multiply it by 0.003 km. 
 
+The original formula for the estimation calculation from \cite{website:GovUk} is,
 \begin{equation}
 Traffic_{CP} = AADF_{CP} \times Lengthlink \times 365 
+\end{equation}
+and the adopted formula for the estimation calculation is,
+\begin{equation}
+Traffic Estimation = (No. of ticks \times 0.33 \times 86400) \times (No. of lanes \times 0.003) \times 365 
 \end{equation}
 
 \end{itemize}.
 
 \subsection{Testing} 
 %Explain how you tested your software (e.g. unit testing) and the extent to which you tested it. If relevant to your project, explain performance issues and how you tackled them.
-Test unit with JUnit. Test app with Black Box. 
-Table~\ref{table:TestingTable} illustrates the bugs that were found within the system during black box testing tested by a random user and the team:
+
+Due to the agile nature of development and the modular nature of our design, the team has implemented multiple component and integration tests throughout the development process. As pointed out earlier, JUNIT frame work was used for unit testing. Table \ref{table:JUnitTestingTable} contains a list of all the Junit tests that exist in the test package of our project. The team has also carried out blackbox functional tests, as illustrated in table \ref{table:FunctionalTestingTable}. Additionally, we have implemented on-demand mutant testing.
 \begin{center}
 	\begin{table}[H]
 	\begin{tabular}{|m{7cm}|m{7cm}|}
@@ -645,7 +654,7 @@ Table~\ref{table:TestingTable} illustrates the bugs that were found within the s
 	\end{table}
 \end{center}
 
-For the system test, we based on the functionality that listed in Use Case (see \ref{uc}).
+For the system test, we based on the functionality that listed in Use Case (see Fig \ref{uc}).
 
 \begin{center}
 	\begin{table}[H]
@@ -661,21 +670,23 @@ For the system test, we based on the functionality that listed in Use Case (see 
 		 Traffic Scenario & the simulation shows the traffic with correct traffic density that had chosen & Passed \\  \hline
 		 Report & shows the results from the simulation latest state & Passed \\  \hline
 		 Default Policy & runs the simulation with the default policy & Passed \\  \hline
-		 Random Policy & runs the simulation with the random policy with defined minimum and maximum values & \\  \hline
-		 Customise Policy & runs the simulation with the customise policy with defined values & \\  \hline
+		 Random Policy & runs the simulation with the random policy with defined minimum and maximum values & Passed \\  \hline
+		 Customise Policy & runs the simulation with the customise policy with defined values & Passed \\  \hline
 		
 	\end{tabular}
 	\caption{Functional Testing Table}
 		\label{table:FunctionalTestingTable}
 	\end{table}
 \end{center}
+
+We believe that although not entirely comprehensive, our testing had been sufficient and allowed for verifying that our product was functional, reliable and bug free. Our testing routine was frequent and most corner cases were considered.
 	
 \subsection{Development Adjustment}
 Several functions that we planned to initially the didn't make due to time constraint, and since they were marked as law priority
 \begin{enumerate}[noitemsep]
 	\item Lane switching mechanisms have not been implemented
 	\item Cars have constant speeds, no model for accelerations and deceleration were implemented.
-	\item Different behaviours for different types of vehicles have not been implemented
+	
 	\item user given more control than initially planned such as users can adjust speed of the simulation, pause and resume the session,  as well as toggle entry points of vehicles.
 \end{enumerate}
 
@@ -685,7 +696,7 @@ Several functions that we planned to initially the didn't make due to time const
 %Describe how you worked together, including the tools and processes you used to facilitate group work.
 Our team organisation approach is to have a full-powered team. There is no decision-making manager role in the team. All project decisions are made with the participation of the whole team. 
 The team objectives were clearly made. We set the principles of communication that  every member opens for questions and suggestions about their designs and implementation with the shared final  objective is to deliver the best software as we can. 
-There have been a few events we had different opinions about designs, planning and implementations. We listened and tried to understand each other's opinion and patiently explained our own opinions. The whole team got involved to make decision if two members, for example, still could not reach to the same point. 
+There have been a lot of events we had different opinions about designs, planning and implementations. We listened and tried to understand each other's opinion and patiently explained our own opinions. The whole team got involved to make decision if two members, for example, still could not reach to the same point. 
 
 The team members also actively proposed to share workload from other members which had difficulties to complete on time.
 
@@ -703,10 +714,6 @@ Sharelatex is a good tool to resolve this problem, since the group can now effor
 
 In initial project planning, we planed to have biweekly meeting, on Monday and Thursday. However,in later stages, to accelerate the project progress, we had meeting almost three or four times a week. The meetings were not just to update status and discuss issues but also to code together and quickly resolved any problems arose.
 
-On the first sprint,  we managed to do almost all the tasks that we listed before. Since it's still initiation state, we mostly created different classes and objects that we thought we will need later. Files from policy (\textit{Policy, Speedlimit, Trafficlight}), GUI (\textit{UIComponent, drawUI}), road network (\textit{AbstractLaneSection, LaneFactory, LaneSection, LeftLane, MiddleLane, RightLane, SingleLane, ListOfListRoadImpl, Road, RoadFactory}), main (\textit{SessionManager, SimulatorEngine, TrafficSimulatorApplication}), and vehicle (\textit{Behaviour, Bus, Car, Direction, Emergency, Point, Vehicle, VehicleFactory, VehicleType}). We also created JUnit test files for unit testing such as \textit{testpolicy, testlanesection, sessionmanagersprtest, sessionmanagertest} and \textit{testvehicle}. 
-
-In the end of iteration 1 we decided to change our designed by moving all the control from the engine to the vehicle. Therefore the vehicle itself would have the method to accelerate and decelerate, and the behaviour towards traffic light. The decision making will still be on simulation engine but the behaviour will be declared on the vehicle itself. 
-For the iteration 2, we added new classes. Files from: policy (\textit{TrafficLightColour}), and roadnetwork (\textit{Junction, PrePlannedRouteJunction, TrafficLight}). We also developed the GUI class again from scratch, because in iteration 1 we still unsure about the detail design and how the data flow will work from the simulation engine to the UI component. We deleted \textit{UIComponent} and \textit{drawUI}, and added \textit{GUIComponent, InitScreen, integertextfield, irenderer, simulationrender, simulationsetting}. However, some of the tasks that we designated for this iteration could not be done and moved to the next sprint/iteration.  
 
 
 \subsection{Work Load Division:}
@@ -717,9 +724,11 @@ As a project is quite short and only 25\% our daily effort (ie. 2h/person/day) c
 
 This strategy worked perfectly fine until the end of iteration 2. But from iteration 3, as deadline is approaching and more work to be done, we changed the strategy to stop rotating. The problem was that we spent a lot of time to discuss specific logic together, rather than used the time to develop the code. We also needed time to explain the logic that the previous programmer to the next programmer. 
 
-One issue discovered by the team was the difficulty with adequately breaking down larger components and design choices into submodules which could be tackled as Agile tasks by any member of the team. After dividing the project into larger sub projects, the goal was to then be flexible with who completed each sub module, class, or function. The team wanted to do this, firstly to mimic the way modules are broken down into tasks in professional software development, and secondly to prevent the \textit{Silo Effect} occurring in any of the sub projects. 
-	
-For a number of sub sections this worked well, with team members being able to work on sub tasks that had originally been created by another team member. However for others there was a \textit{developer lock in} effect, whereby the team member who had originally created the task was the only one able to understand or continue developing it. For a project of this size with intuitively separable sub projects, this was not immediately a problem. As the siloing meant that each team member was effectively the \textit{Scrum Manager} for their own sub project. However the team can foresee this issue becoming more apparent as the project scales or expands. If more developers were brought in, or the project was passed on to another team, or if at some point it was taken up by future developers. The new developers could risk falling into the same silos, which for a larger project would be more problematic. The team made efforts to alleviate this issue through things like adding documentation and providing a good readme file, to give newcomers a better understanding of the code and how the project is structured.
+In the first sprint,  we managed to do almost all the tasks that we listed before. Since it was  initiation stage, we mostly created different classes and objects that we thought we will need later. Files from policy (\textit{Policy, Speedlimit, Trafficlight}), GUI (\textit{UIComponent, drawUI}), road network (\textit{AbstractLaneSection, LaneFactory, LaneSection, LeftLane, MiddleLane, RightLane, SingleLane, ListOfListRoadImpl, Road, RoadFactory}), main (\textit{SessionManager, SimulatorEngine, TrafficSimulatorApplication}), and vehicle (\textit{Behaviour, Bus, Car, Direction, Emergency, Point, Vehicle, VehicleFactory, VehicleType}). We also created JUnit test files for unit testing such as \textit{testpolicy, testlanesection, sessionmanagersprtest, sessionmanagertest} and \textit{testvehicle}. 
+
+In the end of iteration 1 we decided to change our designed by moving all the control from the engine to the vehicle. Therefore the vehicle itself would have the method to accelerate and decelerate, and the behaviour towards traffic light. The decision making will still be on simulation engine but the behaviour will be declared on the vehicle itself. 
+For the iteration 2, we added new classes. Files from: policy (\textit{TrafficLightColour}), and roadnetwork (\textit{Junction, PrePlannedRouteJunction, TrafficLight}). We also developed the GUI class again from scratch, because in iteration 1 we still unsure about the detail design and how the data flow will work from the simulation engine to the UI component. We deleted \textit{UIComponent} and \textit{drawUI}, and added \textit{GUIComponent, InitScreen, integertextfield, irenderer, simulationrender, simulationsetting}. However, some of the tasks that we designated for this iteration could not be done and moved to the next sprint/iteration.  
+
 
 \pagebreak
 \section{Evaluation} 
@@ -1810,6 +1819,9 @@ retnolaras & 2016-03-30 & change step size \\ \hline
 retnolaras & 2016-03-30 & edit the image \\ \hline
 retnolaras & 2016-03-30 & recent changes 30/3/16 19:00 \\ \hline
 retnolaras & 2016-03-30 & Merge sharelatex-2016-03-30-1756 into master \\ \hline
+retnolaras & 2016-03-31 & bug fixing \\ \hline
+retnolaras & 2016-03-31 & Introduction cleaning up the introduction \\ \hline
+retnolaras & 2016-03-31 & Merge sharelatex-2016-03-31-1223 into master \\ \hline
 
 \end{longtabu}
 \end{center}
