@@ -8,7 +8,8 @@
 \usepackage{colortbl}
 \usepackage{float}
 \usepackage[listings]{listings}
-
+\usepackage{tabu}
+\usepackage{longtable}
 
 %--- for subsubsubsection
 \usepackage{titlesec}
@@ -45,11 +46,13 @@
 \newpage
 	
 \section{Introduction}
+The project aims to develop software for a Traffic Simulator. The team was provided a brief set of general guidelines for their task, with a focus to \textit{'develop a Simulation Engine for testing traffic management policies'}. The team's first responsibility was to refine the general guidelines into a requirements definition for an engineering project. The team extensively researched related theory, sought out products developed professionally and academically, then developed a succinct set of detailed requirements, and finally designed, tested, and implemented the software. 
 
+The team applied software engineering and project management techniques to organise and manage the project to meet and exceed the teams self assigned, stringent criteria in scope, quality, and imagination.\\
 
-[Todo: opening paragraph]
+The project provided a great experience for the team to work in a real software development project. Overcoming the challenges of a typical project such as forming a new team, uncertainty, cultural and language barrier etc., the team has delivered the project successfully . We are also aware  of improvements that could be made to deliver a more robust, applicable piece of software in real life which we could not implement within the project constraints of time and resources.\\
 
-The report have seven sections. The first section is an introduction to the project, including the background, description, objectives, scope and methodology. In the second section we will talk about the literature and application that we reviewed in the preparation of the project. The third section will explains the requirements and designs of this project. The fourth section will explains the detail implementations, from overall architecture to the each (?) of the development, including the development adjustment that we made through out the project. The fifth section will explain about the team work and the work load division. In the sixth section we will discuss about the project evaluation, such as the system test, lesson learn, and possible future works. All additional documents thats relevant will be in section seven, for instance class diagrams,package diagram and Gantt chart.
+This report will explain the project and it's delivery. There are seven sections. The first section is an introduction to the project, including background, objectives, and methodology. The second section will review literature and applications researched by the team in preparation. The third section explains the requirements and design of the software. The fourth section gives detail and reasoning for overall architecture and system components, including adjustments made throughout the development process, and testing done to verify and validate the software quality. The fifth section will provide readers with an understanding of how the group functioned as a team, the struggles and success, and the way work has been divided. The sixth section will give a critical evaluation, lesson learned, and possible future works. The appendix contains design artifacts (component design, class diagrams) and complete source code.
 
 \subsection{Background}
 Traffic simulation software plays an important role in defining the effective traffic management policies. A traffic policy must be simulated and verified before it is actually implemented in real life. Otherwise, it might harm road users’ safety and traffic efficiency. There are a lot of factors contributing to road accidents and traffic efficiency. The major factors include speed, traffic light timing and driver’s behaviours. For instance, in 2013, in the UK, 3,064 people were killed or seriously injured in crashes where speed was a factor.
@@ -509,12 +512,38 @@ The Road Network for the Traffic Simulator had to be both more complex, but to m
     To simulate this interesting behaviour, Junctions are represented as collections of LaneSections. Different routes through the Junction may share LaneSections. For example a vehicle going from left to right, would cross over with a vehicle going from top to bottom, if they were going over a cross road style junction.
     
     \begin{itemize}[noitemsep]
-    \item PrePlannedRouteJuntion: The team provided a Junction implementation that has routes through it prePlanned on creation of each instance of the Junction. The Junction is created by providing the input and output roads that a Junction node must connect by passing them to a constructor. The Junction then creates an ordered collection of LaneSections that vehicles must follow to go from a certain entry point to a certain exit point. The Junction keeps track of these using a map structure. Where the key is a string concatenation of the coordinates of a vehicles entry and exit roads and the value is the list of LaneSections to be followed.
+    \item PrePlannedRouteJuntion: The team provided a Junction implementation that has routes through it prePlanned on creation of each instance of the Junction. The Junction is created by providing the input and output roads that a Junction node must connect by passing them to a constructor. The Junction then creates an ordered collection of LaneSections that vehicles must follow to go from a certain entry point to a certain exit point. The Junction keeps track of these using a map structure. Where the key is a string concatenation of the coordinates of a vehicles entry and exit roads and the value is the list of LaneSections to be followed. This decision to pre determine routes removed a key complication from Junction logic. 
+    \\~\\
+    Although the time complexity of dynamically calculating a route for an individual vehicle whenever requested was not great. It is an algorithm that would have to be run over and over again for each vehicle. It was noted that in general real life vehicles will follow the same, or an almost identical route over a junction. By having routes generated on creation we reduced the burden on the processor, instead of having to generate similar routes over and over, it could generate one route just a single time which could then be reused by all vehicles.
+    \\~\\
+    One of the most difficult parts of the project was deciding how to model and create Junctions. In the end the team could not find a solution for dynamically creating linking nodes for roads of varying number and varying width. The decision was taken to hard code an algorithm implementation that solved the problem for a particular case, a varying number of Roads but each with only a single lane. However it did allow the team to prove the concept that a node could be modelled as an interesting feature, and that all the Traffic issues that come with cars crossing paths in real life could be modelled in code. It would be up to future developers or other teams to think smarter about dynamically generatin Junctions.
     
-    One of the most difficult parts of the project was deciding how to model and create Junctions. In the end the team could not find a solution for dynamically creating linking nodes for roads of varying number and varying size. The decision was taken to hard code an algorithm implementation that solved the problem for a particular case, Roads with only a single lane. However it did allow the team to prove the concept that a node c
-    
-    \item \textbf{TrafficLight:} @TODO
+   
     \end{itemize}
+    
+    \paragraph{Traffic Light}
+    Traffic Light is for a road at a junction. Each traffic light has a coordinates to place it on the map. There is  a timer in traffic light with the delay time set to traffic light timing for current traffic light state as defined in the policy. Therefore, the traffic light will change to the next state once the delay time of the timer expired. 
+    
+    
+   
+    ActionListener taskPerformer = new ActionListener() \{
+   
+        @Override \newline
+        public void actionPerformed(ActionEvent e) \{ \newline
+            nextState();  \newline
+            timer.stop();\newline
+            timer.setDelay((int) getDelay());\newline
+            timer.restart();\newline
+            
+        \}\newline
+        \};\newline
+       
+    }  
+    
+    
+    
+    
+    
     
 \subsubsection{Vehicle}
 The Vehicle class is the component who represents all kinds of possible items that can move on a road. It was designed to be a class with generic functionality and common properties for all the vehicles types. Therefore the Vehicle class is the parent of the Car, Bus and Emergency classes.
@@ -555,7 +584,14 @@ The Simulator Engine acts as the control unit of our simulator program; since bo
 \item \textbf{Simulation  Data} is the class for collecting all the data during the simulation iteration for analysis. This data includes the number of vehicles, the number of vehicle that succeeded to arrived at the their destination, average speed from all the vehicles, and prospective traffic estimation. The detail calculation method for the traffic estimation will be discuss in \ref{rte}.
 
 \end{itemize}
-        
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{flowchart}
+    \caption{Simulator Engine Algorithm flow chart}
+    \label{flow chart}
+\end{figure}        
         
 The \textbf{Simulation Engine } is the main controller class that includes the core logic needed for simulation. The simulation engine utilizes the contextual lists kept by the context class. These lists include a list of active cars, their positions, junction to road mappings and traffic light to road mappings. The simulator engine uses a relative positioning system, where it references a car's position in terms of the road and lane section index it exists on, rather than using the absolute coordinate. This abstracts the simulation logic and separates it from the GUI logic. With the existence of this comprehensive contextual data, the simulator engine can achieve an omniscient presence, overseeing all cars and their respective contexts. 
 
@@ -572,17 +608,16 @@ The Context is meant to be updated by the Simulation Engine at every step when a
 
 
 
-\begin{figure}
-    \centering
-    \includegraphics[scale=.2]{flowchart}
-    \caption{Simulator Engine Algorithm flow chart}
-    \label{flow chart}
-\end{figure}
 
 
 \subsubsection{Road Traffic Estimation} \label{rte}
 The methodology to calculate the road traffic estimation we derived from annual series of road traffic estimation that published by the Department for Transport. We simplified and did several adjustment to our simulation data to get the estimation number. Department of Transport uses manual traffic counts. this data then combined with information from a network of automatic traffic counter (ATCs) to calculate a series of annual average daily flows (AADF) for each count point. These daily flows then combined with road lengths to calculate the number of vehicle miles travelled each year by vehicle types, road category and region. In the document AADF major and minor road are separated as traffic volume is calculated differently for major and minor roads, however, for our calculation we use the simulation data. For every tick represent as 1/3 second, so then we multiply each session duration with 86400 (number of second per day) to simulate 24 hours traffic. 
 To convert the AADFs into traffic volume we multiply AADF with the link length, we then multiply it by the number of days in the year (365) to get an annual total. Link length is the total length of the network road link in km. For each lane section that we have, we decided that it will represent 3 meter in real life. Therefore, the link length calculate that from the number of lane section in the map and we multiply it by 0.003 km. 
+
+\begin{equation}
+Traffic_{CP} = AADF_{CP} \times Lengthlink \times 365 
+\end{equation}
+
 \end{itemize}.
 
 \subsection{Testing} 
@@ -590,73 +625,104 @@ To convert the AADFs into traffic volume we multiply AADF with the link length, 
 Test unit with JUnit. Test app with Black Box. 
 Table~\ref{table:TestingTable} illustrates the bugs that were found within the system during black box testing tested by a random user and the team:
 \begin{center}
-	\begin{table}[!htb]
+	\begin{table}[H]
 	\begin{tabular}{|m{7cm}|m{7cm}|}
 		 \hline
 		\multicolumn{2}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{JUnit Testing}} \\ \hline 
 		 \centering \textbf{Class} & \textbf{Status}\\\hline
 		 LaneSection & 
-		 \includegraphics[width=\textwidth]{TestLaneSection}
-		 
-		 \\ \hline
-		 Policy & \\ \hline
-		 Road & \\ \hline
-		 SimulationData & \\ \hline
-		 Vehicle & \\ \hline
-		 
+		 \includegraphics[width=7cm]{TestLaneSection}\\ \hline
+		 Policy & \includegraphics[width=7cm]{TestPolicy}\\ \hline
+		 Road & \includegraphics[width=7cm]{TestRoad}\\ \hline
+		 SimulationData & \includegraphics[width=7cm]{TestSimulationData}\\ \hline
+		 Vehicle & \includegraphics[width=7cm]{TestVehicle}\\ \hline
+		 SessionManagerSPRT & \includegraphics[width=7cm]{SessionManagerSPRTest}\\ \hline
+		 SessionManager & \includegraphics[width=7cm]{SessionManagerTest}\\ \hline
 		
 	\end{tabular}
-	\caption{Testing Table}
-		\label{table:TestingTable}
+	\caption{JUnit Test Execution Result}
+		\label{table:JUnitTestingTable}
+	\end{table}
+\end{center}
+
+For the system test, we based on the functionality that listed in Use Case (see \ref{uc}).
+
+\begin{center}
+	\begin{table}[H]
+	\begin{tabular}{|m{4cm}|m{6cm}|m{4cm}|}
+		 \hline
+		\multicolumn{3}{ |>{\columncolor[gray]{0.8}}c|}{\textbf{Functional Testing}} \\ \hline 
+		 \centering
+		 \textbf{Item to Test} & \textbf{Test Description} & \textbf{Status}\\\hline
+		 Start Button & the simulation starts with the default setting & Passed \\  \hline
+		 Terminate Button & the current state of simulation stops and terminated & Passed \\  \hline
+		 Pause Button & the current state of simulation paused and can be resume afterwards & Passed \\  \hline
+		 Resume Button & the paused simulation starts again from the previous state & Passed \\  \hline
+		 Traffic Scenario & the simulation shows the traffic with correct traffic density that had chosen & Passed \\  \hline
+		 Report & shows the results from the simulation latest state & Passed \\  \hline
+		 Default Policy & runs the simulation with the default policy & Passed \\  \hline
+		 Random Policy & runs the simulation with the random policy with defined minimum and maximum values & \\  \hline
+		 Customise Policy & runs the simulation with the customise policy with defined values & \\  \hline
+		
+	\end{tabular}
+	\caption{Functional Testing Table}
+		\label{table:FunctionalTestingTable}
 	\end{table}
 \end{center}
 	
 \subsection{Development Adjustment}
-Several functions that we planned to initially the didnt make due to time constraint, and since they were marked as law priority
+Several functions that we planned to initially the didn't make due to time constraint, and since they were marked as law priority
 \begin{enumerate}[noitemsep]
-	\item Maps do not include roundabouts
-	\item Lane switching mechnisms have not been implemented
-	\item dynamic definition of maps. for simplicity, maps were predefined, but are built dynamically.
+	\item Lane switching mechanisms have not been implemented
 	\item Cars have constant speeds, no model for accelerations and deceleration were implemented.
-	\item user given more control than initially planned; users can adjust speed of the simulation, pause it, choose a map, density of traffic, speed limits as well as toggle entry points.
+	\item Different behaviours for different types of vehicles have not been implemented
+	\item user given more control than initially planned such as users can adjust speed of the simulation, pause and resume the session,  as well as toggle entry points of vehicles.
 \end{enumerate}
 
+
+\pagebreak
 \section{Team Work}
 %Describe how you worked together, including the tools and processes you used to facilitate group work.
-On the first sprint, or iteration 1, we managed to do almost all the tasks that we listed before. Since it's still initiation state, we mostly created different classes and objects that we thought we will need later. Files from policy (Policy, Speedlimit, Trafficlight), GUI (UIComponent, drawUI), road network (AbstractLaneSection, LaneFactory, LaneSection, LeftLane, MiddleLane, RightLane, SingleLane, ListOfListRoadImpl, Road, RoadFactory), main (SessionManager, SimulatorEngine, TrafficSimulatorApplication), and vehicle (Behaviour, Bus, Car, Direction, Emergency, Point, Vehicle, VehicleFactory, VehicleType). We also created JUnit test files for unit testing such as testpolicy, testlanesection, sessionmanagersprtest, sessionmanagertest and testvehicle. 
+Our team organisation approach is to have a full-powered team. There is no decision-making manager role in the team. All project decisions are made with the participation of the whole team. 
+The team objectives were clearly made. We set the principles of communication that  every member opens for questions and suggestions about their designs and implementation with the shared final  objective is to deliver the best software as we can. 
+There have been a few events we had different opinions about designs, planning and implementations. We listened and tried to understand each other's opinion and patiently explained our own opinions. The whole team got involved to make decision if two members, for example, still could not reach to the same point. 
+
+The team members also actively proposed to share workload from other members which had difficulties to complete on time.
+
+There were a few times in the first iterations, some team members did not share the difficulties they were facing which made them unable to deliver as plan. This gave us less chance to work as a team to achieve the objectives. This  has been fixed in the later stages. 
+
+We used Trello for the project management. Tasks in each iteration were broken down and picked by team members. At the end of each iteration we had retrospective meeting to review the last iteration, what we achieved, what we did not achieve and what we could have done better. We also planed for the next iteration. We created a list for each iteration, and wrote cards to put the task in. After the task is done, we move it to the DONE list, so we know which task that have not finished yet. The unfinished task then moved to the next iteration.
+
+We used Whatsapp group for remote communication such as setup ad-hoc meeting, raising issues, asking questions etc.
+ 
+
+We used sharelatex to edit our final report together. This collaboration latex editor enabled us to work together on Final Report better than what we did for our Initial Report. Sharelatex project also seamlessly integrates to our Github repository, helping us on document version control on Github. 
+
+In our Initial Report, we  worked  separately on our assigned tasks and commit into Github. This method appeared to create a lot of conflict problems on Github when five people edited the same file at the same time. 
+Sharelatex is a good tool to resolve this problem, since the group can now effortlessly collaborate in the same latex document. 
+
+In initial project planning, we planed to have biweekly meeting, on Monday and Thursday. However,in later stages, to accelerate the project progress, we had meeting almost three or four times a week. The meetings were not just to update status and discuss issues but also to code together and quickly resolved any problems arose.
+
+On the first sprint,  we managed to do almost all the tasks that we listed before. Since it's still initiation state, we mostly created different classes and objects that we thought we will need later. Files from policy (\textit{Policy, Speedlimit, Trafficlight}), GUI (\textit{UIComponent, drawUI}), road network (\textit{AbstractLaneSection, LaneFactory, LaneSection, LeftLane, MiddleLane, RightLane, SingleLane, ListOfListRoadImpl, Road, RoadFactory}), main (\textit{SessionManager, SimulatorEngine, TrafficSimulatorApplication}), and vehicle (\textit{Behaviour, Bus, Car, Direction, Emergency, Point, Vehicle, VehicleFactory, VehicleType}). We also created JUnit test files for unit testing such as \textit{testpolicy, testlanesection, sessionmanagersprtest, sessionmanagertest} and \textit{testvehicle}. 
 
 In the end of iteration 1 we decided to change our designed by moving all the control from the engine to the vehicle. Therefore the vehicle itself would have the method to accelerate and decelerate, and the behaviour towards traffic light. The decision making will still be on simulation engine but the behaviour will be declared on the vehicle itself. 
-For the iteration 2, we added new classes. Files from: policy (TrafficLightColour), and roadnetwork (Junction, PrePlannedRouteJunction, TrafficLight). We also developed the GUI class again from scratch, because in iteration 1 we still unsure about the detail design and how the data flow will work from the simulation engine to the UI component. We deleted UIComponent and drawUI, and added GUIComponent, InitScreen, integertextfield, irenderer, simulationrender, simulationsetting). However, some of the tasks that we designated for this iteration could not be done and moved to the next sprint/iteration.  
+For the iteration 2, we added new classes. Files from: policy (\textit{TrafficLightColour}), and roadnetwork (\textit{Junction, PrePlannedRouteJunction, TrafficLight}). We also developed the GUI class again from scratch, because in iteration 1 we still unsure about the detail design and how the data flow will work from the simulation engine to the UI component. We deleted \textit{UIComponent} and \textit{drawUI}, and added \textit{GUIComponent, InitScreen, integertextfield, irenderer, simulationrender, simulationsetting}. However, some of the tasks that we designated for this iteration could not be done and moved to the next sprint/iteration.  
 
-We used Trello for the project management. Tasks in each iterations breaks down and assigned it to member. In the end of each iteration we have a meeting to discuss what are the tasks that we need to do for the next iteration. We created a list for each iteration, and wrote cards to put the task in. After the task is done, we can move it to the DONE list, so we know which task that have not finished yet. The unfinished task then moved to the next iteration, and added as the new workload.
-
-In initial planning, we intend to have biweekly meeting, on Monday and Thursday. However, during development phase, we had a meeting almost three or four times a week, and increased to meet five to six times a week starting in iteration 3. We used the whatsapp group to arranged the meeting time and place. 
-
-We used sharelatex to edit our final report together. This collaboration application work better than what we did for our initial report. We divided our part for the initial report into two groups, project description and project organisation. We then worked it separately and combined it in Github. This method appeared to created a lot of problem. We had a lot of document conflicts, from five people doing the edit the same file. Sharelatex is a good solution for this problem, since the group can collaborate in parallel and simultaneously. 
 
 \subsection{Work Load Division:}
-Since the project will be relatively of small to medium size, in our initial planning, we decided that the group will facilitate job rotation at every iteration of development. This will be done to increase depth and breadth of understanding of the project by all members, as well as allow for a more flexible work distribution. In our first iteration we divided the tasks to 5 important components, such as Session Manager, Vehicle, Policy, Road, and GUI.
 
-This strategy works perfectly fine until the end of iteration 2, but in the beginning of iteration 3, we change strategy to stop rotating the roles, and stick to the area because the deadline was approaching. The problem about this strategy is that we spend a lot of time to discuss specific logic together, rather than use the time to develop the code. We also need time to explaining the logic that the previous programmer to the next programmer. 
+After doing the system component design, each team member is assigned to specific components and responsible on component detailed design, code and test. 
+
+As a project is quite short and only 25\% our daily effort (ie. 2h/person/day) can be spent on this project, there is a risk not able to deliver on time if a team member becomes unavailable to work on the project such as sickness, urgent personal matters etc. Therefore, initially, we agreed to rotate components in the next iteration where possible to enable  depth and breadth in project understanding by all members, as well as allow a more flexible work distribution.
+
+This strategy worked perfectly fine until the end of iteration 2. But from iteration 3, as deadline is approaching and more work to be done, we changed the strategy to stop rotating. The problem was that we spent a lot of time to discuss specific logic together, rather than used the time to develop the code. We also needed time to explain the logic that the previous programmer to the next programmer. 
 
 One issue discovered by the team was the difficulty with adequately breaking down larger components and design choices into submodules which could be tackled as Agile tasks by any member of the team. After dividing the project into larger sub projects, the goal was to then be flexible with who completed each sub module, class, or function. The team wanted to do this, firstly to mimic the way modules are broken down into tasks in professional software development, and secondly to prevent the \textit{Silo Effect} occurring in any of the sub projects. 
 	
 For a number of sub sections this worked well, with team members being able to work on sub tasks that had originally been created by another team member. However for others there was a \textit{developer lock in} effect, whereby the team member who had originally created the task was the only one able to understand or continue developing it. For a project of this size with intuitively separable sub projects, this was not immediately a problem. As the siloing meant that each team member was effectively the \textit{Scrum Manager} for their own sub project. However the team can foresee this issue becoming more apparent as the project scales or expands. If more developers were brought in, or the project was passed on to another team, or if at some point it was taken up by future developers. The new developers could risk falling into the same silos, which for a larger project would be more problematic. The team made efforts to alleviate this issue through things like adding documentation and providing a good readme file, to give newcomers a better understanding of the code and how the project is structured.
 
-	
-\section{Evaluation} %Critically evaluate your project: what worked well, and what didn’t? how did you do relative to your plan? what changes were the result of improved thinking and what changes were forced upon you? how did your team work together? etc. Note that you need to show that you understand the weaknesses in your work as well as its strengths. You may wish to identify relevant future work that could be done on your project.
-\begin{enumerate}
-	\item \textbf{Road development:} 
-	\\@TODO
-	\item \textbf{Simulation Engine development:} 
-	\\@TODO
-	\item \textbf{GUI:} 
-	\\@TODO
-\end{enumerate}
-
-
-
 \pagebreak
+\section{Evaluation} 
 \subsection{Lessons Learned and Challenges}
 
 The team feels that participating in the project was a very productive experience. It allowed team members to gain a first hand understanding of the techniques, concepts, and practices that are common in professional Software Development. It also allowed team members to put into practice the engineering and computing skills they have been learning about, to complete a meaningful project. 
@@ -664,7 +730,7 @@ The team feels that participating in the project was a very productive experienc
 However there were several aspects which the team feels lessons could be learned from.
 These can be broken down into two categories, Engineering lessons and Teamwork lessons.
 
-\paragraph{Engineering}
+\subsubsection{Engineering}
 
 Engineering lessons involve things the team learned from the design, architecture, implementation, and testing of the code.
 
@@ -714,7 +780,7 @@ Engineering lessons involve things the team learned from the design, architectur
 	
 	
 \end{enumerate}
-\paragraph{Teamwork}
+\subsubsection{Teamwork}
 
 Teamwork lessons are those learned from the trial and error of working with others to complete a project that would be too big for each of us as individuals.
 
@@ -730,11 +796,7 @@ Teamwork lessons are those learned from the trial and error of working with othe
 	
 
 	Another unique lesson that was learned by the team through participating in this project, was being able to find an unambiguous, concise way of saying things when communicating across cultural and language barriers. Seemingly intuitive terminology to one person, may be confusing and imprecise to another. For example, the English term \textit{'bi-weekly'} caused an issue early on because to one member of the group it meant 'every other week', but to another member of the group it meant 'twice a week'. This may seem like a trivial example, however it occurred on other occasions in more important matters, such as when creating documentation for code or when naming classes and functions. It can be difficult to recognise this as an issue until it's too late as it is perhaps embarrassing to ask someone for clarification of word that seems simple to the person using it. However the team was fortunate to learn this lesson early on, and decide to adopt a \textit{'no question is a silly question'} approach. Giving team members the confidence to ask questions helped greatly with overcoming language barriers and ambiguous language. The team feels this is an important lesson to learn, computing and technology is a global industry in which your colleagues will be from around the world. To get a first hand understanding of communicating with fellow professionals from a variety of backgrounds will allow team members to become more well rounded software engineers.
-
-\pagebreak
-
-
-
+	
 \pagebreak
 \subsection{Future Work} 
 %How the project could be extended
@@ -743,10 +805,10 @@ One of the most challenging aspects of any project is imagining what could be do
 The team has discovered several paths that could be followed. Each of which would advance the base project into more specialized areas.
 They can be broken down into two categories. Engineering improvements and Data gathering/simulation improvements.
 
-\paragraph{Engineering}
+\subsubsection{Engineering}
 Engineering improvements involve changes to the system Software that could better utilize engineering principals and practices.
 
-\paragraph{Data}
+\subsubsection{Data}
 Data based improvements involve giving the user greater control or access to the data generated by the simulation.\\
 
 \begin{enumerate}
@@ -804,9 +866,7 @@ Data based improvements involve giving the user greater control or access to the
 	
 	Again, because of the flexible approach the team took, it would be convenient for a future development team to take over and add machine learning to the vehicle behaviour. Also because of the well documented nature of the source code and the \textit{Clean Code} \cite{MartinRC08} approach the team took, a new team could understand the current state of the project and make improvements without first having to slog through and decipher the current state.
 	
-	As well as Vehicle behaviour, the Analytical side of the Traffic Simulator could be improved with machine learning tools.
-	
-	@TODO - Perhaps add some more stuff here?\\
+	As well as Vehicle behaviour, the Analytical side of the Traffic Simulator could be improved with machine learning tools.\\
 	
 	\item \textbf{User defined Maps:} 
 	\\
@@ -827,7 +887,7 @@ Data based improvements involve giving the user greater control or access to the
 	
 \end{enumerate}
 
-	
+\pagebreak
 \subsection{Peer Assessment}
 
 	%In a simple table, allocate the 100 ‘points’ you are given to each team member. Valid values range from 0 to 100 inclusive. You may assign decimal values, but the entire points must add up to precisely 100. As stated at the beginning of the project, when awarding points to each member it would based on contribution, ...below is the grade table for each member totalling up to 100. 
@@ -858,16 +918,15 @@ The peer assessment process provides the team members  peer feedback about their
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}}
-         \textbf{Name} & \textbf{Punctuality 
-                                Availability} &  \textbf{Teamwork} & \textbf{Innovation  Pro-activity} & \textbf{Quality} &\textbf{Average}  \\ \hline
+    \begin{tabular}{p{4cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}}
+         \textbf{Name} & \textbf{P/A} &  \textbf{Teamwork} & \textbf{I/P} & \textbf{Quality} &\textbf{Average}  \\ \hline
          Retno Larasati & 5 & 5 & 5 & 5   & 5           \\ \hline
          Ian Galna Johnson &5 & 5 & 5 & 5 & 5           \\ \hline
          Thi Thanh Huong Ngo & 5 & 5 & 5 & 5 & 5       \\ \hline   
          Daniel Arturo Mendoza Hernandez & 5 & 5 & 5 & 5 & 5  \\ \hline
          Abdelrahman Hamdy Hassan  & 5 & 5 & 5 & 5  & 5 \\ \hline
     \end{tabular}
-    \caption{Per Assessment}
+    \caption{Peer Assessment}
     \label{tab:assessment}
 \end{table}
 
@@ -901,8 +960,6 @@ All team members have worked their best in the project and brought valuable cont
 
 \section{Appendices} % ALL THE EXTRA STUFF.
 
-\subsection{Project Risk Table}
-@TODO
 \subsection{Class Diagrams}
 \begin{figure}[H]
 \begin{tabular}{cc}
@@ -1005,195 +1062,758 @@ All team members have worked their best in the project and brought valuable cont
 
 
 \subsection{Live Application}
+\begin{figure}[H]
+        \includegraphics[width=12cm]{Test1}
+        \centering
+        \caption{Initial State}
+        \label{fig:test1}
+\end{figure}
+\begin{figure}[H]
+        \includegraphics[width=12cm]{Test2}
+        \centering
+        \caption{Start Simulation}
+        \label{fig:test2}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=12cm]{Test4}
+        \centering
+        \caption{Change the traffic density to High}
+        \label{fig:test4}
+\end{figure}
+\begin{figure}[H]
+        \includegraphics[width=12cm]{Test5}
+        \centering
+        \caption{High density traffic simulation}
+        \label{fig:test5}
+\end{figure}
+\begin{figure}[H]
+        \includegraphics[width=12cm]{Test6}
+        \centering
+        \caption{Change the traffic density to Low}
+        \label{fig:test6}
+\end{figure}
+\begin{figure}[H]
+        \includegraphics[width=12cm]{Test7}
+        \centering
+        \caption{Low density traffic simulation}
+        \label{fig:test7}
+\end{figure}
+\begin{figure}[H]
+        \includegraphics[width=12cm]{Test3}
+        \centering
+        \caption{Terminate Simulation}
+        \label{fig:test3}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=12cm]{Test8}
+        \centering
+        \caption{Map: Town}
+        \label{fig:test8}
+\end{figure}
+
+
+
+\subsection{Git Log}
+\begin{center}
+\begin{longtabu}to \textwidth {|
+     X[4,l]|
+     X[3,c]|
+     X[8,l]|}
+    \hline
+    \textbf{Author} & \textbf{Date} & \textbf{Message} \ \hline
+retnolaras & 2016-01-24 & first commit \\ \hline
+Daniel Mendoza & 2016-01-25 & Update README.md \\ \hline
+retnolaras & 2016-01-28 & Initial Report \\ \hline
+Daniel Mendoza & 2016-01-29 & Merge remote-tracking branch `origin/daniel-arturo-mendoza-patch-1' \\ \hline
+Daniel Mendoza & 2016-01-29 & Session Manager \\ \hline
+Daniel Mendoza & 2016-01-29 & Merge remote-tracking branch `retnolaras/master' \\ \hline
+Daniel Mendoza & 2016-01-29 & Fixing Null pointers when starting and stopping the session. A new session object is now created every time a session starts. This session object is set to null when the session is stopped. Th garbage collector should handle it. \\ \hline
+retnolaras & 2016-01-30 & Merge pull request \#1 from daniel-arturo-mendoza/master \\ \hline
+igalna & 2016-02-01 & Initial Commit. \\ \hline
+igalna & 2016-02-01 & Package renaming for improved readability \\ \hline
+igalna & 2016-02-01 & kcl.keepitclean.test.roadnetwork \\ \hline
+igalna & 2016-02-01 & remove .class files from changes \\ \hline
+igalna & 2016-02-01 & .gitignore \\ \hline
+igalna & 2016-02-01 & TestRoadNetwork \\ \hline
+igalna & 2016-02-01 & gitignore \\ \hline
+igalna & 2016-02-01 & removed .class files form the bin directory \\ \hline
+igalna & 2016-02-01 & .gitignore \\ \hline
+igalna & 2016-02-01 & added bin folder to gitignore \\ \hline
+igalna & 2016-02-01 & Lane Section is the base object of a road network. \\ \hline
+retnolaras & 2016-02-02 & new initial report \\ \hline
+retnolaras & 2016-02-02 & section 1.3 and 1.4 \\ \hline
+Daniel Mendoza & 2016-02-02 & Merge remote-tracking branch `retnolaras/master' \\ \hline
+retnolaras & 2016-02-03 & Merge pull request \#2 from igalna/master \\ \hline
+retnolaras & 2016-02-03 & section 1.1 \\ \hline
+retnolaras & 2016-02-03 & coordinate and vehicle class \\ \hline
+retnolaras & 2016-02-03 & etc \\ \hline
+retnolaras & 2016-02-03 & Merge remote-tracking branch `origin/master' \\ \hline
+Daniel Mendoza & 2016-02-03 & adding info tom management, technical and test approaches. \\ \hline
+Daniel Mendoza & 2016-02-03 & Scrum \\ \hline
+Daniel Mendoza & 2016-02-03 & Merge remote-tracking branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-02-03 & Merge pull request \#3 from daniel-arturo-mendoza/master \\ \hline
+Daniel Mendoza & 2016-02-03 & Roles \\ \hline
+Daniel Mendoza & 2016-02-03 & Merge branch `master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-02-03 & Technology and Quality \\ \hline
+Daniel Mendoza & 2016-02-03 & Merge remote-tracking branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-02-04 & Merge pull request \#4 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-02-04 & Create InitialReportGP.tex \\ \hline
+retnolaras & 2016-02-04 & delete some stuff from 1.1 and 1.2 \\ \hline
+Daniel Mendoza & 2016-02-04 & Merge remote-tracking branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-02-04 & summarize \\ \hline
+retnolaras & 2016-02-04 & edit 1.1 \\ \hline
+retnolaras & 2016-02-04 & Merge pull request \#6 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-02-04 & Revert ``delete some stuff from 1.1 and 1.2'' \\ \hline
+retnolaras & 2016-02-04 & new \\ \hline
+retnolaras & 2016-02-04 & Merge remote-tracking branch `origin/master' \\ \hline
+AbdoHassan1994 & 2016-02-04 & Create InitialReportGP.tex \\ \hline
+retnolaras & 2016-02-04 & ignore pdf file \\ \hline
+AbdoHassan1994 & 2016-02-04 & Create InitialReportGP.tex \\ \hline
+retnolaras & 2016-02-04 & Merge pull request \#7 from AbdoHassan1994/patch-1 \\ \hline
+retnolaras & 2016-02-04 & remove table 1. \\ \hline
+retnolaras & 2016-02-04 & remove table 1 and edit 1.3 \\ \hline
+retnolaras & 2016-02-04 & merge stuff \\ \hline
+igalna & 2016-02-04 & Updated Initial report with section relating to handling the peer assessment \\ \hline
+igalna & 2016-02-04 & Initial report log files \\ \hline
+retnolaras & 2016-02-05 & Merge pull request \#8 from igalna/master \\ \hline
+retnolaras & 2016-02-05 & newest merge \\ \hline
+Daniel Mendoza & 2016-02-05 & Merge remote-tracking branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-02-05 & Added the Conflict resolution section of the Initial Report Document \\ \hline
+igalna & 2016-02-05 & .log file for Initialreport \\ \hline
+retnolaras & 2016-02-06 & compacting the table \\ \hline
+retnolaras & 2016-02-06 & - \\ \hline
+retnolaras & 2016-02-06 & - \\ \hline
+retnolaras & 2016-02-06 & Delete InitialReportGP.pdf \\ \hline
+retnolaras & 2016-02-06 & Merge remote-tracking branch `origin/master' \\ \hline
+retnolaras & 2016-02-06 & Merge branch `pr/5' \\ \hline
+retnolaras & 2016-02-06 & Merge remote-tracking branch `origin/master' \\ \hline
+retnolaras & 2016-02-06 & add conflict handling \\ \hline
+retnolaras & 2016-02-08 & correcting typos \\ \hline
+igalna & 2016-02-08 & Merge remote-tracking branch `upstream/master' \\ \hline
+AbdoHassan1994 & 2016-02-08 & Merge remote-tracking branch `retnolaras/master' \\ \hline
+AbdoHassan1994 & 2016-02-08 & summary \\ \hline
+retnolaras & 2016-02-08 & Merge pull request \#10 from AbdoHassan1994/master \\ \hline
+Daniel Mendoza & 2016-02-08 & adding comments 1 \\ \hline
+Daniel Mendoza & 2016-02-08 & Merge remote-tracking branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-02-08 & Merge remote-tracking branch `upstream/master' \\ \hline
+igalna & 2016-02-08 & updated local repo from master \\ \hline
+retnolaras & 2016-02-08 & edited initial progress \\ \hline
+rosiengo & 2016-02-08 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+retnolaras & 2016-02-08 & edited typo \\ \hline
+Daniel Mendoza & 2016-02-08 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-02-08 & changed some terms \\ \hline
+retnolaras & 2016-02-08 & Merge pull request \#11 from rosiengo/master \\ \hline
+rosiengo & 2016-02-09 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+rosiengo & 2016-02-09 & policy \\ \hline
+rosiengo & 2016-02-09 & policy test \\ \hline
+AbdoHassan1994 & 2016-02-09 & Merge pull request \#1 from retnolaras/master \\ \hline
+AbdoHassan1994 & 2016-02-09 & added sentences \\ \hline
+retnolaras & 2016-02-09 & Merge pull request \#13 from AbdoHassan1994/master \\ \hline
+rosiengo & 2016-02-10 & uml policy \\ \hline
+rosiengo & 2016-02-10 & updated policy code \\ \hline
+retnolaras & 2016-02-10 & Merge pull request \#12 from rosiengo/master \\ \hline
+igalna & 2016-02-10 & Merge remote-tracking branch `upstream/master' \\ \hline
+Daniel Mendoza & 2016-02-10 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-02-15 & Merge remote-tracking branch `retnolaras/master' \\ \hline
+rosiengo & 2016-02-15 & new policy \\ \hline
+AbdoHassan1994 & 2016-02-15 & Create readme \\ \hline
+igalna & 2016-02-15 & Rename of TestRoadNetwork to TestLaneSection \\ \hline
+igalna & 2016-02-15 & TestLaneSection \\ \hline
+AbdoHassan1994 & 2016-02-15 & add files \\ \hline
+igalna & 2016-02-15 & AbstractLaneSection \\ \hline
+igalna & 2016-02-15 & Concrete implementations of the different LaneSections \\ \hline
+retnolaras & 2016-02-15 & Merge pull request \#14 from rosiengo/master \\ \hline
+retnolaras & 2016-02-15 & Merge pull request \#15 from AbdoHassan1994/patch-2 \\ \hline
+igalna & 2016-02-15 & LaneFactory class \\ \hline
+Daniel Mendoza & 2016-02-15 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-02-15 & Merge remote-tracking branch `upstream/master' \\ \hline
+retnolaras & 2016-02-15 & Merge pull request \#16 from igalna/master \\ \hline
+rosiengo & 2016-02-15 & NEW POLICY \\ \hline
+rosiengo & 2016-02-15 & ADD COMMENTS FOR USAGE GUIDELINES \\ \hline
+retnolaras & 2016-02-15 & Merge pull request \#17 from rosiengo/master \\ \hline
+Daniel Mendoza & 2016-02-16 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-02-16 & Amended Package structure \\ \hline
+retnolaras & 2016-02-18 & move some class \\ \hline
+Daniel Mendoza & 2016-02-18 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-02-19 & Test cases for Roads \\ \hline
+igalna & 2016-02-19 & Tests for Road \\ \hline
+igalna & 2016-02-19 & LaneSection \\ \hline
+igalna & 2016-02-19 & RoadFactory \\ \hline
+igalna & 2016-02-19 & Implementation of a Road \\ \hline
+igalna & 2016-02-19 & Vehicle implementation with a concrete instead of Abstract Vehicle \\ \hline
+igalna & 2016-02-19 & Merge remote-tracking branch `upstream/master' \\ \hline
+retnolaras & 2016-02-19 & Merge pull request \#18 from igalna/master \\ \hline
+Daniel Mendoza & 2016-02-20 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-02-21 & Synchronization and test cases. \\ \hline
+AbdoHassan1994 & 2016-02-21 & Merge pull request \#2 from AbdoHassan1994/files \\ \hline
+Daniel Mendoza & 2016-02-21 & Moving file into another package. \\ \hline
+retnolaras & 2016-02-21 & vehicle factory \\ \hline
+Daniel Mendoza & 2016-02-21 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-02-21 & Merge pull request \#19 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-02-21 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-02-21 & VehicleType \\ \hline
+Daniel Mendoza & 2016-02-21 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-02-21 & change Road to Lane \\ \hline
+Daniel Mendoza & 2016-02-21 & Indentation changes. Implementing Singleton Pattern. \\ \hline
+Daniel Mendoza & 2016-02-21 & Lane Factory \\ \hline
+Daniel Mendoza & 2016-02-21 & Simulator Engine \\ \hline
+Daniel Mendoza & 2016-02-21 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-02-22 & Merge pull request \#1 from retnolaras/master \\ \hline
+rosiengo & 2016-02-22 & update policy code and test \\ \hline
+retnolaras & 2016-02-22 & Merge pull request \#20 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-02-22 & test \\ \hline
+retnolaras & 2016-02-22 & Merge pull request \#23 from AbdoHassan1994/master \\ \hline
+AbdoHassan1994 & 2016-02-22 & Added initial Code for GUI component. \\ \hline
+retnolaras & 2016-02-22 & Merge pull request \#24 from AbdoHassan1994/master \\ \hline
+Daniel Mendoza & 2016-02-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-02-22 & add files in right location \\ \hline
+retnolaras & 2016-02-22 & Merge pull request \#25 from AbdoHassan1994/master \\ \hline
+Daniel Mendoza & 2016-02-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-02-22 & master \\ \hline
+rosiengo & 2016-02-22 & Revert ``update policy code and test'' \\ \hline
+rosiengo & 2016-02-22 & Revert ``test'' \\ \hline
+rosiengo & 2016-02-22 & policy \\ \hline
+retnolaras & 2016-02-22 & Policy Test and changes on policy.java and speed limit.java \\ \hline
+retnolaras & 2016-02-22 & add VehicleTest \\ \hline
+rosiengo & 2016-02-23 & updated policy \\ \hline
+rosiengo & 2016-02-23 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+Daniel Mendoza & 2016-02-24 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-02-24 & Merge pull request \#28 from rosiengo/master \\ \hline
+AbdoHassan1994 & 2016-02-25 & update draw function \\ \hline
+AbdoHassan1994 & 2016-02-25 & Modified UI component \\ \hline
+rosiengo & 2016-02-25 & fixed error \\ \hline
+rosiengo & 2016-02-25 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+rosiengo & 2016-02-25 & bugs \\ \hline
+igalna & 2016-02-25 & Added a TestSuite class for all the Test classes from sprint 1. \\ \hline
+igalna & 2016-02-25 & Merge remote-tracking branch `upstream/master' \\ \hline
+retnolaras & 2016-02-25 & Merge pull request \#29 from rosiengo/master \\ \hline
+igalna & 2016-02-26 & Merge remote-tracking branch `upstream/master' \\ \hline
+rosiengo & 2016-02-26 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+retnolaras & 2016-02-28 & change name trafficLight to trafficLightPolicy \\ \hline
+retnolaras & 2016-02-28 & resolve conflict \\ \hline
+retnolaras & 2016-02-28 & add TrafficLightSection \\ \hline
+rosiengo & 2016-02-29 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+Daniel Mendoza & 2016-02-29 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-02-29 & Merge remote-tracking branch `upstream/master' \\ \hline
+retnolaras & 2016-03-01 & encapsulate axom \\ \hline
+igalna & 2016-03-01 & Merge remote-tracking branch `upstream/master' \\ \hline
+igalna & 2016-03-01 & Commit of updated ListOfListsRoadImpl \\ \hline
+retnolaras & 2016-03-01 & Merge pull request \#30 from AbdoHassan1994/master \\ \hline
+igalna & 2016-03-01 & Added Test class for the Junction \\ \hline
+retnolaras & 2016-03-01 & update vehicle \\ \hline
+igalna & 2016-03-01 & Added getVehicle method to AbstractLaneSection \\ \hline
+retnolaras & 2016-03-01 & public \\ \hline
+rosiengo & 2016-03-01 & GUI \\ \hline
+rosiengo & 2016-03-01 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+igalna & 2016-03-01 & Edited ListOfListsRoadImpl to change name of setStartCoordinate \\ \hline
+rosiengo & 2016-03-01 & gui \\ \hline
+rosiengo & 2016-03-01 & Revert ``GUI'' \\ \hline
+rosiengo & 2016-03-01 & Revert ``Revert''GUI``'' \\ \hline
+rosiengo & 2016-03-01 & Revert ``Revert''Revert ``GUI''``'' \\ \hline
+igalna & 2016-03-01 & Implementation of PrePlannedRouteJunction \\ \hline
+igalna & 2016-03-01 & Merge remote-tracking branch `upstream/master' \\ \hline
+rosiengo & 2016-03-01 & gui \\ \hline
+retnolaras & 2016-03-01 & Merge pull request \#31 from igalna/master \\ \hline
+retnolaras & 2016-03-01 & Merge pull request \#32 from rosiengo/master \\ \hline
+rosiengo & 2016-03-01 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+retnolaras & 2016-03-01 & TrafficLightJunction \\ \hline
+AbdoHassan1994 & 2016-03-03 & Update Car.java \\ \hline
+rosiengo & 2016-03-03 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+retnolaras & 2016-03-03 & Merge pull request \#33 from AbdoHassan1994/patch-3 \\ \hline
+AbdoHassan1994 & 2016-03-03 & CarPosition \\ \hline
+AbdoHassan1994 & 2016-03-03 & Update Position.java \\ \hline
+retnolaras & 2016-03-03 & Merge pull request \#34 from AbdoHassan1994/master \\ \hline
+AbdoHassan1994 & 2016-03-03 & Update position \\ \hline
+Daniel Mendoza & 2016-03-03 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-03 & Context and IContext commit \\ \hline
+rosiengo & 2016-03-03 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+retnolaras & 2016-03-03 & Merge pull request \#35 from AbdoHassan1994/master \\ \hline
+rosiengo & 2016-03-04 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+retnolaras & 2016-03-04 & Merge pull request \#36 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-04 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-04 & move traffic light to junction \\ \hline
+Daniel Mendoza & 2016-03-04 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-04 & fixing syntax errors \\ \hline
+Daniel Mendoza & 2016-03-04 & Fixing syntax errors \\ \hline
+AbdoHassan1994 & 2016-03-04 & add relative position ( interms of lane , roadsection and road ) to the car \\ \hline
+retnolaras & 2016-03-04 & Merge pull request \#37 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-04 & Merge pull request \#38 from AbdoHassan1994/patch-4 \\ \hline
+Daniel Mendoza & 2016-03-04 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-04 & move method \\ \hline
+retnolaras & 2016-03-04 & Merge pull request \#39 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-04 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-03-04 & add functionality \\ \hline
+retnolaras & 2016-03-04 & Merge pull request \#41 from AbdoHassan1994/patch-5 \\ \hline
+Daniel Mendoza & 2016-03-05 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-03-05 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+AbdoHassan1994 & 2016-03-05 & Add LookAhead function \\ \hline
+retnolaras & 2016-03-05 & Merge pull request \#43 from AbdoHassan1994/patch-6 \\ \hline
+retnolaras & 2016-03-05 & edit errors + typos \\ \hline
+AbdoHassan1994 & 2016-03-05 & Change LookAhead Impl \\ \hline
+retnolaras & 2016-03-06 & Merge pull request \#44 from AbdoHassan1994/patch-7 \\ \hline
+AbdoHassan1994 & 2016-03-06 & Update SimulatorEngine.java \\ \hline
+retnolaras & 2016-03-06 & Merge pull request \#45 from AbdoHassan1994/patch-8 \\ \hline
+rosiengo & 2016-03-06 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+rosiengo & 2016-03-06 & gui \\ \hline
+rosiengo & 2016-03-06 & delete unused gui files \\ \hline
+rosiengo & 2016-03-06 & gui \\ \hline
+AbdoHassan1994 & 2016-03-06 & Update SimulatorEngine.java \\ \hline
+retnolaras & 2016-03-06 & Merge pull request \#46 from rosiengo/master \\ \hline
+retnolaras & 2016-03-06 & Merge pull request \#47 from AbdoHassan1994/patch-9 \\ \hline
+AbdoHassan1994 & 2016-03-06 & update \\ \hline
+AbdoHassan1994 & 2016-03-06 & update Driver program \\ \hline
+retnolaras & 2016-03-06 & Merge pull request \#48 from AbdoHassan1994/patch-10 \\ \hline
+retnolaras & 2016-03-06 & Merge pull request \#49 from AbdoHassan1994/patch-11 \\ \hline
+rosiengo & 2016-03-07 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#51 from rosiengo/master \\ \hline
+rosiengo & 2016-03-07 & integration \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#52 from rosiengo/master \\ \hline
+AbdoHassan1994 & 2016-03-07 & Update SimulatorEngine.java \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#53 from AbdoHassan1994/patch-13 \\ \hline
+Daniel Mendoza & 2016-03-07 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-07 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-07 & update TrafficLight junction \\ \hline
+retnolaras & 2016-03-07 & edit policy \\ \hline
+Daniel Mendoza & 2016-03-07 & promoting Abdo's changes \\ \hline
+rosiengo & 2016-03-07 & gui + constants \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#54 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#55 from rosiengo/master \\ \hline
+rosiengo & 2016-03-07 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+Daniel Mendoza & 2016-03-07 & adding getContext method to engine \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#56 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#57 from rosiengo/master \\ \hline
+retnolaras & 2016-03-07 & get context \\ \hline
+Daniel Mendoza & 2016-03-07 & adding setRenderer \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#58 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-07 & InitScreen changes \\ \hline
+rosiengo & 2016-03-07 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#59 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-07 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-03-07 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+rosiengo & 2016-03-07 & updated simulation renderer \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#60 from rosiengo/master \\ \hline
+AbdoHassan1994 & 2016-03-07 & fixed errors \\ \hline
+AbdoHassan1994 & 2016-03-07 & correct position vairable \\ \hline
+AbdoHassan1994 & 2016-03-07 & fix car ID variable passing \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#61 from AbdoHassan1994/patch-14 \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#62 from AbdoHassan1994/patch-15 \\ \hline
+retnolaras & 2016-03-07 & Merge pull request \#63 from AbdoHassan1994/patch-16 \\ \hline
+Daniel Mendoza & 2016-03-08 & set start coordinate at 35 \\ \hline
+Daniel Mendoza & 2016-03-08 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-08 & Merge pull request \#64 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-08 & adding my change \\ \hline
+Daniel Mendoza & 2016-03-08 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-08 & update TrafficLight junction \\ \hline
+igalna & 2016-03-08 & PrePlannedRouteJunction generateSectionsOfJunction() method \\ \hline
+Daniel Mendoza & 2016-03-08 & moving car \\ \hline
+rosiengo & 2016-03-08 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+retnolaras & 2016-03-08 & Merge pull request \#65 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-08 & Merge remote-tracking branch `upstream/master' \\ \hline
+Daniel Mendoza & 2016-03-08 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-03-08 & Revert ``updated simulation renderer'' \\ \hline
+retnolaras & 2016-03-08 & Merge pull request \#67 from rosiengo/master \\ \hline
+rosiengo & 2016-03-08 & render \\ \hline
+rosiengo & 2016-03-08 & Revert ``render'' \\ \hline
+AbdoHassan1994 & 2016-03-08 & Update SimulatorEngine.java \\ \hline
+retnolaras & 2016-03-08 & Merge pull request \#68 from AbdoHassan1994/patch-17 \\ \hline
+rosiengo & 2016-03-08 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
+igalna & 2016-03-08 & TestJunction buildJunctionWithInputWidthOneOutputWidthTwo() \\ \hline
+igalna & 2016-03-08 & TestJunction buildJunctionWithInputWidthTwoOutputWidthOne() \\ \hline
+igalna & 2016-03-08 & PrePlannedRouteJunction \\ \hline
+igalna & 2016-03-08 & buildJunctionSections(int) \\ \hline
+AbdoHassan1994 & 2016-03-09 & Update SimulatorEngine.java \\ \hline
+Daniel Mendoza & 2016-03-09 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-09 & Merge pull request \#69 from AbdoHassan1994/patch-18 \\ \hline
+Daniel Mendoza & 2016-03-09 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-10 & Tests for the createMappings() method of PrePlannedRouteJunction \\ \hline
+igalna & 2016-03-10 & PrePlannedRouteJunction \\ \hline
+igalna & 2016-03-10 & Merge remote-tracking branch `upstream/master' \\ \hline
+igalna & 2016-03-10 & TestJunction test multiple inputs and outputs \\ \hline
+igalna & 2016-03-10 & generateSectionsOfJunction() \\ \hline
+igalna & 2016-03-11 & PrePLannedRouteJunction class \\ \hline
+retnolaras & 2016-03-11 & Merge pull request \#70 from igalna/master \\ \hline
+Daniel Mendoza & 2016-03-11 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-03-12 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
+rosiengo & 2016-03-14 & GUI- settings validation \\ \hline
+retnolaras & 2016-03-14 & Merge pull request \#71 from rosiengo/master \\ \hline
+Daniel Mendoza & 2016-03-14 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-03-14 & generate Maps \\ \hline
+Daniel Mendoza & 2016-03-14 & adding getJunctionpoints to be used by the UI to draw junctions. \\ \hline
+Daniel Mendoza & 2016-03-14 & getTrafficLights \\ \hline
+retnolaras & 2016-03-14 & Merge pull request \#72 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-14 & PrePlannedRoute Junction \\ \hline
+igalna & 2016-03-14 & Merge remote-tracking branch `upstream/master' \\ \hline
+Daniel Mendoza & 2016-03-14 & Adding Orientation \\ \hline
+retnolaras & 2016-03-14 & Merge pull request \#73 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-14 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-03-14 & Update SimulatorEngine.java \\ \hline
+retnolaras & 2016-03-14 & Merge pull request \#74 from AbdoHassan1994/patch-19 \\ \hline
+rosiengo & 2016-03-15 & dc \\ \hline
+rosiengo & 2016-03-15 & Revert ``generate Maps'' \\ \hline
+rosiengo & 2016-03-15 & Revert ``Revert''generate Maps``'' \\ \hline
+rosiengo & 2016-03-15 & Revert ``Revert''Revert ``generate Maps''``'' \\ \hline
+rosiengo & 2016-03-15 & map \\ \hline
+retnolaras & 2016-03-15 & Merge pull request \#75 from rosiengo/master \\ \hline
+Daniel Mendoza & 2016-03-15 & preliminary modification to support moving through junctions \\ \hline
+retnolaras & 2016-03-15 & change TrafficLight Colour \\ \hline
+retnolaras & 2016-03-15 & update initscreen \\ \hline
+rosiengo & 2016-03-15 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+retnolaras & 2016-03-15 & change context \\ \hline
+retnolaras & 2016-03-15 & add getorientation \\ \hline
+retnolaras & 2016-03-15 & Merge pull request \#76 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-15 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-15 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-15 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-15 & Merge pull request \#77 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-03-15 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
+AbdoHassan1994 & 2016-03-15 & Update SimulatorEngine.java \\ \hline
+rosiengo & 2016-03-15 & updated Map \\ \hline
+retnolaras & 2016-03-15 & Merge pull request \#79 from rosiengo/master \\ \hline
+retnolaras & 2016-03-15 & Merge pull request \#78 from AbdoHassan1994/patch-20 \\ \hline
+Daniel Mendoza & 2016-03-15 & adding stop simulation \\ \hline
+retnolaras & 2016-03-15 & edit simulation engine \\ \hline
+retnolaras & 2016-03-15 & Merge pull request \#80 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-15 & Terminate button function \\ \hline
+Daniel Mendoza & 2016-03-15 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-03-15 & Update Vehicle.java \\ \hline
+retnolaras & 2016-03-15 & Merge pull request \#81 from AbdoHassan1994/patch-21 \\ \hline
+AbdoHassan1994 & 2016-03-15 & add support for junctions, maps \\ \hline
+retnolaras & 2016-03-15 & Merge pull request \#82 from AbdoHassan1994/patch-22 \\ \hline
+rosiengo & 2016-03-16 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+igalna & 2016-03-16 & Commit \\ \hline
+igalna & 2016-03-16 & commit of PrePlannedRouteJunction produceRouteMethod() \\ \hline
+igalna & 2016-03-16 & Commit of javaDoc for tests and PrePlannedRouteJunction \\ \hline
+igalna & 2016-03-16 & This commit is to even up the example diagram \\ \hline
+igalna & 2016-03-16 & Diagram \\ \hline
+igalna & 2016-03-16 & More Drawings \\ \hline
+igalna & 2016-03-16 & Merge remote-tracking branch `upstream/master' \\ \hline
+Daniel Mendoza & 2016-03-16 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-16 & Merge pull request \#83 from igalna/master \\ \hline
+Daniel Mendoza & 2016-03-16 & fixing issues \\ \hline
+retnolaras & 2016-03-16 & Merge pull request \#84 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-16 & JavaDoc for TestSingleLaneFourEntryFourExitOverlappingJunction \\ \hline
+igalna & 2016-03-16 & Testing SingleLaneFourEntryFourExit \\ \hline
+igalna & 2016-03-16 & Updated TestSuite to include TestSingleLaneThreeEntryThreeExitOverLappingJunction \\ \hline
+rosiengo & 2016-03-16 & map and gui \\ \hline
+rosiengo & 2016-03-16 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+AbdoHassan1994 & 2016-03-16 & correct car behaviour \\ \hline
+retnolaras & 2016-03-16 & Merge pull request \#85 from AbdoHassan1994/patch-23 \\ \hline
+AbdoHassan1994 & 2016-03-16 & Update Vehicle.java \\ \hline
+Daniel Mendoza & 2016-03-16 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-16 & Merge pull request \#86 from AbdoHassan1994/patch-24 \\ \hline
+rosiengo & 2016-03-16 & map + simulation \\ \hline
+rosiengo & 2016-03-16 & map- traffic light and junctions \\ \hline
+retnolaras & 2016-03-16 & Merge pull request \#87 from rosiengo/master \\ \hline
+rosiengo & 2016-03-17 & traffic light control \\ \hline
+retnolaras & 2016-03-17 & Merge pull request \#88 from rosiengo/master \\ \hline
+igalna & 2016-03-17 & Merge remote-tracking branch `upstream/master' \\ \hline
+Daniel Mendoza & 2016-03-17 & Engine \\ \hline
+retnolaras & 2016-03-17 & edit Position.java \\ \hline
+retnolaras & 2016-03-17 & Map1.java \\ \hline
+Daniel Mendoza & 2016-03-17 & Revert ``Engine'' \\ \hline
+Daniel Mendoza & 2016-03-17 & Merge pull request \#89 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-17 & context changes \\ \hline
+Daniel Mendoza & 2016-03-17 & Merge pull request \#90 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-17 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-17 & Test for three lane Junction \\ \hline
+igalna & 2016-03-17 & Merge remote-tracking branch `upstream/master' \\ \hline
+rosiengo & 2016-03-18 & add junctionCooridates \\ \hline
+rosiengo & 2016-03-18 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+rosiengo & 2016-03-18 & getTrafficLight at Junction \\ \hline
+rosiengo & 2016-03-18 & update engine to get junctions and trafficlights from map \\ \hline
+rosiengo & 2016-03-18 & activate trafficlights in simulation engine \\ \hline
+retnolaras & 2016-03-18 & Merge pull request \#91 from rosiengo/master \\ \hline
+Daniel Mendoza & 2016-03-18 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-03-18 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
+Daniel Mendoza & 2016-03-18 & Indentation and name variable change to be meaningful. \\ \hline
+Daniel Mendoza & 2016-03-18 & Merge pull request \#92 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-18 & Merge remote-tracking branch `upstream/master' \\ \hline
+Daniel Mendoza & 2016-03-18 & Für Abdo \\ \hline
+Daniel Mendoza & 2016-03-18 & Merge pull request \#93 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-18 & update engine and position \\ \hline
+igalna & 2016-03-18 & Merge remote-tracking branch `upstream/master' \\ \hline
+retnolaras & 2016-03-18 & PERFORMED LOOKAHEAD CORRECTLT \\ \hline
+Daniel Mendoza & 2016-03-18 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-18 & adding constructors and get junction points coordinates \\ \hline
+Daniel Mendoza & 2016-03-18 & Merge pull request \#94 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-18 & moving correclty \\ \hline
+Daniel Mendoza & 2016-03-18 & Merge pull request \#95 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-18 & Merge remote-tracking branch `upstream/master' \\ \hline
+rosiengo & 2016-03-18 & junction + test junction \\ \hline
+retnolaras & 2016-03-18 & new \\ \hline
+Daniel Mendoza & 2016-03-19 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-19 & moving in a junction \\ \hline
+Daniel Mendoza & 2016-03-19 & Merge pull request \#97 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-19 & IContext \\ \hline
+Daniel Mendoza & 2016-03-19 & Merge pull request \#98 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-19 & Movement changes \\ \hline
+Daniel Mendoza & 2016-03-19 & Merge pull request \#99 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-19 & simulationData \\ \hline
+retnolaras & 2016-03-19 & edit SimulationData.java \\ \hline
+rosiengo & 2016-03-19 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+rosiengo & 2016-03-19 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
+rosiengo & 2016-03-20 & final map + activate trafficlight \\ \hline
+retnolaras & 2016-03-20 & Merge pull request \#100 from rosiengo/master \\ \hline
+Daniel Mendoza & 2016-03-20 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-03-20 & RANDOM EXIT POINT AT JUNCTION \\ \hline
+retnolaras & 2016-03-20 & Merge pull request \#101 from rosiengo/master \\ \hline
+rosiengo & 2016-03-20 & fix random range \\ \hline
+rosiengo & 2016-03-20 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
+Daniel Mendoza & 2016-03-20 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-03-20 & update interface \\ \hline
+AbdoHassan1994 & 2016-03-20 & Update ListOfListsRoadImpl.java \\ \hline
+retnolaras & 2016-03-20 & Merge pull request \#102 from rosiengo/master \\ \hline
+retnolaras & 2016-03-20 & Merge pull request \#103 from AbdoHassan1994/patch-26 \\ \hline
+retnolaras & 2016-03-20 & Merge pull request \#104 from AbdoHassan1994/patch-27 \\ \hline
+AbdoHassan1994 & 2016-03-20 & Update SimulatorEngine.java \\ \hline
+retnolaras & 2016-03-20 & Merge pull request \#105 from AbdoHassan1994/patch-28 \\ \hline
+Daniel Mendoza & 2016-03-20 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-21 & Merge remote-tracking branch `upstream/master' \\ \hline
+Daniel Mendoza & 2016-03-21 & Adding index \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#106 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-21 & Merge remote-tracking branch `upstream/master' \\ \hline
+rosiengo & 2016-03-21 & update junction draw \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#107 from rosiengo/master \\ \hline
+igalna & 2016-03-21 & Merge remote-tracking branch `upstream/master' \\ \hline
+AbdoHassan1994 & 2016-03-21 & Update Vehicle.java \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#108 from AbdoHassan1994/patch-29 \\ \hline
+AbdoHassan1994 & 2016-03-21 & Update SimulatorEngine.java \\ \hline
+igalna & 2016-03-21 & Merge remote-tracking branch `upstream/master' \\ \hline
+igalna & 2016-03-21 & Commit of Test Suite \\ \hline
+igalna & 2016-03-21 & Final report for Traffic simulator \\ \hline
+igalna & 2016-03-21 & Commit of final report folder \\ \hline
+AbdoHassan1994 & 2016-03-21 & Update Map1.java \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#110 from igalna/master \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#109 from AbdoHassan1994/patch-30 \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#111 from AbdoHassan1994/patch-31 \\ \hline
+Daniel Mendoza & 2016-03-21 & Pause, resume, increase, decrease actions. \\ \hline
+Daniel Mendoza & 2016-03-21 & Merge pull request \#112 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-03-21 & Update SimulatorEngine.java \\ \hline
+AbdoHassan1994 & 2016-03-21 & Update Vehicle.java \\ \hline
+AbdoHassan1994 & 2016-03-21 & Update Junction.java \\ \hline
+AbdoHassan1994 & 2016-03-21 & Update PrePlannedRouteJunction.java \\ \hline
+AbdoHassan1994 & 2016-03-21 & Update ListOfListsRoadImpl.java \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#117 from AbdoHassan1994/patch-36 \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#116 from AbdoHassan1994/patch-35 \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#115 from AbdoHassan1994/patch-34 \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#114 from AbdoHassan1994/patch-33 \\ \hline
+retnolaras & 2016-03-21 & Merge pull request \#113 from AbdoHassan1994/patch-32 \\ \hline
+Daniel Mendoza & 2016-03-21 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-03-22 & Update SimulatorEngine.java \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge pull request \#118 from AbdoHassan1994/patch-37 \\ \hline
+AbdoHassan1994 & 2016-03-22 & Update Vehicle.java \\ \hline
+AbdoHassan1994 & 2016-03-22 & Update ListOfListsRoadImpl.java \\ \hline
+AbdoHassan1994 & 2016-03-22 & Update Map1.java \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge pull request \#119 from AbdoHassan1994/patch-38 \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge pull request \#120 from AbdoHassan1994/patch-39 \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge pull request \#121 from AbdoHassan1994/patch-40 \\ \hline
+AbdoHassan1994 & 2016-03-22 & Update Road.java \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge pull request \#122 from AbdoHassan1994/patch-41 \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-22 & update simulationData \\ \hline
+AbdoHassan1994 & 2016-03-22 & Update PrePlannedRouteJunction.java \\ \hline
+AbdoHassan1994 & 2016-03-22 & Update SimulatorEngine.java \\ \hline
+AbdoHassan1994 & 2016-03-22 & Update Map1.java \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-22 & Adding Future work section as well as additions to the Bibliography \\ \hline
+igalna & 2016-03-22 & Merge remote-tracking branch `upstream/master' \\ \hline
+retnolaras & 2016-03-22 & Merge pull request \#123 from AbdoHassan1994/patch-42 \\ \hline
+retnolaras & 2016-03-22 & Merge pull request \#124 from AbdoHassan1994/patch-43 \\ \hline
+retnolaras & 2016-03-22 & Merge pull request \#125 from AbdoHassan1994/patch-44 \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-03-22 & Update SimulatorEngine.java \\ \hline
+AbdoHassan1994 & 2016-03-22 & Update Position.java \\ \hline
+igalna & 2016-03-22 & Merge remote-tracking branch `upstream/master' \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge pull request \#126 from AbdoHassan1994/patch-46 \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge pull request \#127 from AbdoHassan1994/patch-45 \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-22 & Merge remote-tracking branch `upstream/master' \\ \hline
+igalna & 2016-03-22 & Final Report Future work, paralellisation \\ \hline
+Daniel Mendoza & 2016-03-22 & Moving cars \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge pull request \#128 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-22 & Final report, future work, external libraries \\ \hline
+igalna & 2016-03-22 & Merge remote-tracking branch `upstream/master' \\ \hline
+retnolaras & 2016-03-22 & Merge pull request \#129 from igalna/master \\ \hline
+Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-23 & Continuing work on the Future work section \\ \hline
+igalna & 2016-03-23 & Future work, agent programming for vehicle behaviour \\ \hline
+rosiengo & 2016-03-23 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+rosiengo & 2016-03-23 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
+rosiengo & 2016-03-23 & put vehicle at the middle of the lane \\ \hline
+rosiengo & 2016-03-23 & update policy with only 1 speed limit setting \\ \hline
+retnolaras & 2016-03-23 & Merge pull request \#130 from rosiengo/master \\ \hline
+rosiengo & 2016-03-23 & get user settings from GUI in simulation engine \\ \hline
+rosiengo & 2016-03-23 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
+Daniel Mendoza & 2016-03-23 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-03-23 & add report pane to GUI and user-defined traffic density to simulation engine \\ \hline
+rosiengo & 2016-03-23 & reset report one starting another simulation session \\ \hline
+retnolaras & 2016-03-23 & Merge pull request \#131 from rosiengo/master \\ \hline
+rosiengo & 2016-03-23 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
+Daniel Mendoza & 2016-03-23 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-23 & Solving blinking cars \\ \hline
+Daniel Mendoza & 2016-03-23 & Merge pull request \#132 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-24 & Merge remote-tracking branch `upstream/master' \\ \hline
+retnolaras & 2016-03-24 & latex-git-log \\ \hline
+igalna & 2016-03-24 & Future work, Machine Learning \\ \hline
+AbdoHassan1994 & 2016-03-24 & correct definition of junctions \\ \hline
+igalna & 2016-03-24 & Final Report, future work, user defined maps and third part maps \\ \hline
+Daniel Mendoza & 2016-03-24 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+rosiengo & 2016-03-24 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
+retnolaras & 2016-03-24 & Merge pull request \#133 from AbdoHassan1994/patch-47 \\ \hline
+retnolaras & 2016-03-24 & update SimulationData \\ \hline
+rosiengo & 2016-03-24 & Map2- simple map \\ \hline
+rosiengo & 2016-03-24 & Map options \\ \hline
+retnolaras & 2016-03-24 & move the updateReport \\ \hline
+retnolaras & 2016-03-24 & update simulationEngine \\ \hline
+retnolaras & 2016-03-24 & merge \\ \hline
+retnolaras & 2016-03-24 & Merge branch `master' into pr/134 \\ \hline
+Daniel Mendoza & 2016-03-25 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-25 & update \\ \hline
+retnolaras & 2016-03-25 & Merge branch `master' into pr/134 \\ \hline
+retnolaras & 2016-03-25 & Merge pull request \#135 from retnolaras/pr/134 \\ \hline
+retnolaras & 2016-03-25 & removing error \\ \hline
+Daniel Mendoza & 2016-03-25 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-25 & Solve Terminate button bug \\ \hline
+Daniel Mendoza & 2016-03-25 & Merge pull request \#136 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-25 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-25 & update report \\ \hline
+AbdoHassan1994 & 2016-03-25 & Update SimulatorEngine.java \\ \hline
+retnolaras & 2016-03-25 & edit estimation calculation \\ \hline
+retnolaras & 2016-03-25 & Merge pull request \#137 from AbdoHassan1994/patch-49 \\ \hline
+retnolaras & 2016-03-25 & SimulationEngine \\ \hline
+Daniel Mendoza & 2016-03-25 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-25 & Merging changes: Traffic light + Simulation Data \\ \hline
+Daniel Mendoza & 2016-03-25 & Merge pull request \#138 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-25 & Disable/enable buttons when starting/stopping sessions. \\ \hline
+Daniel Mendoza & 2016-03-25 & Merge pull request \#139 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-25 & Fix for switch between maps \\ \hline
+Daniel Mendoza & 2016-03-25 & Merge pull request \#140 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-26 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-27 & Stopping simulation when closing the window \\ \hline
+Daniel Mendoza & 2016-03-27 & Merge pull request \#141 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-27 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-27 & Implementing different behaviours in vehicles \\ \hline
+Daniel Mendoza & 2016-03-27 & Merge pull request \#142 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-27 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-27 & Colours for vehicles. \\ \hline
+Daniel Mendoza & 2016-03-27 & Merge pull request \#143 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-27 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-27 & Simulation data change \\ \hline
+AbdoHassan1994 & 2016-03-28 & Update SimulatorEngine.java \\ \hline
+AbdoHassan1994 & 2016-03-28 & Update Vehicle.java \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge pull request \#144 from AbdoHassan1994/patch-51 \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge pull request \#145 from AbdoHassan1994/patch-50 \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-28 & Commenting out lines in order to remove build errors \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge pull request \#146 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-28 & If the iteration reaches the session duration limit the session is paused automatically. \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge pull request \#147 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-03-28 & Update SimulatorEngine.java \\ \hline
+AbdoHassan1994 & 2016-03-28 & Update InitScreen.java \\ \hline
+AbdoHassan1994 & 2016-03-28 & Update GUIComponents.java \\ \hline
+AbdoHassan1994 & 2016-03-28 & Update SimulationSettings.java \\ \hline
+igalna & 2016-03-28 & Merge remote-tracking branch `upstream/master' \\ \hline
+igalna & 2016-03-28 & Evaiuation, Lessons learned and challenges \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge pull request \#148 from AbdoHassan1994/patch-55 \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge pull request \#149 from AbdoHassan1994/patch-54 \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge pull request \#150 from AbdoHassan1994/patch-53 \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge pull request \#151 from AbdoHassan1994/patch-52 \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-28 & adapt the simulationData to the new simulationEngine \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-28 & GUIComponent update \\ \hline
+igalna & 2016-03-28 & Final Report, Evaluation, Lessons learned and challenges, Overreach \\ \hline
+igalna & 2016-03-28 & Merge remote-tracking branch `upstream/master' \\ \hline
+Daniel Mendoza & 2016-03-28 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-29 & Final Project, Evaluation, Lessons Learned, Overreach \\ \hline
+igalna & 2016-03-29 & Final Report, Evaluation, Lessons Learned, Vagueness of Specification \\ \hline
+igalna & 2016-03-29 & Final Report, Evaluation, Lessons Learned, Principles of Software Engineering \\ \hline
+igalna & 2016-03-29 & Final report, Evaluation, Lessons learned, software principles \\ \hline
+retnolaras & 2016-03-29 & update report \\ \hline
+Daniel Mendoza & 2016-03-29 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-29 & Change average speed to km/h, covert it \\ \hline
+Daniel Mendoza & 2016-03-29 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-29 & Adjusting the simulation time to seconds \\ \hline
+Daniel Mendoza & 2016-03-29 & Merge pull request \#154 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-29 & reset the report from the Start button \\ \hline
+retnolaras & 2016-03-29 & Updates from ShareLaTeX \\ \hline
+igalna & 2016-03-29 & Final Report, Evaluation, Lessons Learned, Software Principles \\ \hline
+igalna & 2016-03-29 & Merge remote-tracking branch `upstream/master' \\ \hline
+retnolaras & 2016-03-29 & Merge pull request \#152 from igalna/master \\ \hline
+Daniel Mendoza & 2016-03-29 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-29 & Resolving merge conflict with retno master \\ \hline
+igalna & 2016-03-29 & Final Report, Evaluation, Lessons learned, Software Principles \\ \hline
+retnolaras & 2016-03-29 & session manager \\ \hline
+igalna & 2016-03-29 & Merge conflict with retno \\ \hline
+igalna & 2016-03-29 & Merge Conflicts with Retno \\ \hline
+retnolaras & 2016-03-29 & change session duration to second \\ \hline
+Daniel Mendoza & 2016-03-29 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+igalna & 2016-03-29 & Merge remote-tracking branch `upstream/master' \\ \hline
+retnolaras & 2016-03-29 & Merge pull request \#155 from igalna/master \\ \hline
+retnolaras & 2016-03-29 & Updates from ShareLaTeX \\ \hline
+retnolaras & 2016-03-29 & lesson learned \\ \hline
+retnolaras & 2016-03-29 & Updates from ShareLaTeX \\ \hline
+retnolaras & 2016-03-29 & Revert ``Merge pull request \#155 from igalna/master'' \\ \hline
+retnolaras & 2016-03-29 & Merge pull request \#156 from retnolaras/sharelatex-2016-03-29-1637 \\ \hline
+retnolaras & 2016-03-29 & Updates from ShareLaTeX \\ \hline
+retnolaras & 2016-03-29 & Merge sharelatex-2016-03-29-1642 into master \\ \hline
+retnolaras & 2016-03-29 & Updates from ShareLaTeX \\ \hline
+retnolaras & 2016-03-29 & update estimation traffic calculation \\ \hline
+retnolaras & 2016-03-30 & Final report, Evaluation, Lessons Learned, Communication \\ \hline
+retnolaras & 2016-03-30 & Merge sharelatex-2016-03-30-1156 into master \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-03-30 & Update InitScreen.java \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge pull request \#157 from AbdoHassan1994/patch-56 \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+AbdoHassan1994 & 2016-03-30 & Update InitScreen.java \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge pull request \#158 from AbdoHassan1994/patch-57 \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-30 & Final Report, Evaluation, Lesson Learned, Team work \\ \hline
+retnolaras & 2016-03-30 & Merge sharelatex-2016-03-30-1252 into master \\ \hline
+AbdoHassan1994 & 2016-03-30 & Update SimulatorEngine.java \\ \hline
+retnolaras & 2016-03-30 & Moved Image files into images folder \\ \hline
+retnolaras & 2016-03-30 & Merge pull request \#159 from AbdoHassan1994/patch-58 \\ \hline
+retnolaras & 2016-03-30 & add TestSimulationData \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-30 & Cleaning Session Manager code \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge pull request \#160 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-30 & update testVehicle and testSimulation \\ \hline
+retnolaras & 2016-03-30 & Final Report. using sharlatex team members are working on a variety of different sections. \\ \hline
+retnolaras & 2016-03-30 & Merge sharelatex-2016-03-30-1544 into master \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-30 & Junit screenshot \\ \hline
+retnolaras & 2016-03-30 & Merge pull request \#161 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-30 & Updates from ShareLaTeX \\ \hline
+retnolaras & 2016-03-30 & Merge sharelatex-2016-03-30-1609 into master \\ \hline
+Daniel Mendoza & 2016-03-30 & Removing unused UI \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge pull request \#162 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-30 & Cleaning code. \\ \hline
+retnolaras & 2016-03-30 & Images \\ \hline
+retnolaras & 2016-03-30 & recent changes 30/3/16 18:00 \\ \hline
+retnolaras & 2016-03-30 & Merge sharelatex-2016-03-30-1702 into master \\ \hline
+Daniel Mendoza & 2016-03-30 & Formatting code \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge pull request \#163 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge pull request \#164 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-30 & Formatting code \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge pull request \#165 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
+Daniel Mendoza & 2016-03-30 & Formatting code \\ \hline
+Daniel Mendoza & 2016-03-30 & Merge pull request \#166 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
+retnolaras & 2016-03-30 & change step size \\ \hline
+retnolaras & 2016-03-30 & edit the image \\ \hline
+retnolaras & 2016-03-30 & recent changes 30/3/16 19:00 \\ \hline
+retnolaras & 2016-03-30 & Merge sharelatex-2016-03-30-1756 into master \\ \hline
+
+\end{longtabu}
+\end{center}
 
 
 \end{document} %END OF REPORT
 
-% rosiengo & 2016-03-15 & updated Map \\ \hline
-% retnolaras & 2016-03-15 & Merge pull request \#79 from rosiengo/master \\ \hline
-% retnolaras & 2016-03-15 & Merge pull request \#78 from AbdoHassan1994/patch-20 \\ \hline
-% Daniel Mendoza & 2016-03-15 & adding stop simulation \\ \hline
-% retnolaras & 2016-03-15 & edit simulation engine \\ \hline
-% retnolaras & 2016-03-15 & Merge pull request \#80 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% retnolaras & 2016-03-15 & Terminate button function \\ \hline
-% Daniel Mendoza & 2016-03-15 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% AbdoHassan1994 & 2016-03-15 & Update Vehicle.java \\ \hline
-% retnolaras & 2016-03-15 & Merge pull request \#81 from AbdoHassan1994/patch-21 \\ \hline
-% AbdoHassan1994 & 2016-03-15 & add support for junctions, maps \\ \hline
-% retnolaras & 2016-03-15 & Merge pull request \#82 from AbdoHassan1994/patch-22 \\ \hline
-% rosiengo & 2016-03-16 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
-% igalna & 2016-03-16 & Commit \\ \hline
-% igalna & 2016-03-16 & commit of PrePlannedRouteJunction produceRouteMethod() \\ \hline
-% igalna & 2016-03-16 & Commit of javaDoc for tests and PrePlannedRouteJunction \\ \hline
-% igalna & 2016-03-16 & This commit is to even up the example diagram \\ \hline
-% igalna & 2016-03-16 & Diagram \\ \hline
-% igalna & 2016-03-16 & More Drawings \\ \hline
-% igalna & 2016-03-16 & Merge remote-tracking branch `upstream/master' \\ \hline
-% Daniel Mendoza & 2016-03-16 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% retnolaras & 2016-03-16 & Merge pull request \#83 from igalna/master \\ \hline
-% Daniel Mendoza & 2016-03-16 & fixing issues \\ \hline
-% retnolaras & 2016-03-16 & Merge pull request \#84 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% igalna & 2016-03-16 & JavaDoc for TestSingleLaneFourEntryFourExitOverlappingJunction \\ \hline
-% igalna & 2016-03-16 & Testing SingleLaneFourEntryFourExit \\ \hline
-% igalna & 2016-03-16 & Updated TestSuite to include TestSingleLaneThreeEntryThreeExitOverLappingJunction \\ \hline
-% rosiengo & 2016-03-16 & map and gui \\ \hline
-% rosiengo & 2016-03-16 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
-% AbdoHassan1994 & 2016-03-16 & correct car behaviour \\ \hline
-% retnolaras & 2016-03-16 & Merge pull request \#85 from AbdoHassan1994/patch-23 \\ \hline
-% AbdoHassan1994 & 2016-03-16 & Update Vehicle.java \\ \hline
-% Daniel Mendoza & 2016-03-16 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% retnolaras & 2016-03-16 & Merge pull request \#86 from AbdoHassan1994/patch-24 \\ \hline
-% rosiengo & 2016-03-16 & map + simulation \\ \hline
-% rosiengo & 2016-03-16 & map- traffic light and junctions \\ \hline
-% retnolaras & 2016-03-16 & Merge pull request \#87 from rosiengo/master \\ \hline
-% rosiengo & 2016-03-17 & traffic light control \\ \hline
-% retnolaras & 2016-03-17 & Merge pull request \#88 from rosiengo/master \\ \hline
-% igalna & 2016-03-17 & Merge remote-tracking branch `upstream/master' \\ \hline
-% Daniel Mendoza & 2016-03-17 & Engine \\ \hline
-% retnolaras & 2016-03-17 & edit Position.java \\ \hline
-% retnolaras & 2016-03-17 & Map1.java \\ \hline
-% Daniel Mendoza & 2016-03-17 & Revert ``Engine'' \\ \hline
-% Daniel Mendoza & 2016-03-17 & Merge pull request \#89 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% Daniel Mendoza & 2016-03-17 & context changes \\ \hline
-% Daniel Mendoza & 2016-03-17 & Merge pull request \#90 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% Daniel Mendoza & 2016-03-17 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% igalna & 2016-03-17 & Test for three lane Junction \\ \hline
-% igalna & 2016-03-17 & Merge remote-tracking branch `upstream/master' \\ \hline
-% rosiengo & 2016-03-18 & add junctionCooridates \\ \hline
-% rosiengo & 2016-03-18 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
-% rosiengo & 2016-03-18 & getTrafficLight at Junction \\ \hline
-% rosiengo & 2016-03-18 & update engine to get junctions and trafficlights from map \\ \hline
-% rosiengo & 2016-03-18 & activate trafficlights in simulation engine \\ \hline
-% retnolaras & 2016-03-18 & Merge pull request \#91 from rosiengo/master \\ \hline
-% Daniel Mendoza & 2016-03-18 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% rosiengo & 2016-03-18 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
-% Daniel Mendoza & 2016-03-18 & Indentation and name variable change to be meaningful. \\ \hline
-% Daniel Mendoza & 2016-03-18 & Merge pull request \#92 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% igalna & 2016-03-18 & Merge remote-tracking branch `upstream/master' \\ \hline
-% Daniel Mendoza & 2016-03-18 & Für Abdo \\ \hline
-% Daniel Mendoza & 2016-03-18 & Merge pull request \#93 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% retnolaras & 2016-03-18 & update engine and position \\ \hline
-% igalna & 2016-03-18 & Merge remote-tracking branch `upstream/master' \\ \hline
-% retnolaras & 2016-03-18 & PERFORMED LOOKAHEAD CORRECTLT \\ \hline
-% Daniel Mendoza & 2016-03-18 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% Daniel Mendoza & 2016-03-18 & adding constructors and get junction points coordinates \\ \hline
-% Daniel Mendoza & 2016-03-18 & Merge pull request \#94 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% Daniel Mendoza & 2016-03-18 & moving correclty \\ \hline
-% Daniel Mendoza & 2016-03-18 & Merge pull request \#95 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% igalna & 2016-03-18 & Merge remote-tracking branch `upstream/master' \\ \hline
-% rosiengo & 2016-03-18 & junction + test junction \\ \hline
-% retnolaras & 2016-03-18 & new \\ \hline
-% Daniel Mendoza & 2016-03-19 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% Daniel Mendoza & 2016-03-19 & moving in a junction \\ \hline
-% Daniel Mendoza & 2016-03-19 & Merge pull request \#97 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% Daniel Mendoza & 2016-03-19 & IContext \\ \hline
-% Daniel Mendoza & 2016-03-19 & Merge pull request \#98 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% Daniel Mendoza & 2016-03-19 & Movement changes \\ \hline
-% Daniel Mendoza & 2016-03-19 & Merge pull request \#99 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% retnolaras & 2016-03-19 & simulationData \\ \hline
-% retnolaras & 2016-03-19 & edit SimulationData.java \\ \hline
-% rosiengo & 2016-03-19 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
-% rosiengo & 2016-03-19 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
-% rosiengo & 2016-03-20 & final map + activate trafficlight \\ \hline
-% retnolaras & 2016-03-20 & Merge pull request \#100 from rosiengo/master \\ \hline
-% Daniel Mendoza & 2016-03-20 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% rosiengo & 2016-03-20 & RANDOM EXIT POINT AT JUNCTION \\ \hline
-% retnolaras & 2016-03-20 & Merge pull request \#101 from rosiengo/master \\ \hline
-% rosiengo & 2016-03-20 & fix random range \\ \hline
-% rosiengo & 2016-03-20 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
-% Daniel Mendoza & 2016-03-20 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% AbdoHassan1994 & 2016-03-20 & update interface \\ \hline
-% AbdoHassan1994 & 2016-03-20 & Update ListOfListsRoadImpl.java \\ \hline
-% retnolaras & 2016-03-20 & Merge pull request \#102 from rosiengo/master \\ \hline
-% retnolaras & 2016-03-20 & Merge pull request \#103 from AbdoHassan1994/patch-26 \\ \hline
-% retnolaras & 2016-03-20 & Merge pull request \#104 from AbdoHassan1994/patch-27 \\ \hline
-% AbdoHassan1994 & 2016-03-20 & Update SimulatorEngine.java \\ \hline
-% retnolaras & 2016-03-20 & Merge pull request \#105 from AbdoHassan1994/patch-28 \\ \hline
-% Daniel Mendoza & 2016-03-20 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% igalna & 2016-03-21 & Merge remote-tracking branch `upstream/master' \\ \hline
-% Daniel Mendoza & 2016-03-21 & Adding index \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#106 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% igalna & 2016-03-21 & Merge remote-tracking branch `upstream/master' \\ \hline
-% rosiengo & 2016-03-21 & update junction draw \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#107 from rosiengo/master \\ \hline
-% igalna & 2016-03-21 & Merge remote-tracking branch `upstream/master' \\ \hline
-% AbdoHassan1994 & 2016-03-21 & Update Vehicle.java \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#108 from AbdoHassan1994/patch-29 \\ \hline
-% AbdoHassan1994 & 2016-03-21 & Update SimulatorEngine.java \\ \hline
-% igalna & 2016-03-21 & Merge remote-tracking branch `upstream/master' \\ \hline
-% igalna & 2016-03-21 & Commit of Test Suite \\ \hline
-% igalna & 2016-03-21 & Final report for Traffic simulator \\ \hline
-% igalna & 2016-03-21 & Commit of final report folder \\ \hline
-% AbdoHassan1994 & 2016-03-21 & Update Map1.java \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#110 from igalna/master \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#109 from AbdoHassan1994/patch-30 \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#111 from AbdoHassan1994/patch-31 \\ \hline
-% Daniel Mendoza & 2016-03-21 & Pause, resume, increase, decrease actions. \\ \hline
-% Daniel Mendoza & 2016-03-21 & Merge pull request \#112 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% AbdoHassan1994 & 2016-03-21 & Update SimulatorEngine.java \\ \hline
-% AbdoHassan1994 & 2016-03-21 & Update Vehicle.java \\ \hline
-% AbdoHassan1994 & 2016-03-21 & Update Junction.java \\ \hline
-% AbdoHassan1994 & 2016-03-21 & Update PrePlannedRouteJunction.java \\ \hline
-% AbdoHassan1994 & 2016-03-21 & Update ListOfListsRoadImpl.java \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#117 from AbdoHassan1994/patch-36 \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#116 from AbdoHassan1994/patch-35 \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#115 from AbdoHassan1994/patch-34 \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#114 from AbdoHassan1994/patch-33 \\ \hline
-% retnolaras & 2016-03-21 & Merge pull request \#113 from AbdoHassan1994/patch-32 \\ \hline
-% Daniel Mendoza & 2016-03-21 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% AbdoHassan1994 & 2016-03-22 & Update SimulatorEngine.java \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge pull request \#118 from AbdoHassan1994/patch-37 \\ \hline
-% AbdoHassan1994 & 2016-03-22 & Update Vehicle.java \\ \hline
-% AbdoHassan1994 & 2016-03-22 & Update ListOfListsRoadImpl.java \\ \hline
-% AbdoHassan1994 & 2016-03-22 & Update Map1.java \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge pull request \#119 from AbdoHassan1994/patch-38 \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge pull request \#120 from AbdoHassan1994/patch-39 \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge pull request \#121 from AbdoHassan1994/patch-40 \\ \hline
-% AbdoHassan1994 & 2016-03-22 & Update Road.java \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge pull request \#122 from AbdoHassan1994/patch-41 \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% retnolaras & 2016-03-22 & update simulationData \\ \hline
-% AbdoHassan1994 & 2016-03-22 & Update PrePlannedRouteJunction.java \\ \hline
-% AbdoHassan1994 & 2016-03-22 & Update SimulatorEngine.java \\ \hline
-% AbdoHassan1994 & 2016-03-22 & Update Map1.java \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% igalna & 2016-03-22 & Adding Future work section as well as additions to the Bibliography \\ \hline
-% igalna & 2016-03-22 & Merge remote-tracking branch `upstream/master' \\ \hline
-% retnolaras & 2016-03-22 & Merge pull request \#123 from AbdoHassan1994/patch-42 \\ \hline
-% retnolaras & 2016-03-22 & Merge pull request \#124 from AbdoHassan1994/patch-43 \\ \hline
-% retnolaras & 2016-03-22 & Merge pull request \#125 from AbdoHassan1994/patch-44 \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% AbdoHassan1994 & 2016-03-22 & Update SimulatorEngine.java \\ \hline
-% AbdoHassan1994 & 2016-03-22 & Update Position.java \\ \hline
-% igalna & 2016-03-22 & Merge remote-tracking branch `upstream/master' \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge pull request \#126 from AbdoHassan1994/patch-46 \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge pull request \#127 from AbdoHassan1994/patch-45 \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% igalna & 2016-03-22 & Merge remote-tracking branch `upstream/master' \\ \hline
-% igalna & 2016-03-22 & Final Report Future work, paralellisation \\ \hline
-% Daniel Mendoza & 2016-03-22 & Moving cars \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge pull request \#128 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% igalna & 2016-03-22 & Final report, future work, external libraries \\ \hline
-% igalna & 2016-03-22 & Merge remote-tracking branch `upstream/master' \\ \hline
-% retnolaras & 2016-03-22 & Merge pull request \#129 from igalna/master \\ \hline
-% Daniel Mendoza & 2016-03-22 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% rosiengo & 2016-03-23 & Merge remote-tracking branch `refs/remotes/retnolaras/master' \\ \hline
-% rosiengo & 2016-03-23 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
-% rosiengo & 2016-03-23 & put vehicle at the middle of the lane \\ \hline
-% rosiengo & 2016-03-23 & update policy with only 1 speed limit setting \\ \hline
-% retnolaras & 2016-03-23 & Merge pull request \#130 from rosiengo/master \\ \hline
-% rosiengo & 2016-03-23 & get user settings from GUI in simulation engine \\ \hline
-% rosiengo & 2016-03-23 & Merge branch `master' of https://github.com/retnolaras/Traffic \\ \hline
-% Daniel Mendoza & 2016-03-23 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% rosiengo & 2016-03-23 & add report pane to GUI and user-defined traffic density to simulation engine \\ \hline
-% rosiengo & 2016-03-23 & reset report one starting another simulation session \\ \hline
-% retnolaras & 2016-03-23 & Merge pull request \#131 from rosiengo/master \\ \hline
-% Daniel Mendoza & 2016-03-23 & Merge branch `retnolaras/master' into daniel-arturo-mendoza-patch-1 \\ \hline
-% Daniel Mendoza & 2016-03-23 & Solving blinking cars \\ \hline
-% Daniel Mendoza & 2016-03-23 & Merge pull request \#132 from daniel-arturo-mendoza/daniel-arturo-mendoza-patch-1 \\ \hline
-% retnolaras & 2016-03-24 & latex-git-log \\ \hline
-% \end{longtabu}
-% \end{center}
-
-\end{document} %END OF REPORT
